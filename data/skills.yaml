@@ -457,7 +457,7 @@
 
 70: # The above skill will remove Fragile Bunkering EXCEPT when antimagic stops it
   text: "%TARGET%'s bunker collapsed around them!"
-  effect: "INFO"
+  effect: "INFO_ONCE"
   info: "PUBLIC"
   trigger: "RANGE_EX_SELF"
   priority: 25
