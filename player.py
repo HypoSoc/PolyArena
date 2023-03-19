@@ -4,7 +4,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
-    ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas
+    ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, MultiAttack
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -157,9 +157,14 @@ class Player:
             .replace("you was", "you were") \
             .replace("you is", "you are") \
             .replace("you healed themself", "you healed yourself") \
+            .replace("you hurt themself", "you hurt yourself") \
             .replace("you tattooed themself", "you tattooed yourself") \
             .replace("your Poison Gas failed because they were Ambushed",
-                     "your Poison Gas failed because you were Ambushed")
+                     "your Poison Gas failed because you were Ambushed") \
+            .replace("you animated their bunker",
+                     "you animated your bunker") \
+            .replace("your bunker collapsed around them",
+                     "your bunker collapsed around you")
 
         gather = []
         line_break = False
@@ -174,7 +179,8 @@ class Player:
                 gather.append("")
                 line_break = False
 
-        return os.linesep.join(gather).replace("you while they", "you while you")\
+        return os.linesep.join(gather).replace("you while they", "you while you") \
+            .replace("you (while they", "you (while you") \
             .replace("you were trying to heal themself", "you were trying to heal yourself") \
             .replace("you were trying to tattoo themself", "you were trying to tattoo yourself")
 
@@ -230,22 +236,32 @@ class Player:
         self._generic_action_check()
         self.action = Train(self.game, self)
 
-    def plan_bunker(self):
-        self._generic_action_check()
-        self.action = Bunker(self.game, self)
+    def plan_bunker(self, bonus=False):
+        self._generic_action_check(bonus=bonus)
+        if bonus:
+            self.bonus_action = Bunker(self.game, self, bonus=bonus)
+        else:
+            self.action = Bunker(self.game, self, bonus=bonus)
 
-    def plan_attack(self, target: "Player"):
+    def plan_attack(self, *targets: "Player"):
         self._generic_action_check()
-        if target.name == self.name:
-            raise Exception(f"Player {self.name} is trying to attack themselves.")
-        if not target.is_dead():
-            self.action = Attack(self.game, self, target)
+        if len(targets) > 3:
+            raise Exception(f"Player {self.name} is trying to attack too many enemies.")
+        for target in targets:
+            if target.name == self.name:
+                raise Exception(f"Player {self.name} is trying to attack themselves.")
+        filtered_targets = [target for target in targets if not target.is_dead()]
+        if filtered_targets:
+            if len(filtered_targets) == 1:
+                self.action = Attack(self.game, self, filtered_targets[0])
+            else:
+                self.action = MultiAttack(self.game, self, filtered_targets)
 
     # Will fail if the target is dead or if player isn't a healer
     def plan_heal(self, target: "Player", bonus=False):
         self._generic_action_check(bonus=bonus)
         if bonus:
-            self.bonus_action = Heal(self.game, self, target)
+            self.bonus_action = Heal(self.game, self, target, True)
         else:
             self.action = Heal(self.game, self, target)
 

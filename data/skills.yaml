@@ -176,14 +176,14 @@
   text: "Bunker Combat"
   effect: "COMBAT"
   value: 2
-  priority: 20
+  priority: 21
   self_has_condition: "BUNKERING"
 
 27:
   text: "Bunker Survivability"
   effect: "SURVIVABILITY"
   value: 2
-  priority: 20
+  priority: 21
   self_has_condition: "BUNKERING"
 
 28:
@@ -423,3 +423,61 @@
   text: "Combat Regen"
   effect: "CONDITION"
   value: "COMBAT_REGEN"
+
+65:
+  text: "+2 Survivability"
+  effect: "SURVIVABILITY"
+  value: 2
+
+66:
+  text: "%TARGET% hurt themself attacking %SELF%."
+  effect: "NONLETHAL"
+  trigger: "ATTACKED"
+  priority: 170
+  info: "PUBLIC"
+
+67:
+  text: "Multi Attack"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "MULTI_ATTACK"
+
+68:
+  text: "Confirm Bunkering is real as not affected by antimagic"
+  effect: "CONDITION"
+  value: "BUNKERING"
+  self_has_value: "FRAGILE_BUNKERING"
+
+69:
+  text: "Confirm Bunkering is real as not affected by antimagic"
+  effect: "REMOVE_CONDITION"
+  priority: 21
+  value: "FRAGILE_BUNKERING"
+  self_has_value: "FRAGILE_BUNKERING"
+
+70: # The above skill will remove Fragile Bunkering EXCEPT when antimagic stops it
+  text: "%TARGET%'s bunker collapsed around them!"
+  effect: "INFO"
+  info: "PUBLIC"
+  trigger: "RANGE_EX_SELF"
+  priority: 25
+  target_has_condition: "FRAGILE_BUNKERING"
+
+71:
+  text: "Can Bunker as a Bonus action"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "BONUS_BUNKER"
+
+72:
+  text: "Bunkering as a bonus action is susceptible to antimagic"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "FRAGILE_BUNKER"
+
+73: # The above skill will remove Fragile Bunkering EXCEPT when antimagic stops it
+  text: "%SELF% animated their bunker!"
+  effect: "INFO_ONCE"
+  info: "PUBLIC"
+  priority: 0
+  self_has_condition: "FRAGILE_BUNKERING"

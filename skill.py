@@ -10,8 +10,8 @@ __skill_dict = {}
 class Skill:
     def __init__(self, pin: int, text: str, effect: Effect, value: Any, priority: int, info: InfoScope,
                  trigger: Trigger,
-                 self_has_condition: Optional[Condition], self_not_condition: Optional[Condition],
-                 target_has_condition: Optional[Condition], target_not_condition: Optional[Condition]):
+                 self_has_condition: Optional[Condition] = None, self_not_condition: Optional[Condition] = None,
+                 target_has_condition: Optional[Condition] = None, target_not_condition: Optional[Condition] = None):
         self.pin = pin
         self.text = text
         self.effect = effect

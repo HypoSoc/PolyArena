@@ -7,11 +7,13 @@ Fighting
 16: Range Recalculation
 19: Antimagic (Antimagic CANNOT affect things before this, so fragile abilities shouldn't be before this)
 20: Armor Break
+21: Bunker Bonus
 69: Weakest Stat Buff  # NO COMBAT/NO SURV effects should happen after this
 70-99: Reserved Poison Gas + Wounding
 100-109: Reserved Damage Calculation/Fighting
 120-129: Reserved Damage Calculation/Fighting for Ambushed Individuals
 150-169: Reserved Damage + Wounding
+170: Earth 2 Retaliation
 
 
 
@@ -22,8 +24,10 @@ Actions
 10: Consumables
 15: Geomancy Attunement
 20: Bunker
+29: Multi Attack Action (or other attack actions that might fail due to conditions)
 30: Attack Action
-35: Combat Resolution
+34: RESERVED COMBAT SIM
+35: RESERVED Combat Resolution
 40-49: ONLY NON INTERRUPTING ACTIONS. NO KILLING/PETRIFYING
 40: Training/Class/Crafting/Shopping Teaching setup. Self Tattoo, Tattooing setup
 41: Learning. Receive Tattoo

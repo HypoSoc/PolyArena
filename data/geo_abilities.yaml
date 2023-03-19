@@ -77,6 +77,9 @@
     54:
       circuits:
         - "ANTI"
+    70:
+      circuits:
+        - "ANTI"
   prerequisite: 102
 
 112:
@@ -259,6 +262,81 @@
         - "WATER/LIGHT"
       fragile: true
   prerequisite: 125
+
+127:
+  name: "Earth I"
+  cost: 5
+  skills:
+    - 50
+  geo:
+    65:
+      circuits:
+        - "EARTH"
+      fragile: true
+  prerequisite: 101
+
+128:
+  name: "Earth II"
+  cost: 10
+  skills:
+    - 50
+  geo:
+    2:
+      circuits:
+        - "EARTH"
+      fragile: true
+      each: true
+    66:
+      circuits:
+        - "EARTH"
+      fragile: true
+  prerequisite: 127
+
+129:
+  name: "Earth III"
+  cost: 20
+  skills:
+    - 50
+  geo:
+    65:
+      circuits:
+        - "EARTH"
+      fragile: true
+      each: true
+    67:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+    68:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+      fragile: true
+    69:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+      fragile: true
+    71:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+    72:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+    73:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+  prerequisite: 128
+
 
 137:
   name: "Light I"

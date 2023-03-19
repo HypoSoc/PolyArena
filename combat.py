@@ -7,10 +7,10 @@ from typing import TYPE_CHECKING, Dict, Tuple, List, FrozenSet, Callable, Set, A
 from constants import Condition, Effect, InfoScope, Trigger, DamageType, InjuryModifier, \
     SELF_PLACEHOLDER, TARGET_PLACEHOLDER, NONCOMBAT_TRIGGERS, Element
 from items import get_item
+from skill import Skill
 
 if TYPE_CHECKING:
     from player import Player
-    from skill import Skill
 
 DEBUG = False
 
@@ -35,7 +35,7 @@ class CombatHandler:
 
         self.hot_blood = set()
         self.report_dict = {}
-        self.attacker_to_defender: Dict["Player", "Player"] = {}
+        self.attacker_to_defenders: Dict["Player", Set["Player"]] = {}
         self.combat_group_to_events = {}
         self.verb_dict: Dict['Player', str] = {}  # Used if 'attacked' isn't appropriate
         self.range_edges: List[Tuple['Player', 'Player']] = []  # One directional edges used to calculate range
@@ -45,6 +45,8 @@ class CombatHandler:
         self.damaged_by: Dict['Player', Set['Player']] = {}  # Used by ambush
 
         self.solitary_combat: Set["Player"] = set()
+
+        self.info_once: Set[str] = set()
 
     def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element]]) -> Dict['Player', int]:
         sim = CombatHandler()
@@ -58,12 +60,13 @@ class CombatHandler:
                     f"({circuit_change[player]})"
             player_to_clone[player] = clone
 
-        for attacker, defender in self.attacker_to_defender.items():
-            if attacker not in player_to_clone:
-                make_and_modify_clone(attacker)
-            if defender not in player_to_clone:
-                make_and_modify_clone(defender)
-            sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
+        for attacker, defender_set in self.attacker_to_defenders.items():
+            for defender in defender_set:
+                if attacker not in player_to_clone:
+                    make_and_modify_clone(attacker)
+                if defender not in player_to_clone:
+                    make_and_modify_clone(defender)
+                sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
             if self_attacker not in player_to_clone:
@@ -76,20 +79,23 @@ class CombatHandler:
     def add_attack(self, attacker: "Player", defender: "Player"):
         self.hot_blood.add(attacker.name)
         self.hot_blood.add(defender.name)
-        self.attacker_to_defender[attacker] = defender
+        if attacker not in self.attacker_to_defenders:
+            self.attacker_to_defenders[attacker] = set()
+        self.attacker_to_defenders[attacker].add(defender)
 
     # Used if someone gets into combat all on their own, e.g. using Poison Gas without being attacked
     def add_solitary_combat(self, player: "Player"):
         self.solitary_combat.add(player)
 
     def player_in_combat(self, player: "Player"):
-        for a, d in self.attacker_to_defender.items():
-            if player in (a, d):
-                return True
+        for a, d_set in self.attacker_to_defenders.items():
+            for d in d_set:
+                if player in (a, d):
+                    return True
         return player in self.solitary_combat
 
     def player_innocent(self, player: "Player"):
-        return player not in self.attacker_to_defender
+        return player not in self.attacker_to_defenders
 
     def update_verb_dict(self, player: "Player", verb: str):
         if player not in self.verb_dict:
@@ -106,29 +112,31 @@ class CombatHandler:
     def process_all_combat(self):
         # Calculate Combat Groups
         combat_groups = []
-        for (attacker, defender) in self.attacker_to_defender.items():
-            self.solitary_combat.discard(attacker)
-            self.solitary_combat.discard(defender)
-            new_group = True
-            for _group in combat_groups:
-                if attacker in _group or defender in _group:
-                    new_group = False
-                    _group.add(attacker)
-                    _group.add(defender)
-            if new_group:
-                combat_groups.append({attacker, defender})
-            self.range_edges.append((attacker, defender))
-            self.range_edges.append((defender, attacker))
+        for (attacker, defender_set) in self.attacker_to_defenders.items():
+            for defender in defender_set:
+                self.solitary_combat.discard(attacker)
+                self.solitary_combat.discard(defender)
+                new_group = True
+                for _group in combat_groups:
+                    if attacker in _group or defender in _group:
+                        new_group = False
+                        _group.add(attacker)
+                        _group.add(defender)
+                if new_group:
+                    combat_groups.append({attacker, defender})
+                self.range_edges.append((attacker, defender))
+                self.range_edges.append((defender, attacker))
 
         for solitary in self.solitary_combat:
             combat_groups.append({solitary})
 
         # Prevents double attack if two players attack each other
         # Not used for skill evaluation, only damage dealing
-        simplified_attack_to_defend: Dict[Player, Player] = {}
-        for (attacker, defender) in self.attacker_to_defender.items():
-            if simplified_attack_to_defend.get(defender) != attacker:
-                simplified_attack_to_defend[attacker] = defender
+        simplified_attack_to_defend: Set[Tuple[Player, Player]] = set()
+        for (attacker, defender_set) in self.attacker_to_defenders.items():
+            for defender in defender_set:
+                if (defender, attacker) not in simplified_attack_to_defend:
+                    simplified_attack_to_defend.add((attacker, defender))
 
         for _group in combat_groups:
             # For generating reports
@@ -191,11 +199,11 @@ class CombatHandler:
 
                 def snipe():
                     # Attacking the sniper or having sniper yourself lets you hit back against a sniper
-                    target = self.attacker_to_defender[p]
-                    if Condition.SNIPING not in conditions[target]:
-                        if self.attacker_to_defender.get(target, None) != p:
-                            if (target, p) in self.range_edges:
-                                self.range_edges.remove((target, p))
+                    for target in self.attacker_to_defenders[p]:
+                        if Condition.SNIPING not in conditions[target]:
+                            if p not in self.attacker_to_defenders.get(target, []):
+                                if (target, p) in self.range_edges:
+                                    self.range_edges.remove((target, p))
 
                 return priority+1, self.tic_index, snipe
 
@@ -248,18 +256,20 @@ class CombatHandler:
                     if skill.trigger == Trigger.SELF:
                         targets = [p]
                     elif skill.trigger == Trigger.ATTACK:
-                        if p in self.attacker_to_defender:
-                            targets = [self.attacker_to_defender[p]]
+                        if p in self.attacker_to_defenders:
+                            targets = list(self.attacker_to_defenders[p])
                     elif skill.trigger == Trigger.ATTACKED:
-                        for a, d in self.attacker_to_defender.items():
-                            if d == p:
-                                if a not in targets:
-                                    targets.append(a)
+                        for a, d_set in self.attacker_to_defenders.items():
+                            for d in d_set:
+                                if d == p:
+                                    if a not in targets:
+                                        targets.append(a)
                     elif skill.trigger == Trigger.ENEMY:
-                        if p in self.attacker_to_defender:
-                            targets.append(self.attacker_to_defender[player])
-                        for o in self.attacker_to_defender:
-                            if self.attacker_to_defender[o] == player:
+                        if p in self.attacker_to_defenders:
+                            for x in self.attacker_to_defenders[p]:
+                                targets.append(x)
+                        for o in self.attacker_to_defenders:
+                            if p in self.attacker_to_defenders[o]:
                                 targets.append(o)
                     elif skill.trigger == Trigger.RANGE:
                         targets = [o for o in group if self.check_range(p, o)]
@@ -279,7 +289,7 @@ class CombatHandler:
                         return
 
                     for target in targets:
-                        if skill.effect == Effect.INFO:
+                        if skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                             continue
 
                         if skill.effect == Effect.COMBAT:
@@ -310,6 +320,8 @@ class CombatHandler:
                             condition = Condition[skill.value]
                             if condition not in conditions[target]:
                                 conditions[target].append(condition)
+                        elif skill.effect == Effect.REMOVE_CONDITION:
+                            queue.put(condition_remove_tic(skill.priority, target, Condition[skill.value]))
                         elif skill.effect == Effect.REL_CONDITION:
                             condition = Condition[skill.value]
                             p.add_relative_condition(target, condition)
@@ -353,11 +365,12 @@ class CombatHandler:
 
                     if skill.info != InfoScope.HIDDEN:
                         for target in targets:
-                            self._append_to_event_list(self.combat_group_to_events[group],
-                                                       skill.text.replace(SELF_PLACEHOLDER, p.name)
-                                                       .replace(TARGET_PLACEHOLDER, target.name),
-                                                       [p, target],
-                                                       skill.info)
+                            msg = skill.text.replace(SELF_PLACEHOLDER, p.name).replace(TARGET_PLACEHOLDER, target.name)
+                            if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
+                                self._append_to_event_list(self.combat_group_to_events[group], msg,
+                                                           [p, target], skill.info)
+                            if skill.effect == Effect.INFO_ONCE:
+                                self.info_once.add(msg)
 
                 return skill.priority, self.tic_index, handle_skill
 
@@ -551,9 +564,15 @@ class CombatHandler:
                 conditions[player] = player.conditions[:] + player.turn_conditions[:]
 
                 # Bunker Effect
-                if Condition.BUNKERING in conditions[player]:
-                    combat[player] += 1
-                    survivability[player] += 2
+                bunker_combat_skill = Skill(-1, text="Bunker Combat +1", effect=Effect.COMBAT, value=1, priority=21,
+                                            info=InfoScope.HIDDEN, trigger=Trigger.SELF,
+                                            self_has_condition=Condition.BUNKERING)
+                bunker_surv_skill = Skill(-1, text="Bunker Surv +2", effect=Effect.SURVIVABILITY, value=2, priority=21,
+                                          info=InfoScope.HIDDEN, trigger=Trigger.SELF,
+                                          self_has_condition=Condition.BUNKERING)
+
+                queue.put(skill_tic(player, bunker_combat_skill))
+                queue.put(skill_tic(player, bunker_surv_skill))
 
                 survivability[player] += conditions[player].count(Condition.FORGED)
 
@@ -579,11 +598,10 @@ class CombatHandler:
                 for player in group:
                     queue.put(debug_tic(99, player))
 
-            for player in group:
-                if player in simplified_attack_to_defend:
-                    other = simplified_attack_to_defend[player]
-                    queue.put(combat_tic(player, other))
-                    queue.put(combat_tic(other, player))
+            for (attacker, defender) in simplified_attack_to_defend:
+                if attacker in group:
+                    queue.put(combat_tic(attacker, defender))
+                    queue.put(combat_tic(defender, attacker))
 
             # Go through the priority queue
             while not queue.empty():
@@ -678,7 +696,7 @@ class CombatHandler:
         for (group, events) in self.combat_group_to_events.items():
             if player in group:
                 for other in group:
-                    if other in self.attacker_to_defender:
+                    if other in self.attacker_to_defenders:
                         report += other.action.public_description\
                                       .replace("attacked", self.verb_dict.get(other, 'attacked')) + os.linesep
                 for event in events:
@@ -693,7 +711,7 @@ class CombatHandler:
         report = ""
         for (group, events) in self.combat_group_to_events.items():
             for player in group:
-                if player in self.attacker_to_defender:
+                if player in self.attacker_to_defenders:
                     report += player.action.public_description + os.linesep
             for event in events:
                 if event[2] == InfoScope.PUBLIC:
@@ -707,7 +725,7 @@ class CombatHandler:
 
         self.hot_blood = set()
         self.report_dict = {}
-        self.attacker_to_defender = {}
+        self.attacker_to_defenders = {}
         self.combat_group_to_events = {}
         self.verb_dict = {}  # Used if 'attacked' isn't appropriate
         self.range_edges = []  # One directional edges used to calculate range

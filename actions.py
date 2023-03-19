@@ -286,13 +286,23 @@ class Attack(Action):
 
 
 class Bunker(Action):
-    def __init__(self, game: Optional['Game'], player: "Player"):
+    def __init__(self, game: Optional['Game'], player: "Player", bonus: bool):
         super().__init__(priority=20, game=game, player=player, fragile=False,
                          public_description=f"{player.name} bunkered.",
                          combat_on_interrupt="while they were bunkering")
+        self.bonus = bonus
+
+    def act(self):
+        if self.bonus:
+            if not self.player.has_condition(Condition.BONUS_BUNKER):
+                return
+        super().act()
 
     def _act(self):
-        self.player.turn_conditions.append(Condition.BUNKERING)
+        if self.bonus and self.player.has_condition(Condition.FRAGILE_BUNKER):
+            self.player.turn_conditions.append(Condition.FRAGILE_BUNKERING)
+        else:
+            self.player.turn_conditions.append(Condition.BUNKERING)
         if self.player.temperament == Temperament.PARANOIAC:
             Action.progress(self.player, 2)
         if HEALING_TANK in self.player.items:
@@ -749,6 +759,42 @@ class TattooFollow(Action):
             self.player.report += f"{self.player.name} failed to tattoo {self.target.name}, " \
                                   f"so {self.player.name} trained instead."
             Train(self.game, self.player)
+
+
+class MultiAttack(Action):
+    def __init__(self, game: "Game", player: "Player", targets: List["Player"]):
+        self.targets = [target for target in targets if not target.is_dead()]
+        target_names = " and ".join([target.name for target in self.targets])
+
+        super().__init__(priority=30, game=game, player=player, fragile=False,
+                         public_description=f"{player.name} attacked ",
+                         combat_on_interrupt=f"while they were attacking {target_names}")
+
+    def act(self):
+        if not self.player.has_condition(Condition.MULTI_ATTACK) or len(self.targets) > 3:
+            return
+
+        interruption_strings = []
+        attacked_someone = False
+        for target in self.targets:
+            if target.is_dead():
+                pass
+            else:
+                attacked_someone = True
+                if target.action.combat_on_interrupt:
+                    interruption_strings.append(f"{target.name} ({target.action.combat_on_interrupt}),")
+                else:
+                    interruption_strings.append(f"{target.name},")
+                Action.interrupted_players.add(target)
+                get_combat_handler().add_attack(self.player, target)
+
+                Action.add_action_record(self.player, Attack, target)
+        if attacked_someone:
+            self.public_description += (" and ".join(interruption_strings))[:-1]
+            self.public_description += "."
+
+            DayReport().add_action(self.player, self.public_description)
+            Action.not_wandering.add(self.player)
 
 
 # Bonus Actions

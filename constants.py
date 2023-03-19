@@ -62,6 +62,10 @@ class Condition(Enum):
     FIRE_BODY = 48
     GRIEVOUS_IMMUNE = 49
     COMBAT_REGEN = 50
+    MULTI_ATTACK = 51  # Can attack 3 players
+    FRAGILE_BUNKERING = 52  # Special case that allows bunker bonuses to disappear with antimagic for earth 3
+    BONUS_BUNKER = 53
+    FRAGILE_BUNKER = 54  # Bonus bunker susceptible to antimagic
 
 
 class InfoScope(Enum):
@@ -92,6 +96,8 @@ class Effect(Enum):
     TENTATIVE_CONDITION = 17  # Usually does not need to be set in the yaml
     BALANCE = 18  # Buff the smaller of Combat and Surv, prioritizing surv
     PROGRESS = 19
+    REMOVE_CONDITION = 20
+    INFO_ONCE = 21  # Info, but make sure not to duplicate
 
 
 class Trigger(Enum):

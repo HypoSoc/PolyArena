@@ -58,18 +58,19 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
 
 if __name__ == '__main__':
-    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Water III", "Circuit V", "Light I",
+    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
+    a = create_player("Alpha", ["Water III", "Circuit V", "Light I", "Antimagic (Geo)",
                                 "Runic Tattoos", "Awareness I", "Magical Healing (Geo)"],
                       ["Venom", "Face Mask", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune"],
                       injured=False)
-    b = create_player("Beta", ["Martial Arts II", "Circuit II", "Combat Regeneration (Geo)",
-                               "Quiet Attune", "Combat Medicine", "Light II", "Fast Attune II", "Fire III"],
+    b = create_player("Beta", ["Martial Arts II", "Circuit III",
+                               "Earth III"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
-                       "Healing Tank", "Booby Trap"],
+                       "Healing Tank", "Booby Trap", "Earth III Rune"],
                       dev_goals=["Martial Arts III"])
-    c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II"],
-                      ["Venom", "Poison Gas", "Oxygen Mask", "Face Mask", "Synthetic Weave"],
+    c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
+                                  "Circuit III"],
+                      ["Venom", "Poison Gas", "Oxygen Mask", "Face Mask", "Synthetic Weave", "Earth III Rune"],
                       dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection"], temperament=Temperament.PATIENT,
                       items=["Shrooms", "Medkit"],
@@ -77,11 +78,11 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_attack(b)
-    a.plan_attune(Element.LIGHT)
-    b.plan_class()
-    b.plan_attune(Element.LIGHT, Element.LIGHT)
-    c.plan_steal(b)
-    c.plan_attune(Element.WATER)
+    # a.plan_attune(Element.ANTI)
+    b.plan_bunker(bonus=True)
+    b.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
+    b.plan_attack(a)
+    d.plan_class()
 
     Action.run_turn(GAME)
 
