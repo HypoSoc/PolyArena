@@ -1,0 +1,275 @@
+101:
+  name: "Circuit I"
+  cost: 5
+  skills:
+    - 47
+
+102:
+  name: "Circuit II"
+  cost: 5
+  skills:
+    - 47
+  prerequisite: 101
+
+103:
+  name: "Circuit III"
+  cost: 5
+  skills:
+    - 47
+  prerequisite: 102
+
+104:
+  name: "Circuit IV"
+  cost: 5
+  skills:
+    - 47
+  prerequisite: 103
+
+105:
+  name: "Circuit V"
+  cost: 5
+  skills:
+    - 47
+  prerequisite: 104
+
+106:
+  name: "Circuit VI"
+  cost: 5
+  skills:
+    - 47
+  prerequisite: 105
+
+107:
+  name: "Fast Attune I"
+  cost: 5
+  skills: []
+  prerequisite: 103
+
+108:
+  name: "Fast Attune II"
+  cost: 5
+  skills: []
+  prerequisite: 107
+
+109:
+  name: "Fast Attune III"
+  cost: 5
+  skills: []
+  prerequisite: 108
+
+110:
+  name: "Antimagic (Aero)"
+  cost: 10
+  skills:
+    - 53
+  geo:
+    56:
+      circuits:
+        - "ANTI"
+  prerequisite: 103
+
+111:
+  name: "Antimagic (Geo)"
+  cost: 10
+  skills:
+    - 53
+  geo:
+    54:
+      circuits:
+        - "ANTI"
+  prerequisite: 102
+
+112:
+  name: "Antimagic (Hydro)"
+  cost: 10
+  skills:
+    - 53
+  geo:
+    55:
+      circuits:
+        - "ANTI"
+  prerequisite: 102
+
+113:
+  name: "Quiet Attune"
+  cost: 10
+  prerequisite: 102
+
+114:
+  name: "Rune Crafting I"
+  cost: 5
+  prerequisite: 102
+
+115:
+  name: "Rune Crafting II"
+  cost: 10
+  prerequisite: 114
+
+116:
+  name: "Runic Tattoos"
+  cost: 10
+  prequsite: 114
+
+117:
+  name: "Fire I"
+  cost: 5
+  skills:
+    - 48
+  geo:
+    57:
+      circuits:
+        - "FIRE"
+      fragile: true
+  prerequisite: 101
+
+118:
+  name: "Fire II"
+  cost: 10
+  skills:
+    - 48
+  geo:
+    1:
+      circuits:
+        - "FIRE"
+      fragile: true
+      each: true
+    58:
+      circuits:
+        - "FIRE"
+      fragile: true
+  prerequisite: 117
+
+119:
+  name: "Fire III"
+  cost: 20
+  skills:
+    - 48
+  geo:
+    57:
+      circuits:
+        - "FIRE"
+      fragile: true
+      each: true
+    59:
+      circuits:
+        - "FIRE"
+        - "FIRE"
+        - "FIRE"
+      fragile: true
+  prerequisite: 118
+
+120:
+  name: "Cauterization"
+  cost: 10
+  geo:
+    60:
+      circuits:
+        - "FIRE/LIGHT"
+      fragile: true
+  prerequisite: 101
+
+121:
+  name: "Hell Fire"
+  cost: 10
+  geo:
+    23:
+      circuits:
+        - "FIRE/LIGHT"
+        - "FIRE/LIGHT"
+      fragile: true
+    60:
+      circuits:
+        - "FIRE/LIGHT"
+        - "FIRE/LIGHT"
+      fragile: true
+  prerequisite: 120
+
+122:
+  name: "Water I"
+  cost: 5
+  skills:
+    - 49
+  geo:
+    1:
+      circuits:
+        - "WATER"
+      fragile: true
+    2:
+      circuits:
+        - "WATER"
+      fragile: true
+  prerequisite: 101
+
+123:
+  name: "Water II"
+  cost: 10
+  skills:
+    - 49
+  geo:
+    61:
+      circuits:
+        - "WATER"
+      fragile: true
+      each: true
+    62:
+      circuits:
+        - "WATER"
+      fragile: true
+  prerequisite: 122
+
+124:
+  name: "Water III"
+  cost: 20
+  skills:
+    - 49
+  geo:
+    1:
+      circuits:
+        - "WATER"
+      fragile: true
+      each: true
+    2:
+      circuits:
+        - "WATER"
+      fragile: true
+      each: true
+    63:
+      circuits:
+        - "WATER"
+        - "WATER"
+        - "WATER"
+  prerequisite: 123
+
+125:
+  name: "Magical Healing (Geo)"
+  cost: 10
+  geo:
+    24:
+      circuits:
+        - "WATER/LIGHT"
+  prerequisite: 101
+
+126:
+  name: "Combat Regeneration (Geo)"
+  cost: 10
+  geo:
+    64:
+      circuits:
+        - "WATER/LIGHT"
+        - "WATER/LIGHT"
+      fragile: true
+  prerequisite: 125
+
+137:
+  name: "Light I"
+  cost: 5
+  skills:
+    - 52
+  prerequisite: 101
+
+138:
+  name: "Light II"
+  cost: 5
+  skills:
+    - 52
+  prerequisite: 137

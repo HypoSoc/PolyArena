@@ -1,0 +1,74 @@
+401:
+  name: "Martial Arts I"
+  cost: 5
+  skills:
+    - 1
+
+402:
+  name: "Martial Arts II"
+  cost: 5
+  skills:
+    - 2
+    - 4
+  prerequisite: 401
+
+403:
+  name: "Martial Arts III"
+  cost: 5
+  skills:
+    - 1
+    - 2
+  prerequisite: 402
+
+404:
+  name: "Armed Combat I"
+  cost: 5
+  skills:
+    - 12
+  prerequisite: 401
+
+405:
+  name: "Armed Combat II"
+  cost: 10
+  skills:
+    - 12
+    - 13
+  prerequisite: 404
+
+406:
+  name: "Sniping"
+  cost: 10
+  skills:
+    - 17
+  prerequisite: 404
+
+407:
+  name: "Armor Break"
+  cost: 10
+  skills:
+    - 14
+  prerequisite: 404
+
+408:
+  name: "Armored Combat"
+  cost: 5
+  skills:
+    - 15
+    - 16
+  prerequisite: 401
+
+409:
+  name: "Combat Medicine"
+  cost: 10
+  skills:
+    - 29
+  prerequisite: 401
+
+410:
+  name: "Forged In Fire"
+  cost: 10
+  skills:
+    - 2
+    - 30
+    - 31
+  prerequisite: 401

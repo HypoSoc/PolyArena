@@ -1,0 +1,166 @@
+1:
+  name: "Bokken"
+  alt_name: "Sling"
+  cost: 1
+  type: "WEAPON"
+  skills:
+    - 3
+
+2:
+  name: "Sword"
+  alt_name: "Pistol"
+  cost: 3
+  type: "WEAPON"
+  skills:
+    - 3
+    - 5
+
+3:
+  name: "Laser Sword"
+  alt_name: "Laser Pistol"
+  cost: 5
+  type: "WEAPON"
+  skills:
+    - 3
+    - 6
+
+4:
+  name: "Oblivion Ordinance"
+  cost: 7
+  type: "WEAPON"
+  skills:
+    - 3
+    - 7
+
+5:
+  name: "Leather Armor"
+  cost: 2
+  type: "ARMOR"
+  skills:
+    - 8
+    - 9
+
+6:
+  name: "Synthetic Weave"
+  cost: 4
+  type: "ARMOR"
+  skills:
+    - 8
+    - 10
+
+7:
+  name: "Force Projection"
+  cost: 6
+  type: "ARMOR"
+  skills:
+    - 8
+    - 11
+
+8:
+  name: "Poison Gas"
+  cost: 1
+  type: "CONSUMABLE"
+  skills:
+    - 18
+    - 19
+    - 20
+    - 21
+
+9:
+  name: "Oxygen Mask"
+  cost: 2
+  type: "PERMANENT"
+  skills:
+    - 22
+
+10:
+  name: "Venom"
+  cost: 1
+  type: "CONSUMABLE"
+  skills:
+    - 23
+
+11:
+  name: "Medkit"
+  cost: 2
+  type: "CONSUMABLE"
+  skills:
+    - 24
+    - 28
+
+12:
+  name: "Shrooms"
+  cost: 2
+  type: "CONSUMABLE"
+  skills: []
+
+13:
+  name: "Liquid Memories"
+  cost: 5
+  type: "CONSUMABLE"
+  skills: []
+
+14:
+  name: "Soft"
+  cost: 2
+  type: "REACTIVE"
+  skills: []
+
+15:
+  name: "Lizard Tail"
+  cost: 3
+  type: "REACTIVE"
+  skills: []
+
+16:
+  name: "Camo Cloak"
+  cost: 2
+  type: "PERMANENT"
+  skills:
+    - 25
+
+17:
+  name: "Bunker Munitions"
+  cost: 4
+  type: "PERMANENT"
+  skills:
+    - 26
+  loot: false
+
+18:
+  name: "Bunker Shields"
+  cost: 4
+  type: "PERMANENT"
+  skills:
+    - 27
+  loot: false
+
+19:
+  name: "Healing Tank"
+  cost: 6
+  type: "PERMANENT"
+  skills: []
+  loot: false
+
+20:
+  name: "1/2 Medkit"
+  cost: -1
+  type: "CONSUMABLE"
+  skills:
+    - 24
+    - 28
+  loot: false
+  fragile: true
+
+21:
+  name: "Face Mask"
+  cost: 2
+  type: "PERMANENT"
+  skills: []
+
+22:
+  name: "Booby Trap"
+  cost: 1
+  type: "REACTIVE"
+  skills: []
+  fragile: true

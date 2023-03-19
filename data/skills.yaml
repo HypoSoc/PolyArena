@@ -1,0 +1,425 @@
+1:
+  text: "+1 Combat"
+  effect: "COMBAT"
+  value: 1
+
+2:
+  text: "+1 Survivability"
+  effect: "SURVIVABILITY"
+  value: 1
+
+3:
+  text: "Armed"
+  effect: "CONDITION"
+  value: "ARMED"
+
+4:
+  text: "%SELF% disarmed %TARGET%."
+  effect: "DISARM"
+  priority: 10
+  info: "PUBLIC"
+  trigger: "ATTACK"
+  target_has_condition: "ARMED"
+  target_not_condition: "GRIP"
+
+5:
+  text: "Armed 2"
+  effect: "WEAPON"
+  value: 2
+  priority: 22
+  self_has_condition: "ARMED"
+  self_not_condition: "ARMED_SET"
+
+6:
+  text: "Armed 3"
+  effect: "WEAPON"
+  value: 3
+  priority: 21
+  self_has_condition: "ARMED"
+  self_not_condition: "ARMED_SET"
+
+7:
+  text: "Armed 4"
+  effect: "WEAPON"
+  value: 4
+  priority: 20
+  self_has_condition: "ARMED"
+  self_not_condition: "ARMED_SET"
+
+8:
+  text: "Armored"
+  effect: "CONDITION"
+  value: "ARMORED"
+
+9:
+  text: "Armored 1"
+  effect: "ARMOR"
+  value: 1
+  priority: 32
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"
+
+10:
+  text: "Armored 3"
+  effect: "ARMOR"
+  value: 3
+  priority: 31
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"
+
+11:
+  text: "Armored 5"
+  effect: "ARMOR"
+  value: 5
+  priority: 30
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"
+
+12:
+  text: "+2 Combat if Armed"
+  effect: "COMBAT"
+  value: 2
+  priority: 40
+  self_has_condition: "ARMED"
+
+13:
+  text: "Can't be disarmed"
+  effect: "CONDITION"
+  value: "GRIP"
+
+14:
+  text: "%SELF% destroyed %TARGET%'s Armor."
+  effect: "ARMOR_BREAK"
+  priority: 20
+  info: "PUBLIC"
+  trigger: "ATTACK"
+  self_has_condition: "ARMED"
+  target_has_condition: "ARMORED"
+
+15:
+  text: "+1 Combat if Armored"
+  effect: "COMBAT"
+  value: 1
+  priority: 40
+  self_has_condition: "ARMORED"
+
+16:
+  text: "+1 Survivability if Armored"
+  effect: "SURVIVABILITY"
+  value: 1
+  priority: 40
+  self_has_condition: "ARMORED"
+
+17:
+  text: "sniped"  # Replaces 'attacked' in action message
+  effect: "SNIPING"
+  info: "HIDDEN"  # Public via attack action log, not by event
+  priority: 15
+  self_has_condition: "ARMED"
+
+18:
+  text: "%SELF% used Poison Gas."
+  effect: "INFO"
+  info: "PUBLIC"
+  priority: 70
+  self_not_condition: "AMBUSHED"
+
+19:
+  text: "%SELF%'s Poison Gas failed because they were Ambushed."
+  effect: "INFO"
+  info: "PUBLIC"
+  priority: 70
+  self_has_condition: "AMBUSHED"
+
+20:
+  text: "Poison Gas Damage"
+  effect: "NONLETHAL"
+  trigger: "RANGE"
+  priority: 71
+  self_not_condition: "AMBUSHED"
+  target_not_condition: "GAS_IMMUNE"
+
+21:
+  text: "%TARGET% succumbed to %SELF%'s Poison Gas."
+  effect: "NO_COMBAT"
+  info: "PUBLIC"
+  trigger: "RANGE"
+  priority: 71
+  self_not_condition: "AMBUSHED"
+  target_not_condition: "GAS_IMMUNE"
+
+22:
+  text: "Gas Mask"
+  effect: "CONDITION"
+  value: "GAS_IMMUNE"
+
+23:
+  text: "Inflict Grievous"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "INFLICT_GRIEVOUS"
+
+24:
+  text: "Can Heal"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "HEALER"
+
+25:
+  text: "ambushed" # Replaces 'attacked' in action message
+  effect: "AMBUSH"
+  info: "HIDDEN"  # Visible in action log, not as a separate log
+  trigger: "ATTACK"
+  priority: 5
+
+26:
+  text: "Bunker Combat"
+  effect: "COMBAT"
+  value: 2
+  priority: 20
+  self_has_condition: "BUNKERING"
+
+27:
+  text: "Bunker Survivability"
+  effect: "SURVIVABILITY"
+  value: 2
+  priority: 20
+  self_has_condition: "BUNKERING"
+
+28:
+  text: "Can Bonus Heal"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "BONUS_HEALER"
+  self_has_condition: "EFFICIENT_HEALER"
+
+29:
+  text: "Can use Medkits to Fullest"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "EFFICIENT_HEALER"
+
+30:
+  text: "%SELF%'s Mettle has been Forged."
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "COMBAT_INJURY"
+  value: "FORGED"
+
+31:
+  text: "forged survivability"
+  effect: "SURVIVABILITY"
+  trigger: "COMBAT_INJURY"
+  value: 1
+
+32:
+  text: "Immune to Ambush from lower Awareness"
+  effect: "CONDITION"
+  value: "AMBUSH_AWARE"
+
+33:
+  text: "Immune to Spying from lower Awareness"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "SPY_AWARE"
+
+34:
+  text: "Immune to Theft from lower Awareness"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "THEFT_AWARE"
+
+35:
+  text: "%SELF% learned %TARGET%'s secrets."
+  effect: "REL_CONDITION"
+  trigger: "SPY"
+  value: "KNOW"
+  info: "PRIVATE"
+  priority: 85
+
+36:
+  text: "Immune to Counter Int I"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "PIERCE_COUNTER_INT"
+
+37:
+  text: "%SELF% gained a Hook on %TARGET%."
+  effect: "REL_CONDITION"
+  trigger: "SPY"
+  value: "HOOK"
+  info: "PRIVATE"
+  priority: 85
+
+38:
+  text: "%SELF% destroyed %TARGET%'s notes."
+  effect: "DEV_SABOTAGE"
+  trigger: "SPY"
+  info: "PRIVATE"
+  priority: 95
+
+39:
+  text: "%SELF% copied %TARGET%'s abilities."
+  effect: "COPYCAT"
+  trigger: "SPY"
+  info: "PRIVATE"
+  priority: 89
+
+40:
+  text: "Can Steal"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "THIEF"
+
+41:
+  text: "Counter Int"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "COUNTER_INT"
+
+42:
+  text: "Counter Int II"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "SUPER_COUNTER_INT"
+
+43:
+  text: "Counter Int II Fake Knowledge"
+  effect: "REL_CONDITION"
+  trigger: "SPIED_ON"
+  value: "SABOTAGED_KNOWLEDGE"
+  info: "HIDDEN"
+  priority: 85
+  target_has_condition: "PIERCE_COUNTER_INT"
+
+44:
+  text: "Can Ignore Hooks"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "HOOK_IGNORE"
+
+45:
+  text: "Ambush Tactics 2"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "DEADLY_AMBUSH"
+
+46:
+  text: "%SELF% counter-ambushed %TARGET%."
+  effect: "AMBUSH"
+  info: "PUBLIC"
+  trigger: "ATTACKED"
+  priority: 5
+
+47:
+  text: "Increase Maximum Circuit"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "CIRCUIT"
+
+48:
+  text: "Can Attune to Fire"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "FIRE_CIRCUIT"
+
+49:
+  text: "Can Attune to Water"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "WATER_CIRCUIT"
+
+50:
+  text: "Can Attune to Earth"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "EARTH_CIRCUIT"
+
+51:
+  text: "Can Attune to Air"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "AIR_CIRCUIT"
+
+52:
+  text: "Can Attune to Light"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "LIGHT_CIRCUIT"
+
+53:
+  text: "Can Attune to Antimagic"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "ANTI_CIRCUIT"
+
+54:
+  text: "%TARGET% lost access to Geomancy."
+  effect: "CONDITION"
+  trigger: "RANGE_EX_SELF"
+  value: "GEO_LOCKED"
+  info: "PRIVATE"
+  priority: 19
+  target_has_condition: "USING_GEO"
+
+55:
+  text: "%TARGET% lost access to Hydromancy."
+  effect: "CONDITION"
+  trigger: "RANGE_EX_SELF"
+  value: "HYDRO_LOCKED"
+  info: "PRIVATE"
+  priority: 19
+  target_has_condition: "USING_HYDRO"
+
+56:
+  text: "%TARGET% lost access to Aeromancy."
+  effect: "CONDITION"
+  trigger: "RANGE_EX_SELF"
+  value: "AERO_LOCKED"
+  info: "PRIVATE"
+  priority: 19
+  target_has_condition: "USING_AERO"
+
+57:
+  text: "+2 Combat"
+  effect: "COMBAT"
+  value: 2
+
+58:
+  text: "+2 Survivability vs Fire"
+  effect: "CONDITION"
+  value: "FIRE_PROOF"
+
+59:
+  text: "Use Combat for Survivability except vs Water"
+  effect: "CONDITION"
+  value: "FIRE_BODY"
+
+60:
+  text: "Inflict Permanent in Combat"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "INFLICT_CAUTERIZE"
+
+61:
+  text: "+1 Weaker Stat"
+  effect: "BALANCE"
+  value: 1
+  priority: 69  # Towards the end of stat distributions
+
+62:
+  text: "Immune to Grievous Wounds (Not Hellfire)"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "GRIEVOUS_IMMUNE"
+
+63:
+  text: "+2 Progress"
+  effect: "PROGRESS"
+  trigger: "POST_COMBAT"
+  value: 2
+
+64:
+  text: "Combat Regen"
+  effect: "CONDITION"
+  value: "COMBAT_REGEN"

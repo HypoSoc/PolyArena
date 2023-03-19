@@ -1,0 +1,134 @@
+501:
+  name: "Awareness I"
+  cost: 5
+  skills:
+    - 32
+
+502:
+  name: "Awareness II"
+  cost: 5
+  skills:
+    - 33
+    - 34
+  prerequisite: 501
+
+503:
+  name: "Awareness III"
+  cost: 5
+  skills: []
+  prerequisite: 502
+
+504:
+  name: "Panopticon"
+  cost: 10
+  skills: []
+  prerequisite: 503
+
+505:
+  name: "Know Thy Enemy"
+  cost: 10
+  skills:
+    - 35
+    - 36
+  prerequisite: 502
+
+506:
+  name: "Psy Ops"
+  cost: 10
+  skills:
+    - 37
+  prerequisite: 505
+
+507:
+  name: "Trade Secrets"
+  cost: 10
+  skills:
+    - 38
+  prerequisite: 502
+
+508:
+  name: "Copycat"
+  cost: 5
+  skills:
+    - 39
+  prerequisite: 507
+
+509:
+  name: "Theft"
+  cost: 10
+  skills:
+    - 40
+  prerequisite: 502
+
+510:
+  name: "Counter Intelligence I"
+  cost: 5
+  skills:
+    - 41
+  prerequisite: 501
+
+511:
+  name: "Counter Intelligence II"
+  cost: 5
+  skills:
+    - 42
+    - 43
+    - 44
+  prerequisite: 510
+
+512:
+  name: "Ambush Tactics I"
+  cost: 5
+  skills:
+    - 25
+  prerequisite: 501
+
+513:
+  name: "Ambush Tactics II"
+  cost: 10
+  skills:
+    - 45
+  prerequisite: 512
+
+514:
+  name: "Counter Ambush Tactics"
+  cost: 10
+  skills:
+    - 46
+  prerequisite: 512
+
+515:
+  name: "Attunement Detection"
+  cost: 5
+  skills: []
+  prerequisite: 501
+
+516:
+  name: "Willpower Detection"
+  cost: 5
+  skills: []
+  prerequisite: 501
+
+517:
+  name: "Aeromancy Intuition I"
+  cost: 5
+  skills: []
+  prerequisite: 501
+
+518:
+  name: "Aeromancy Intuition II"
+  cost: 20
+  skills: []
+  prerequisite: 517
+
+519:
+  name: "Market Connections I"
+  cost: 5
+  skills: []
+  prerequisite: 501
+
+520:
+  name: "Market Connections II"
+  cost: 5
+  skills: []
+  prerequisite: 519
