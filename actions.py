@@ -608,10 +608,11 @@ class StealFollow(Action):
 
         if self.target not in StealFollow.handled:
             StealFollow.handled.add(self.target)
-            self.target.report += "Somebody robbed you!" + os.linesep
+            self.target.report += os.linesep + "Somebody robbed you!" + os.linesep
             for item, amount in self.items.items():
                 self.target.lose_item(item, amount)
             self.target.destroy_fragile_items()
+            self.target.report += os.linesep
 
 
 class Craft(Action):

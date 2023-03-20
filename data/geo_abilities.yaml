@@ -358,6 +358,55 @@
       fragile: true
   prerequisite: 130
 
+132:
+  name: "Air I"
+  cost: 5
+  skills:
+    - 51
+  geo:
+    22:
+      circuits:
+        - "AIR"
+      fragile: true
+  prerequisite: 101
+
+133:
+  name: "Air II"
+  cost: 10
+  skills:
+    - 51
+  geo:
+    76:
+      circuits:
+        - "AIR"
+      each: true
+  prerequisite: 132
+
+134:
+  name: "Air III"
+  cost: 20
+  skills:
+    - 51
+  geo:
+    77:
+      circuits:
+        - "AIR"
+        - "AIR"
+        - "AIR"
+      fragile: true
+    78:
+      circuits:
+        - "AIR"
+        - "AIR"
+        - "AIR"
+      fragile: true
+    79:
+      circuits:
+        - "AIR"
+        - "AIR"
+        - "AIR"
+      fragile: true
+  prerequisite: 133
 
 137:
   name: "Light I"

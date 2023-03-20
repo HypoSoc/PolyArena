@@ -267,10 +267,12 @@ class CombatHandler:
                     elif skill.trigger == Trigger.ENEMY:
                         if p in self.attacker_to_defenders:
                             for x in self.attacker_to_defenders[p]:
-                                targets.append(x)
+                                if x not in targets:
+                                    targets.append(x)
                         for o in self.attacker_to_defenders:
                             if p in self.attacker_to_defenders[o]:
-                                targets.append(o)
+                                if o not in targets:
+                                    targets.append(o)
                     elif skill.trigger == Trigger.RANGE:
                         targets = [o for o in group if self.check_range(p, o)]
                     elif skill.trigger == Trigger.RANGE_EX_SELF:

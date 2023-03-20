@@ -493,3 +493,30 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "LONG_PETRIFY"
+
+76:
+  text: "+1 Progress"
+  effect: "PROGRESS"
+  trigger: "POST_COMBAT"
+  value: 1
+
+77:
+  text: "%TARGET% suffocated."
+  effect: "NO_COMBAT"
+  info: "PRIVATE"
+  trigger: "ENEMY"
+  priority: 80
+  target_not_condition: "GAS_IMMUNE"
+
+78:
+  text: "%TARGET% suffocated."  # The text is handled by 77 above
+  effect: "NO_SURVIVABILITY"
+  trigger: "ENEMY"
+  priority: 80
+  target_not_condition: "GAS_IMMUNE"
+
+79:
+  text: "sniped"  # Replaces 'attacked' in action message. This version doesn't require a weapon
+  effect: "SNIPING"
+  info: "HIDDEN"  # Public via attack action log, not by event
+  priority: 15

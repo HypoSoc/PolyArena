@@ -58,32 +58,30 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
 
 if __name__ == '__main__':
-    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
+    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Water III", "Circuit V", "Light I", "Antimagic (Geo)",
                                 "Runic Tattoos", "Awareness I", "Magical Healing (Geo)"],
-                      ["Venom", "Face Mask", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune"],
+                      ["Venom", "Face Mask", "Poison Gas", "Sword", "Fire II Rune"],
                       injured=False)
-    b = create_player("Beta", ["Martial Arts II", "Circuit III",
-                               "Earth III", "Petrification I"],
+    b = create_player("Beta", ["Circuit III", "Air III"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap"],
-                      dev_goals=["Martial Arts III"])
+                      dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
                                   "Circuit III"],
-                      ["Venom", "Poison Gas", "Oxygen Mask", "Face Mask", "Synthetic Weave", "Earth III Rune"],
+                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Earth III Rune"],
                       dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection"], temperament=Temperament.PATIENT,
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_attack(b)
-    a.plan_attune(Element.LIGHT, Element.WATER)
-    b.plan_bunker(bonus=True)
-    b.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
+    a.plan_attack(c)
+    a.plan_attune(Element.WATER)
+    b.plan_attune(Element.AIR, Element.AIR, Element.AIR)
     b.plan_attack(a)
-    c.plan_steal(b)
-    d.plan_class()
+    c.plan_attack(b)
+    d.plan_attack(a)
 
     Action.run_turn(GAME)
 
