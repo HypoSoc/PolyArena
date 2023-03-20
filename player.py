@@ -76,6 +76,7 @@ class Player:
         self.fake_action = Wander(None, self)
         self.fake_ability: Optional['Ability'] = None
 
+        self.disabled_ability_pins: Set[int] = set()
         self.consumed_items: Set[int] = set()
         self.turn_conditions = []
         self.circuits: Iterable[Element] = []
@@ -89,6 +90,7 @@ class Player:
                        relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
                        tattoo=self.tattoo,
                        game=self.game.clone())
+        clone.disabled_ability_pins = set()
         clone.consumed_items = self.consumed_items.copy()
         clone.turn_conditions = self.turn_conditions.copy()
         clone.tentative_conditions = self.tentative_conditions
@@ -231,6 +233,12 @@ class Player:
         if Shop.get_total_cost(items) > self.credits:
             raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
         self.action = Shop(self.game, self, items)
+
+    # For turning off Petrify and the like
+    def disable_ability(self, ability_name: str):
+        if ability_name.upper() != "PETRIFICATION I":
+            raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
+        self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 
     def plan_train(self):
         self._generic_action_check()
@@ -514,7 +522,8 @@ class Player:
     def get_skills(self) -> List[Skill]:
         skills = []
         for ability in self.get_abilities():
-            skills += ability.get_skills(self.circuits)
+            if ability.pin not in self.disabled_ability_pins:
+                skills += ability.get_skills(self.circuits)
         for item in self.get_items(duplicates=False):
             if item.item_type != ItemType.CONSUMABLE:
                 skills += item.get_skills()
@@ -663,7 +672,7 @@ class Player:
                 return True
         return False
 
-    def petrify(self, reporting_func: Optional[ReportCallable] = None):
+    def petrify(self, reporting_func: Optional[ReportCallable] = None, long=False):
         if reporting_func is None:
             reporting_func = self._non_combat_report_callable()
 
@@ -676,7 +685,10 @@ class Player:
 
             reporting_func(f"{self.name} was Petrified.", InfoScope.PUBLIC)
         # Reset Petrification Counter
-        while self.conditions.count(Condition.PETRIFIED) < 2:
+        timer = 2
+        if long:
+            timer = 3
+        while self.conditions.count(Condition.PETRIFIED) < timer:
             self.conditions.append(Condition.PETRIFIED)
 
     # Returns true if still injured

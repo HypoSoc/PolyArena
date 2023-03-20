@@ -64,9 +64,9 @@ if __name__ == '__main__':
                       ["Venom", "Face Mask", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune"],
                       injured=False)
     b = create_player("Beta", ["Martial Arts II", "Circuit III",
-                               "Earth III"],
+                               "Earth III", "Petrification I"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
-                       "Healing Tank", "Booby Trap", "Earth III Rune"],
+                       "Healing Tank", "Booby Trap"],
                       dev_goals=["Martial Arts III"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
                                   "Circuit III"],
@@ -78,10 +78,11 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_attack(b)
-    # a.plan_attune(Element.ANTI)
+    a.plan_attune(Element.LIGHT, Element.WATER)
     b.plan_bunker(bonus=True)
     b.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
     b.plan_attack(a)
+    c.plan_steal(b)
     d.plan_class()
 
     Action.run_turn(GAME)

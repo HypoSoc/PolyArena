@@ -66,6 +66,7 @@ class Condition(Enum):
     FRAGILE_BUNKERING = 52  # Special case that allows bunker bonuses to disappear with antimagic for earth 3
     BONUS_BUNKER = 53
     FRAGILE_BUNKER = 54  # Bonus bunker susceptible to antimagic
+    LONG_PETRIFY = 55  # Petrify lasts an additional turn
 
 
 class InfoScope(Enum):

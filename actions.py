@@ -33,16 +33,20 @@ def noncombat_wound(source: 'Player', victim: 'Player', modifiers: List[InjuryMo
     if not modifiers:
         modifiers = []
 
-    if source.has_condition(Condition.INFLICT_CAUTERIZE):
-        modifiers.append(InjuryModifier.PERMANENT)
-    if source.has_condition(Condition.INFLICT_GRIEVOUS):
-        modifiers.append(InjuryModifier.GRIEVOUS)
+    if source.has_condition(Condition.PETRIFY):
+        victim.petrify(long=source.has_condition(Condition.LONG_PETRIFY))
 
-    if victim.has_condition(Condition.GRIEVOUS_IMMUNE):
-        if InjuryModifier.GRIEVOUS in modifiers and InjuryModifier.PERMANENT not in modifiers:
-            modifiers = [modifier for modifier in modifiers if modifier != InjuryModifier.GRIEVOUS]
+    else:
+        if source.has_condition(Condition.INFLICT_CAUTERIZE):
+            modifiers.append(InjuryModifier.PERMANENT)
+        if source.has_condition(Condition.INFLICT_GRIEVOUS):
+            modifiers.append(InjuryModifier.GRIEVOUS)
 
-    victim.wound(injury_modifiers=modifiers)
+        if victim.has_condition(Condition.GRIEVOUS_IMMUNE):
+            if InjuryModifier.GRIEVOUS in modifiers and InjuryModifier.PERMANENT not in modifiers:
+                modifiers = [modifier for modifier in modifiers if modifier != InjuryModifier.GRIEVOUS]
+
+        victim.wound(injury_modifiers=modifiers)
 
 
 class Action:

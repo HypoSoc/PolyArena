@@ -481,3 +481,15 @@
   info: "PUBLIC"
   priority: 0
   self_has_condition: "FRAGILE_BUNKERING"
+
+74:
+  text: "Petrify"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "PETRIFY"
+
+75:
+  text: "Petrify II"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "LONG_PETRIFY"

@@ -374,7 +374,7 @@ class CombatHandler:
 
                 return skill.priority, self.tic_index, handle_skill
 
-            def petrify_tic(base_priority: int, p: Player) -> Tic:
+            def petrify_tic(base_priority: int, p: Player, long=False) -> Tic:
                 self.tic_index += 1
 
                 def petrify():
@@ -382,7 +382,7 @@ class CombatHandler:
                         self._append_to_event_list(self.combat_group_to_events[group],
                                                    message, [p], info_scope)
 
-                    p.petrify(reporting_function)
+                    p.petrify(reporting_function, long=long)
                     if Condition.PETRIFIED in p.conditions:
                         conditions[p].append(Condition.GAS_IMMUNE)
                         conditions[p].append(Condition.PETRIFIED)
@@ -452,7 +452,7 @@ class CombatHandler:
 
                 def petrify():
                     if not target_not_condition or target_not_condition not in conditions[target]:
-                        queue.put(petrify_tic(priority+1, target))
+                        queue.put(petrify_tic(priority+1, target, Condition.LONG_PETRIFY in conditions[source]))
 
                 def nonlethal():
                     if not target_not_condition or target_not_condition not in conditions[target]:

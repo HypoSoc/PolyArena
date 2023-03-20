@@ -337,6 +337,27 @@
         - "EARTH"
   prerequisite: 128
 
+130:
+  name: "Petrification I"
+  cost: 10
+  geo:
+    74:
+      circuits:
+        - "EARTH/LIGHT"
+      fragile: true
+  prerequisite: 101
+
+131:
+  name: "Petrification II"
+  cost: 10
+  geo:
+    75:
+      circuits:
+        - "EARTH/LIGHT"
+        - "EARTH/LIGHT"
+      fragile: true
+  prerequisite: 130
+
 
 137:
   name: "Light I"
