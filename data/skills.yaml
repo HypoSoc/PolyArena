@@ -433,7 +433,7 @@
   text: "%TARGET% hurt themself attacking %SELF%."
   effect: "NONLETHAL"
   trigger: "ATTACKED"
-  priority: 170
+  priority: 180
   info: "PUBLIC"
 
 67:
@@ -520,3 +520,9 @@
   effect: "SNIPING"
   info: "HIDDEN"  # Public via attack action log, not by event
   priority: 15
+
+80:
+  text: "Speed +1"
+  effect: "SPEED"
+  value: 1
+  priority: 0

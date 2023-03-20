@@ -28,8 +28,9 @@ Tic = Tuple[int, int, Callable[[], None]]
 class CombatHandler:
     REAL_HANDLER = None
 
-    def __init__(self):
+    def __init__(self, for_speed=False):
         self.tic_index = 0
+        self.for_speed = for_speed
 
         self.broadcast_events: List[str] = []
 
@@ -47,9 +48,14 @@ class CombatHandler:
         self.solitary_combat: Set["Player"] = set()
 
         self.info_once: Set[str] = set()
+        self.speed: Dict['Player', int] = {}
+
+        self.escape: Set[Tuple['Player', 'Player']] = set()
+        self.full_escape: Set['Player'] = set()
+        self.no_escape: Set['Player'] = set()
 
     def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element]]) -> Dict['Player', int]:
-        sim = CombatHandler()
+        sim = CombatHandler(self.for_speed)
         player_to_clone: Dict["Player", "Player"] = {}
 
         def make_and_modify_clone(player: 'Player'):
@@ -76,9 +82,36 @@ class CombatHandler:
         sim.process_all_combat()
         return {player: clone.get_score() for player, clone in player_to_clone.items()}
 
+    def speed_sim(self) -> Set[Tuple['Player', 'Player']]:
+        sim = CombatHandler(True)
+        player_to_clone: Dict["Player", "Player"] = {}
+        clone_to_player: Dict["Player", "Player"] = {}
+
+        def make_and_modify_clone(player: 'Player'):
+            clone = player.make_copy_for_simulation()
+            player_to_clone[player] = clone
+            clone_to_player[clone] = player
+
+        for attacker, defender_set in self.attacker_to_defenders.items():
+            for defender in defender_set:
+                if attacker not in player_to_clone:
+                    make_and_modify_clone(attacker)
+                if defender not in player_to_clone:
+                    make_and_modify_clone(defender)
+                sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
+
+        for self_attacker in self.solitary_combat:
+            if self_attacker not in player_to_clone:
+                make_and_modify_clone(self_attacker)
+            sim.add_solitary_combat(player_to_clone[self_attacker])
+
+        sim.process_all_combat()
+        escape = set()
+        for player, escaped in sim.escape:
+            escape.add((clone_to_player[player], clone_to_player[escaped]))
+        return escape
+
     def add_attack(self, attacker: "Player", defender: "Player"):
-        self.hot_blood.add(attacker.name)
-        self.hot_blood.add(defender.name)
         if attacker not in self.attacker_to_defenders:
             self.attacker_to_defenders[attacker] = set()
         self.attacker_to_defenders[attacker].add(defender)
@@ -171,6 +204,14 @@ class CombatHandler:
                     modifiers.append(InjuryModifier.PERMANENT)
                 return modifiers
 
+            def get_speed(a: "Player"):
+                speed = self.speed.get(a, 0)
+                if Condition.AMBUSHED in conditions[a]:
+                    speed -= 1
+                if Condition.SNIPED in conditions[a]:
+                    speed -= 2
+                return max(speed, 0)
+
             # Generate a tic to remove a condition from a player
             def condition_remove_tic(priority: int, p: Player, c: Condition) -> Tic:
                 self.tic_index += 1
@@ -237,6 +278,31 @@ class CombatHandler:
 
                 return 6, self.tic_index, confirm_ambush
 
+            def speed_ambush_tic(ambusher: 'Player', ambushee: 'Player') -> Tic:
+                self.tic_index += 1
+
+                def confirm_ambush():
+                    if ambushee in self.ambushes.get(ambusher, set()):
+                        return  # Already handled
+
+                    if ambusher in self.ambushes.get(ambushee, set()):
+                        return  # Can't speed ambush ambushers
+
+                    if get_speed(ambusher) - get_speed(ambushee) < 2:
+                        return  # Not fast enough
+
+                    if Condition.AMBUSH_AWARE in conditions[ambushee]:
+                        if ambushee.get_awareness() > ambusher.get_awareness():
+                            return
+
+                    self.update_verb_dict(ambusher, "blitzed")
+                    if ambusher not in self.ambushes:
+                        self.ambushes[ambusher] = set()
+                    self.ambushes[ambusher].add(ambushee)
+                    conditions[ambushee].append(Condition.AMBUSHED)
+
+                return 20, self.tic_index, confirm_ambush
+
             def skill_tic(p: Player, skill: 'Skill') -> Tic:
                 self.tic_index += 1
 
@@ -257,14 +323,15 @@ class CombatHandler:
                         targets = [p]
                     elif skill.trigger == Trigger.ATTACK:
                         if p in self.attacker_to_defenders:
-                            targets = list(self.attacker_to_defenders[p])
+                            targets = [target for target in self.attacker_to_defenders[p]
+                                       if self.check_range(p, target) or skill.effect == Effect.AMBUSH]
                     elif skill.trigger == Trigger.ATTACKED:
                         for a, d_set in self.attacker_to_defenders.items():
                             for d in d_set:
                                 if d == p:
-                                    if a not in targets:
+                                    if a not in targets and self.check_range(d, a):
                                         targets.append(a)
-                    elif skill.trigger == Trigger.ENEMY:
+                    elif skill.trigger == Trigger.ENEMY:  # EXPLICITLY IGNORES RANGE
                         if p in self.attacker_to_defenders:
                             for x in self.attacker_to_defenders[p]:
                                 if x not in targets:
@@ -351,6 +418,8 @@ class CombatHandler:
                             self.update_verb_dict(target, skill.text)
                             # Modify description of action in place to make the report read cleaner
                             conditions[target].append(Condition.SNIPING)
+                            for sniped in self.attacker_to_defenders.get(target, []):
+                                conditions[sniped].append(Condition.SNIPED)
                             queue.put(sniper_tic(skill.priority, target))
                         elif skill.effect == Effect.NONLETHAL:
                             queue.put(damage_tic(skill.priority+1, source=p, target=target,
@@ -362,6 +431,14 @@ class CombatHandler:
                                 self.ambushes[p] = set()
                             self.ambushes[p].add(target)
                             queue.put(ambush_tic(p, target, skill.text))
+                        elif skill.effect == Effect.SPEED:
+                            if target not in self.speed:
+                                self.speed[target] = 0
+                            self.speed[target] += skill.value
+                            if self.speed[target] >= 2:
+                                for v in self.attacker_to_defenders.get(target, []):
+                                    queue.put(speed_ambush_tic(target, v))
+
                         else:
                             raise Exception(f"Unhandled effect type in combat! {skill.effect.name}")
 
@@ -527,6 +604,11 @@ class CombatHandler:
                         return
 
                     if self.check_range(offense, defense):
+                        self.hot_blood.add(offense.name)
+                        self.full_escape.discard(defense)
+                        self.full_escape.discard(offense)
+                        self.no_escape.add(defense)
+                        self.no_escape.add(offense)
                         if DEBUG:
                             self._append_to_event_list(self.combat_group_to_events[group],
                                                        f"{offense.name} ({get_combat(offense, defense)}) attacking "
@@ -544,6 +626,13 @@ class CombatHandler:
                         else:
                             if offense in disarm_thief[defense]:
                                 disarm_thief[defense].remove(offense)  # Failed to injure defender, so not disarm stolen
+                    else:
+                        if get_speed(defense) - get_speed(offense) >= 2:
+                            if defense not in self.no_escape:
+                                self.full_escape.add(defense)
+                        else:
+                            self.full_escape.discard(defense)
+                            self.no_escape.add(defense)
 
                 return priority, self.tic_index, fight
 
@@ -553,12 +642,20 @@ class CombatHandler:
                 def debug_print():
                     self._append_to_event_list(self.combat_group_to_events[group],
                                                f"{p.name} ({get_combat(p)}/{get_survivability(p)}) "
+                                               f"(S{get_speed(p)}) "
                                                f"{[i.name for i in p.get_items()]}"
                                                f"{[c.name for c in conditions[p]]}"
                                                f"{p.relative_condition_debug()}",
                                                [p])
 
                 return priority, self.tic_index, debug_print
+
+            if not self.for_speed:
+                self.escape = self.speed_sim()
+                for player, escaped in self.escape:
+                    self._append_to_event_list(self.combat_group_to_events[group],
+                                               f"{player.name} escaped {escaped.name}.",
+                                               [player, escaped], info=InfoScope.PUBLIC)
 
             for player in group:
                 combat[player] = 0
@@ -569,12 +666,13 @@ class CombatHandler:
                 bunker_combat_skill = Skill(-1, text="Bunker Combat +1", effect=Effect.COMBAT, value=1, priority=21,
                                             info=InfoScope.HIDDEN, trigger=Trigger.SELF,
                                             self_has_condition=Condition.BUNKERING)
-                bunker_surv_skill = Skill(-1, text="Bunker Surv +2", effect=Effect.SURVIVABILITY, value=2, priority=21,
-                                          info=InfoScope.HIDDEN, trigger=Trigger.SELF,
-                                          self_has_condition=Condition.BUNKERING)
+                bunker_survive_skill = Skill(-1, text="Bunker Survive +2", effect=Effect.SURVIVABILITY,
+                                             value=2, priority=21,
+                                             info=InfoScope.HIDDEN, trigger=Trigger.SELF,
+                                             self_has_condition=Condition.BUNKERING)
 
                 queue.put(skill_tic(player, bunker_combat_skill))
-                queue.put(skill_tic(player, bunker_surv_skill))
+                queue.put(skill_tic(player, bunker_survive_skill))
 
                 survivability[player] += conditions[player].count(Condition.FORGED)
 
@@ -607,8 +705,18 @@ class CombatHandler:
 
             # Go through the priority queue
             while not queue.empty():
-                tic = queue.get()[2]
-                tic()
+                tic = queue.get()
+                if self.for_speed and tic[0] > 179:
+                    # Speed Cannot See past priority 179
+                    break
+                tic[2]()
+
+            if self.for_speed:
+                for player, other_set in self.damaged_by.items():
+                    for other in other_set:
+                        speed_dif = get_speed(player) - get_speed(other)
+                        if speed_dif > 0:
+                            self.escape.add((player, other))
 
             # Disarm Stealing happens BEFORE Looting corpses
             for (victim, thieves) in disarm_thief.items():
@@ -642,11 +750,24 @@ class CombatHandler:
                                                    f"{item.name}.",
                                                    [looter], InfoScope.PRIVATE)
 
-    def check_range(self, player, target):
+            for player in group:
+                if player in self.full_escape:
+                    self._append_to_event_list(self.combat_group_to_events[group],
+                                               f"{player.name} escaped completely.",
+                                               [player], InfoScope.PUBLIC)
+
+    def check_range(self, player, target, ignore_escape=False):
         # Quick little BFS to check if player can reach target using edges, with a small bit of
         # state to make things faster
         if player == target:
             return True
+
+        if not ignore_escape:
+            if (player, target) in self.escape:
+                return False
+            if (target, player) in self.escape:
+                return False
+
         if (player, target) in self.range_edges:
             return True
 
@@ -705,7 +826,7 @@ class CombatHandler:
                     if event[2] in [InfoScope.PUBLIC, InfoScope.BROADCAST] or player in event[1]:
                         report += event[0] + os.linesep
                 for other in group:
-                    if not self.check_range(player, other):
+                    if not self.check_range(player, other, ignore_escape=True):
                         report = report.replace(other.name, "Someone")
         return report
 

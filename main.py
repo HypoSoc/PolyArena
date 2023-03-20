@@ -11,7 +11,7 @@ GAME = Game(night=False)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False,
-                  dev_goals=None, temperament=Temperament.ALTRUISTIC,
+                  dev_goals=None, temperament=Temperament.HOT_BLOODED,
                   tattoo=None) -> Player:
     if dev_goals is None:
         dev_goals = []
@@ -59,29 +59,29 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Water III", "Circuit V", "Light I", "Antimagic (Geo)",
-                                "Runic Tattoos", "Awareness I", "Magical Healing (Geo)"],
-                      ["Venom", "Face Mask", "Poison Gas", "Sword", "Fire II Rune"],
+    a = create_player("Alpha", ["Earth II", "Circuit V", "Light I", "Antimagic (Geo)",
+                                "Runic Tattoos", "Magical Healing (Geo)"],
+                      ["Venom", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       injured=False)
-    b = create_player("Beta", ["Circuit III", "Air III"],
+    b = create_player("Beta", ["Circuit III", "Light II", "Awareness I", "Antimagic (Geo)", "Fast Attune II",
+                               "Speed (Geo) II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
-                       "Healing Tank", "Booby Trap"],
+                       "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
-                                  "Circuit III"],
-                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Earth III Rune"],
+                                  "Circuit III", "Speed (Geo) II", "Light I"],
+                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Earth III Rune", "Bokken"],
                       dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection"], temperament=Temperament.PATIENT,
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_attack(c)
-    a.plan_attune(Element.WATER)
-    b.plan_attune(Element.AIR, Element.AIR, Element.AIR)
-    b.plan_attack(a)
+    a.plan_attack(b)
+    a.plan_attune(Element.EARTH, Element.EARTH)
+    b.plan_train()
     c.plan_attack(b)
-    d.plan_attack(a)
+    c.plan_attune(Element.LIGHT)
 
     Action.run_turn(GAME)
 

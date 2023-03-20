@@ -1150,6 +1150,8 @@ class CombatSimStep(Action):
                                    + os.linesep
             if not final_player.has_ability("Quiet Attune"):
                 DayReport().set_attunement(final_player, circuits)
+                if circuits:
+                    Action.no_class.add(final_player)
             final_player.tentative_conditions.clear()
             for skill in final_player.get_skills():
                 if skill.trigger == Trigger.NONCOMBAT_POST_ATTUNE:
@@ -1173,6 +1175,9 @@ class CombatStep(Action):
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.POST_COMBAT:
                         HandleSkill(self.game, player, skill)
+        for player in get_combat_handler().full_escape:
+            DayReport().add_action(player, f"{player.name} escaped combat.")
+            self.interrupted_players.discard(player)
 
 
 class ProgressStep(Action):

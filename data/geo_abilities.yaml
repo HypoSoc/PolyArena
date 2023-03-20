@@ -408,6 +408,25 @@
       fragile: true
   prerequisite: 133
 
+135:
+  name: "Speed (Geo) I"
+  cost: 10
+  geo:
+    80:
+      circuits:
+        - "AIR/LIGHT"
+  prerequisite: 101
+
+136:
+  name: "Speed (Geo) II"
+  cost: 10
+  geo:
+    80:
+      circuits:
+        - "AIR/LIGHT"
+        - "AIR/LIGHT"
+  prerequisite: 135
+
 137:
   name: "Light I"
   cost: 5

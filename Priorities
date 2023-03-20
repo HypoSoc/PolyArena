@@ -6,6 +6,7 @@ Fighting
 15: Sniping
 16: Range Recalculation
 19: Antimagic (Antimagic CANNOT affect things before this, so fragile abilities shouldn't be before this)
+20: Speed Ambush
 20: Armor Break
 21: Bunker Bonus
 69: Weakest Stat Buff  # NO COMBAT/NO SURV effects should happen after this
@@ -13,7 +14,8 @@ Fighting
 100-109: Reserved Damage Calculation/Fighting
 120-129: Reserved Damage Calculation/Fighting for Ambushed Individuals
 150-169: Reserved Damage + Wounding
-170: Earth 2 Retaliation
+179: Speed can't see past this point
+180: Earth 2 Retaliation
 
 
 

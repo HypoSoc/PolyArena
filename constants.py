@@ -67,6 +67,7 @@ class Condition(Enum):
     BONUS_BUNKER = 53
     FRAGILE_BUNKER = 54  # Bonus bunker susceptible to antimagic
     LONG_PETRIFY = 55  # Petrify lasts an additional turn
+    SNIPED = 56  # Used for Speed Calc
 
 
 class InfoScope(Enum):
@@ -99,12 +100,13 @@ class Effect(Enum):
     PROGRESS = 19
     REMOVE_CONDITION = 20
     INFO_ONCE = 21  # Info, but make sure not to duplicate
+    SPEED = 22
 
 
 class Trigger(Enum):
     NONCOMBAT = 0  # Skill not used in combat
     SELF = 1
-    ENEMY = 2
+    ENEMY = 2  # EXPLICITLY Ignores Range
     ATTACK = 3
     RANGE = 4
     ATTACKED = 5
