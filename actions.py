@@ -58,6 +58,7 @@ class Action:
     interrupted_players: Set['Player'] = set()
     progress_dict: Dict['Player', int] = {}
     no_class: Set['Player'] = set()  # Used poison gas or attuned
+    attacked: Set['Player'] = set()
 
     # Used for conditional trades based on actions
     action_record: List[ACTION_CONDITION] = []
@@ -284,6 +285,7 @@ class Attack(Action):
                 self.public_description += " " + self.target.action.combat_on_interrupt
             self.public_description += "."
             Action.interrupted_players.add(self.target)
+            Action.attacked.add(self.target)
             get_combat_handler().add_attack(self.player, self.target)
 
             # The combat handler will ensure it gets added to the players regular report
@@ -1075,6 +1077,38 @@ class Attune(Action):
             self.player.report += f"You tried to attune illegally and failed." + os.linesep
 
 
+class UseHydro(Action):
+    def __init__(self, game: Optional['Game'], player: "Player", ability: "Ability",
+                 will: List[int], contingency: bool):
+        super().__init__(33 if contingency else -5, game=game, player=player, fragile=False)
+        self.ability = ability
+        self.will = will
+        self.contingency = contingency
+
+    def act(self):
+        if self.contingency and self.player not in Action.attacked:
+            return
+
+        if self.ability.pin in self.player.hydro_spells:
+            return  # Trying to use the same ability twice
+
+        total_will = sum(self.will)
+        # TODO Willpower drain blocking contingencies
+        if total_will > self.player.willpower:
+            self.player.report += f"You cannot use {self.ability.name} because you do not have enough willpower." \
+                                  + os.linesep
+            return
+
+        self.player.willpower -= total_will
+        self.player.report += f"You spent {total_will} willpower casting {self.ability.name}" \
+                              f"{' because you were attacked' if self.contingency else ''}." + os.linesep
+        self.player.hydro_spells[self.ability.pin] = self.will
+
+        if self.contingency:
+            for skill in self.ability.get_skills_for_hydro_contingency(self.will):
+                HandleSkill(self.game, self.player, skill)
+
+
 # Bookkeeping Actions
 class NoncombatSkillStep(Action):
     def __init__(self, game: Optional['Game']):
@@ -1257,6 +1291,7 @@ def reset_action_handler():
     Action.players = set()
     Action.not_wandering = set()
     Action.interrupted_players = set()
+    Action.attacked = set()
     Action.progress_dict = {}
     Action.no_class = set()  # Used poison gas or attuned
     # Used for conditional trades based on actions

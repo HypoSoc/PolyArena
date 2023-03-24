@@ -21,6 +21,7 @@ Fighting
 
 Actions
 
+-5: Hydromancy
 0: Unconditional Conditions from Skills
 9: Conditions from Tattoos
 10: Consumables
@@ -28,6 +29,7 @@ Actions
 20: Bunker
 29: Multi Attack Action (or other attack actions that might fail due to conditions)
 30: Attack Action
+33: Contigency Hydromancy
 34: RESERVED COMBAT SIM
 35: RESERVED Combat Resolution
 40-49: ONLY NON INTERRUPTING ACTIONS. NO KILLING/PETRIFYING

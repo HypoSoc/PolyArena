@@ -26,13 +26,13 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
     for ability_name in abilities:
         ability = get_ability_by_name(ability_name)
         devs[ability.pin] = ability.cost
-        for skill in ability.get_skills([]):
+        for skill in ability.get_skills([], []):
             if skill.effect == Effect.MAX_WILLPOWER:
                 willpower += skill.value
         prereq = ability.get_prerequisite()
         while prereq and prereq.pin not in devs:
             devs[prereq.pin] = prereq.cost
-            for skill in prereq.get_skills([]):
+            for skill in prereq.get_skills([], []):
                 if skill.effect == Effect.MAX_WILLPOWER:
                     willpower += skill.value
             prereq = prereq.get_prerequisite()
@@ -69,7 +69,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Light I", "Antimagic (Geo)",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Rapid Regen II"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Resurrection"],
                       ["Venom", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       injured=False)
     b = create_player("Beta", ["Circuit III", "Light II", "Awareness I", "Antimagic (Geo)", "Fast Attune II",
@@ -86,8 +86,9 @@ if __name__ == '__main__':
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_craft_rune("Rapid Regen II")
+    a.plan_attack(b)
     a.plan_attune(Element.EARTH, Element.EARTH)
+    a.plan_hydro("Resurrection")
     b.plan_train()
     c.plan_attack(b)
     c.plan_attune(Element.LIGHT)

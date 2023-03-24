@@ -68,6 +68,7 @@ class Condition(Enum):
     FRAGILE_BUNKER = 54  # Bonus bunker susceptible to antimagic
     LONG_PETRIFY = 55  # Petrify lasts an additional turn
     SNIPED = 56  # Used for Speed Calc
+    RESURRECT = 57  # Return from Death
 
 
 class InfoScope(Enum):

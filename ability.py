@@ -6,7 +6,7 @@ from typing import List, Optional, Tuple, Iterable, Dict
 
 from yaml import safe_load
 
-from constants import Element, Condition, Trigger, Effect
+from constants import Element, Condition, Trigger, Effect, NONCOMBAT_TRIGGERS
 from skill import Skill, get_skill
 
 
@@ -64,15 +64,49 @@ class GeoQualifiedSkill:
         return skills
 
 
+class HydroQualifiedSkill:
+    def __init__(self, pin: int, cost: int, each: bool = False,
+                 fragile: Optional[Condition] = None):
+        self.pin = pin
+        self.cost = cost  # For repeatable skills, this is the maximum that can be spent, otherwise it is the cost
+        self.each = each
+        self.fragile = fragile
+
+    def get_skills(self, will: int, for_rune=False) -> List[Skill]:
+        skills = []
+        times = will >= self.cost
+        if self.each:
+            times = max(will, self.cost)
+        for i in range(times):
+            skill = get_skill(self.pin).copy()
+            if not for_rune:
+                if self.fragile:
+                    skill.set_fragile(self.fragile)
+                    if skill.trigger not in NONCOMBAT_TRIGGERS:
+                        if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                            skill.priority = 20
+            # To prevent multi triggers of progress, we combine them into a single skill for the each case
+            skills.append(skill)
+            if skill.effect == Effect.PROGRESS:
+                skill.value *= times
+                break
+        return skills
+
+
 class Ability:
     def __init__(self, pin: int, name: str, cost: int, skill_pins: List[int],
                  geo_qualified_skills: List[GeoQualifiedSkill],
+                 hydro_qualified_skills: List[HydroQualifiedSkill],
+                 max_will: int, contingency_forbidden: bool,
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
         self.name = name
         self.cost = cost
         self.skill_pins = skill_pins
         self.geo_qualified_skills = geo_qualified_skills
+        self.hydro_qualified_skills = hydro_qualified_skills
+        self.max_will = max_will
+        self.contingency_forbidden = contingency_forbidden
         self.prerequisite_pin = prerequisite_pin
 
     def get_prerequisite(self) -> Optional[Ability]:
@@ -80,11 +114,15 @@ class Ability:
             return get_ability(self.prerequisite_pin)
         return None
 
-    def get_skills(self, circuits: Iterable[Element]) -> List[Skill]:
+    def get_skills(self, circuits: Iterable[Element], will: List[int]) -> List[Skill]:
+        while len(will) < len(self.hydro_qualified_skills):
+            will.append(0)
         try:
             skills = list(map(get_skill, self.skill_pins))
             skills.extend([skill for qualified in self.geo_qualified_skills
                            for skill in qualified.get_skills(circuits)])
+            skills.extend([skill for i in range(len(self.hydro_qualified_skills))
+                           for skill in self.hydro_qualified_skills[i].get_skills(will[i])])
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
@@ -94,9 +132,15 @@ class Ability:
             skills = list(map(get_skill, self.skill_pins))
             skills.extend([skill for qualified in self.geo_qualified_skills
                            for skill in qualified.get_skills(FULL_ELEMENTS, for_rune=True)])
+            skills.extend([skill for qualified in self.hydro_qualified_skills
+                           for skill in qualified.get_skills(qualified.cost, for_rune=True)])
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
+
+    def get_skills_for_hydro_contingency(self, will: List[int]) -> List[Skill]:
+        return [skill for i in range(len(self.hydro_qualified_skills))
+                for skill in self.hydro_qualified_skills[i].get_skills(will[i]) if skill.trigger in NONCOMBAT_TRIGGERS]
 
     def is_copyable(self) -> bool:
         # Aeromancy is not copyable
@@ -113,7 +157,7 @@ class Ability:
 
     def __str__(self):
         val = f"{self.name} ({self.cost}):{os.linesep}"
-        for skill in self.get_skills(FULL_ELEMENTS):
+        for skill in self.get_skills(FULL_ELEMENTS, [qualified.cost for qualified in self.hydro_qualified_skills]):
             val += skill.text
             if skill.fragile:
                 val += " (Fragile)"
@@ -143,6 +187,7 @@ def get_ability_by_name(name: str) -> Ability:
 
 def __parse_ability(pin: int, dictionary: Dict) -> Ability:
     geo_qualified_skills = []
+    hydro_qualified_skills = []
     for entry_pin, entry_value in dictionary.get('geo', {}).items():
         circuits = []
         element_options: List[List[Element]] = []
@@ -155,11 +200,23 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
             fragile = Condition.GEO_LOCKED
         geo_qualified_skills.append(GeoQualifiedSkill(pin=entry_pin, circuits=circuits,
                                                       each=entry_value.get('each', False), fragile=fragile))
+
+    for entry_pin, entry_value in dictionary.get('hydro', {}).items():
+        fragile = None
+        if entry_value.get('fragile', None):
+            fragile = Condition.HYDRO_LOCKED
+        hydro_qualified_skills.append(HydroQualifiedSkill(pin=entry_pin, cost=entry_value['cost'],
+                                                          each=entry_value.get('each', False), fragile=fragile))
+
     skills = []
     if 'skills' in dictionary:
         skills = dictionary['skills']
     return Ability(pin=pin, name=dictionary['name'], cost=dictionary['cost'],
-                   skill_pins=skills, geo_qualified_skills=geo_qualified_skills,
+                   skill_pins=skills,
+                   geo_qualified_skills=geo_qualified_skills,
+                   hydro_qualified_skills=hydro_qualified_skills,
+                   max_will=dictionary.get('max_will', 1000000),
+                   contingency_forbidden=dictionary.get('not_contingency', False),
                    prerequisite_pin=dictionary.get('prerequisite'))
 
 

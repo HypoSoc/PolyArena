@@ -4,7 +4,8 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
-    ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, MultiAttack
+    ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
+    MultiAttack, UseHydro
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -86,6 +87,7 @@ class Player:
         self.temporary_abilities: List[int] = []
 
         self.max_willpower = 0  # Comes from abilities
+        self.hydro_spells: Dict[int, List[int]] = {}
 
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
@@ -101,6 +103,7 @@ class Player:
         clone.temporary_abilities = self.temporary_abilities
         clone.circuits = self.circuits[:]
         clone.max_willpower = self.max_willpower
+        clone.hydro_spells = self.hydro_spells
         return clone
 
     # Used for evaluating simulations
@@ -241,7 +244,7 @@ class Player:
 
     # For turning off Petrify and the like
     def disable_ability(self, ability_name: str):
-        if ability_name.upper() != "PETRIFICATION I":
+        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION"):
             raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
         self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 
@@ -378,6 +381,33 @@ class Player:
         if len(elements):
             self.attuning = True
             Attune(self.game, self, tuple(elements))
+
+    def plan_hydro(self, ability_name: str, will: Union[Optional[List[int]], int] = None, contingency: bool = False):
+        if isinstance(will, int):
+            will = [will]
+
+        assert self.has_ability(ability_name, strict=True), f"Player {self.name} is trying to cast " \
+                                                            f"an ability they don't know {ability_name}."
+        ability = get_ability_by_name(ability_name)
+        assert not contingency or not ability.contingency_forbidden, f"Player {self.name} is trying to use a " \
+                                                                     f"contingency that is forbidden ({ability_name})."
+        assert len(ability.hydro_qualified_skills), f"Player {self.name} is trying to cast " \
+                                                    f"a non hydro ability {ability_name}."
+        if not will:
+            if len(ability.hydro_qualified_skills) == 1:
+                if not ability.hydro_qualified_skills[0].each:
+                    will = [ability.hydro_qualified_skills[0].cost]
+            else:
+                will = []
+
+        if len(will) != len(ability.hydro_qualified_skills):
+            raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
+        for i in range(len(will)):
+            if will[i] < 0 or will[i] > ability.hydro_qualified_skills[i].cost:
+                raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
+        if sum(will) > ability.max_will:
+            raise Exception(f"Player {self.name} is trying to spend too much willpower on {ability_name} ({will}).")
+        UseHydro(self.game, self, ability, will, contingency)
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)
@@ -528,7 +558,7 @@ class Player:
         skills = []
         for ability in self.get_abilities():
             if ability.pin not in self.disabled_ability_pins:
-                skills += ability.get_skills(self.circuits)
+                skills += ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, []))
         for item in self.get_items(duplicates=False):
             if item.item_type != ItemType.CONSUMABLE:
                 skills += item.get_skills()

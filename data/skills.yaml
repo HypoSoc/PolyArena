@@ -537,3 +537,9 @@
   effect: "MAX_WILLPOWER"
   value: 2
   trigger: "NONCOMBAT"
+
+83:
+  text: "Resurrect when killed"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "RESURRECT"

@@ -32,7 +32,13 @@
     - 82
   prerequisite: 204
 
-
+206:
+  name: "Resurrection"
+  cost: 15
+  hydro:
+    83:
+      cost: 5
+  prerequisite: 204
 
 
 
