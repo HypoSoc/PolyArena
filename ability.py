@@ -164,7 +164,8 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
 
 
 if not __ability_dict:
-    for file_name in ['data/geo_abilities.yaml', 'data/body_abilities.yaml', 'data/mind_abilities.yaml']:
+    for file_name in ['data/geo_abilities.yaml', 'data/hydro_abilities.yaml',
+                      'data/body_abilities.yaml', 'data/mind_abilities.yaml']:
         with open(file_name) as file:
             ability_list = safe_load(file)
             for (k, v) in ability_list.items():

@@ -525,4 +525,15 @@
   text: "Speed +1"
   effect: "SPEED"
   value: 1
-  priority: 0
+
+81:
+  text: "Max Willpower +3"
+  effect: "MAX_WILLPOWER"
+  value: 3
+  trigger: "NONCOMBAT"
+
+82:
+  text: "Max Willpower +2"
+  effect: "MAX_WILLPOWER"
+  value: 2
+  trigger: "NONCOMBAT"

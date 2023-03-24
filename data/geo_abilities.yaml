@@ -111,7 +111,7 @@
 116:
   name: "Runic Tattoos"
   cost: 10
-  prequsite: 114
+  prerequisite: 114
 
 117:
   name: "Fire I"

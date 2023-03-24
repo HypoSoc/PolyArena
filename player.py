@@ -24,6 +24,7 @@ CONSUME_PREFER = {MEDKIT: DEPLETED_MEDKIT}
 class Player:
     def __init__(self, name: str, progress_dict: Dict[int, int], dev_plan: List[int], academics: int,
                  temperament: Temperament, conditions: List[Condition], items: List[int], money: int,
+                 willpower: int,
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
                  game: Game):
         assert "%" not in name, "Illegal character %"
@@ -35,6 +36,7 @@ class Player:
         self.items = items
         self.conditions = conditions
         self.credits = money
+        self.willpower = willpower
         self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy
         self.tattoo = tattoo  # Rune item pin
         self.game = game
@@ -83,10 +85,12 @@ class Player:
         self.tentative_conditions = []
         self.temporary_abilities: List[int] = []
 
+        self.max_willpower = 0  # Comes from abilities
+
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
                        academics=self.academics, temperament=self.temperament, conditions=self.conditions.copy(),
-                       items=self.items.copy(), money=self.credits,
+                       items=self.items.copy(), money=self.credits, willpower=self.willpower,
                        relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
                        tattoo=self.tattoo,
                        game=self.game.clone())
@@ -96,6 +100,7 @@ class Player:
         clone.tentative_conditions = self.tentative_conditions
         clone.temporary_abilities = self.temporary_abilities
         clone.circuits = self.circuits[:]
+        clone.max_willpower = self.max_willpower
         return clone
 
     # Used for evaluating simulations

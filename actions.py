@@ -139,7 +139,7 @@ class Action:
         CombatSimStep(game)
         CombatStep(game)
         ProgressStep(game)
-        # WillpowerStep(game)
+        WillpowerStep(game)
         StatusChangeStep(game)
 
         while not cls.queue.empty():
@@ -246,6 +246,9 @@ class HandleSkill(Action):
         elif self.skill.effect == Effect.PROGRESS:
             if not self.fake:
                 Action.progress(self.player, self.skill.value)
+        elif self.skill.effect == Effect.MAX_WILLPOWER:
+            if not self.fake:
+                self.player.max_willpower += self.skill.value
 
         else:
             raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name}")
@@ -1191,6 +1194,27 @@ class ProgressStep(Action):
 
             if progress > 0:
                 player.gain_progress(progress)
+
+
+class WillpowerStep(Action):
+    def __init__(self, game: Optional['Game'],):
+        super().__init__(130, game=game, player=None)
+
+    def act(self):
+        if self.game:
+            for player in Action.players:
+                if not player.is_dead():
+                    if player.max_willpower:
+                        if self.game.night or player.has_ability("Rapid Regen II"):
+                            if player.has_ability("Rapid Regen I"):
+                                regen = player.max_willpower
+                            else:
+                                regen = player.max_willpower // 2 + (player.max_willpower % 2)  # Divide by 2 round up
+                            regen = min(regen, player.max_willpower-player.willpower)
+                            if regen:
+                                player.report += f"You regained {regen} willpower." + os.linesep
+                                player.willpower += regen
+                        player.report += f"{player.willpower}/{player.max_willpower} Willpower" + os.linesep
 
 
 class StatusChangeStep(Action):

@@ -1,0 +1,58 @@
+201:
+  name: "Willpower I"
+  cost: 5
+  skills:
+    - 81
+
+202:
+  name: "Willpower II"
+  cost: 5
+  skills:
+    - 82
+  prerequisite: 201
+
+203:
+  name: "Willpower III"
+  cost: 5
+  skills:
+    - 82
+  prerequisite: 202
+
+204:
+  name: "Willpower IV"
+  cost: 5
+  skills:
+    - 82
+  prerequisite: 203
+
+205:
+  name: "Willpower V"
+  cost: 5
+  skills:
+    - 82
+  prerequisite: 204
+
+
+
+
+
+220:
+  name: "Rapid Regen I"
+  cost: 10
+  skills: []
+  prerequisite: 201
+
+221:
+  name: "Rapid Regen II"
+  cost: 10
+  skills: []
+  prerequisite: 220
+
+
+
+238:
+  name: "Quiet Casting"
+  cost: 10
+  skills:
+    - 82
+  prerequisite: 201

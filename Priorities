@@ -44,5 +44,5 @@ Actions
 95: Trade Secrets
 100-102: Item Trade ONLY
 105: Hooks Used
-110: Willpower Regen
-120: Status Changes (Grievous/Petrify Tics)
+130: Willpower Regen
+140: Status Changes (Grievous/Petrify Tics)

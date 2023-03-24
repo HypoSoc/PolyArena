@@ -20,12 +20,21 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
     if abilities is None:
         abilities = []
     devs = {}
+
+    willpower = 0
+
     for ability_name in abilities:
         ability = get_ability_by_name(ability_name)
         devs[ability.pin] = ability.cost
+        for skill in ability.get_skills([]):
+            if skill.effect == Effect.MAX_WILLPOWER:
+                willpower += skill.value
         prereq = ability.get_prerequisite()
         while prereq and prereq.pin not in devs:
             devs[prereq.pin] = prereq.cost
+            for skill in prereq.get_skills([]):
+                if skill.effect == Effect.MAX_WILLPOWER:
+                    willpower += skill.value
             prereq = prereq.get_prerequisite()
 
     item_pins = []
@@ -45,7 +54,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
-                    items=item_pins, money=10, relative_conditions={}, tattoo=tattoo,
+                    items=item_pins, money=3, willpower=willpower, relative_conditions={}, tattoo=tattoo,
                     game=GAME)
 
     def patient():
@@ -60,7 +69,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Light I", "Antimagic (Geo)",
-                                "Runic Tattoos", "Magical Healing (Geo)"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Rapid Regen II"],
                       ["Venom", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       injured=False)
     b = create_player("Beta", ["Circuit III", "Light II", "Awareness I", "Antimagic (Geo)", "Fast Attune II",
@@ -69,19 +78,20 @@ if __name__ == '__main__':
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
-                                  "Circuit III", "Speed (Geo) II", "Light I"],
-                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Earth III Rune", "Bokken"],
+                                  "Circuit III", "Speed (Geo) II", "Light I", "Willpower IV"],
+                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection"], temperament=Temperament.PATIENT,
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_attack(b)
+    a.plan_craft_rune("Rapid Regen II")
     a.plan_attune(Element.EARTH, Element.EARTH)
     b.plan_train()
     c.plan_attack(b)
     c.plan_attune(Element.LIGHT)
+    c.plan_consume_item("Rapid Regen II Rune")
 
     Action.run_turn(GAME)
 

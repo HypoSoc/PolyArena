@@ -101,6 +101,7 @@ class Effect(Enum):
     REMOVE_CONDITION = 20
     INFO_ONCE = 21  # Info, but make sure not to duplicate
     SPEED = 22
+    MAX_WILLPOWER = 23
 
 
 class Trigger(Enum):
