@@ -57,6 +57,13 @@ class DayReport(object):
     def set_attunement(self, player: "Player", elements: Tuple[Element]):
         self.circuits[player] = elements
 
+    def spend_willpower(self, player: "Player", will: int):
+        if will <= 0:
+            return
+        if player not in self.willpower:
+            self.willpower[player] = 0
+        self.willpower[player] += will
+
     def add_shop(self, player: "Player", money: int, items: Dict["Item", int]):
         self.shop.append((player, money, items))
 

@@ -1104,6 +1104,9 @@ class UseHydro(Action):
                               f"{' because you were attacked' if self.contingency else ''}." + os.linesep
         self.player.hydro_spells[self.ability.pin] = self.will
 
+        if not self.player.has_ability("Quiet Casting"):
+            DayReport().spend_willpower(self.player, total_will)
+
         if self.contingency:
             for skill in self.ability.get_skills_for_hydro_contingency(self.will):
                 HandleSkill(self.game, self.player, skill)
