@@ -178,7 +178,7 @@ class CombatHandler:
 
             combat = {}
             survivability = {}
-            conditions: Dict['Player', List[Condition]] = {}
+            conditions: Dict['Player', List[Condition]] = {p: [] for p in group}
 
             queue: PriorityQueue[Tic] = PriorityQueue()
 
@@ -206,9 +206,9 @@ class CombatHandler:
 
             def get_speed(a: "Player"):
                 speed = self.speed.get(a, 0)
-                if Condition.AMBUSHED in conditions[a]:
+                if Condition.AMBUSHED in conditions.get(a, []):
                     speed -= 1
-                if Condition.SNIPED in conditions[a]:
+                if Condition.SNIPED in conditions.get(a, []):
                     speed -= 2
                 return max(speed, 0)
 
@@ -739,7 +739,6 @@ class CombatHandler:
             survivors = [player for player in group if player not in dead_list]
             for player in dead_list:
                 loot_items = [item for item in player.get_items() if item.loot]
-                player.items = []
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
                     looter = survivors[0]
@@ -749,6 +748,10 @@ class CombatHandler:
                                                    f"{looter.name} looted {player.name}'s "
                                                    f"{item.name}.",
                                                    [looter], InfoScope.PRIVATE)
+                else:
+                    self._append_to_event_list(self.combat_group_to_events[group],
+                                               f"{player.name}'s items were lost in the confusion.",
+                                               survivors, InfoScope.PRIVATE)
 
             for player in group:
                 if player in self.full_escape:

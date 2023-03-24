@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type
 from ability import Ability, get_ability
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
-    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element
+    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS
 from items import get_item_by_name, get_item, Item, Rune
 from report import DayReport
 
@@ -145,7 +145,7 @@ class Action:
 
         while not cls.queue.empty():
             tic = cls.queue.get()
-            if not tic.player or Action.can_act(tic.player):
+            if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect):
                 tic.act()
             elif Condition.PETRIFIED in tic.player.conditions:
                 DayReport().add_petrification(tic.player)
@@ -1200,6 +1200,8 @@ class CombatStep(Action):
         super().__init__(35, game=game, player=None)
 
     def act(self):
+        was_alive = {player: not player.is_dead() for player in Action.players}
+
         get_combat_handler().process_all_combat()
 
         for player in Action.players:
@@ -1212,6 +1214,10 @@ class CombatStep(Action):
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.POST_COMBAT:
                         HandleSkill(self.game, player, skill)
+            elif was_alive[player]:
+                player.report += os.linesep
+                player.destroy_fragile_items(include_loot=True)
+                player.report += os.linesep
         for player in get_combat_handler().full_escape:
             DayReport().add_action(player, f"{player.name} escaped combat.")
             self.interrupted_players.discard(player)
@@ -1239,6 +1245,7 @@ class WillpowerStep(Action):
             for player in Action.players:
                 if not player.is_dead():
                     if player.max_willpower:
+                        player.report += os.linesep
                         if self.game.night or player.has_ability("Rapid Regen II"):
                             if player.has_ability("Rapid Regen I"):
                                 regen = player.max_willpower
@@ -1258,6 +1265,7 @@ class StatusChangeStep(Action):
     def act(self):
         for player in Action.players:
             if not player.is_dead():
+                player.report += os.linesep
                 if Condition.PETRIFIED in player.conditions:
                     player.conditions.remove(Condition.PETRIFIED)
                     count = player.conditions.count(Condition.PETRIFIED)
@@ -1274,15 +1282,29 @@ class StatusChangeStep(Action):
                     player.conditions.append(Condition.GRIEVOUS)
                     count = player.conditions.count(Condition.GRIEVOUS)
                     if count >= 4:
-                        player.report += "You have succumbed to your wounds and died." + os.linesep
-                        DayReport().broadcast(f"{player.name} succumbed to their wounds and died.")
-                        player.conditions.append(Condition.DEAD)
+                        player.die(f"{player.name} succumbed to their wounds and died.")
                     else:
                         turn = "turn"
                         if count != 3:
                             turn += 's'
                         player.report += f"You are grievously wounded you must heal " \
                                          f"within {4-count} {turn} or you will die." + os.linesep
+
+
+class Resurrect(Action):
+    def __init__(self, game: Optional['Game'], player: "Player"):
+        super().__init__(priority=36, game=game, player=player, fragile=False,
+                         public_description=f"{player.name} rose from the dead.")
+
+    def act(self):
+        if not self.player.is_dead():
+            return
+        DayReport().add_action(self.player, f"{self.player.name} died.")
+        super().act()
+
+    def _act(self):
+        # Delete stealable items and fragile items
+        self.player.conditions = [condition for condition in self.player.conditions if condition not in AFFLICTIONS]
 
 
 def reset_action_handler():

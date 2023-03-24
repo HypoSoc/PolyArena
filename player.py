@@ -5,7 +5,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro
+    MultiAttack, UseHydro, Resurrect
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -109,7 +109,7 @@ class Player:
     # Used for evaluating simulations
     def get_score(self) -> int:
         score = 0
-        if self.is_dead():
+        if self.is_dead():  # Explicitly unaware of resurrection, for better or worse
             score -= 100000000
         if self.has_condition(Condition.PETRIFIED):
             score -= 100
@@ -168,6 +168,7 @@ class Player:
             .replace("you is", "you are") \
             .replace("you healed themself", "you healed yourself") \
             .replace("you hurt themself", "you hurt yourself") \
+            .replace("you succumbed to their", "you succumbed to your") \
             .replace("you tattooed themself", "you tattooed yourself") \
             .replace("your Poison Gas failed because they were Ambushed",
                      "your Poison Gas failed because you were Ambushed") \
@@ -595,7 +596,7 @@ class Player:
         return total
 
     def gain_progress(self, progress: int) -> NoReturn:
-        if Condition.DEAD in self.conditions:
+        if self.is_dead():
             return
         self.report += f'+{progress} Progress{os.linesep}'
 
@@ -669,6 +670,16 @@ class Player:
                 DayReport().broadcast(message)
         return report_callable
 
+    def die(self, message, reporting_func: Optional[ReportCallable] = None):
+        if not reporting_func:
+            reporting_func = self._non_combat_report_callable()
+        self.conditions.append(Condition.DEAD)
+        if self.has_condition(Condition.RESURRECT):
+            Resurrect(self.game, self)
+            reporting_func(message, InfoScope.PUBLIC)
+        else:
+            reporting_func(message, InfoScope.BROADCAST)
+
     def wound(self, injury_modifiers: Optional[List[InjuryModifier]] = None,
               reporting_func: Optional[ReportCallable] = None) -> bool:
         if injury_modifiers is None:
@@ -686,8 +697,7 @@ class Player:
         if Condition.DEAD not in self.conditions:
             if Condition.INJURED in self.conditions:
                 if InjuryModifier.NONLETHAL not in injury_modifiers:
-                    reporting_func(f"{self.name} died.", InfoScope.BROADCAST)
-                    self.conditions.append(Condition.DEAD)
+                    self.die(f"{self.name} died.", reporting_func)
                     return True
             else:
                 if InjuryModifier.GRIEVOUS in injury_modifiers:
@@ -758,10 +768,10 @@ class Player:
             self.items.remove(item.pin)
         self.report += f"{item.name} x{amount} lost ({self.items.count(item.pin)} remaining)" + os.linesep
 
-    def destroy_fragile_items(self):
+    def destroy_fragile_items(self, include_loot: bool = False):
         lost_items = {}
         for item in self.get_items(duplicates=True):
-            if item.fragile:
+            if item.fragile or (include_loot and item.loot):
                 if item.pin not in lost_items:
                     lost_items[item.pin] = 0
                 lost_items[item.pin] += 1

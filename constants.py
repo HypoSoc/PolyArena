@@ -71,6 +71,9 @@ class Condition(Enum):
     RESURRECT = 57  # Return from Death
 
 
+AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
+
+
 class InfoScope(Enum):
     HIDDEN = 0
     PUBLIC = 1

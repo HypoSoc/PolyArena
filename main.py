@@ -49,6 +49,9 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
     conditions = []
     if injured:
         conditions.append(Condition.INJURED)
+        conditions.append(Condition.GRIEVOUS)
+        conditions.append(Condition.GRIEVOUS)
+        conditions.append(Condition.GRIEVOUS)
 
     if tattoo:
         tattoo = get_item_by_name(tattoo+" Rune").pin
@@ -70,10 +73,9 @@ if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Light I", "Antimagic (Geo)",
                                 "Rune Crafting II", "Magical Healing (Geo)", "Resurrection"],
-                      ["Venom", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
-                      injured=False)
-    b = create_player("Beta", ["Circuit III", "Light II", "Awareness I", "Antimagic (Geo)", "Fast Attune II",
-                               "Speed (Geo) II"],
+                      ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
+                      injured=True)
+    b = create_player("Beta", ["Circuit III", "Fire III", "Awareness I", "Antimagic (Geo)"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
@@ -86,11 +88,12 @@ if __name__ == '__main__':
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_attack(b)
+    a.plan_train()
     a.plan_attune(Element.EARTH, Element.EARTH)
     a.plan_hydro("Resurrection")
-    b.plan_train()
-    c.plan_attack(b)
+    b.plan_attack(d)
+    b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
+    c.plan_attack(d)
     c.plan_attune(Element.LIGHT)
     c.plan_consume_item("Rapid Regen II Rune")
 
