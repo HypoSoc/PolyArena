@@ -73,6 +73,15 @@
   not_contingency: true
   prerequisite: 202
 
+211:
+  name: "Illusions II"
+  cost: 10
+  hydro:
+    91:
+      cost: 2
+  not_contingency: true
+  prerequisite: 210
+
 220:
   name: "Rapid Regen I"
   cost: 10

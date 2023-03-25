@@ -28,6 +28,8 @@ class Skill:
         self.fragile: Optional[Condition] = None
         self.read_only = True
 
+        self.targets = []  # Used for Trigger.TARGET skills
+
     def copy(self) -> 'Skill':
         copied = Skill(pin=self.pin, text=self.text, effect=self.effect, value=self.value, priority=self.priority,
                        info=self.info, trigger=self.trigger,

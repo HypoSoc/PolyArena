@@ -234,7 +234,7 @@
   effect: "REL_CONDITION"
   trigger: "SPY"
   value: "KNOW"
-  info: "PRIVATE"
+  info: "PERSONAL"
   priority: 85
 
 36:
@@ -248,21 +248,21 @@
   effect: "REL_CONDITION"
   trigger: "SPY"
   value: "HOOK"
-  info: "PRIVATE"
+  info: "PERSONAL"
   priority: 85
 
 38:
   text: "%SELF% destroyed %TARGET%'s notes."
   effect: "DEV_SABOTAGE"
   trigger: "SPY"
-  info: "PRIVATE"
+  info: "PERSONAL"
   priority: 95
 
 39:
   text: "%SELF% copied %TARGET%'s abilities."
   effect: "COPYCAT"
   trigger: "SPY"
-  info: "PRIVATE"
+  info: "PERSONAL"
   priority: 89
 
 40:
@@ -586,3 +586,10 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "ILLUSIONIST"
+
+91:
+  text: "%SELF% afflicted %TARGET% with disorienting Illusions."
+  effect: "CONDITION"
+  trigger: "TARGET"
+  value: "DELUDED"
+  info: "PERSONAL"

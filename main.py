@@ -68,9 +68,9 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 
 if __name__ == '__main__':
-    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
+    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Illusions I", "Willpower Draining"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Illusions II", "Willpower Draining"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       hiding=False)
     b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Willpower Draining"],
@@ -87,9 +87,8 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_train()
-    a.plan_hydro("Illusions I")
-    a.plan_illusion(c, Tattoo(None, c, c, get_item_by_name("Armed Combat II Rune")), "Fire III")
-    b.plan_train()
+    a.plan_hydro("Illusions II", targets=b)
+    b.plan_attack(c)
     b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
     c.plan_train()
     c.plan_attune()

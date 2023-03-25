@@ -75,6 +75,7 @@ class Condition(Enum):
     NO_CONTINGENCY = 61  # Prevents Contingencies from happening
     HAS_WILLPOWER = 62  # Set if the player has any willpower to drain
     ILLUSIONIST = 63  # Can cast an illusion of actions
+    DELUDED = 64  # -2 Combat from Illusion 2
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -85,6 +86,7 @@ class InfoScope(Enum):
     PUBLIC = 1
     PRIVATE = 2
     BROADCAST = 3
+    PERSONAL = 4  # Like Private, but targets don't get to see, only the originator
 
 
 class Effect(Enum):
@@ -129,10 +131,11 @@ class Trigger(Enum):
     NONCOMBAT_POST_ATTUNE = 13  # Usually does not need to be set in the yaml
     POST_COMBAT = 14
     RANGE_IGNORE_SPEED = 15  # Used for speed affecting in range abilities to avoid edge cases
+    TARGET = 16  # Manually selected target
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
-                      Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT]
+                      Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET]
 
 
 class ItemType(Enum):

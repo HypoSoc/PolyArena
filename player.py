@@ -6,7 +6,7 @@ from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
     MultiAttack, UseHydro, Resurrect, Illusion
-from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element
+from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
 from report import ReportCallable, DayReport
@@ -88,6 +88,8 @@ class Player:
 
         self.max_willpower = 0  # Comes from abilities
         self.hydro_spells: Dict[int, List[int]] = {}
+
+        self.ability_targets: Dict[int, List[Player]] = {}
 
         self.used_illusion = False
 
@@ -385,9 +387,15 @@ class Player:
             self.attuning = True
             Attune(self.game, self, tuple(elements))
 
-    def plan_hydro(self, ability_name: str, will: Union[Optional[List[int]], int] = None, contingency: bool = False):
+    def plan_hydro(self, ability_name: str, will: Union[Optional[List[int]], int] = None, contingency: bool = False,
+                   targets: Union[Optional[List['Player']], 'Player'] = None):
         if isinstance(will, int):
             will = [will]
+
+        if not targets:
+            targets = []
+        if not isinstance(targets, list):
+            targets = [targets]
 
         assert self.has_ability(ability_name, strict=True), f"Player {self.name} is trying to cast " \
                                                             f"an ability they don't know {ability_name}."
@@ -410,6 +418,10 @@ class Player:
                 raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
         if sum(will) > ability.max_will:
             raise Exception(f"Player {self.name} is trying to spend too much willpower on {ability_name} ({will}).")
+
+        if targets:
+            self.ability_targets[ability.pin] = targets
+
         UseHydro(self.game, self, ability, will, contingency)
 
     def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
@@ -571,7 +583,12 @@ class Player:
         skills = []
         for ability in self.get_abilities():
             if ability.pin not in self.disabled_ability_pins:
-                skills += ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, []))
+                ability_skills = ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, []))
+                if ability.pin in self.ability_targets:
+                    for skill in ability_skills:
+                        if skill.trigger == Trigger.TARGET:
+                            skill.targets = self.ability_targets[ability.pin]
+                skills += ability_skills
         for item in self.get_items(duplicates=False):
             if item.item_type != ItemType.CONSUMABLE:
                 skills += item.get_skills()

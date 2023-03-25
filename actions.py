@@ -208,9 +208,12 @@ class Action:
 
 class HandleSkill(Action):
     def __init__(self, game: Optional['Game'], player: "Player", skill: 'Skill',
-                 target: Optional['Player'] = None, fake: bool = False):
+                 targets: Optional[List['Player']] = None, fake: bool = False):
         super().__init__(priority=skill.priority, game=game, player=player, fragile=False)
-        self.target = target
+        if targets is None:
+            self.targets = [player]
+        else:
+            self.targets = targets
         self.skill = skill
         self.fake = fake  # Used to disguise that copycat and trade secrets fail vs counter int
 
@@ -220,57 +223,59 @@ class HandleSkill(Action):
         if self.skill.self_not_condition and self.player.has_condition(self.skill.self_not_condition):
             return
 
-        if self.target:
-            if self.skill.target_has_condition and not self.target.has_condition(self.skill.target_has_condition):
+        for target in self.targets:
+            if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
                 return
-            if self.skill.target_not_condition and self.target.has_condition(self.skill.target_not_condition):
+            if self.skill.target_not_condition and target.has_condition(self.skill.target_not_condition):
                 return
 
-        if self.skill.text:
-            text = self.skill.text.replace(SELF_PLACEHOLDER, self.player.name)
-            if self.target:
-                text = text.replace(TARGET_PLACEHOLDER, self.target.name)
+            if self.skill.text:
+                text = self.skill.text.replace(SELF_PLACEHOLDER, self.player.name)\
+                    .replace(TARGET_PLACEHOLDER, target.name)
 
-            if self.skill.info == InfoScope.PRIVATE:
-                self.player.report += text + os.linesep
-            elif self.skill.info == InfoScope.PUBLIC:
-                DayReport().add_action(self.player, text)
-            elif self.skill.info == InfoScope.BROADCAST:
-                DayReport().broadcast(text)
+                if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
+                    self.player.report += text + os.linesep
+                    if target != self.player and self.skill.info != InfoScope.PERSONAL:
+                        target.report += text + os.linesep
+                elif self.skill.info == InfoScope.PUBLIC:
+                    DayReport().add_action(self.player, text)
+                elif self.skill.info == InfoScope.BROADCAST:
+                    DayReport().broadcast(text)
 
-        if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
-            return
+            if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
+                return
 
-        if self.skill.effect == Effect.CONDITION:
-            if not self.fake:
-                self.player.turn_conditions.append(Condition[self.skill.value])
-        elif self.skill.effect == Effect.TENTATIVE_CONDITION:
-            if not self.fake:
-                self.player.tentative_conditions.append(Condition[self.skill.value])
-        elif self.skill.effect == Effect.REL_CONDITION:
-            if not self.target:
-                raise Exception("No target for relative condition?")
-            if not self.fake:
-                self.player.add_relative_condition(self.target, Condition[self.skill.value])
-        elif self.skill.effect == Effect.DEV_SABOTAGE:
-            if not self.target:
-                raise Exception("No target for dev sabotage?")
-            if not self.fake:
-                self.target.dev_sabotaged(self.skill.text.replace(SELF_PLACEHOLDER, "somebody")
-                                          .replace(TARGET_PLACEHOLDER, self.target.name))
-        elif self.skill.effect == Effect.COPYCAT:
-            if not self.target:
-                raise Exception("No target for copycat?")
-            self.player.copycat(self.target, fake=self.fake)
-        elif self.skill.effect == Effect.PROGRESS:
-            if not self.fake:
-                Action.progress(self.player, self.skill.value)
-        elif self.skill.effect == Effect.MAX_WILLPOWER:
-            if not self.fake:
-                self.player.max_willpower += self.skill.value
+            if self.skill.effect == Effect.CONDITION:
+                if not self.fake:
+                    target.turn_conditions.append(Condition[self.skill.value])
+            elif self.skill.effect == Effect.TENTATIVE_CONDITION:
+                if not self.fake:
+                    target.tentative_conditions.append(Condition[self.skill.value])
+            elif self.skill.effect == Effect.REL_CONDITION:
+                # To be refactored if I ever need to give arbitrary players relative_conditions
+                if target == self.player:
+                    raise Exception("No target for relative condition?")
+                if not self.fake:
+                    self.player.add_relative_condition(self.target, Condition[self.skill.value])
+            elif self.skill.effect == Effect.DEV_SABOTAGE:
+                if target == self.player:
+                    raise Exception("No target for dev sabotage?")
+                if not self.fake:
+                    target.dev_sabotaged(self.skill.text.replace(SELF_PLACEHOLDER, "somebody")
+                                         .replace(TARGET_PLACEHOLDER, target.name))
+            elif self.skill.effect == Effect.COPYCAT:
+                if target == self.player:
+                    raise Exception("No target for copycat?")
+                self.player.copycat(target, fake=self.fake)
+            elif self.skill.effect == Effect.PROGRESS:
+                if not self.fake:
+                    target.progress(self.player, self.skill.value)
+            elif self.skill.effect == Effect.MAX_WILLPOWER:
+                if not self.fake:
+                    target.max_willpower += self.skill.value
 
-        else:
-            raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name}")
+            else:
+                raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name}")
 
 
 class Wander(Action):
@@ -1231,6 +1236,9 @@ class NoncombatSkillStep(Action):
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.NONCOMBAT:
                         HandleSkill(self.game, player, skill)
+                    if skill.trigger == Trigger.TARGET:
+                        if skill.targets:
+                            HandleSkill(self.game, player, skill, targets=skill.targets)
 
 
 class TattooStep(Action):

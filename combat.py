@@ -523,10 +523,12 @@ class CombatHandler:
 
                     if skill.info != InfoScope.HIDDEN:
                         for target in targets:
+
                             msg = skill.text.replace(SELF_PLACEHOLDER, p.name).replace(TARGET_PLACEHOLDER, target.name)
                             if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
-                                                           [p, target], skill.info)
+                                                           [p, target] if skill.info != InfoScope.PERSONAL else [p],
+                                                           skill.info)
                             if skill.effect == Effect.INFO_ONCE:
                                 self.info_once.add(msg)
 
@@ -640,6 +642,9 @@ class CombatHandler:
                     c -= 2
                 elif d and p.check_relative_condition(d, Condition.KNOW):
                     c += 1
+
+                if p.has_condition(Condition.DELUDED):
+                    c -= 2
 
                 if c < 0:
                     c = 0
