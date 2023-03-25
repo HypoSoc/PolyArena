@@ -543,3 +543,15 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "RESURRECT"
+
+84:
+  text: "Speed -1"
+  effect: "SPEED"
+  trigger: "RANGE_IGNORE_SPEED"
+  value: -1
+  priority: 22
+
+85:
+  text: "%SELF% unleashed a field of lava!"
+  effect: "INFO_ONCE"
+  info: "PUBLIC"

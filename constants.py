@@ -121,6 +121,7 @@ class Trigger(Enum):
     SPIED_ON = 12
     NONCOMBAT_POST_ATTUNE = 13  # Usually does not need to be set in the yaml
     POST_COMBAT = 14
+    RANGE_IGNORE_SPEED = 15  # Used for speed affecting in range abilities to avoid edge cases
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,

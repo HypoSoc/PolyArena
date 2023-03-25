@@ -87,10 +87,10 @@ class CombatHandler:
         player_to_clone: Dict["Player", "Player"] = {}
         clone_to_player: Dict["Player", "Player"] = {}
 
-        def make_and_modify_clone(player: 'Player'):
-            clone = player.make_copy_for_simulation()
-            player_to_clone[player] = clone
-            clone_to_player[clone] = player
+        def make_and_modify_clone(_player: 'Player'):
+            clone = _player.make_copy_for_simulation()
+            player_to_clone[_player] = clone
+            clone_to_player[clone] = _player
 
         for attacker, defender_set in self.attacker_to_defenders.items():
             for defender in defender_set:
@@ -301,7 +301,7 @@ class CombatHandler:
                     self.ambushes[ambusher].add(ambushee)
                     conditions[ambushee].append(Condition.AMBUSHED)
 
-                return 20, self.tic_index, confirm_ambush
+                return 25, self.tic_index, confirm_ambush
 
             def skill_tic(p: Player, skill: 'Skill') -> Tic:
                 self.tic_index += 1
@@ -342,6 +342,8 @@ class CombatHandler:
                                     targets.append(o)
                     elif skill.trigger == Trigger.RANGE:
                         targets = [o for o in group if self.check_range(p, o)]
+                    elif skill.trigger == Trigger.RANGE_IGNORE_SPEED:
+                        targets = [o for o in group if self.check_range(p, o, ignore_escape=True)]
                     elif skill.trigger == Trigger.RANGE_EX_SELF:
                         targets = [o for o in group if self.check_range(p, o) and o.name != p.name]
                     elif skill.trigger == Trigger.COMBAT_INJURY:
@@ -435,6 +437,8 @@ class CombatHandler:
                             if target not in self.speed:
                                 self.speed[target] = 0
                             self.speed[target] += skill.value
+                            if self.speed[target] < 0:
+                                self.speed[target] = 0
                             if self.speed[target] >= 2:
                                 for v in self.attacker_to_defenders.get(target, []):
                                     queue.put(speed_ambush_tic(target, v))
@@ -682,7 +686,8 @@ class CombatHandler:
                 if player.circuits:
                     conditions[player].append(Condition.USING_GEO)
 
-                # TODO check if hydro or aero for Condition.USING_HYDRO/AERO
+                if player.hydro_spells:
+                    conditions[player].append(Condition.USING_HYDRO)
 
                 for _skill in player.get_skills():
                     # Apply effects from skills to players in order of skill priority

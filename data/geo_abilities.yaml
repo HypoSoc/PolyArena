@@ -440,3 +440,29 @@
   skills:
     - 52
   prerequisite: 137
+
+139:
+  name: "Lava"
+  cost: 10
+  geo:
+    1:
+      circuits:
+        - "FIRE"
+        - "EARTH"
+      fragile: true
+    2:
+      circuits:
+        - "FIRE"
+        - "EARTH"
+      fragile: true
+    84:
+      circuits:
+        - "FIRE"
+        - "EARTH"
+      fragile: true
+    85:
+      circuits:
+        - "FIRE"
+        - "EARTH"
+      fragile: true
+  prerequisite: 102

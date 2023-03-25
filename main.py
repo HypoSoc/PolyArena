@@ -68,8 +68,8 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Earth II", "Circuit V", "Light I", "Antimagic (Geo)",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Resurrection"],
+    a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
+                                "Rune Crafting II", "Magical Healing (Geo)", "Lava", "Speed (Geo) II"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       injured=False)
     b = create_player("Beta", ["Circuit III", "Fire III", "Awareness I", "Antimagic (Geo)"],
@@ -77,7 +77,7 @@ if __name__ == '__main__':
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
-                                  "Circuit III", "Speed (Geo) II", "Light I", "Willpower IV"],
+                                  "Circuit III", "Speed (Geo) II", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection"], temperament=Temperament.PATIENT,
@@ -85,13 +85,12 @@ if __name__ == '__main__':
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_bunker()
-    a.plan_attune(Element.EARTH, Element.EARTH)
-    a.plan_hydro("Resurrection", contingency=True)
+    a.plan_attack(c)
+    a.plan_attune(Element.EARTH, Element.FIRE, Element.LIGHT)
     b.plan_attack(c)
     b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
-    c.plan_attack(a)
-    c.plan_attune(Element.LIGHT)
+    c.plan_train()
+    c.plan_attune(Element.LIGHT, Element.LIGHT)
     c.plan_consume_item("Rapid Regen II Rune")
 
     Action.run_turn(GAME)
