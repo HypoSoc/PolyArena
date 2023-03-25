@@ -360,12 +360,18 @@ class CombatHandler:
                                                        list(self.drained_by[will_bag]), InfoScope.PRIVATE)
                         elif len(self.drained_by[will_bag]) == 1:
                             assert drainer in self.drained_by[will_bag]
-                            drainer.willpower += will_bag.willpower
-                            drainer.willpower = min(drainer.willpower, drainer.max_willpower)
-                            self._append_to_event_list(self.combat_group_to_events[group],
-                                                       f"You stole {will_bag.willpower} Willpower. "
-                                                       f"({drainer.willpower}/{drainer.max_willpower})",
-                                                       [drainer], InfoScope.PRIVATE)
+                            if drainer in self.drained_by:
+                                self._append_to_event_list(self.combat_group_to_events[group],
+                                                           f"{will_bag.name}'s {will_bag.willpower} Willpower "
+                                                           f"was lost in the confusion.",
+                                                           list(self.drained_by[will_bag]), InfoScope.PRIVATE)
+                            else:
+                                drainer.willpower += will_bag.willpower
+                                drainer.willpower = min(drainer.willpower, drainer.max_willpower)
+                                self._append_to_event_list(self.combat_group_to_events[group],
+                                                           f"You stole {will_bag.willpower} Willpower. "
+                                                           f"({drainer.willpower}/{drainer.max_willpower})",
+                                                           [drainer], InfoScope.PRIVATE)
                         will_bag.willpower = 0
                     self.drained.add(will_bag)
 

@@ -74,6 +74,7 @@ class Condition(Enum):
     FRESH_HIDING = 60  # Actions don't remove HIDING this turn
     NO_CONTINGENCY = 61  # Prevents Contingencies from happening
     HAS_WILLPOWER = 62  # Set if the player has any willpower to drain
+    ILLUSIONIST = 63  # Can cast an illusion of actions
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]

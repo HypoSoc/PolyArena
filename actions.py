@@ -1,5 +1,6 @@
 import os
 from queue import PriorityQueue
+from random import random
 from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type
 
 from ability import Ability, get_ability, get_ability_by_name
@@ -122,10 +123,10 @@ class Action:
 
         if not interrupted or not self.fragile:
             if self.public_description:
-                DayReport().add_action(self.player, self.public_description)
+                DayReport().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
                 self.player.report += self.public_description + os.linesep
         if interrupted and self.fragile:
-            DayReport().add_action(self.player, self.on_interrupt)
+            DayReport().add_action(self.player, self.on_interrupt, hidden=self.player in Illusion.handled)
             self.player.report += self.on_interrupt + os.linesep
         if not interrupted or not self.fragile:
             self._act()
@@ -306,8 +307,12 @@ class Attack(Action):
                     DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
                     self.player.conditions.remove(Condition.HIDING)
                     DayReport().mark_revealed(self.player)
-            if self.target.action.combat_on_interrupt:
-                self.public_description += " " + self.target.action.combat_on_interrupt
+            if self.target in Illusion.handled:
+                if self.target.fake_action.combat_on_interrupt:
+                    self.public_description += " " + self.target.fake_action.combat_on_interrupt
+            else:
+                if self.target.action.combat_on_interrupt:
+                    self.public_description += " " + self.target.action.combat_on_interrupt
             self.public_description += "."
             Action.interrupted_players.add(self.target)
             Action.attacked.add(self.target)
@@ -321,7 +326,7 @@ class Attack(Action):
                     self.target.conditions.remove(Condition.HIDING)
 
             # The combat handler will ensure it gets added to the players regular report
-            DayReport().add_action(self.player, self.public_description)
+            DayReport().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
             Action.add_action_record(self.player, Attack, self.target)
 
@@ -368,7 +373,8 @@ class Learn(Action):
         else:
             Action.student_teacher[self.player] = self.target
             ability = Action.teacher_ability[self.target]
-            DayReport().add_action(self.player, f"{self.player.name} learned from {self.target.name}.")
+            DayReport().add_action(self.player, f"{self.player.name} learned from {self.target.name}.",
+                                   hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} learned {ability.name} from {self.target.name}." + os.linesep
             self.player.gain_ability(ability)
             Action.add_action_record(self.player, Learn, self.target)
@@ -406,7 +412,8 @@ class TeachFollow(Action):
 
     def _act(self):
         if Action.student_teacher.get(self.target, None) == self.player:
-            DayReport().add_action(self.player, f"{self.player.name} taught {self.target.name}.")
+            DayReport().add_action(self.player, f"{self.player.name} taught {self.target.name}.",
+                                   hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} taught {self.target.name} {self.ability.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:
                 Action.progress(self.player, 8)
@@ -430,10 +437,11 @@ class Train(Action):
         if self.player.temperament == Temperament.INTUITIVE:
             Action.progress(self.player, 1)
         Action.add_action_record(self.player, Train)
-        if not self.player.dev_plan:
-            DayReport().set_training(self.player, "nothing")
-        else:
-            DayReport().set_training(self.player, get_ability(self.player.dev_plan[0]).name)
+        if self.player not in Illusion.handled:
+            if not self.player.dev_plan:
+                DayReport().set_training(self.player, "nothing")
+            else:
+                DayReport().set_training(self.player, get_ability(self.player.dev_plan[0]).name)
 
 
 # Day Actions
@@ -716,7 +724,8 @@ class Canvas(Action):
         else:
             Action.canvas_artist[self.player] = self.target
             rune = Action.artist_rune[self.target]
-            DayReport().add_action(self.player, f"{self.player.name} got tattooed by {self.target.name}.")
+            DayReport().add_action(self.player, f"{self.player.name} got tattooed by {self.target.name}.",
+                                   hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} got tattooed by {self.target.name} " \
                                   f"with {rune.get_ability_name()}." + os.linesep
             self.player.tattoo = rune.pin
@@ -790,7 +799,8 @@ class TattooFollow(Action):
 
     def _act(self):
         if Action.canvas_artist.get(self.target) == self.player:
-            DayReport().add_action(self.player, f"{self.player.name} tattooed {self.target.name}.")
+            DayReport().add_action(self.player, f"{self.player.name} tattooed {self.target.name}.",
+                                   hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} tattooed {self.target.name} " \
                                   f"with {self.rune.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:
@@ -850,7 +860,7 @@ class MultiAttack(Action):
             self.public_description += (" and ".join(interruption_strings))[:-1]
             self.public_description += "."
 
-            DayReport().add_action(self.player, self.public_description)
+            DayReport().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
 
 
@@ -1175,6 +1185,37 @@ class UseHydro(Action):
         if self.contingency:
             for skill in self.ability.get_skills_for_hydro_contingency(self.will):
                 HandleSkill(self.game, self.player, skill)
+
+
+class Illusion(Action):
+    handled: Set['Player'] = set()
+
+    def __init__(self, game: Optional['Game'], player: "Player", target: "Player",
+                 fake_action: 'Action', fake_training: Optional['Ability'] = None):
+        # Randomly sort multiple illusions on the same target
+        super().__init__(12+(random()/2.0), game=game, player=player, fragile=False)
+        self.target = target
+        self.fake_action = fake_action
+        self.fake_training = fake_training
+
+    def act(self):
+        if not self.player.has_condition(Condition.ILLUSIONIST):
+            return
+
+        if self.target not in Illusion.handled:
+            self.target.fake_action = self.fake_action
+            DayReport().add_action(self.target, self.fake_action.public_description, fake=True)
+            Action.add_action_record(self.target, type(self.fake_action),
+                                     target=getattr(self.target.fake_action, 'target', None),
+                                     fake=True)
+            if isinstance(self.fake_action, Train):
+                self.target.fake_ability = self.fake_training
+                if self.fake_training:
+                    DayReport().set_training(self.target, self.fake_training.name)
+                else:
+                    DayReport().set_training(self.target, "nothing")
+
+            Illusion.handled.add(self.target)
 
 
 # Bookkeeping Actions

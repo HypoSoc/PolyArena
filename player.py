@@ -5,7 +5,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro, Resurrect
+    MultiAttack, UseHydro, Resurrect, Illusion
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -88,6 +88,8 @@ class Player:
 
         self.max_willpower = 0  # Comes from abilities
         self.hydro_spells: Dict[int, List[int]] = {}
+
+        self.used_illusion = False
 
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
@@ -214,7 +216,7 @@ class Player:
     def plan_fake_ability(self, ability: Ability):
         self.fake_ability = ability
 
-    def plan_fake_action(self, action):
+    def plan_fake_action(self, action: 'Action'):
         self.fake_action = action
 
     def plan_class(self):
@@ -409,6 +411,16 @@ class Player:
         if sum(will) > ability.max_will:
             raise Exception(f"Player {self.name} is trying to spend too much willpower on {ability_name} ({will}).")
         UseHydro(self.game, self, ability, will, contingency)
+
+    def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
+        assert not self.used_illusion
+
+        if ability:
+            Illusion(self.game, self, target=target, fake_action=action, fake_training=get_ability_by_name(ability))
+        else:
+            Illusion(self.game, self, target=target, fake_action=action)
+
+        self.used_illusion = True
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)

@@ -580,3 +580,9 @@
   trigger: "ATTACK"
   info: "PRIVATE"
   target_has_condition: "HAS_WILLPOWER"
+
+90:
+  text: "Can cast illusions."
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "ILLUSIONIST"

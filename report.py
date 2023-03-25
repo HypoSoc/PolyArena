@@ -45,9 +45,9 @@ class DayReport(object):
         self.bounties.clear()
         self.hiding.clear()
 
-    def add_action(self, player: "Player", content: str) -> NoReturn:
+    def add_action(self, player: "Player", content: str, fake: bool = False, hidden: bool = False) -> NoReturn:
         if player not in self.hiding:
-            self.actions.append((player, content))
+            self.actions.append((player, content, fake, hidden))
 
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:
@@ -140,8 +140,8 @@ class DayReport(object):
             if counter_int:
                 report += target.fake_action.public_description
             else:
-                for (player, content) in self.actions:
-                    if player.name == target.name:
+                for (player, content, fake, hidden) in self.actions:
+                    if player.name == target.name and not hidden:
                         report += self.face_mask_replacement(content, spy.name) + os.linesep
 
             # Normally you see night combat with Awareness I, so it is redundant to include
@@ -238,9 +238,11 @@ class DayReport(object):
 
     def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None) -> str:
         report = ""
-        for (player, content) in sorted(self.actions, key=lambda x: x[0].name):
+        for (player, content, fake, hidden) in sorted(self.actions, key=lambda x: x[0].name):
             if not ignore_player or ignore_player.name != player.name:
-                report += content + os.linesep
+                if not hidden or pierce_illusions:
+                    if not pierce_illusions or not fake:
+                        report += content + os.linesep
         return report
 
     def generate_report(self, game: Game):
