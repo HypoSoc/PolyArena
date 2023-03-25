@@ -845,7 +845,7 @@ class CombatHandler:
                 if player in self.attacker_to_defenders:
                     report += player.action.public_description + os.linesep
             for event in events:
-                if event[2] == InfoScope.PUBLIC:
+                if event[2] in (InfoScope.PUBLIC, InfoScope.BROADCAST):
                     report += event[0]+os.linesep
         return report
 

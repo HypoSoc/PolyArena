@@ -48,7 +48,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
     conditions = []
     if injured:
-        conditions.append(Condition.INJURED)
+        conditions.append(Condition.HIDING)
 
     if tattoo:
         tattoo = get_item_by_name(tattoo+" Rune").pin
@@ -67,12 +67,12 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
 
 if __name__ == '__main__':
-    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
+    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Lava", "Speed (Geo) II"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Stealth Resurrection"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
-                      injured=False)
-    b = create_player("Beta", ["Circuit III", "Fire III", "Awareness I", "Antimagic (Geo)"],
+                      injured=True)
+    b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Antimagic (Hydro)"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
@@ -80,14 +80,13 @@ if __name__ == '__main__':
                                   "Circuit III", "Speed (Geo) II", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=[])
-    d = create_player("Delta", ["Attunement Detection", "Willpower Detection"], temperament=Temperament.PATIENT,
+    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II"], temperament=Temperament.PATIENT,
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_attack(c)
-    a.plan_attune(Element.EARTH, Element.FIRE, Element.LIGHT)
-    b.plan_attack(c)
+    a.plan_train()
+    b.plan_train()
     b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
     c.plan_train()
     c.plan_attune(Element.LIGHT, Element.LIGHT)

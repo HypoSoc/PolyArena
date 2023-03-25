@@ -555,3 +555,9 @@
   text: "%SELF% unleashed a field of lava!"
   effect: "INFO_ONCE"
   info: "PUBLIC"
+
+86:
+  text: "Stealth Rez on Death"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "STEALTH_REZ"

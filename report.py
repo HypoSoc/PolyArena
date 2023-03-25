@@ -3,7 +3,7 @@ from typing import NoReturn, TYPE_CHECKING, Callable, Any, Dict, Optional, Tuple
 
 from ability import get_ability
 from combat import get_combat_handler
-from constants import InfoScope, Element
+from constants import InfoScope, Element, Condition
 from game import Game
 
 if TYPE_CHECKING:
@@ -19,6 +19,7 @@ class DayReport(object):
             cls.instance = super(DayReport, cls).__new__(cls)
             cls.instance.actions = []
             cls.instance.broadcast_events = []
+            cls.instance.dead = set()
             cls.instance.petrified = set()
             cls.instance.face_mask = {}
             cls.instance.training = {}
@@ -27,11 +28,13 @@ class DayReport(object):
             cls.instance.shop = []  # List of (player, credits, items)
             cls.instance.trades = []  # List of (player, target, credits, items)
             cls.instance.bounties = []  # List of (player, target, credits)
+            cls.instance.hiding = set()  # Set[Players]
         return cls.instance
 
     def reset(self):
         self.actions.clear()
         self.broadcast_events.clear()
+        self.dead.clear()
         self.petrified.clear()
         self.face_mask.clear()
         self.training.clear()
@@ -40,9 +43,11 @@ class DayReport(object):
         self.shop.clear()
         self.trades.clear()
         self.bounties.clear()
+        self.hiding.clear()
 
     def add_action(self, player: "Player", content: str) -> NoReturn:
-        self.actions.append((player, content))
+        if player not in self.hiding:
+            self.actions.append((player, content))
 
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:
@@ -50,9 +55,8 @@ class DayReport(object):
             self.actions.append((player, f"{player.name} was Petrified."))
 
     def add_death(self, player: "Player"):
-        if player not in self.petrified:
-            self.petrified.add(player)
-            self.actions.append((player, f"{player.name} was Petrified."))
+        if player not in self.dead:
+            self.dead.add(player)
 
     def set_attunement(self, player: "Player", elements: Tuple[Element]):
         self.circuits[player] = elements
@@ -79,6 +83,12 @@ class DayReport(object):
 
     def set_training(self, player: 'Player', ability: str):
         self.training[player] = ability
+
+    def mark_hiding(self, player: 'Player'):
+        self.hiding.add(player)
+
+    def mark_revealed(self, player: 'Player'):
+        self.hiding.discard(player)
 
     def apply_face_mask(self, user_name: str, target_name: str):
         self.face_mask[user_name] = target_name
@@ -117,42 +127,52 @@ class DayReport(object):
         if target.fake_ability:
             fake_ability_str = target.fake_ability.name
         report = ""
-        if counter_int:
-            report += target.fake_action.public_description
+
+        if (target.is_dead() and target not in self.dead) or \
+                (target.has_condition(Condition.HIDING) and counter_int
+                 and not target.has_condition(Condition.FRESH_HIDING)):
+            report += f"{target.name} is dead." + os.linesep + os.linesep
+
         else:
-            for (player, content) in self.actions:
-                if player.name == target.name:
-                    report += self.face_mask_replacement(content, spy.name) + os.linesep
+            if target.has_condition(Condition.HIDING):
+                report += f"You discovered that {target.name} is actually alive." + os.linesep + os.linesep
 
-        # Normally you see night combat with Awareness I, so it is redundant to include
-        # But there are potential edge cases with Runes
-        if not spy.has_ability("Awareness I") and not counter_int:
-            report += os.linesep
-            report += self.face_mask_replacement(get_combat_handler().get_combat_report_for_player(target),
-                                                 player_name=spy.name)
-
-        if spy.has_ability("Awareness II"):
             if counter_int:
-                if type(target.fake_action).__name__ == 'Train':
-                    report += os.linesep
-                    report += f"{target.name} was training {fake_ability_str}."
-            elif target in self.training:
-                report += os.linesep
-                report += f"{target.name} was training {self.training[target]}."
+                report += target.fake_action.public_description
+            else:
+                for (player, content) in self.actions:
+                    if player.name == target.name:
+                        report += self.face_mask_replacement(content, spy.name) + os.linesep
 
-        if spy.has_ability("Trade Secrets"):
-            if counter_int and type(target.fake_action).__name__ != 'Train':
+            # Normally you see night combat with Awareness I, so it is redundant to include
+            # But there are potential edge cases with Runes
+            if not spy.has_ability("Awareness I") and not counter_int:
                 report += os.linesep
-                if target.fake_ability:
-                    report += f"{target.name} seems to be working on {fake_ability_str}."
-                else:
-                    report += f"{target.name} is not working on anything."
-            elif target not in self.training:
-                report += os.linesep
-                if target.dev_plan:
-                    report += f"{target.name} seems to be working on {get_ability(target.dev_plan[0]).name}."
-                else:
-                    report += f"{target.name} is not working on anything."
+                report += self.face_mask_replacement(get_combat_handler().get_combat_report_for_player(target),
+                                                     player_name=spy.name)
+
+            if spy.has_ability("Awareness II"):
+                if counter_int:
+                    if type(target.fake_action).__name__ == 'Train':
+                        report += os.linesep
+                        report += f"{target.name} was training {fake_ability_str}."
+                elif target in self.training:
+                    report += os.linesep
+                    report += f"{target.name} was training {self.training[target]}."
+
+            if spy.has_ability("Trade Secrets"):
+                if counter_int and type(target.fake_action).__name__ != 'Train':
+                    report += os.linesep
+                    if target.fake_ability:
+                        report += f"{target.name} seems to be working on {fake_ability_str}."
+                    else:
+                        report += f"{target.name} is not working on anything."
+                elif target not in self.training:
+                    report += os.linesep
+                    if target.dev_plan:
+                        report += f"{target.name} seems to be working on {get_ability(target.dev_plan[0]).name}."
+                    else:
+                        report += f"{target.name} is not working on anything."
 
         return report
 

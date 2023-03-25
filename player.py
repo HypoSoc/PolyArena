@@ -675,10 +675,15 @@ class Player:
             reporting_func = self._non_combat_report_callable()
         self.conditions.append(Condition.DEAD)
         if self.has_condition(Condition.RESURRECT):
-            Resurrect(self.game, self)
-            reporting_func(message, InfoScope.PUBLIC)
+            Resurrect(self.game, self, self.has_condition(Condition.STEALTH_REZ))
+            if self.has_condition(Condition.STEALTH_REZ):
+                reporting_func(message, InfoScope.BROADCAST)
+                DayReport().add_death(self)
+            else:
+                reporting_func(message, InfoScope.PUBLIC)
         else:
             reporting_func(message, InfoScope.BROADCAST)
+            DayReport().add_death(self)
 
     def wound(self, injury_modifiers: Optional[List[InjuryModifier]] = None,
               reporting_func: Optional[ReportCallable] = None) -> bool:

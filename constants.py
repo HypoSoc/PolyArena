@@ -69,6 +69,9 @@ class Condition(Enum):
     LONG_PETRIFY = 55  # Petrify lasts an additional turn
     SNIPED = 56  # Used for Speed Calc
     RESURRECT = 57  # Return from Death
+    STEALTH_REZ = 58  # Hide when returning from the dead
+    HIDING = 59  # Don't show up in day reports
+    FRESH_HIDING = 60  # Actions don't remove HIDING this turn
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]

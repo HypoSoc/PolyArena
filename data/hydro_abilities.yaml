@@ -40,6 +40,13 @@
       cost: 5
   prerequisite: 204
 
+207:
+  name: "Stealth Resurrection"
+  cost: 10
+  skills:
+    - 86
+  prerequisite: 206
+
 
 
 220:

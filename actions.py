@@ -98,12 +98,23 @@ class Action:
         self.combat_on_interrupt = combat_on_interrupt
         self.priority = priority
         self.idx = Action.tic_index
+
+        self.maintains_hiding = False
+
         Action.tic_index += 1
 
         if self.game and not game.simulation:  # Hack to make fake actions
             Action.queue.put(self)
 
     def act(self):
+        if self.player and self.player.has_condition(Condition.HIDING) and \
+                not self.player.has_condition(Condition.FRESH_HIDING):
+            if self.game and not self.game.night and not self.maintains_hiding:
+                self.player.report += "You came out of hiding." + os.linesep
+                DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                self.player.conditions.remove(Condition.HIDING)
+                DayReport().mark_revealed(self.player)
+
         interrupted = self.player in Action.interrupted_players
 
         if not interrupted or not self.fragile:
@@ -260,6 +271,7 @@ class Wander(Action):
         super().__init__(priority=80, game=game, player=player, fragile=True,
                          public_description=f"{player.name} wandered aimlessly.",
                          on_interrupt=f"{player.name} failed to wander aimlessly.")
+        self.maintains_hiding = True
 
     def act(self):
         if self.player not in Action.not_wandering:
@@ -281,12 +293,26 @@ class Attack(Action):
             # Player will wander aimlessly
             pass
         else:
+            if self.player.has_condition(Condition.HIDING) and \
+                    not self.player.has_condition(Condition.FRESH_HIDING):
+                if self.game and not self.game.night:
+                    self.player.report += "You came out of hiding." + os.linesep
+                    DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                    self.player.conditions.remove(Condition.HIDING)
+                    DayReport().mark_revealed(self.player)
             if self.target.action.combat_on_interrupt:
                 self.public_description += " " + self.target.action.combat_on_interrupt
             self.public_description += "."
             Action.interrupted_players.add(self.target)
             Action.attacked.add(self.target)
             get_combat_handler().add_attack(self.player, self.target)
+            if self.target.fake_action.on_interrupt:
+                self.target.fake_action.public_description = self.target.fake_action.on_interrupt
+
+            if self.target.has_condition(Condition.HIDING):
+                if self.game and not self.game.night:
+                    DayReport().broadcast(f"{self.target.name} was discovered to be alive.")
+                    self.target.conditions.remove(Condition.HIDING)
 
             # The combat handler will ensure it gets added to the players regular report
             DayReport().add_action(self.player, self.public_description)
@@ -784,6 +810,14 @@ class MultiAttack(Action):
         if not self.player.has_condition(Condition.MULTI_ATTACK) or len(self.targets) > 3:
             return
 
+        if self.player and self.player.has_condition(Condition.HIDING) and \
+                not self.player.has_condition(Condition.FRESH_HIDING):
+            if self.game and not self.game.night and not isinstance(self, Wander):
+                self.player.report += "You came out of hiding." + os.linesep
+                DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                self.player.conditions.remove(Condition.HIDING)
+                DayReport().mark_revealed(self.player)
+
         interruption_strings = []
         attacked_someone = False
         for target in self.targets:
@@ -797,6 +831,13 @@ class MultiAttack(Action):
                     interruption_strings.append(f"{target.name},")
                 Action.interrupted_players.add(target)
                 get_combat_handler().add_attack(self.player, target)
+                if target.fake_action.on_interrupt:
+                    target.fake_action.public_description = target.fake_action.on_interrupt
+
+                if target.has_condition(Condition.HIDING):
+                    if self.game and not self.game.night:
+                        DayReport().broadcast(f"{target.name} was discovered to be alive.")
+                        target.conditions.remove(Condition.HIDING)
 
                 Action.add_action_record(self.player, Attack, target)
         if attacked_someone:
@@ -1034,6 +1075,7 @@ class Disguise(Action):
         super().__init__(priority=10, game=game, player=player, fragile=False,
                          public_description=f"{player.name} donned a mask of {target.name}.")
         self.target = target
+        self.maintains_hiding = True
 
     def _act(self):
         DayReport().apply_face_mask(self.player.name, self.target.name)
@@ -1043,6 +1085,7 @@ class Blackmail(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player"):
         super().__init__(priority=105, game=game, player=player, fragile=False)
         self.target = target
+        self.maintains_hiding = True
 
     def _act(self):
         if not self.target.is_dead() and self.player.check_relative_condition(self.target, Condition.HOOK):
@@ -1120,6 +1163,8 @@ class NoncombatSkillStep(Action):
     def act(self):
         for player in Action.players:
             if not player.is_dead():
+                if player.has_condition(Condition.HIDING):
+                    DayReport().mark_hiding(player)
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.NONCOMBAT:
                         HandleSkill(self.game, player, skill)
@@ -1295,19 +1340,29 @@ class StatusChangeStep(Action):
 
 
 class Resurrect(Action):
-    def __init__(self, game: Optional['Game'], player: "Player"):
+    def __init__(self, game: Optional['Game'], player: "Player", stealth: bool = False):
         super().__init__(priority=36, game=game, player=player, fragile=False,
-                         public_description=f"{player.name} rose from the dead.")
+                         public_description=f"{player.name} rose from the dead." if not stealth else "")
+        self.stealth = stealth
 
     def act(self):
         if not self.player.is_dead():
             return
-        DayReport().add_action(self.player, f"{self.player.name} died.")
+        if not self.stealth:
+            DayReport().add_action(self.player, f"{self.player.name} died.")
         super().act()
 
     def _act(self):
         # Delete stealable items and fragile items
         self.player.conditions = [condition for condition in self.player.conditions if condition not in AFFLICTIONS]
+        self.player.conditions.append(Condition.INJURED)
+        if self.stealth:
+            self.player.report += "You came back from the dead." + os.linesep
+        self.player.report += "You came back with an injury." + os.linesep
+        if self.stealth:
+            self.player.conditions.append(Condition.HIDING)
+            self.player.turn_conditions.append(Condition.FRESH_HIDING)
+            DayReport().mark_hiding(self.player)
 
 
 def reset_action_handler():
