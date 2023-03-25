@@ -72,6 +72,8 @@ class Condition(Enum):
     STEALTH_REZ = 58  # Hide when returning from the dead
     HIDING = 59  # Don't show up in day reports
     FRESH_HIDING = 60  # Actions don't remove HIDING this turn
+    NO_CONTINGENCY = 61  # Prevents Contingencies from happening
+    HAS_WILLPOWER = 62  # Set if the player has any willpower to drain
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -109,6 +111,7 @@ class Effect(Enum):
     INFO_ONCE = 21  # Info, but make sure not to duplicate
     SPEED = 22
     MAX_WILLPOWER = 23
+    DRAIN = 24  # Drain Willpower
 
 
 class Trigger(Enum):

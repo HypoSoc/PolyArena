@@ -43,6 +43,10 @@ class CombatHandler:
 
         self.ambushes: Dict['Player', Set['Player']] = {}  # First populated when attempting to ambush, then pruned
 
+        self.drained_by: Dict['Player', Set['Player']] = {}
+        self.drainers: Set['Player'] = set()
+        self.drained: Set['Player'] = set()
+
         self.damaged_by: Dict['Player', Set['Player']] = {}  # Used by ambush
 
         self.solitary_combat: Set["Player"] = set()
@@ -53,6 +57,7 @@ class CombatHandler:
         self.escape: Set[Tuple['Player', 'Player']] = set()
         self.full_escape: Set['Player'] = set()
         self.no_escape: Set['Player'] = set()
+        self.contingency_locked: Set['Player'] = set()
 
     def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element]]) -> Dict['Player', int]:
         sim = CombatHandler(self.for_speed)
@@ -110,6 +115,35 @@ class CombatHandler:
         for player, escaped in sim.escape:
             escape.add((clone_to_player[player], clone_to_player[escaped]))
         return escape
+
+    def drain_sim(self) -> Set['Player']:
+        sim = CombatHandler()
+        player_to_clone: Dict["Player", "Player"] = {}
+        clone_to_player: Dict["Player", "Player"] = {}
+
+        def make_and_modify_clone(_player: 'Player'):
+            clone = _player.make_copy_for_simulation()
+            player_to_clone[_player] = clone
+            clone_to_player[clone] = _player
+
+        for attacker, defender_set in self.attacker_to_defenders.items():
+            for defender in defender_set:
+                if attacker not in player_to_clone:
+                    make_and_modify_clone(attacker)
+                if defender not in player_to_clone:
+                    make_and_modify_clone(defender)
+                sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
+
+        for self_attacker in self.solitary_combat:
+            if self_attacker not in player_to_clone:
+                make_and_modify_clone(self_attacker)
+            sim.add_solitary_combat(player_to_clone[self_attacker])
+
+        sim.process_all_combat()
+        locked = set()
+        for locked_clone in sim.contingency_locked:
+            locked.add(clone_to_player[locked_clone])
+        return locked
 
     def add_attack(self, attacker: "Player", defender: "Player"):
         if attacker not in self.attacker_to_defenders:
@@ -303,6 +337,40 @@ class CombatHandler:
 
                 return 25, self.tic_index, confirm_ambush
 
+            def drain_tic(drainer: 'Player', will_bag: 'Player') -> Tic:
+                self.tic_index += 1
+
+                if will_bag not in self.drained_by:
+                    self.drained_by[will_bag] = set()
+                self.drained_by[will_bag].add(drainer)
+                self.drainers.add(drainer)
+
+                def drain():
+                    if will_bag in self.drained:
+                        return  # Already handled
+
+                    if will_bag.willpower > 0:
+                        self._append_to_event_list(self.combat_group_to_events[group],
+                                                   f"You lost {will_bag.willpower} Willpower.",
+                                                   [will_bag], InfoScope.PRIVATE)
+                        if will_bag in self.drainers or len(self.drained_by[will_bag]) > 1:
+                            self._append_to_event_list(self.combat_group_to_events[group],
+                                                       f"{will_bag.name}'s {will_bag.willpower} Willpower "
+                                                       f"was lost in the confusion.",
+                                                       list(self.drained_by[will_bag]), InfoScope.PRIVATE)
+                        elif len(self.drained_by[will_bag]) == 1:
+                            assert drainer in self.drained_by[will_bag]
+                            drainer.willpower += will_bag.willpower
+                            drainer.willpower = min(drainer.willpower, drainer.max_willpower)
+                            self._append_to_event_list(self.combat_group_to_events[group],
+                                                       f"You stole {will_bag.willpower} Willpower. "
+                                                       f"({drainer.willpower}/{drainer.max_willpower})",
+                                                       [drainer], InfoScope.PRIVATE)
+                        will_bag.willpower = 0
+                    self.drained.add(will_bag)
+
+                return 25, self.tic_index, drain
+
             def skill_tic(p: Player, skill: 'Skill') -> Tic:
                 self.tic_index += 1
 
@@ -442,7 +510,8 @@ class CombatHandler:
                             if self.speed[target] >= 2:
                                 for v in self.attacker_to_defenders.get(target, []):
                                     queue.put(speed_ambush_tic(target, v))
-
+                        elif skill.effect == Effect.DRAIN:
+                            queue.put(drain_tic(p, target))
                         else:
                             raise Exception(f"Unhandled effect type in combat! {skill.effect.name}")
 
@@ -666,6 +735,9 @@ class CombatHandler:
                 survivability[player] = 0
                 conditions[player] = player.conditions[:] + player.turn_conditions[:]
 
+                if player.willpower:
+                    conditions[player].append(Condition.HAS_WILLPOWER)
+
                 # Bunker Effect
                 bunker_combat_skill = Skill(-1, text="Bunker Combat +1", effect=Effect.COMBAT, value=1, priority=21,
                                             info=InfoScope.HIDDEN, trigger=Trigger.SELF,
@@ -759,6 +831,8 @@ class CombatHandler:
                                                survivors, InfoScope.PRIVATE)
 
             for player in group:
+                if Condition.NO_CONTINGENCY in conditions[player]:
+                    self.contingency_locked.add(player)
                 if player in self.full_escape:
                     self._append_to_event_list(self.combat_group_to_events[group],
                                                f"{player.name} escaped completely.",
@@ -865,7 +939,19 @@ class CombatHandler:
 
         self.damaged_by = {}  # Used by ambush
 
+        self.drained_by = {}
+        self.drainers = set()
+        self.drained = set()
+
         self.solitary_combat = set()
+
+        self.info_once.clear()
+        self.speed.clear()
+
+        self.escape.clear()
+        self.full_escape.clear()
+        self.no_escape.clear()
+        self.contingency_locked.clear()
 
 
 def get_combat_handler() -> CombatHandler:

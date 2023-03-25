@@ -1127,6 +1127,8 @@ class Attune(Action):
 
 
 class UseHydro(Action):
+    locked: Set['Player'] = set()
+
     def __init__(self, game: Optional['Game'], player: "Player", ability: "Ability",
                  will: List[int], contingency: bool):
         super().__init__(33 if contingency else -5, game=game, player=player, fragile=False)
@@ -1140,6 +1142,10 @@ class UseHydro(Action):
 
         if self.ability.pin in self.player.hydro_spells:
             return  # Trying to use the same ability twice
+
+        if self.contingency and self.player in UseHydro.locked:
+            self.player.report += f"You were prevented from using {self.ability.name}!" + os.linesep
+            return
 
         total_will = sum(self.will)
         # TODO Willpower drain blocking contingencies
@@ -1207,9 +1213,19 @@ class TattooStep(Action):
                     player.temporary_abilities.append(rune.get_ability_pin())
 
 
+class ContingencyBlockSimStep(Action):
+    def __init__(self, game: Optional['Game']):
+        super().__init__(32, game=game, player=None)
+
+    def act(self):
+        handler = get_combat_handler()
+        UseHydro.locked = handler.drain_sim()
+
+
 class CombatSimStep(Action):
     def __init__(self, game: Optional['Game']):
         super().__init__(34, game=game, player=None)
+        ContingencyBlockSimStep(game)  # Needs to happen before simulation and contingency hydro
 
     def act(self):
         handler = get_combat_handler()
@@ -1424,3 +1440,5 @@ def reset_action_handler():
     Trade.item_conditions = {}
     # Used to prevent a player from promising the same items/credits to multiple players
     Trade.reserved = {}
+
+    UseHydro.locked.clear()

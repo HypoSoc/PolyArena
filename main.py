@@ -1,4 +1,3 @@
-from ability import get_ability_by_name
 from actions import *
 import combat
 from constants import Temperament, Condition
@@ -71,28 +70,28 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Divination"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Resurrection", "Willpower Draining"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       hiding=False)
-    b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Antimagic (Hydro)"],
+    b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Willpower Draining"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
-                                  "Circuit III", "Speed (Geo) II", "Light II", "Willpower IV"],
+                                  "Circuit III", "Speed (Geo) II", "Light II", "Willpower IV", "Willpower Draining"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=[])
-    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II"], temperament=Temperament.PATIENT,
+    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II"],
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_train()
-    a.plan_hydro("Divination")
-    b.plan_train()
+    a.plan_attack(c)
+    a.plan_hydro("Resurrection", contingency=True)
+    b.plan_attack(a)
     b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
-    c.plan_train()
-    c.plan_attune(Element.LIGHT, Element.LIGHT)
+    c.plan_attack(b)
+    c.plan_attune()
     c.plan_consume_item("Rapid Regen II Rune")
 
     Action.run_turn(GAME)

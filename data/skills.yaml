@@ -567,3 +567,16 @@
   effect: "INFO"
   trigger: "NONCOMBAT"
   info: "PRIVATE"
+
+88:
+  text: "Prevent Conditional Hydromancy"
+  effect: "CONDITION"
+  trigger: "ATTACK"
+  value: "NO_CONTINGENCY"
+
+89:
+  text: "%SELF% drained %TARGET%'s Willpower."
+  effect: "DRAIN"
+  trigger: "ATTACK"
+  info: "PRIVATE"
+  target_has_condition: "HAS_WILLPOWER"
