@@ -2,7 +2,7 @@ import os
 from queue import PriorityQueue
 from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type
 
-from ability import Ability, get_ability
+from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
     COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS
@@ -21,6 +21,9 @@ DEPLETED_MEDKIT = get_item_by_name("1/2 Medkit").pin
 LIQUID_MEMORIES = get_item_by_name("Liquid Memories").pin
 HEALING_TANK = get_item_by_name("Healing Tank").pin
 BOOBY_TRAP = get_item_by_name("Booby Trap").pin
+
+
+QM_ABILITY_PINS = [get_ability_by_name("Divination").pin]
 
 # For conditional trading
 # Player action target
@@ -233,6 +236,9 @@ class HandleSkill(Action):
                 DayReport().add_action(self.player, text)
             elif self.skill.info == InfoScope.BROADCAST:
                 DayReport().broadcast(text)
+
+        if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
+            return
 
         if self.skill.effect == Effect.CONDITION:
             if not self.fake:
@@ -1141,6 +1147,16 @@ class UseHydro(Action):
             self.player.report += f"You cannot use {self.ability.name} because you do not have enough willpower." \
                                   + os.linesep
             return
+
+        if self.ability.pin in QM_ABILITY_PINS:
+            print("!"*32)
+            print("BE CAREFUL QM".center(32, "!"))
+            print("MANUAL INTERVENTION REQUIRED".center(32, "!"))
+            print(self.player.name.center(32, "!"))
+            print(self.ability.name.center(32, "!"))
+            print("!"*32)
+            print()
+            print()
 
         self.player.willpower -= total_will
         self.player.report += f"You spent {total_will} willpower casting {self.ability.name}" \

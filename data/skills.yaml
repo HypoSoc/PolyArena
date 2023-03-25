@@ -561,3 +561,9 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "STEALTH_REZ"
+
+87:
+  text: "The Future Unraveled Before You!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "PRIVATE"

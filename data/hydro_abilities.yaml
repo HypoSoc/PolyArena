@@ -47,7 +47,14 @@
     - 86
   prerequisite: 206
 
-
+208:
+  name: "Divination"
+  cost: 20
+  hydro:
+    87:
+      cost: 4
+  not_contingency: true
+  prerequisite: 203
 
 220:
   name: "Rapid Regen I"

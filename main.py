@@ -71,7 +71,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Stealth Resurrection"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Divination"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       hiding=False)
     b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Antimagic (Hydro)"],
@@ -88,6 +88,7 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_train()
+    a.plan_hydro("Divination")
     b.plan_train()
     b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
     c.plan_train()
