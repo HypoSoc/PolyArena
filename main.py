@@ -10,7 +10,7 @@ from report import DayReport
 GAME = Game(night=False)
 
 
-def create_player(name: str, abilities=None, items=None, injured: bool = False,
+def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
                   dev_goals=None, temperament=Temperament.HOT_BLOODED,
                   tattoo=None) -> Player:
     if dev_goals is None:
@@ -48,6 +48,8 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False,
 
     conditions = []
     if injured:
+        conditions.append(Condition.INJURED)
+    if hiding:
         conditions.append(Condition.HIDING)
 
     if tattoo:
@@ -71,7 +73,7 @@ if __name__ == '__main__':
     a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
                                 "Rune Crafting II", "Magical Healing (Geo)", "Stealth Resurrection"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
-                      injured=True)
+                      hiding=False)
     b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Antimagic (Hydro)"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
