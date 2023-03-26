@@ -256,7 +256,7 @@ class HandleSkill(Action):
                 if target == self.player:
                     raise Exception("No target for relative condition?")
                 if not self.fake:
-                    self.player.add_relative_condition(self.target, Condition[self.skill.value])
+                    self.player.add_relative_condition(target, Condition[self.skill.value])
             elif self.skill.effect == Effect.DEV_SABOTAGE:
                 if target == self.player:
                     raise Exception("No target for dev sabotage?")
@@ -269,7 +269,7 @@ class HandleSkill(Action):
                 self.player.copycat(target, fake=self.fake)
             elif self.skill.effect == Effect.PROGRESS:
                 if not self.fake:
-                    target.progress(self.player, self.skill.value)
+                    Action.progress(target, self.skill.value)
             elif self.skill.effect == Effect.MAX_WILLPOWER:
                 if not self.fake:
                     target.max_willpower += self.skill.value
@@ -914,11 +914,11 @@ class Spy(Action):
 
         for skill in self.player.get_skills():
             if skill.trigger == Trigger.SPY:
-                HandleSkill(self.game, self.player, skill, self.target, fake=counter_int)
+                HandleSkill(self.game, self.player, skill, [self.target], fake=counter_int)
 
         for skill in self.target.get_skills():
             if skill.trigger == Trigger.SPIED_ON:
-                HandleSkill(self.game, self.target, skill, self.player)
+                HandleSkill(self.game, self.target, skill, [self.player])
 
 
 # Free Actions
@@ -1383,7 +1383,9 @@ class CombatStep(Action):
             player.report += COMBAT_PLACEHOLDER + os.linesep + os.linesep
 
             if get_combat_handler().hot_blood_check(player) and player.temperament == Temperament.HOT_BLOODED:
+                player.report += "Your blood boils in excitement." + os.linesep
                 Action.progress(player, 3)
+                player.report += os.linesep
 
             if not player.is_dead():
                 for skill in player.get_skills():

@@ -69,7 +69,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Willpower V", "Speed (Hydro) II"],
+    a = create_player("Alpha", ["Willpower V", "Combat Regeneration (Hydro)"],
                       ["Healing Tank", "Oxygen Mask", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
                       hiding=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
@@ -87,8 +87,7 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_train()
-    a.plan_hydro("Speed (Hydro) I", contingency=True)
-    a.plan_hydro("Speed (Hydro) II", contingency=True)
+    a.plan_hydro("Combat Regeneration (Hydro)")
     b.plan_train()
     b.plan_attune(Element.EARTH)
     c.plan_attack(a)

@@ -250,6 +250,24 @@
       cost: 1
   prerequisite: 225
 
+227:
+  name: "Magical Healing (Hydro)"
+  cost: 10
+  hydro:
+    24:
+      cost: 2
+  not_contingency: true
+  prerequisite: 222
+
+228:
+  name: "Combat Regeneration (Hydro)"
+  cost: 10
+  hydro:
+    64:
+      cost: 2
+      fragile: true
+  prerequisite: 227
+
 238:
   name: "Quiet Casting"
   cost: 10
