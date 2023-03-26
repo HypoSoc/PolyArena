@@ -291,13 +291,20 @@ class CombatHandler:
                     if ambushee not in self.ambushes.get(ambusher, set()):
                         return
 
+                    failed_ambush = False
+                    if Condition.AMBUSH_IMMUNE in conditions[ambushee]:
+                        failed_ambush = True
+
                     if Condition.AMBUSH_AWARE in conditions[ambushee]:
                         if ambushee.get_awareness() > ambusher.get_awareness():
-                            self.ambushes[ambusher].discard(ambushee)
-                            self._append_to_event_list(self.combat_group_to_events[group],
-                                                       f"{ambusher.name} failed to ambush {ambushee.name}.",
-                                                       [ambusher, ambushee], InfoScope.PUBLIC)
-                            return
+                            failed_ambush = True
+
+                    if failed_ambush:
+                        self.ambushes[ambusher].discard(ambushee)
+                        self._append_to_event_list(self.combat_group_to_events[group],
+                                                   f"{ambusher.name} failed to ambush {ambushee.name}.",
+                                                   [ambusher, ambushee], InfoScope.PUBLIC)
+                        return
 
                     # Ambushes cancel each other out
                     if ambusher in self.ambushes.get(ambushee, set()):

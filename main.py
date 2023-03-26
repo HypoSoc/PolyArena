@@ -69,7 +69,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Willpower V", "Combat Regeneration (Hydro)"],
+    a = create_player("Alpha", ["Willpower V", "Danger Precognition"],
                       ["Healing Tank", "Oxygen Mask", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
                       hiding=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     c = create_player("Charlie", ["Theft", "Armor Break", "Martial Arts I", "Water II", "Earth III",
                                   "Illusions III",
                                   "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
-                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
+                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Camo Cloak", "Bokken"],
                       dev_goals=["Sniping"])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Theft"],
                       items=["Shrooms", "Medkit"],
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_train()
-    a.plan_hydro("Combat Regeneration (Hydro)")
+    a.plan_hydro("Danger Precognition")
     b.plan_train()
     b.plan_attune(Element.EARTH)
     c.plan_attack(a)

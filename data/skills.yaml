@@ -696,3 +696,15 @@
   priority: 36
   self_has_condition: "ARMORED"
   self_not_condition: "ARMOR_SET"
+
+106:
+  text: "Ambush Immune"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "AMBUSH_IMMUNE"
+
+107:
+  text: "You scoured the future for danger!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "PRIVATE"

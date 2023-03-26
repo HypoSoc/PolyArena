@@ -268,6 +268,24 @@
       fragile: true
   prerequisite: 227
 
+229:
+  name: "Enhanced Senses"
+  cost: 5
+  hydro:
+    106:
+      cost: 1
+  not_contingency: true
+  prerequisite: 201
+
+230:
+  name: "Danger Precognition"
+  cost: 2
+  hydro:
+    107:
+      cost: 2
+  not_contingency: true
+  prerequisite: 229
+
 238:
   name: "Quiet Casting"
   cost: 10

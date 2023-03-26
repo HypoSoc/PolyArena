@@ -24,7 +24,7 @@ HEALING_TANK = get_item_by_name("Healing Tank").pin
 BOOBY_TRAP = get_item_by_name("Booby Trap").pin
 
 
-QM_ABILITY_PINS = [get_ability_by_name("Divination").pin]
+QM_ABILITY_PINS = [get_ability_by_name("Divination").pin, get_ability_by_name("Danger Precognition").pin]
 
 # For conditional trading
 # Player action target
@@ -234,9 +234,9 @@ class HandleSkill(Action):
                     .replace(TARGET_PLACEHOLDER, target.name)
 
                 if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
-                    self.player.report += text + os.linesep
+                    self.player.report += text + os.linesep + os.linesep
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
-                        target.report += text + os.linesep
+                        target.report += text + os.linesep + os.linesep
                 elif self.skill.info == InfoScope.PUBLIC:
                     DayReport().add_action(self.player, text)
                 elif self.skill.info == InfoScope.BROADCAST:

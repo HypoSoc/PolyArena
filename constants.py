@@ -79,6 +79,7 @@ class Condition(Enum):
     MASTER_ILLUSIONIST = 64  # Can cast illusion 3 target swap
     FRAGILE_ARMED = 65  # Armed that disappears from antimagic
     TARGET_LOCKED = 66  # Speed 0 and can't be immune to sniping
+    AMBUSH_IMMUNE = 67
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
