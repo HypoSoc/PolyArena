@@ -181,7 +181,6 @@ class Action:
             Action.fake_action_record.append((player, action, target))
         else:
             Action.action_record.append((player, action, target))
-        # TODO handle illusions
 
     @classmethod
     def check_action_record(cls, game: 'Game', observer: 'Player', condition: ACTION_CONDITION) -> bool:
@@ -708,7 +707,6 @@ class Craft(Action):
                     self.player.report += f"You don't know have the ability to make a rune " \
                                           f"for {item.get_ability_name()}." + os.linesep
                     return
-            # Todo hydro crafting/willpower check
 
         if rune_crafting and amt > 1:
             # Can only craft 1 rune at a time, if crafting ANY runes.
@@ -1208,7 +1206,7 @@ class UseHydro(Action):
             return
 
         total_will = sum(self.will)
-        # TODO Willpower drain blocking contingencies
+
         if total_will > self.player.willpower:
             self.player.report += f"You cannot use {self.ability.name} because you do not have enough willpower." \
                                   + os.linesep
