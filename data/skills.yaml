@@ -55,7 +55,7 @@
   text: "Armored 1"
   effect: "ARMOR"
   value: 1
-  priority: 32
+  priority: 34
   self_has_condition: "ARMORED"
   self_not_condition: "ARMOR_SET"
 
@@ -63,7 +63,7 @@
   text: "Armored 3"
   effect: "ARMOR"
   value: 3
-  priority: 31
+  priority: 32
   self_has_condition: "ARMORED"
   self_not_condition: "ARMOR_SET"
 
@@ -649,3 +649,50 @@
   value: "TARGET_LOCKED"
   trigger: "ATTACK"
   info: "PRIVATE"
+
+100:
+  text: "-5 Survival to Enemies"
+  effect: "SURVIVABILITY"
+  value: -5
+  trigger: "ENEMY"
+  priority: 70
+
+101:
+  text: "%SELF% forged magical armor."
+  effect: "CONDITION"
+  value: "ARMORED"
+  priority: 35
+  info: "PRIVATE"
+  self_not_condition: "ARMORED"
+
+102:
+  text: "Armored 2"
+  effect: "ARMOR"
+  value: 2
+  priority: 33
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"
+
+103:
+  text: "Armored 4"
+  effect: "ARMOR"
+  value: 4
+  priority: 31
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"
+
+104:  # Repeated at later priority in case of armor break
+  text: "Armored 2"
+  effect: "ARMOR"
+  value: 2
+  priority: 37
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"
+
+105:  # Repeated at later priority in case of armor break
+  text: "Armored 4"
+  effect: "ARMOR"
+  value: 4
+  priority: 36
+  self_has_condition: "ARMORED"
+  self_not_condition: "ARMOR_SET"

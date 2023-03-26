@@ -69,14 +69,14 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Target Lock", "Armor Break"],
+    a = create_player("Alpha", ["Mystic Penetration", "Armor Break", "Will Armor II", "Armored Combat"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Fire II Rune", "Leather Armor", "Bokken"],
                       hiding=False)
-    b = create_player("Beta", ["Circuit V", "Speed (Geo) I", "Awareness I", "Willpower Draining", "Light II"],
+    b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Leather Armor"],
                       dev_goals=["Martial Arts I"])
-    c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts I", "Water II", "Earth III",
+    c = create_player("Charlie", ["Theft", "Armor Break", "Martial Arts I", "Water II", "Earth III",
                                   "Illusions III",
                                   "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
@@ -86,11 +86,13 @@ if __name__ == '__main__':
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_attack(b)
+    a.plan_train()
     a.plan_hydro("Will Blades")
+    a.plan_hydro("Mystic Penetration")
+    a.plan_hydro("Will Armor II")
     b.plan_train()
-    b.plan_attune(Element.LIGHT)
-    c.plan_train()
+    b.plan_attune(Element.EARTH)
+    c.plan_attack(a)
     c.plan_attune(Element.ANTI)
 
     Action.run_turn(GAME)

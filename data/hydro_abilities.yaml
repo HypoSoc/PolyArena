@@ -130,6 +130,47 @@
     - 99
   prerequisite: 214
 
+216:
+  name: "Mystic Penetration"
+  cost: 10
+  hydro:
+    100:
+      cost: 1
+      fragile: true
+  prerequisite: 213
+
+217:
+  name: "Will Armor I"
+  cost: 5
+  hydro:
+    101:
+      cost: 1
+      fragile: true
+    102:
+      cost: 1
+      fragile: true
+    104:
+      cost: 1
+      fragile: true
+  linked: true
+  prerequisite: 202
+
+218:
+  name: "Will Armor II"
+  cost: 5
+  hydro:
+    101:
+      cost: 2
+      fragile: true
+    103:
+      cost: 2
+      fragile: true
+    105:
+      cost: 2
+      fragile: true
+  linked: true
+  prerequisite: 217
+
 220:
   name: "Rapid Regen I"
   cost: 10
