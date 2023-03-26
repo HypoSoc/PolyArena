@@ -476,7 +476,8 @@ class CombatHandler:
                             target.conditions.append(condition)
                         elif skill.effect == Effect.DISARM:
                             queue.put(condition_remove_tic(skill.priority, target, Condition.ARMED))
-                            disarm_thief[target].append(p)
+                            if target.get_held_weapon():
+                                disarm_thief[target].append(p)
                         elif skill.effect == Effect.ARMOR_BREAK:
                             queue.put(condition_remove_tic(skill.priority, target, Condition.ARMORED))
                             # Don't want to destroy redundant copies

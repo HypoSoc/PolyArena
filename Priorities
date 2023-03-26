@@ -6,9 +6,10 @@ Fighting
 15: Sniping
 16: Range Recalculation
 19: Antimagic (Antimagic CANNOT affect things before this, so fragile abilities shouldn't be before this)
-20: Armor Break
+20: Fragile stateful abilities
 21: Bunker Bonus
-25: Speed Ambush/Willpower Drain
+25: Speed Ambush/Willpower Drain/Armor Break
+31+: ARMED properly reset after will blades
 69: Weakest Stat Buff  # NO COMBAT/NO SURV effects should happen after this
 70-99: Reserved Poison Gas + Wounding
 100-109: Reserved Damage Calculation/Fighting

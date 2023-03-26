@@ -407,13 +407,15 @@ class Player:
         assert len(ability.hydro_qualified_skills), f"Player {self.name} is trying to cast " \
                                                     f"a non hydro ability {ability_name}."
         if not will:
-            if len(ability.hydro_qualified_skills) == 1:
+            if len(ability.hydro_qualified_skills) == 1 or ability.linked:
                 if not ability.hydro_qualified_skills[0].each:
                     will = [ability.hydro_qualified_skills[0].cost]
             else:
                 will = []
 
-        if len(will) != len(ability.hydro_qualified_skills):
+        if not ability.linked and len(will) != len(ability.hydro_qualified_skills):
+            raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
+        if ability.linked and not will:
             raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
         for i in range(len(will)):
             if will[i] < 0 or will[i] > ability.hydro_qualified_skills[i].cost:

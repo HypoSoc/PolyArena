@@ -26,7 +26,7 @@
   text: "Armed 2"
   effect: "WEAPON"
   value: 2
-  priority: 22
+  priority: 24
   self_has_condition: "ARMED"
   self_not_condition: "ARMED_SET"
 
@@ -34,7 +34,7 @@
   text: "Armed 3"
   effect: "WEAPON"
   value: 3
-  priority: 21
+  priority: 23
   self_has_condition: "ARMED"
   self_not_condition: "ARMED_SET"
 
@@ -42,7 +42,7 @@
   text: "Armed 4"
   effect: "WEAPON"
   value: 4
-  priority: 20
+  priority: 22
   self_has_condition: "ARMED"
   self_not_condition: "ARMED_SET"
 
@@ -90,7 +90,7 @@
 14:
   text: "%SELF% destroyed %TARGET%'s Armor."
   effect: "ARMOR_BREAK"
-  priority: 20
+  priority: 25
   info: "PUBLIC"
   trigger: "ATTACK"
   self_has_condition: "ARMED"
@@ -446,14 +446,14 @@
   text: "Confirm Bunkering is real as not affected by antimagic"
   effect: "CONDITION"
   value: "BUNKERING"
-  self_has_value: "FRAGILE_BUNKERING"
+  self_has_condition: "FRAGILE_BUNKERING"
 
 69:
   text: "Confirm Bunkering is real as not affected by antimagic"
   effect: "REMOVE_CONDITION"
   priority: 21
   value: "FRAGILE_BUNKERING"
-  self_has_value: "FRAGILE_BUNKERING"
+  self_has_condition: "FRAGILE_BUNKERING"
 
 70: # The above skill will remove Fragile Bunkering EXCEPT when antimagic stops it
   text: "%TARGET%'s bunker collapsed around them!"
@@ -475,7 +475,7 @@
   trigger: "NONCOMBAT"
   value: "FRAGILE_BUNKER"
 
-73: # The above skill will remove Fragile Bunkering EXCEPT when antimagic stops it
+73:
   text: "%SELF% animated their bunker!"
   effect: "INFO_ONCE"
   info: "PUBLIC"
@@ -599,3 +599,48 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "MASTER_ILLUSIONIST"
+
+93:  # NOT FRAGILE
+  text: "Fragile Armed"
+  effect: "CONDITION"
+  value: "FRAGILE_ARMED"
+  self_not_condition: "ARMED"
+  priority: 1
+
+94:  # NOT FRAGILE
+  text: "Armed for the purpose of disarming/sniping"
+  effect: "CONDITION"
+  value: "ARMED"
+  priority: 2
+  self_has_condition: "FRAGILE_ARMED"
+
+95:  # Fragile
+  text: "Confirm Weapon is real as not affected by antimagic"
+  effect: "REMOVE_CONDITION"
+  priority: 20
+  value: "FRAGILE_ARMED"
+  self_has_condition: "FRAGILE_ARMED"
+  info: "PRIVATE"
+
+96:  # NOT FRAGILE
+  text: "Weapon was fake, so no longer armed"
+  effect: "REMOVE_CONDITION"
+  priority: 21.5
+  value: "ARMED"
+  self_has_condition: "FRAGILE_ARMED"
+  info: "PRIVATE"
+
+97:  # FRAGILE
+  text: "You formed a magical weapon."
+  effect: "CONDITION"
+  priority: 30
+  value: "ARMED"
+  self_not_condition: "FRAGILE_ARMED"
+  info: "PRIVATE"
+
+98:  # We have this backup AND the regular Armed 2 that checks for armed in case of disarmed. Fragile
+  text: "Armed 2"
+  effect: "WEAPON"
+  value: 2
+  priority: 31
+  self_not_condition: "ARMED_SET"

@@ -97,7 +97,7 @@ class Ability:
     def __init__(self, pin: int, name: str, cost: int, skill_pins: List[int],
                  geo_qualified_skills: List[GeoQualifiedSkill],
                  hydro_qualified_skills: List[HydroQualifiedSkill],
-                 max_will: int, contingency_forbidden: bool,
+                 max_will: int, contingency_forbidden: bool, linked: bool,
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
         self.name = name
@@ -107,6 +107,7 @@ class Ability:
         self.hydro_qualified_skills = hydro_qualified_skills
         self.max_will = max_will
         self.contingency_forbidden = contingency_forbidden
+        self.linked = linked
         self.prerequisite_pin = prerequisite_pin
 
     def get_prerequisite(self) -> Optional[Ability]:
@@ -116,7 +117,10 @@ class Ability:
 
     def get_skills(self, circuits: Iterable[Element], will: List[int]) -> List[Skill]:
         while len(will) < len(self.hydro_qualified_skills):
-            will.append(0)
+            if self.linked and will:
+                will.append(will[0])  # Multiple skills for the same willpower
+            else:
+                will.append(0)
         try:
             skills = list(map(get_skill, self.skill_pins))
             skills.extend([skill for qualified in self.geo_qualified_skills
@@ -217,6 +221,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    hydro_qualified_skills=hydro_qualified_skills,
                    max_will=dictionary.get('max_will', 1000000),
                    contingency_forbidden=dictionary.get('not_contingency', False),
+                   linked=dictionary.get('linked', False),
                    prerequisite_pin=dictionary.get('prerequisite'))
 
 

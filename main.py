@@ -68,18 +68,17 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 
 if __name__ == '__main__':
-    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Illusions III", "Willpower Draining"],
-                      ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
+    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
+    a = create_player("Alpha", ["Will Blades", "Armed Combat I", "Sniping", "Armor Break"],
+                      ["Healing Tank", "Oxygen Mask", "Poison Gas", "Fire II Rune", "Leather Armor", "Bokken"],
                       hiding=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
-                       "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
+                       "Healing Tank", "Booby Trap", "Leather Armor"],
                       dev_goals=["Martial Arts I"])
-    c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
+    c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts I", "Water II", "Earth III",
                                   "Illusions III",
-                                  "Circuit III", "Speed (Geo) II", "Light II", "Willpower IV", "Willpower Draining"],
+                                  "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=["Sniping"])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Panopticon"],
@@ -87,11 +86,12 @@ if __name__ == '__main__':
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_train()
-    a.plan_hydro("Illusions III", targets=[b,a,d])
-    b.plan_attack(a,c,d)
+    a.plan_attack(b)
+    a.plan_hydro("Will Blades")
+    b.plan_train()
     b.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
-    c.plan_train()
+    c.plan_attack(a)
+    c.plan_attune(Element.ANTI)
 
     Action.run_turn(GAME)
 

@@ -91,6 +91,32 @@
   not_contingency: true
   prerequisite: 211
 
+213:
+  name: "Will Blades"
+  cost: 10
+  hydro:
+    5:
+      cost: 1
+      fragile: true
+    93:
+      cost: 1
+    94:
+      cost: 1
+    95:
+      cost: 1
+      fragile: true
+    96:
+      cost: 1
+    97:
+      cost: 1
+      fragile: true
+    98:
+      cost: 1
+      fragile: true
+  linked: true
+  prerequisite: 211
+
+
 220:
   name: "Rapid Regen I"
   cost: 10
