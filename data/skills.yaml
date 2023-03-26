@@ -642,3 +642,10 @@
   value: 2
   priority: 31
   self_not_condition: "ARMED_SET"
+
+99:
+  text: "%SELF% locked a target onto %TARGET%."
+  effect: "CONDITION"
+  value: "TARGET_LOCKED"
+  trigger: "ATTACK"
+  info: "PRIVATE"

@@ -116,6 +116,19 @@
   linked: true
   prerequisite: 211
 
+214:
+  name: "Sniping (Hydro)"
+  cost: 10
+  skills:
+    - 17
+  prerequisite: 213
+
+215:
+  name: "Target Lock"
+  cost: 5
+  skills:
+    - 99
+  prerequisite: 214
 
 220:
   name: "Rapid Regen I"

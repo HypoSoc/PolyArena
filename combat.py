@@ -244,6 +244,8 @@ class CombatHandler:
                     speed -= 1
                 if Condition.SNIPED in conditions.get(a, []):
                     speed -= 2
+                if Condition.TARGET_LOCKED in conditions.get(a, []):
+                    speed = 0
                 return max(speed, 0)
 
             # Generate a tic to remove a condition from a player
