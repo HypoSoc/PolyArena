@@ -497,6 +497,7 @@ class Shop(Action):
     def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int]):
         super().__init__(priority=40, game=game, player=player, fragile=True,
                          public_description=f"{player.name} shopped.",
+                         on_interrupt=f"{player.name} failed to shop.",
                          combat_on_interrupt="while they were trying to shop")
         self.items = items
 
@@ -541,6 +542,7 @@ class Heal(Action):
         else:
             super().__init__(priority=50, game=game, player=player, fragile=True,
                              public_description=f"{player.name} went to heal {target.name}",
+                             on_interrupt=f"{player.name} failed to heal {target.name}",
                              combat_on_interrupt=f"while they were trying to heal {target.name}")
         if self.from_healing_tank:
             self.public_description = ""
@@ -603,6 +605,7 @@ class Steal(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player"):
         super().__init__(priority=60, game=game, player=player, fragile=True,
                          public_description=f"{player.name} robbed {target.name}.",
+                         on_interrupt=f"{player.name} failed rob {target.name}.",
                          combat_on_interrupt=f"while they were trying to rob {target.name}")
         self.target = target
 
@@ -674,6 +677,7 @@ class Craft(Action):
     def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int], is_bonus: bool = False):
         super().__init__(priority=40, game=game, player=player, fragile=True,
                          public_description=f"{player.name} crafted.",
+                         on_interrupt=f"{player.name} failed to craft.",
                          combat_on_interrupt=f"while they were trying to craft something")
         self.items = items
         self.is_bonus = is_bonus

@@ -91,7 +91,7 @@ if __name__ == '__main__':
     a.plan_craft("Shrooms")
     b.plan_train()
     b.plan_attune(Element.EARTH)
-    # c.plan_attack(a)
+    c.plan_attack(a)
     # c.plan_attune(Element.ANTI)
     d.plan_steal(a)
 
