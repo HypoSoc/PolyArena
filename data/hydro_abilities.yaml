@@ -192,7 +192,47 @@
   skills: []
   prerequisite: 220
 
+222:
+  name: "Body Reinforcement I"
+  cost: 5
+  hydro:
+    1:
+      cost: 1
+      fragile: true
+    2:
+      cost: 1
+      fragile: true
+  prerequisite: 201
 
+223:
+  name: "Body Reinforcement II"
+  cost: 10
+  hydro:
+    1:
+      cost: 3
+      fragile: true
+      each: true
+    2:
+      cost: 3
+      fragile: true
+      each: true
+  max_will: 3
+  prerequisite: 222
+
+224:
+  name: "Body Reinforcement III"
+  cost: 10
+  hydro:
+    1:
+      cost: 5
+      fragile: true
+      each: true
+    2:
+      cost: 5
+      fragile: true
+      each: true
+  max_will: 5
+  prerequisite: 223
 
 238:
   name: "Quiet Casting"

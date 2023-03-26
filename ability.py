@@ -76,7 +76,7 @@ class HydroQualifiedSkill:
         skills = []
         times = will >= self.cost
         if self.each:
-            times = max(will, self.cost)
+            times = min(will, self.cost)
         for i in range(times):
             skill = get_skill(self.pin).copy()
             if not for_rune:
