@@ -75,7 +75,6 @@ class DayReport(object):
         self.trades.append((player, target, money, items))
 
     def add_bounty(self, player: "Player", target: "Player", money: int):
-        # TODO Bounties
         self.bounties.append((player, target, money))
 
     def broadcast(self, content: str) -> NoReturn:
@@ -229,7 +228,7 @@ class DayReport(object):
             report += os.linesep
         if full:
             for player, target, money in self.bounties:
-                report += f"{player.name} place a {money} credit bounty on {target.name}." + os.linesep
+                report += f"{player.name} placed a {money} credit bounty on {target.name}." + os.linesep
         if report:
             report += os.linesep
         else:
@@ -260,4 +259,6 @@ class DayReport(object):
             report += self.face_mask_replacement(event) + os.linesep
         for event in self.broadcast_events:
             report += self.face_mask_replacement(event) + os.linesep
+        for player in sorted(set([target.name for (player, target, amount) in self.bounties])):
+            report += f"A bounty was placed on {player}." + os.linesep
         return report

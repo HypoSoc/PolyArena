@@ -6,7 +6,7 @@ from items import get_item_by_name
 from player import Player
 from report import DayReport
 
-GAME = Game(night=False)
+GAME = Game(night=True)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -55,7 +55,8 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
-                    items=item_pins, money=3, willpower=willpower, relative_conditions={}, tattoo=tattoo,
+                    items=item_pins, money=3, willpower=willpower, bounty=0,
+                    relative_conditions={}, tattoo=tattoo,
                     game=GAME)
 
     def patient():
@@ -71,7 +72,7 @@ if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Willpower V", "Crafting III"],
                       ["Healing Tank", "Workbench", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
-                      hiding=False)
+                      injured=True)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Leather Armor"],
@@ -81,19 +82,20 @@ if __name__ == '__main__':
                                   "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Camo Cloak", "Bokken"],
                       dev_goals=["Sniping"])
-    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Theft"],
+    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Theft", "Market Connections II"],
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
 
-    a.plan_hydro("Crafting I")
-    a.plan_bunker(bonus=True)
-    a.plan_craft("Shrooms")
+    a.plan_attack(b)
     b.plan_train()
     b.plan_attune(Element.EARTH)
+    b.plan_bounty(c, 2)
     c.plan_attack(a)
     # c.plan_attune(Element.ANTI)
-    d.plan_steal(a)
+    c.plan_bounty(b, 2)
+    d.plan_attack(a)
+    d.plan_bounty(c, 2)
 
     Action.run_turn(GAME)
 
@@ -102,6 +104,8 @@ if __name__ == '__main__':
         print(p.get_report())
         if p.tattoo:
             print(get_item(p.tattoo))
+        if p.bounty:
+            print(p.bounty)
         print()
 
     print(DayReport().generate_report(GAME))

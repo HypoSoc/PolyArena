@@ -443,12 +443,12 @@ class CombatHandler:
                     if not targets:
                         return
 
+                    targets = [target for target in targets if not target.is_dead()]
+
                     if skill.effect == Effect.INTUITION:
                         random.shuffle(targets)  # Ensure there is no way to tell WHICH player is which Aeromancer
 
                     for target in targets:
-                        text = skill.text
-
                         if skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                             continue
 
@@ -872,6 +872,26 @@ class CombatHandler:
                     self._append_to_event_list(self.combat_group_to_events[group],
                                                f"{player.name}'s items were lost in the confusion.",
                                                survivors, InfoScope.PRIVATE)
+
+                if player.bounty:
+                    bounty = player.bounty
+                    player.bounty = 0
+
+                    enemies = []
+                    for fighter in survivors:
+                        if player in self.attacker_to_defenders.get(fighter, set()) \
+                                or fighter in self.attacker_to_defenders.get(player, set()):
+                            enemies.append(fighter)
+                    per_enemy_bounty = bounty // len(enemies)
+                    if per_enemy_bounty:
+                        credit = "credit"
+                        if per_enemy_bounty > 1:
+                            credit = "credits"
+                        self._append_to_event_list(self.combat_group_to_events[group],
+                                                   f"You earned {per_enemy_bounty} {credit} for killing {player.name}.",
+                                                   enemies, InfoScope.PRIVATE)
+                        for bounty_hunter in enemies:
+                            bounty_hunter.gain_credits(per_enemy_bounty)
 
             for player in group:
                 if Condition.NO_CONTINGENCY in conditions[player]:

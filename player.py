@@ -5,7 +5,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion
+    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -25,7 +25,7 @@ CONSUME_PREFER = {MEDKIT: DEPLETED_MEDKIT}
 class Player:
     def __init__(self, name: str, progress_dict: Dict[int, int], dev_plan: List[int], academics: int,
                  temperament: Temperament, conditions: List[Condition], items: List[int], money: int,
-                 willpower: int,
+                 willpower: int, bounty: int,
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
                  game: Game):
         assert "%" not in name, "Illegal character %"
@@ -38,6 +38,7 @@ class Player:
         self.conditions = conditions
         self.credits = money
         self.willpower = willpower
+        self.bounty = bounty
         self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy
         self.tattoo = tattoo  # Rune item pin
         self.game = game
@@ -92,11 +93,12 @@ class Player:
         self.ability_targets: Dict[int, List[Player]] = {}
 
         self.used_illusion = False
+        self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
 
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
                        academics=self.academics, temperament=self.temperament, conditions=self.conditions.copy(),
-                       items=self.items.copy(), money=self.credits, willpower=self.willpower,
+                       items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
                        relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
                        tattoo=self.tattoo,
                        game=self.game.clone())
@@ -234,6 +236,13 @@ class Player:
     def plan_doctor(self):
         self._generic_action_check(day_only=True)
         self.action = Doctor(self.game, self)
+
+    def plan_bounty(self, target: "Player", amount: int):
+        if self.game.is_day():
+            raise Exception(f"{self.name} is trying to place a bounty in the day.")
+        if target not in self.bounties_placed:
+            PlaceBounty(self.game, self, target, amount)
+            self.bounties_placed.add(target)
 
     def plan_shop(self, *item_names):
         self._generic_action_check(day_only=True)

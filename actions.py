@@ -1134,6 +1134,32 @@ class TradeFinal(Action):
         DayReport().add_trade(self.player, self.target, self.credits, self.items)
 
 
+class PlaceBounty(Action):
+    def __init__(self, game: Optional['Game'], player: "Player", target: "Player", amount: int):
+        assert amount > 0
+        super().__init__(priority=110, game=game, player=player, fragile=False,
+                         public_description="")
+        self.target = target
+        self.amount = amount
+        self.maintains_hiding = True
+
+    def act(self):
+        self.player.report += os.linesep
+        if self.target.is_dead() or self.target.has_condition(Condition.HIDING):
+            self.player.report += f"You cannot place a bounty on {self.target.name} " \
+                                  f"because they are dead." + os.linesep + os.linesep
+            return
+        if self.player.credits < self.amount:
+            self.player.report += f"You cannot place a {self.amount} credit bounty on {self.target.name} " \
+                                  f"because you don't have enough credits." + os.linesep + os.linesep
+            return
+        self.player.credits -= self.amount
+        self.target.bounty += self.amount
+        self.player.report += f"You placed a {self.amount} credit bounty on {self.target.name} " \
+                              f"({self.player.credits})" + os.linesep + os.linesep
+        DayReport().add_bounty(self.player, self.target, self.amount)
+
+
 class Disguise(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player"):
         super().__init__(priority=10, game=game, player=player, fragile=False,
