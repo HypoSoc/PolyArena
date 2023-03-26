@@ -76,6 +76,7 @@ class Condition(Enum):
     HAS_WILLPOWER = 62  # Set if the player has any willpower to drain
     ILLUSIONIST = 63  # Can cast an illusion of actions
     DELUDED = 64  # -2 Combat from Illusion 2
+    MASTER_ILLUSIONIST = 64  # Can cast illusion 3 target swap
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]

@@ -301,6 +301,9 @@ class Attack(Action):
         self.target = target
 
     def act(self):
+        if self.target in MasterIllusion.redirect.get(self.player, {}):
+            self.target = MasterIllusion.redirect[self.player][self.target]
+
         if self.target.is_dead():
             # Player will wander aimlessly
             pass
@@ -841,6 +844,11 @@ class MultiAttack(Action):
 
         interruption_strings = []
         attacked_someone = False
+
+        if self.player in MasterIllusion.redirect:
+            self.targets = [MasterIllusion.redirect[self.player].get(target, target) for target in self.targets]
+            self.targets = list(set(self.targets))
+
         for target in self.targets:
             if target.is_dead():
                 pass
@@ -1223,6 +1231,44 @@ class Illusion(Action):
             Illusion.handled.add(self.target)
 
 
+class MasterIllusion(Action):
+    redirect: Dict['Player', Dict['Player', 'Player']] = {}
+
+    def __init__(self, game: Optional['Game'], player: "Player",
+                 target: "Player", defended: "Player", redirected: "Player"):
+        # Randomly sort multiple illusions on the same target
+        super().__init__(12+(random()/2.0), game=game, player=player, fragile=False)
+        self.target = target
+        self.defended = defended
+        self.redirected = redirected
+
+    def act(self):
+        if not self.player.has_condition(Condition.MASTER_ILLUSIONIST):
+            return
+
+        if self.target.is_dead() or self.defended.is_dead() or self.redirected.is_dead():
+            return
+
+        self.player.report += f"{self.player.name} befuddled {self.target.name} to confuse {self.defended.name} " \
+                              f"with {self.redirected.name}." + os.linesep + os.linesep
+
+        if self.defended not in MasterIllusion.redirect.get(self.target, {}):
+            if self.target not in MasterIllusion.redirect:
+                MasterIllusion.redirect[self.target] = {}
+            MasterIllusion.redirect[self.target][self.defended] = self.redirected
+            if isinstance(self.target.action, Attack):
+                if self.target.action.target == self.defended:
+                    self.target.action.public_description = f"{self.target.name} attacked {self.redirected.name}"
+                    self.target.action.combat_on_interrupt = f"while they were attacking {self.redirected.name}"
+            elif isinstance(self.target.action, MultiAttack):
+                if self.defended in self.target.action.targets:
+                    modified_targets = [self.redirected if target == self.defended else target
+                                        for target in self.target.action.targets]
+                    modified_targets = list(set(modified_targets))
+                    target_names = " and ".join([target.name for target in modified_targets])
+                    self.target.action.combat_on_interrupt = f"while they were attacking {target_names}"
+
+
 # Bookkeeping Actions
 class NoncombatSkillStep(Action):
     def __init__(self, game: Optional['Game']):
@@ -1489,5 +1535,8 @@ def reset_action_handler():
     Trade.item_conditions = {}
     # Used to prevent a player from promising the same items/credits to multiple players
     Trade.reserved = {}
+
+    Illusion.handled.clear()
+    MasterIllusion.redirect.clear()
 
     UseHydro.locked.clear()

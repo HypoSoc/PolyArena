@@ -593,3 +593,9 @@
   trigger: "TARGET"
   value: "DELUDED"
   info: "PERSONAL"
+
+92:
+  text: "Can cast master illusions."
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "MASTER_ILLUSIONIST"

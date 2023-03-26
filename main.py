@@ -6,7 +6,7 @@ from items import get_item_by_name
 from player import Player
 from report import DayReport
 
-GAME = Game(night=True)
+GAME = Game(night=False)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -68,16 +68,17 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 
 if __name__ == '__main__':
-    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
+    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Earth II", "Circuit V", "Fire III", "Antimagic (Geo)", "Light II",
-                                "Rune Crafting II", "Magical Healing (Geo)", "Illusions II", "Willpower Draining"],
+                                "Rune Crafting II", "Magical Healing (Geo)", "Illusions III", "Willpower Draining"],
                       ["Healing Tank", "Oxygen Mask", "Poison Gas", "Sword", "Fire II Rune", "Leather Armor"],
                       hiding=False)
-    b = create_player("Beta", ["Circuit V", "Fire III", "Awareness I", "Willpower Draining"],
+    b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Oblivion Ordinance"],
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Armed Combat II", "Martial Arts III", "Water II", "Earth III",
+                                  "Illusions III",
                                   "Circuit III", "Speed (Geo) II", "Light II", "Willpower IV", "Willpower Draining"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=["Sniping"])
@@ -87,13 +88,10 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_train()
-    a.plan_hydro("Illusions II", targets=b)
-    b.plan_attack(c)
-    b.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
+    a.plan_hydro("Illusions III", targets=[b,a,d])
+    b.plan_attack(a,c,d)
+    b.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
     c.plan_train()
-    c.plan_attune()
-    c.plan_consume_item("Rapid Regen II Rune")
-    d.plan_spy(c)
 
     Action.run_turn(GAME)
 

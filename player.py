@@ -5,7 +5,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro, Resurrect, Illusion
+    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -266,6 +266,8 @@ class Player:
 
     def plan_attack(self, *targets: "Player"):
         self._generic_action_check()
+        if len(targets) != len(set(targets)):
+            raise Exception(f"Player {self.name} is trying to attack the same enemy multiple times.")
         if len(targets) > 3:
             raise Exception(f"Player {self.name} is trying to attack too many enemies.")
         for target in targets:
@@ -423,6 +425,10 @@ class Player:
             self.ability_targets[ability.pin] = targets
 
         UseHydro(self.game, self, ability, will, contingency)
+
+        if ability.name == "Illusions III":
+            assert len(targets) == 3 == len(set(targets))
+            MasterIllusion(self.game, self, target=targets[0], defended=targets[1], redirected=targets[2])
 
     def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
         assert not self.used_illusion
