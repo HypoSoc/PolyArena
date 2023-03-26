@@ -69,8 +69,9 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Mystic Penetration", "Armor Break", "Will Armor II", "Armored Combat"],
-                      ["Healing Tank", "Oxygen Mask", "Poison Gas", "Fire II Rune", "Leather Armor", "Bokken"],
+    a = create_player("Alpha", ["Mystic Penetration", "Armor Break", "Will Armor II", "Armored Combat",
+                                "Congealing Will"],
+                      ["Healing Tank", "Oxygen Mask", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
                       hiding=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
@@ -81,7 +82,7 @@ if __name__ == '__main__':
                                   "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Rapid Regen II Rune", "Bokken"],
                       dev_goals=["Sniping"])
-    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Panopticon"],
+    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Theft"],
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
     GAME.advance()
@@ -90,10 +91,12 @@ if __name__ == '__main__':
     a.plan_hydro("Will Blades")
     a.plan_hydro("Mystic Penetration")
     a.plan_hydro("Will Armor II")
+    a.plan_hydro("Congealing Will")
     b.plan_train()
     b.plan_attune(Element.EARTH)
     c.plan_attack(a)
-    c.plan_attune(Element.ANTI)
+    # c.plan_attune(Element.ANTI)
+    d.plan_steal(a)
 
     Action.run_turn(GAME)
 

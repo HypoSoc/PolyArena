@@ -52,7 +52,7 @@ class DayReport(object):
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:
             self.petrified.add(player)
-            self.actions.append((player, f"{player.name} was Petrified."))
+            self.actions.append((player, f"{player.name} was Petrified.", False, False))
 
     def add_death(self, player: "Player"):
         if player not in self.dead:

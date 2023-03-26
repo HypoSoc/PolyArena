@@ -463,7 +463,7 @@ class CombatHandler:
                                     combat[target] += 1
                                 else:
                                     survivability[target] += 1
-                        elif skill.effect == Effect.CONDITION:
+                        elif skill.effect in [Effect.CONDITION, Effect.TENTATIVE_CONDITION]:
                             condition = Condition[skill.value]
                             if condition not in conditions[target]:
                                 conditions[target].append(condition)

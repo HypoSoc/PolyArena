@@ -171,6 +171,15 @@
   linked: true
   prerequisite: 217
 
+219:
+  name: "Congealing Will"
+  cost: 5
+  hydro:
+    74:
+      cost: 1
+      fragile: true
+  prerequisite: 202
+
 220:
   name: "Rapid Regen I"
   cost: 10

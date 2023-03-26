@@ -85,6 +85,11 @@ class HydroQualifiedSkill:
                     if skill.trigger not in NONCOMBAT_TRIGGERS:
                         if skill.priority < 20:  # Fragile Skills have to happen after antimagic
                             skill.priority = 20
+                    if skill.effect == Effect.CONDITION:
+                        skill.effect = Effect.TENTATIVE_CONDITION
+                        if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                            skill.priority = 20
+
             # To prevent multi triggers of progress, we combine them into a single skill for the each case
             skills.append(skill)
             if skill.effect == Effect.PROGRESS:
