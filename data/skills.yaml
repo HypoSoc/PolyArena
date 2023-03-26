@@ -620,7 +620,6 @@
   priority: 20
   value: "FRAGILE_ARMED"
   self_has_condition: "FRAGILE_ARMED"
-  info: "PRIVATE"
 
 96:  # NOT FRAGILE
   text: "Weapon was fake, so no longer armed"
@@ -628,7 +627,6 @@
   priority: 21.5
   value: "ARMED"
   self_has_condition: "FRAGILE_ARMED"
-  info: "PRIVATE"
 
 97:  # FRAGILE
   text: "You formed a magical weapon."
