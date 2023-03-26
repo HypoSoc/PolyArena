@@ -720,3 +720,9 @@
   trigger: "RANGE_EX_SELF"
   target_has_condition: "USING_AERO"
   info: "HIDDEN"  # Handled by ability processing
+
+110:
+  text: "+1 Academics from Class"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "STUDIOUS"

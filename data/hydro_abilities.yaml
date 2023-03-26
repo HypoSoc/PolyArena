@@ -299,6 +299,37 @@
   linked: true
   prerequisite: 229
 
+232:
+  name: "Mental Reinforcement I"
+  cost: 5
+  hydro:
+    76:
+      cost: 1
+  not_contingency: true
+  prerequisite: 201
+
+233:
+  name: "Mental Reinforcement II"
+  cost: 10
+  hydro:
+    76:
+      cost: 1
+    110:
+      cost: 2
+  not_contingency: true
+  prerequisite: 232
+
+234:
+  name: "Mental Reinforcement III"
+  cost: 15
+  hydro:
+    63:
+      cost: 1
+    110:
+      cost: 1
+  not_contingency: true
+  prerequisite: 233
+
 238:
   name: "Quiet Casting"
   cost: 10

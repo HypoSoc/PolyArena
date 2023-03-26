@@ -81,6 +81,7 @@ class Condition(Enum):
     TARGET_LOCKED = 66  # Speed 0 and can't be immune to sniping
     AMBUSH_IMMUNE = 67
     UNNATURAL_INTUITION = 68  # Bonus vs Aero AND Reveals are Aero in range
+    STUDIOUS = 69  # +1 Academics from Classes
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]

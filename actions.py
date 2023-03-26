@@ -111,6 +111,7 @@ class Action:
             Action.queue.put(self)
 
     def act(self):
+        self.player.report += os.linesep
         if self.player and self.player.has_condition(Condition.HIDING) and \
                 not self.player.has_condition(Condition.FRESH_HIDING):
             if self.game and not self.game.night and not self.maintains_hiding:
@@ -468,7 +469,7 @@ class Class(Action):
             super().act()
 
     def _act(self):
-        self.player.academics += 1
+        self.player.academics += 1 + (self.player.conditions + self.player.turn_conditions).count(Condition.STUDIOUS)
         self.player.report += f"Academics ({self.player.academics})"+os.linesep
         if self.player.temperament == Temperament.SCHOLASTIC:
             Action.progress(self.player, 3)
