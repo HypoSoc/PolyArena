@@ -80,6 +80,7 @@ class Condition(Enum):
     FRAGILE_ARMED = 65  # Armed that disappears from antimagic
     TARGET_LOCKED = 66  # Speed 0 and can't be immune to sniping
     AMBUSH_IMMUNE = 67
+    UNNATURAL_INTUITION = 68  # Bonus vs Aero AND Reveals are Aero in range
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -119,6 +120,7 @@ class Effect(Enum):
     SPEED = 22
     MAX_WILLPOWER = 23
     DRAIN = 24  # Drain Willpower
+    INTUITION = 25  # Detect Aeromancy Concept
 
 
 class Trigger(Enum):

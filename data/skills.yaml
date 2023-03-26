@@ -708,3 +708,15 @@
   effect: "INFO"
   trigger: "NONCOMBAT"
   info: "PRIVATE"
+
+108:
+  text: "+1/+1 vs Aeromancers"
+  effect: "CONDITION"
+  value: "UNNATURAL_INTUITION"
+
+109:
+  text: "%SELF% detected Aeromancy: (%REPLACE_WITH_CONCEPT%)"
+  effect: "INTUITION"
+  trigger: "RANGE_EX_SELF"
+  target_has_condition: "USING_AERO"
+  info: "HIDDEN"  # Handled by ability processing

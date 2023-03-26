@@ -279,11 +279,24 @@
 
 230:
   name: "Danger Precognition"
-  cost: 2
+  cost: 10
   hydro:
     107:
       cost: 2
   not_contingency: true
+  prerequisite: 229
+
+231:
+  name: "Unnatural Intuition"
+  cost: 5
+  hydro:
+    108:
+      cost: 1
+      fragile: true
+    109:
+      cost: 1
+      fragile: true
+  linked: true
   prerequisite: 229
 
 238:

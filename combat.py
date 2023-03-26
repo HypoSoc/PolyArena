@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import random
 from queue import PriorityQueue
 from typing import TYPE_CHECKING, Dict, Tuple, List, FrozenSet, Callable, Set, Any, Optional
 
@@ -442,7 +443,12 @@ class CombatHandler:
                     if not targets:
                         return
 
+                    if skill.effect == Effect.INTUITION:
+                        random.shuffle(targets)  # Ensure there is no way to tell WHICH player is which Aeromancer
+
                     for target in targets:
+                        text = skill.text
+
                         if skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                             continue
 
@@ -528,6 +534,14 @@ class CombatHandler:
                                     queue.put(speed_ambush_tic(target, v))
                         elif skill.effect == Effect.DRAIN:
                             queue.put(drain_tic(p, target))
+                        elif skill.effect == Effect.INTUITION:
+                            # TODO
+                            self._append_to_event_list(self.combat_group_to_events[group],
+                                                       skill.text.replace(SELF_PLACEHOLDER, p.name)
+                                                       .replace(TARGET_PLACEHOLDER, target.name)
+                                                       .replace("%REPLACE_WITH_CONCEPT%", "!!!UNIMPLEMENTED!!!"),
+                                                       [p],
+                                                       InfoScope.PERSONAL)
                         else:
                             raise Exception(f"Unhandled effect type in combat! {skill.effect.name}")
 
@@ -648,12 +662,15 @@ class CombatHandler:
                 if Condition.DEADLY_AMBUSH in conditions[p] and d in self.ambushes.get(p):
                     c += 2
 
+                if d and Condition.USING_AERO in conditions[d] and Condition.UNNATURAL_INTUITION in conditions[p]:
+                    c += 1
+
                 if d and d.check_relative_condition(p, Condition.SABOTAGED_KNOWLEDGE):
                     c -= 2
                 elif d and p.check_relative_condition(d, Condition.KNOW):
                     c += 1
 
-                if p.has_condition(Condition.DELUDED):
+                if Condition.DELUDED in conditions[p]:
                     c -= 2
 
                 if c < 0:
@@ -669,6 +686,9 @@ class CombatHandler:
                         if a and Element.FIRE in a.circuits:
                             if Condition.GEO_LOCKED not in conditions[a]:
                                 s += 2
+
+                    if a and Condition.USING_AERO in conditions[a] and Condition.UNNATURAL_INTUITION in conditions[p]:
+                        s += 1
 
                     if a and a.check_relative_condition(p, Condition.SABOTAGED_KNOWLEDGE):
                         s -= 2
@@ -781,6 +801,8 @@ class CombatHandler:
 
                 if player.hydro_spells:
                     conditions[player].append(Condition.USING_HYDRO)
+
+                # TODO mark aeromancers
 
                 for _skill in player.get_skills():
                     # Apply effects from skills to players in order of skill priority
