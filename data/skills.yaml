@@ -726,3 +726,21 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "STUDIOUS"
+
+111:
+  text: "Can craft cheap items"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "LOW_CRAFTING"
+
+112:
+  text: "Can craft 3 credits worth of items"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "CRAFTING"
+
+113:
+  text: "Can craft 5 credits worth of items"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "HIGH_CRAFTING"

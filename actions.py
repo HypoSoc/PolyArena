@@ -22,6 +22,7 @@ DEPLETED_MEDKIT = get_item_by_name("1/2 Medkit").pin
 LIQUID_MEMORIES = get_item_by_name("Liquid Memories").pin
 HEALING_TANK = get_item_by_name("Healing Tank").pin
 BOOBY_TRAP = get_item_by_name("Booby Trap").pin
+WORKBENCH = get_item_by_name("Workbench").pin
 
 
 QM_ABILITY_PINS = [get_ability_by_name("Divination").pin, get_ability_by_name("Danger Precognition").pin]
@@ -681,6 +682,13 @@ class Craft(Action):
         if not self.items:
             return
 
+        amt = sum(self.items.values())
+        price = sum([abs(item.cost) * amount for (item, amount) in self.items.items()])
+        only_shop_items = True
+        for item in self.items:
+            if item.cost < 0:
+                only_shop_items = False
+
         rune_crafting = False
         for item in self.items:
             if isinstance(item, Rune):
@@ -698,13 +706,37 @@ class Craft(Action):
                     return
             # Todo hydro crafting/willpower check
 
-        if rune_crafting and len(self.items) > 1:
+        if rune_crafting and amt > 1:
             # Can only craft 1 rune at a time, if crafting ANY runes.
             return
 
         if self.is_bonus and rune_crafting:
             if not self.player.has_ability("Rune Crafting II"):
                 return  # Player cannot bonus rune craft
+
+        if not rune_crafting:
+            legal_craft = False
+
+            if self.player.has_condition(Condition.LOW_CRAFTING):
+                if amt == 1 and price <= 2 and only_shop_items:
+                    legal_craft = True
+
+            if self.player.has_condition(Condition.CRAFTING):
+                if price <= 3 and only_shop_items:
+                    legal_craft = True
+
+            if self.player.has_condition(Condition.HIGH_CRAFTING):
+                if price <= 5 and only_shop_items:
+                    illegal_items = False
+                    for item in self.items:
+                        if item.pin in [LIQUID_MEMORIES]:
+                            illegal_items = True
+                    if not illegal_items:
+                        legal_craft = True
+
+            if not legal_craft:
+                self.player.report += f"You were unable to craft your items." + os.linesep
+                return
 
         super().act()
 
@@ -1280,6 +1312,9 @@ class NoncombatSkillStep(Action):
             if not player.is_dead():
                 if player.has_condition(Condition.HIDING):
                     DayReport().mark_hiding(player)
+                if WORKBENCH in player.items:
+                    if isinstance(player.action, Craft):
+                        player.turn_conditions.append(Condition.BONUS_BUNKER)
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.NONCOMBAT:
                         HandleSkill(self.game, player, skill)

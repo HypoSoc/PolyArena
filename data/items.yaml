@@ -164,3 +164,10 @@
   type: "REACTIVE"
   skills: []
   fragile: true
+
+23:
+  name: "Workbench"
+  cost: 2
+  type: "PERMANENT"
+  skills: []
+  loot: false

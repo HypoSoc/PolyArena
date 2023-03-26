@@ -215,6 +215,12 @@ class Player:
             if not self.game.is_day():
                 raise Exception(f"Player {self.name} is trying to take a day only action at night.")
 
+    # For turning off Petrify and the like
+    def disable_ability(self, ability_name: str):
+        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION"):
+            raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
+        self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
+
     def plan_fake_ability(self, ability: Ability):
         self.fake_ability = ability
 
@@ -246,12 +252,6 @@ class Player:
         if Shop.get_total_cost(items) > self.credits:
             raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
         self.action = Shop(self.game, self, items)
-
-    # For turning off Petrify and the like
-    def disable_ability(self, ability_name: str):
-        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION"):
-            raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
-        self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 
     def plan_train(self):
         self._generic_action_check()
@@ -441,6 +441,18 @@ class Player:
             Illusion(self.game, self, target=target, fake_action=action)
 
         self.used_illusion = True
+
+    def plan_craft(self, *item_names):
+        self._generic_action_check(day_only=True)
+        item_names_to_amount = {}
+        for item_name in item_names:
+            if item_name not in item_names_to_amount:
+                item_names_to_amount[item_name] = 0
+            item_names_to_amount[item_name] += 1
+
+        items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
+
+        self.action = Craft(self.game, self, items)
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)

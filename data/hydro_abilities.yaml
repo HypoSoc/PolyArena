@@ -330,6 +330,33 @@
   not_contingency: true
   prerequisite: 233
 
+235:
+  name: "Crafting I"
+  cost: 10
+  hydro:
+    111:
+      cost: 1
+  not_contingency: true
+  prerequisite: 201
+
+236:
+  name: "Crafting II"
+  cost: 10
+  hydro:
+    112:
+      cost: 1
+  not_contingency: true
+  prerequisite: 235
+
+237:
+  name: "Crafting III"
+  cost: 10
+  hydro:
+    113:
+      cost: 2
+  not_contingency: true
+  prerequisite: 236
+
 238:
   name: "Quiet Casting"
   cost: 10

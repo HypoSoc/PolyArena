@@ -82,6 +82,9 @@ class Condition(Enum):
     AMBUSH_IMMUNE = 67
     UNNATURAL_INTUITION = 68  # Bonus vs Aero AND Reveals are Aero in range
     STUDIOUS = 69  # +1 Academics from Classes
+    LOW_CRAFTING = 70  # Single item worth 2 or less
+    CRAFTING = 71  # Combination of items adding up to less than 3
+    HIGH_CRAFTING = 72  # Combination of items adding up to 5. No Liquid Memories
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
