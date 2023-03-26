@@ -234,6 +234,22 @@
   max_will: 5
   prerequisite: 223
 
+225:
+  name: "Speed (Hydro) I"
+  cost: 10
+  hydro:
+    80:
+      cost: 1
+  prerequisite: 222
+
+226:
+  name: "Speed (Hydro) II"
+  cost: 10
+  hydro:
+    80:
+      cost: 1
+  prerequisite: 225
+
 238:
   name: "Quiet Casting"
   cost: 10
