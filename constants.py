@@ -2,6 +2,7 @@ from enum import Enum, IntEnum
 
 
 class Temperament(Enum):
+    NONE = 0
     ALTRUISTIC = 1
     HOT_BLOODED = 2
     INTUITIVE = 3

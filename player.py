@@ -95,6 +95,8 @@ class Player:
         self.used_illusion = False
         self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
 
+        self.is_automata = False
+
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
                        academics=self.academics, temperament=self.temperament, conditions=self.conditions.copy(),
@@ -258,7 +260,7 @@ class Player:
             if item.cost < 0:
                 raise Exception(f"Player {self.name} is trying to buy an item that is not for sale {item.name}.")
 
-        if Shop.get_total_cost(items) > self.credits:
+        if Shop.get_total_cost(items) > self.get_credits():
             raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
         self.action = Shop(self.game, self, items)
 
@@ -452,7 +454,7 @@ class Player:
         self.used_illusion = True
 
     def plan_craft(self, *item_names):
-        self._generic_action_check(day_only=True)
+        self._generic_action_check()
         item_names_to_amount = {}
         for item_name in item_names:
             if item_name not in item_names_to_amount:

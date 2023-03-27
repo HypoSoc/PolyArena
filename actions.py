@@ -13,6 +13,7 @@ from report import DayReport
 if TYPE_CHECKING:
     from game import Game
     from player import Player
+    from automata import Automata
     from skill import Skill
 
 POISON_GAS = get_item_by_name("Poison Gas").pin
@@ -704,7 +705,7 @@ class Craft(Action):
                     return
 
                 if not self.player.has_ability(item.get_ability_name(), strict=True):
-                    self.player.report += f"You don't know have the ability to make a rune " \
+                    self.player.report += f"You don't have the ability to make a rune " \
                                           f"for {item.get_ability_name()}." + os.linesep
                     return
 
@@ -738,6 +739,79 @@ class Craft(Action):
 
             if not legal_craft:
                 self.player.report += f"You were unable to craft your items." + os.linesep
+                return
+
+        super().act()
+
+    def _act(self):
+        for item, amount in self.items.items():
+            self.player.gain_item(item, amount)
+        Action.add_action_record(self.player, Craft)
+
+
+class AutomataCraft(Action):
+    def __init__(self, game: Optional['Game'], automata: "Automata", items: Dict['Item', int]):
+        assert automata.is_automata
+        super().__init__(priority=40, game=game, player=automata, fragile=True,
+                         public_description=f"{automata.name} crafted.",
+                         on_interrupt=f"{automata.name} failed to craft.",
+                         combat_on_interrupt=f"while they were trying to craft something")
+        self.items = items
+        self.owner = automata.owner
+
+    def act(self):
+        if not self.items:
+            return
+
+        amt = sum(self.items.values())
+        price = sum([abs(item.cost) * amount for (item, amount) in self.items.items()])
+        only_shop_items = True
+        for item in self.items:
+            if item.cost < 0:
+                only_shop_items = False
+
+        rune_crafting = False
+        for item in self.items:
+            if isinstance(item, Rune):
+                rune_crafting = True
+                if not item.is_simple_rune() and not self.owner.has_ability("Rune Crafting II"):
+                    self.owner.report += f"{item.name} is too complicated for your automata to craft." + os.linesep
+                    return
+                if not self.owner.has_ability("Rune Crafting I") and not self.owner.has_ability("Rune Crafting II"):
+                    self.owner.report += f"Your automata does not know how to make runes." + os.linesep
+                    return
+
+                if not self.owner.has_ability(item.get_ability_name(), strict=True):
+                    self.owner.report += f"Your automata does not have the ability to make a rune " \
+                                         f"for {item.get_ability_name()}." + os.linesep
+                    return
+
+        if rune_crafting and amt > 1:
+            # Can only craft 1 rune at a time, if crafting ANY runes.
+            return
+
+        if not rune_crafting:
+            legal_craft = False
+
+            if self.owner.has_ability("Crafting I"):
+                if amt == 1 and price <= 2 and only_shop_items:
+                    legal_craft = True
+
+            if self.owner.has_ability("Crafting II"):
+                if price <= 3 and only_shop_items:
+                    legal_craft = True
+
+            if self.owner.has_ability("Crafting III"):
+                if price <= 5 and only_shop_items:
+                    illegal_items = False
+                    for item in self.items:
+                        if item.pin in [LIQUID_MEMORIES]:
+                            illegal_items = True
+                    if not illegal_items:
+                        legal_craft = True
+
+            if not legal_craft:
+                self.player.report += f"Your automata was unable to craft your items." + os.linesep
                 return
 
         super().act()
@@ -792,26 +866,34 @@ class Tattoo(Action):
         self.target = target
         self.rune = rune
 
+        self.ability_source = player
+        if player.is_automata:
+            self.ability_source = player.owner
+
     def act(self):
         if self.self_target:
             if self.player.tattoo:
                 self.player.report += "You already have a tattoo." + os.linesep
                 return
-        if not self.player.has_ability("Runic Tattoos"):
+        if not self.ability_source.has_ability("Runic Tattoos"):
             return
         super().act()
 
     def _act(self):
-        able_to_tattoo = self.player.has_ability("Runic Tattoos")
-        if not self.player.has_ability("Rune Crafting I") and not self.player.has_ability("Rune Crafting II"):
+        able_to_tattoo = self.ability_source.has_ability("Runic Tattoos")
+        if not self.ability_source.has_ability("Rune Crafting I") and \
+                not self.ability_source.has_ability("Rune Crafting II"):
             able_to_tattoo = False
-        if not self.rune.is_simple_rune() and not self.player.has_ability("Rune Crafting II"):
+        if not self.rune.is_simple_rune() and not self.ability_source.has_ability("Rune Crafting II"):
             able_to_tattoo = False
-        if not self.player.has_ability(self.rune.get_ability_name(), strict=True):
+        if not self.ability_source.has_ability(self.rune.get_ability_name(), strict=True):
             able_to_tattoo = False
 
         if not able_to_tattoo:
             self.player.report += f"You were incapable of making the {self.rune.name} Tattoo." + os.linesep
+            if self.player.is_automata:
+                self.ability_source.report += f"Your automata was incapable " \
+                                              f"of making the {self.rune.name} Tattoo." + os.linesep
 
         if self.self_target:
             if able_to_tattoo:
@@ -1532,9 +1614,10 @@ class StatusChangeStep(Action):
                                          f"within {4-count} {turn} or you will die." + os.linesep
 
                 if self.game.night:
-                    player.gain_credits(1)
-                    player.report += f"Student Services has granted you 1 credit ({player.get_credits()})" \
-                                     + os.linesep + os.linesep
+                    if not player.is_automata:
+                        player.gain_credits(1)
+                        player.report += f"Student Services has granted you 1 credit ({player.get_credits()})" \
+                                         + os.linesep + os.linesep
 
 
 class Resurrect(Action):

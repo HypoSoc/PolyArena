@@ -4,9 +4,10 @@ from constants import Temperament, Condition
 from game import Game
 from items import get_item_by_name
 from player import Player
+from automata import Automata
 from report import DayReport
 
-GAME = Game(night=True)
+GAME = Game(night=False)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -68,6 +69,12 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
     return player
 
 
+def create_automata(name: str, owner: 'Player') -> Automata:
+    return Automata(name=name, owner=owner, conditions=[], items=[], bounty=0,
+                    relative_conditions={}, tattoo=None,
+                    game=GAME)
+
+
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Willpower V", "Crafting III"],
@@ -82,30 +89,27 @@ if __name__ == '__main__':
                                   "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Camo Cloak", "Bokken"],
                       dev_goals=["Sniping"])
-    d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Awareness II", "Theft", "Market Connections II"],
+    d = create_player("Delta", ["Attunement Detection", "Willpower Detection",
+                                "Awareness II", "Theft", "Market Connections II"],
                       items=["Shrooms", "Medkit"],
                       dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
+
+    e = create_automata("ROBO_ALPHA", a)
+
     GAME.advance()
 
     a.plan_attack(b)
     b.plan_train()
     b.plan_attune(Element.EARTH)
-    b.plan_bounty(c, 2)
-    c.plan_attack(a)
     # c.plan_attune(Element.ANTI)
-    c.plan_bounty(b, 2)
-    d.plan_attack(a)
-    d.plan_bounty(c, 2)
+    e.plan_craft("Bokken", "Venom", "Shrooms")
+    e.plan_trade(a, item_names=["Shrooms", "Bokken"])
 
     Action.run_turn(GAME)
 
     for p in [a, b, c, d]:
         print(f"{p.name} Report")
         print(p.get_report())
-        if p.tattoo:
-            print(get_item(p.tattoo))
-        if p.bounty:
-            print(p.bounty)
         print()
 
     print(DayReport().generate_report(GAME))
