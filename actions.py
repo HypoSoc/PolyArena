@@ -507,12 +507,16 @@ class Doctor(Action):
 
 
 class Shop(Action):
-    def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int]):
+    def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int],
+                 automata_names: Optional[List[str]] = None):
         super().__init__(priority=40, game=game, player=player, fragile=True,
                          public_description=f"{player.name} shopped.",
                          on_interrupt=f"{player.name} failed to shop.",
                          combat_on_interrupt="while they were trying to shop")
         self.items = items
+        self.automata_names = automata_names
+        if not self.automata_names:
+            self.automata_names = []
 
     def act(self):
         if Shop.get_total_cost(self.items) > self.player.get_credits():
@@ -527,9 +531,15 @@ class Shop(Action):
         self.player.report += f"{self.player.name} spent {total_cost} credits " \
                               f"({self.player.get_credits()} remaining)." + os.linesep
         for item, amount in self.items.items():
-            self.player.gain_item(item, amount)
+            if item.pin == AUTOMATA:
+                assert len(self.automata_names) >= amount
+                for i in range(amount):
+                    Action.create_automata(self.game, self.player, self.automata_names[i])
+            else:
+                self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Shop)
-        DayReport().add_shop(self.player, total_cost, self.items)
+        pruned_items = {k:v for k,v in self.items.items() if k.pin != AUTOMATA}
+        DayReport().add_shop(self.player, total_cost, pruned_items, self.automata_names)
 
     @staticmethod
     def get_total_cost(items: Dict['Item', int]):

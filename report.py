@@ -69,8 +69,8 @@ class DayReport(object):
             self.willpower[player] = 0
         self.willpower[player] += will
 
-    def add_shop(self, player: "Player", money: int, items: Dict["Item", int]):
-        self.shop.append((player, money, items))
+    def add_shop(self, player: "Player", money: int, items: Dict["Item", int], automata_names: List['str']):
+        self.shop.append((player, money, items, automata_names))
 
     def add_trade(self, player: "Player", target: "Player", money: int,
                   items: Dict["Item", int], automata: List['Automata']):
@@ -208,11 +208,14 @@ class DayReport(object):
 
     def get_money_report(self, full=False) -> str:
         report = ""
-        for player, money, items in self.shop:
+        for player, money, items, automata_names in self.shop:
             report += f"{player.name} spent {money} credits at Shop Club." + os.linesep
             if full:
                 for item, amount in items.items():
                     report += f"-- {item.name} x{amount}" + os.linesep
+                if automata_names:
+                    for automaton_name in automata_names:
+                        report += f"-- {automaton_name}" + os.linesep
         if report:
             report += os.linesep
         for player, target, money, items, automata in self.trades:

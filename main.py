@@ -56,7 +56,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
-                    items=item_pins, money=3, willpower=willpower, bounty=0,
+                    items=item_pins, money=10, willpower=willpower, bounty=0,
                     relative_conditions={}, tattoo=tattoo,
                     game=GAME)
 
@@ -99,12 +99,12 @@ if __name__ == '__main__':
     GAME.advance()
 
     a.plan_hydro("Crafting III")
-    a.plan_craft("Automata", automata_name='DAVE')
-    a.plan_trade(c, automata=['DAVE', 'ROBO_ALPHA'], item_name_condition=(c, 3, []))
+    a.plan_shop("Automata", "Automata", automata_name=['DAVE', "Betsy"])
+    a.plan_trade(c, automata=['DAVE', e], item_name_condition=(c, 3, []))
     b.plan_train()
     b.plan_attune(Element.EARTH)
     c.plan_attune(Element.ANTI)
-    c.plan_trade(a, money=2, item_name_condition=(a,3,["Automata", "Automata"]))
+    c.plan_trade(a, money=3, item_name_condition=(a,0,["Automata", "Automata"]))
     e.plan_craft("Automata", automata_name='DAVID')
 
     Action.run_turn(GAME)

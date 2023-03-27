@@ -253,7 +253,12 @@ class Player:
             PlaceBounty(self.game, self, target, amount)
             self.bounties_placed.add(target)
 
-    def plan_shop(self, *item_names):
+    def plan_shop(self, *item_names, automata_name: Union[Optional[List[str]], str] = None):
+        if not automata_name:
+            automata_name = []
+        if not isinstance(automata_name, list):
+            automata_name = [automata_name]
+
         self._generic_action_check(day_only=True)
         item_names_to_amount = {}
         for item_name in item_names:
@@ -269,7 +274,7 @@ class Player:
 
         if Shop.get_total_cost(items) > self.get_credits():
             raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
-        self.action = Shop(self.game, self, items)
+        self.action = Shop(self.game, self, items, automata_names=automata_name)
 
     def plan_train(self):
         self._generic_action_check()
