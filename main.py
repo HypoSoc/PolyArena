@@ -100,9 +100,11 @@ if __name__ == '__main__':
 
     a.plan_hydro("Crafting III")
     a.plan_craft("Automata", automata_name='DAVE')
+    a.plan_trade(c, automata=['DAVE', 'ROBO_ALPHA'], item_name_condition=(c, 3, []))
     b.plan_train()
     b.plan_attune(Element.EARTH)
-    # c.plan_attune(Element.ANTI)
+    c.plan_attune(Element.ANTI)
+    c.plan_trade(a, money=2, item_name_condition=(a,3,["Automata", "Automata"]))
     e.plan_craft("Automata", automata_name='DAVID')
 
     Action.run_turn(GAME)

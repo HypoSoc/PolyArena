@@ -1,6 +1,6 @@
 import itertools
 import os
-from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iterable
+from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iterable, TYPE_CHECKING
 
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
@@ -12,6 +12,8 @@ from items import Item, get_item, get_item_by_name, Rune
 from report import ReportCallable, DayReport
 from skill import Skill
 
+if TYPE_CHECKING:
+    from automata import Automata
 
 FACE_MASK = get_item_by_name("Face Mask").pin
 LIZARD_TAIL = get_item_by_name("Lizard Tail").pin
@@ -99,6 +101,8 @@ class Player:
 
         self.is_automata = False
         self.owner = None
+        # Used so that automata can be traded the same turn they are created
+        self.automata_registry: Dict[str, 'Automata'] = {}
 
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
@@ -357,6 +361,7 @@ class Player:
             ConsumeItem(self.game, self, item)  # Constructor adds it to the action queue
 
     def plan_trade(self, target: "Player", money: int = 0, item_names: Optional[List[str]] = None,
+                   automata: Union[Optional[List[Union['Automata', str]]], 'Automata', str] = None,
                    action_condition: Optional[Union[ACTION_CONDITION, Tuple['Player', Type['Action']]]] = None,
                    item_name_condition: Optional[Tuple["Player", int, List[str]]] = None):
         if action_condition:
@@ -372,6 +377,9 @@ class Player:
 
             items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
 
+        if automata and not isinstance(automata, list):
+            automata = [automata]
+
         item_condition: Optional[ITEM_CONDITION] = None
         if item_name_condition is not None:
             item_names_to_amount = {}
@@ -384,7 +392,7 @@ class Player:
                               {get_item_by_name(item_name): amount for (item_name, amount) in
                                item_names_to_amount.items()})
 
-        Trade(self.game, self, target, items, money, action_condition, item_condition)
+        Trade(self.game, self, target, items, money, automata, action_condition, item_condition)
 
     def plan_face_mask(self, player: 'Player'):
         if self.masking:

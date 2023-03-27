@@ -1,7 +1,7 @@
 import os
 from queue import PriorityQueue
 from random import random
-from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type
+from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type, Union
 
 from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
@@ -1125,24 +1125,33 @@ class Trade(Action):
     item_conditions: Dict[Tuple['Player', 'Player'], Tuple[int, Dict['Item', int]]] = {}
 
     # Used to prevent a player from promising the same items/credits to multiple players
-    reserved: Dict['Player', Tuple[int, Dict['Item', int]]] = {}
+    reserved: Dict['Player', Tuple[int, Dict['Item', int], List[str]]] = {}
 
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player",
                  items: Optional[Dict['Item', int]] = None, money: int = 0,
+                 automata: Optional[List[Union['Automata', str]]] = None,
                  action_condition: Optional[ACTION_CONDITION] = None,
                  item_condition: Optional[ITEM_CONDITION] = None):
         if (player, target) in Trade.unique_pair:
             raise Exception(f"{player.name} is trying to trade with {target.name} multiple times")
         if money < 0:
             raise Exception(f"{player.name} is trying to give away negative money.")
-        if not money and not items:
+        if not money and not items and not automata:
             raise Exception(f"{player.name} is trying to place an empty trade.")
         if items is None:
             items = {}
+        if automata is None:
+            automata = []
+
+        for automaton in automata:
+            if not isinstance(automaton, str) and automaton.owner != player:
+                raise Exception(f"{player.name} is trying to trade an automata they don't own {automaton.name}.")
+
         super().__init__(100, game=game, player=player, fragile=False)
         self.target = target
         self.items = items
         self.credits = money
+        self.automata = automata
         self.action_condition = action_condition
         self.item_condition = item_condition
         Trade.unique_pair.add((player, target))
@@ -1154,7 +1163,7 @@ class Trade(Action):
                                       f"because the required action did not happen." + os.linesep
                 return
         failed_trade = False
-        reserved_credits, reserved_items = Trade.reserved.get(self.player, (0, {}))
+        reserved_credits, reserved_items, reserved_automata_names = Trade.reserved.get(self.player, (0, {}, []))
         if self.credits:
             reserved_credits += self.credits
             if self.player.get_credits() < reserved_credits:
@@ -1169,22 +1178,50 @@ class Trade(Action):
                     self.player.report += f"You do not have enough {item.name} to trade with {self.target.name}." \
                                           + os.linesep
                     failed_trade = True
-        Trade.reserved[self.player] = (reserved_credits, reserved_items)
+        if self.automata:
+            parsed_automata = []  # used so that automata can be traded the same turn they are made
+            for automaton in self.automata:
+                if isinstance(automaton, str):
+                    if automaton not in self.player.automata_registry:
+                        self.player.report += f"You do not have an automaton named {automaton}" \
+                                              f" so you cannot trade with {self.target.name}." \
+                                              + os.linesep
+                        failed_trade = True
+                    else:
+                        parsed_automata.append(self.player.automata_registry[automaton])
+                else:
+                    parsed_automata.append(automaton)
+            self.automata = parsed_automata
+            for automaton in self.automata:
+                if automaton.name in reserved_automata_names:
+                    self.player.report += f"You are only have a single {automaton.name} so you cannot" \
+                                          f" trade with {self.target.name}." \
+                                          + os.linesep
+                    failed_trade = True
+                reserved_automata_names.append(automaton.name)
+        Trade.reserved[self.player] = (reserved_credits, reserved_items, reserved_automata_names)
         if failed_trade:
             return
-        Trade.item_conditions[(self.player, self.target)] = (self.credits, self.items)
-        TradeFollow(self.game, self.player, self.target, self.items, self.credits, self.item_condition)
+        items_and_automata = self.items.copy()
+        if self.automata:
+            items_and_automata[get_item_by_name("Automata")] = len(self.automata)
+        Trade.item_conditions[(self.player, self.target)] = (self.credits, items_and_automata)
+        TradeFollow(self.game, self.player, self.target,
+                    self.items, self.credits, self.automata,
+                    self.item_condition)
 
 
 # Used only by Trade
 class TradeFollow(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player",
                  items: Optional[Dict['Item', int]], money: int,
+                 automata: List['Automata'],
                  item_condition: Optional[ITEM_CONDITION]):
         super().__init__(101, game=game, player=player, fragile=False)
         self.target = target
         self.items = items
         self.credits = money
+        self.automata = automata
         self.item_condition = item_condition
 
     def _act(self):
@@ -1202,18 +1239,20 @@ class TradeFollow(Action):
                                           + os.linesep
                     Trade.item_conditions[(self.player, self.target)] = (0, {})
                     return
-        TradeFinal(self.game, self.player, self.target, self.items, self.credits, self.item_condition)
+        TradeFinal(self.game, self.player, self.target, self.items, self.credits, self.automata, self.item_condition)
 
 
 # Used only by Trade
 class TradeFinal(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player",
                  items: Optional[Dict['Item', int]], money: int,
+                 automata: List['Automata'],
                  item_condition: Optional[ITEM_CONDITION]):
         super().__init__(102, game=game, player=player, fragile=False)
         self.target = target
         self.items = items
         self.credits = money
+        self.automata = automata
         self.item_condition = item_condition
 
     def _act(self):
@@ -1246,7 +1285,11 @@ class TradeFinal(Action):
             for item, amount in self.items.items():
                 self.player.lose_item(item, amount)
                 self.target.gain_item(item, amount)
-        DayReport().add_trade(self.player, self.target, self.credits, self.items)
+        for automaton in self.automata:
+            self.player.report += f"You transferred control of {automaton.name} to {self.target.name}." + os.linesep
+            self.target.report += f"{self.player.name} gave you control over {automaton.name}." + os.linesep
+            automaton.owner = self.target
+        DayReport().add_trade(self.player, self.target, self.credits, self.items, self.automata)
 
 
 class PlaceBounty(Action):

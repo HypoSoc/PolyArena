@@ -22,6 +22,7 @@ class Automata(Player):
         self.owner = owner
 
         self.is_automata = True
+        self.owner.automata_registry[self.name] = self
 
     def get_report(self):
         return ""
@@ -54,10 +55,13 @@ class Automata(Player):
         raise Exception(f"Automata {self.name} cannot blackmail.")
 
     def plan_trade(self, target: "Player", money: int = 0, item_names: Optional[List[str]] = None,
+                   automata: Union[Optional[List[Union['Automata', str]]], 'Automata', str] = None,
                    action_condition: Optional[Union[ACTION_CONDITION, Tuple['Player', Type['Action']]]] = None,
                    item_name_condition: Optional[Tuple["Player", int, List[str]]] = None):
         if money:
             raise Exception(f"Automata {self.name} cannot trade money.")
+        if automata:
+            raise Exception(f"Automata {self.name} cannot trade automata.")
 
         super().plan_trade(target=target, money=money, item_names=item_names,
                            action_condition=action_condition,

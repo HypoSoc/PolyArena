@@ -1,5 +1,5 @@
 import os
-from typing import NoReturn, TYPE_CHECKING, Callable, Any, Dict, Optional, Tuple
+from typing import NoReturn, TYPE_CHECKING, Callable, Any, Dict, Optional, Tuple, List
 
 from ability import get_ability
 from combat import get_combat_handler
@@ -7,6 +7,7 @@ from constants import InfoScope, Element, Condition
 from game import Game
 
 if TYPE_CHECKING:
+    from automata import Automata
     from player import Player
     from items import Item
 
@@ -26,7 +27,7 @@ class DayReport(object):
             cls.instance.circuits = {}  # Player to list of circuits
             cls.instance.willpower = {}  # Player to int
             cls.instance.shop = []  # List of (player, credits, items)
-            cls.instance.trades = []  # List of (player, target, credits, items)
+            cls.instance.trades = []  # List of (player, target, credits, items, automata)
             cls.instance.bounties = []  # List of (player, target, credits)
             cls.instance.hiding = set()  # Set[Players]
         return cls.instance
@@ -71,8 +72,9 @@ class DayReport(object):
     def add_shop(self, player: "Player", money: int, items: Dict["Item", int]):
         self.shop.append((player, money, items))
 
-    def add_trade(self, player: "Player", target: "Player", money: int, items: Dict["Item", int]):
-        self.trades.append((player, target, money, items))
+    def add_trade(self, player: "Player", target: "Player", money: int,
+                  items: Dict["Item", int], automata: List['Automata']):
+        self.trades.append((player, target, money, items, automata))
 
     def add_bounty(self, player: "Player", target: "Player", money: int):
         self.bounties.append((player, target, money))
@@ -213,7 +215,7 @@ class DayReport(object):
                     report += f"-- {item.name} x{amount}" + os.linesep
         if report:
             report += os.linesep
-        for player, target, money, items in self.trades:
+        for player, target, money, items, automata in self.trades:
             report += f"{player.name} traded with {target.name}." + os.linesep
             if full:
                 if money:
@@ -224,6 +226,9 @@ class DayReport(object):
                 if items:
                     for item, amount in items.items():
                         report += f"-- {item.name} x{amount}" + os.linesep
+                if automata:
+                    for automaton in automata:
+                        report += f"-- {automaton.name}" + os.linesep
         if report:
             report += os.linesep
         if full:
