@@ -1,3 +1,4 @@
+import glob
 from typing import Dict, Optional, Any
 
 from yaml import safe_load
@@ -77,9 +78,14 @@ def __parse_skill(pin: int, dictionary: Dict) -> Skill:
 
 
 if not __skill_dict:
-    with open("data/skills.yaml") as file:
-        skill_list = safe_load(file)
-        for (k, v) in skill_list.items():
-            if k in __skill_dict:
-                raise Exception(f"ID collision in skills.yaml {k}")
-            __skill_dict[k] = __parse_skill(k, v)
+    file_names = ["data/skills.yaml"]
+    file_names.extend(
+        glob.glob("data/aeromancy_skills/*.yaml")
+    )
+    for file_name in file_names:
+        with open(file_name) as file:
+            skill_list = safe_load(file)
+            for (k, v) in skill_list.items():
+                if k in __skill_dict:
+                    raise Exception(f"ID collision in skills.yaml {k}")
+                __skill_dict[k] = __parse_skill(k, v)

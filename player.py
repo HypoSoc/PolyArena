@@ -22,12 +22,17 @@ DEPLETED_MEDKIT = get_item_by_name("1/2 Medkit").pin
 SOFT = get_item_by_name("Soft").pin
 AUTOMATA = get_item_by_name("Automata").pin
 
+CONCEPT_I = get_ability_by_name("Dummy Concept I").pin
+LEGACY_MAGIC = get_ability_by_name("Legacy Magic").pin
+REALITY_IMPOSITION = get_ability_by_name("Reality Imposition").pin
+
 CONSUME_PREFER = {MEDKIT: DEPLETED_MEDKIT}
 
 
 class Player:
     def __init__(self, name: str, progress_dict: Dict[int, int], dev_plan: List[int], academics: int,
-                 temperament: Temperament, conditions: List[Condition], items: List[int], money: int,
+                 temperament: Temperament, concept: Optional[str],
+                 conditions: List[Condition], items: List[int], money: int,
                  willpower: int, bounty: int,
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
                  game: Game):
@@ -38,18 +43,22 @@ class Player:
         self.progress_dict = progress_dict
         self.academics = academics
         self.temperament = temperament
+        self.concept = concept.upper() if concept else None
         self.items = items
         self.conditions = conditions
         self.credits = money
         self.willpower = willpower
         self.bounty = bounty
-        self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy
+        self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy_abilities
         self.tattoo = tattoo  # Rune item pin
         self.game = game
 
         self.consuming = False
         self.masking = False
         self.attuning = False
+
+        aeromancer = None
+        aero_index = 3
 
         complete_ability_pins = [None]
         for (ability_pin, progress) in progress_dict.items():
@@ -59,17 +68,37 @@ class Player:
                                 f"{progress} for {ability.name} ({ability_pin})")
             if progress == ability.cost:
                 complete_ability_pins.append(ability_pin)
+                if ability.concept:
+                    aeromancer = ability.concept.upper()
+                    aero_index = ability_pin // 100
 
         for (ability_pin, progress) in progress_dict.items():
             ability = get_ability(ability_pin)
-            if progress > 0 and ability.prerequisite_pin not in complete_ability_pins:
-                raise Exception(f"Player {name} is missing prerequisite "
-                                f"for ability {ability.name} ({ability.get_prerequisite().name})")
+            if progress > 0:
+                if ability_pin == LEGACY_MAGIC:
+                    ability.prerequisite_pin = aero_index * 100 + 1
+                if ability_pin == REALITY_IMPOSITION:
+                    ability.prerequisite_pin = aero_index * 100 + 3
+
+                if ability.prerequisite_pin not in complete_ability_pins:
+                    raise Exception(f"Player {name} is missing prerequisite "
+                                    f"for ability {ability.name} ({ability.get_prerequisite().name})")
+
+        assert self.concept == aeromancer
 
         self.dev_plan = dev_plan
 
         for ability_pin in dev_plan:
+            if (ability_pin % 100 + 300 if ability_pin > 700 else ability_pin) == CONCEPT_I:
+                raise Exception(f"Player {name} is trying to learn Concept I without starting with it.")
+            if ability_pin == LEGACY_MAGIC:
+                raise Exception(f"Player {name} is trying to learn Legacy Magic without starting with it.")
             ability = get_ability(ability_pin)
+            if ability_pin == LEGACY_MAGIC:
+                ability.prerequisite_pin = aero_index * 100 + 1
+            if ability_pin == REALITY_IMPOSITION:
+                ability.prerequisite_pin = aero_index * 100 + 3
+
             if ability_pin in complete_ability_pins:
                 raise Exception(f"Player {name} already has dev plan ability {ability.name}")
             if ability.prerequisite_pin not in complete_ability_pins:
@@ -106,7 +135,8 @@ class Player:
 
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
-                       academics=self.academics, temperament=self.temperament, conditions=self.conditions.copy(),
+                       academics=self.academics, temperament=self.temperament, concept=self.concept,
+                       conditions=self.conditions.copy(),
                        items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
                        relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
                        tattoo=self.tattoo,
@@ -649,6 +679,12 @@ class Player:
 
         return skills
 
+    def has_prerequisite(self, ability: Ability) -> bool:
+        prerequisite = ability.get_prerequisite()
+        if not prerequisite:
+            return True
+        return self.has_ability(prerequisite.name, strict=True)
+
     def has_condition(self, condition: Condition) -> bool:
         return condition in (self.conditions + self.turn_conditions + self.tentative_conditions)
 
@@ -711,9 +747,9 @@ class Player:
 
     def copycat(self, target: 'Player', fake: 'bool' = False) -> NoReturn:
         available_abilities = [ability for ability in target.get_abilities()
-                               if not self.has_ability(ability.name) and
-                               (ability.get_prerequisite() is None or
-                                self.has_ability(ability.get_prerequisite().name))]
+                               if ability.is_copyable() and
+                               not self.has_ability(ability.name, strict=True) and
+                               self.has_prerequisite(ability)]
         available_abilities.sort()
         if not fake and available_abilities:
             self.gain_ability(available_abilities[0])

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import glob
 import itertools
 import os
 from typing import List, Optional, Tuple, Iterable, Dict
@@ -103,6 +104,7 @@ class Ability:
                  geo_qualified_skills: List[GeoQualifiedSkill],
                  hydro_qualified_skills: List[HydroQualifiedSkill],
                  max_will: int, contingency_forbidden: bool, linked: bool,
+                 concept: Optional[str],
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
         self.name = name
@@ -113,6 +115,7 @@ class Ability:
         self.max_will = max_will
         self.contingency_forbidden = contingency_forbidden
         self.linked = linked
+        self.concept = concept
         self.prerequisite_pin = prerequisite_pin
 
     def get_prerequisite(self) -> Optional[Ability]:
@@ -153,12 +156,15 @@ class Ability:
 
     def is_copyable(self) -> bool:
         # Aeromancy is not copyable
-        # TODO Legacy Magic is not copyable, but Reality Warp is
-        return self.pin < 600
+        if self.pin == 307:
+            return True
+        if 300 < self.pin < 399:
+            return False
+        return self.pin < 700
 
     def _get_index(self) -> Tuple[int, int, int]:
         pin = self.pin
-        if pin > 600:  # Aeromancy Concept
+        if pin > 700:  # Aeromancy Concept
             pin = 300 + self.pin % 100
         if self.prerequisite_pin is None:
             return 0, pin, self.pin
@@ -227,12 +233,18 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    max_will=dictionary.get('max_will', 1000000),
                    contingency_forbidden=dictionary.get('not_contingency', False),
                    linked=dictionary.get('linked', False),
+                   concept=dictionary.get('concept'),
                    prerequisite_pin=dictionary.get('prerequisite'))
 
 
 if not __ability_dict:
-    for file_name in ['data/geo_abilities.yaml', 'data/hydro_abilities.yaml',
-                      'data/body_abilities.yaml', 'data/mind_abilities.yaml']:
+    file_names = ['data/geo_abilities.yaml', 'data/hydro_abilities.yaml',
+                  'data/aero_abilities.yaml',
+                  'data/body_abilities.yaml', 'data/mind_abilities.yaml']
+    file_names.extend(
+        glob.glob("data/aeromancy_abilities/*.yaml")
+    )
+    for file_name in file_names:
         with open(file_name) as file:
             ability_list = safe_load(file)
             for (k, v) in ability_list.items():

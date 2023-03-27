@@ -15,7 +15,7 @@ class Automata(Player):
                  bounty: int,
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
                  game: Game):
-        super().__init__(name, progress_dict={}, dev_plan=[], academics=0, temperament=Temperament.NONE,
+        super().__init__(name, progress_dict={}, dev_plan=[], academics=0, temperament=Temperament.NONE, concept=None,
                          conditions=conditions, items=items, money=0, willpower=0, bounty=bounty,
                          relative_conditions=relative_conditions, tattoo=tattoo,
                          game=game)

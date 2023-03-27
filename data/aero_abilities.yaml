@@ -1,0 +1,41 @@
+301:
+  name: "Dummy Concept I"
+  concept: "ARENA_TEST"
+  cost: 10
+  skills: []
+
+302:
+  name: "Dummy Concept II"
+  cost: 10
+  skills: []
+  prerequisite: 301
+
+303:
+  name: "Dummy Concept III"
+  cost: 10
+  skills: []
+  prerequisite: 302
+
+304:
+  name: "Dummy Concept IV"
+  cost: 10
+  skills: []
+  prerequisite: 303
+
+305:
+  name: "Dummy Concept V"
+  cost: 10
+  skills: []
+  prerequisite: 304
+
+306:
+  name: "Legacy Magic"
+  cost: 10
+  skills: []
+  # prerequisite varies
+
+307:
+  name: "Reality Imposition"
+  cost: 10
+  skills: []
+  # prerequisite varies

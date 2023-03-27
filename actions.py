@@ -1153,6 +1153,9 @@ class Trade(Action):
         if automata is None:
             automata = []
 
+        if automata and target.is_automata:
+            raise Exception(f"{player.name} is trying to give and automata to an automata.")
+
         for automaton in automata:
             if not isinstance(automaton, str) and automaton.owner != player:
                 raise Exception(f"{player.name} is trying to trade an automata they don't own {automaton.name}.")

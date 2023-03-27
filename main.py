@@ -23,14 +23,20 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
     willpower = 0
 
+    concept = None
+
     for ability_name in abilities:
         ability = get_ability_by_name(ability_name)
+        if ability.concept:
+            concept = ability.concept
         devs[ability.pin] = ability.cost
         for skill in ability.get_skills([], []):
             if skill.effect == Effect.MAX_WILLPOWER:
                 willpower += skill.value
         prereq = ability.get_prerequisite()
         while prereq and prereq.pin not in devs:
+            if prereq.concept:
+                concept = prereq.concept
             devs[prereq.pin] = prereq.cost
             for skill in prereq.get_skills([], []):
                 if skill.effect == Effect.MAX_WILLPOWER:
@@ -57,7 +63,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
                     items=item_pins, money=10, willpower=willpower, bounty=0,
-                    relative_conditions={}, tattoo=tattoo,
+                    relative_conditions={}, tattoo=tattoo, concept=concept,
                     game=GAME)
 
     def patient():
@@ -77,7 +83,7 @@ def create_automata(name: str, owner: 'Player') -> Automata:
 
 if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Willpower V", "Crafting III"],
+    a = create_player("Alpha", ["Willpower V", "Crafting III", "Dummy Concept III", "Reality Imposition"],
                       ["Healing Tank", "Workbench", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
                       injured=True)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
@@ -112,6 +118,8 @@ if __name__ == '__main__':
     for p in [a, b, c, d]:
         print(f"{p.name} Report")
         print(p.get_report())
+        if p.concept:
+            print(p.concept)
         print()
 
     print(DayReport().generate_report(GAME))
