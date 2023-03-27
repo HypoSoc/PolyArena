@@ -18,6 +18,7 @@ LIZARD_TAIL = get_item_by_name("Lizard Tail").pin
 MEDKIT = get_item_by_name("Medkit").pin
 DEPLETED_MEDKIT = get_item_by_name("1/2 Medkit").pin
 SOFT = get_item_by_name("Soft").pin
+AUTOMATA = get_item_by_name("Automata").pin
 
 CONSUME_PREFER = {MEDKIT: DEPLETED_MEDKIT}
 
@@ -29,6 +30,7 @@ class Player:
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
                  game: Game):
         assert "%" not in name, "Illegal character %"
+        game.register_name(name)
 
         self.name = name
         self.progress_dict = progress_dict
@@ -96,6 +98,7 @@ class Player:
         self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
 
         self.is_automata = False
+        self.owner = None
 
     def make_copy_for_simulation(self) -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
@@ -453,7 +456,12 @@ class Player:
 
         self.used_illusion = True
 
-    def plan_craft(self, *item_names):
+    def plan_craft(self, *item_names, automata_name: Union[Optional[List[str]], str] = None):
+        if not automata_name:
+            automata_name = []
+        if not isinstance(automata_name, list):
+            automata_name = [automata_name]
+
         self._generic_action_check()
         item_names_to_amount = {}
         for item_name in item_names:
@@ -463,7 +471,7 @@ class Player:
 
         items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
 
-        self.action = Craft(self.game, self, items)
+        self.action = Craft(self.game, self, items, automata_names=automata_name)
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)
@@ -827,6 +835,8 @@ class Player:
             self.credits = 0
 
     def gain_item(self, item: Item, amount=1):
+        if item.pin == AUTOMATA:
+            raise Exception("Something went wrong with Automata.")
         for i in range(amount):
             self.items.append(item.pin)
         self.report += f"{item.name} x{amount} gained ({self.items.count(item.pin)} total)" + os.linesep

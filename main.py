@@ -98,12 +98,12 @@ if __name__ == '__main__':
 
     GAME.advance()
 
-    a.plan_attack(b)
+    a.plan_hydro("Crafting III")
+    a.plan_craft("Automata", automata_name='DAVE')
     b.plan_train()
     b.plan_attune(Element.EARTH)
     # c.plan_attune(Element.ANTI)
-    e.plan_craft("Bokken", "Venom", "Shrooms")
-    e.plan_trade(a, item_names=["Shrooms", "Bokken"])
+    e.plan_craft("Automata", automata_name='DAVID')
 
     Action.run_turn(GAME)
 

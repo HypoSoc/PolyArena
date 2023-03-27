@@ -155,6 +155,7 @@ class ItemType(Enum):
     WEAPON = 3
     ARMOR = 4
     PERMANENT = 5
+    AUTOMATA = 6
 
 
 class DamageType(IntEnum):

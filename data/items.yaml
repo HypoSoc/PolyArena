@@ -171,3 +171,10 @@
   type: "PERMANENT"
   skills: []
   loot: false
+
+24:  # This item should never be directly created or stored
+  name: "Automata"
+  cost: 5
+  type: "AUTOMATA"
+  skills: []
+  loot: false

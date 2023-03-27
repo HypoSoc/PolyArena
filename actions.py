@@ -24,6 +24,7 @@ LIQUID_MEMORIES = get_item_by_name("Liquid Memories").pin
 HEALING_TANK = get_item_by_name("Healing Tank").pin
 BOOBY_TRAP = get_item_by_name("Booby Trap").pin
 WORKBENCH = get_item_by_name("Workbench").pin
+AUTOMATA = get_item_by_name("Automata").pin
 
 
 QM_ABILITY_PINS = [get_ability_by_name("Divination").pin, get_ability_by_name("Danger Precognition").pin]
@@ -206,6 +207,18 @@ class Action:
                     if not condition[2] or record[2] == condition[2]:
                         return True
         return False
+
+    @classmethod
+    def create_automata(cls, game: 'Game', owner: 'Player', name: 'str'):
+        DayReport().broadcast(f"The Automata {name} was brought into being.")
+        if owner.is_automata:
+            owner = owner.owner
+        import automata
+        automata = automata.Automata(name, owner, conditions=[], items=[],
+                                     bounty=0, relative_conditions={}, tattoo=None,
+                                     game=game)
+        Action.not_wandering.add(automata)
+        owner.report += f"You acquired {name}." + os.linesep
 
 
 class HandleSkill(Action):
@@ -674,13 +687,18 @@ class StealFollow(Action):
 
 
 class Craft(Action):
-    def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int], is_bonus: bool = False):
+    def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int],
+                 is_bonus: bool = False, automata_names: Optional[List[str]] = None):
         super().__init__(priority=40, game=game, player=player, fragile=True,
                          public_description=f"{player.name} crafted.",
                          on_interrupt=f"{player.name} failed to craft.",
                          combat_on_interrupt=f"while they were trying to craft something")
         self.items = items
         self.is_bonus = is_bonus
+        if not automata_names:
+            self.automata_names = []
+        else:
+            self.automata_names = automata_names
 
     def act(self):
         if not self.items:
@@ -745,12 +763,18 @@ class Craft(Action):
 
     def _act(self):
         for item, amount in self.items.items():
-            self.player.gain_item(item, amount)
+            if item.pin == AUTOMATA:
+                assert len(self.automata_names) >= amount
+                for i in range(amount):
+                    Action.create_automata(self.game, self.player, self.automata_names[i])
+            else:
+                self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Craft)
 
 
 class AutomataCraft(Action):
-    def __init__(self, game: Optional['Game'], automata: "Automata", items: Dict['Item', int]):
+    def __init__(self, game: Optional['Game'], automata: "Automata", items: Dict['Item', int],
+                 automata_names: Optional[List[str]] = None):
         assert automata.is_automata
         super().__init__(priority=40, game=game, player=automata, fragile=True,
                          public_description=f"{automata.name} crafted.",
@@ -758,6 +782,10 @@ class AutomataCraft(Action):
                          combat_on_interrupt=f"while they were trying to craft something")
         self.items = items
         self.owner = automata.owner
+        if not automata_names:
+            self.automata_names = []
+        else:
+            self.automata_names = automata_names
 
     def act(self):
         if not self.items:
@@ -818,7 +846,12 @@ class AutomataCraft(Action):
 
     def _act(self):
         for item, amount in self.items.items():
-            self.player.gain_item(item, amount)
+            if item.pin == AUTOMATA:
+                assert len(self.automata_names) >= amount
+                for i in range(amount):
+                    Action.create_automata(self.game, self.player, self.automata_names[i])
+            else:
+                self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Craft)
 
 
@@ -1492,7 +1525,9 @@ class CombatSimStep(Action):
                 sim_results = handler.simulate_combat({reacting_player: possibility})
                 secondary = 0
                 for sim_player, score in sim_results.items():
-                    if reacting_player.name != sim_player.name:
+                    if sim_player.is_automata and sim_player.owner == reacting_player.name:
+                        secondary += score
+                    elif reacting_player.name != sim_player.name:
                         secondary -= score
                 score = (sim_results[reacting_player], secondary, len(possibility))
                 if score > best_score_so_far:

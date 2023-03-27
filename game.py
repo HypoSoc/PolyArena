@@ -12,6 +12,8 @@ class Game:
         self.events: List[Tuple[int, bool, Callable]] = []
         self.simulation = False
 
+        self.names = []
+
     def __str__(self):
         time_of_day = "Day"
         if self.night:
@@ -51,3 +53,7 @@ class Game:
         if turn == self.turn and (self.night or not night):
             return
         self.events.append((turn, night, event))
+
+    def register_name(self, name: str):
+        assert name not in self.names
+        self.names.append(name)

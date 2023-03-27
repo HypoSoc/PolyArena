@@ -73,7 +73,12 @@ class Automata(Player):
     def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
         raise Exception(f"Automata {self.name} cannot use hydromancy.")
 
-    def plan_craft(self, *item_names):
+    def plan_craft(self, *item_names, automata_name: Union[Optional[List[str]], str] = None):
+        if not automata_name:
+            automata_name = []
+        if not isinstance(automata_name, list):
+            automata_name = [automata_name]
+
         self._generic_action_check()
         item_names_to_amount = {}
         for item_name in item_names:
@@ -83,7 +88,7 @@ class Automata(Player):
 
         items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
 
-        self.action = AutomataCraft(self.game, self, items)
+        self.action = AutomataCraft(self.game, self, items, automata_names=automata_name)
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)
