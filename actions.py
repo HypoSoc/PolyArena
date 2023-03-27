@@ -501,7 +501,7 @@ class Shop(Action):
         self.items = items
 
     def act(self):
-        if Shop.get_total_cost(self.items) > self.player.credits:
+        if Shop.get_total_cost(self.items) > self.player.get_credits():
             self.player.report += f"{self.player.name} was kicked out of shop club for not having enough credits." \
                                   + os.linesep
         else:
@@ -510,8 +510,8 @@ class Shop(Action):
     def _act(self):
         total_cost = Shop.get_total_cost(self.items)
         self.player.lose_credits(total_cost)
-        self.player.report += f"{self.player.name} spent {total_cost} credits ({self.player.credits} remaining)." \
-                              + os.linesep
+        self.player.report += f"{self.player.name} spent {total_cost} credits " \
+                              f"({self.player.get_credits()} remaining)." + os.linesep
         for item, amount in self.items.items():
             self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Shop)
@@ -1042,7 +1042,7 @@ class Trade(Action):
         reserved_credits, reserved_items = Trade.reserved.get(self.player, (0, {}))
         if self.credits:
             reserved_credits += self.credits
-            if self.player.credits < reserved_credits:
+            if self.player.get_credits() < reserved_credits:
                 self.player.report += f"You do not have enough credits to trade with {self.target.name}." + os.linesep
                 failed_trade = True
         if self.items:
@@ -1119,11 +1119,11 @@ class TradeFinal(Action):
         if self.credits:
             self.player.lose_credits(self.credits)
             self.player.report += f"You sent {self.target.name} {self.credits} credits " \
-                                  f"({self.player.credits} remaining)." \
+                                  f"({self.player.get_credits()} remaining)." \
                                   + os.linesep
             self.target.gain_credits(self.credits)
             self.target.report += f"{self.player.name} sent you {self.credits} credits " \
-                                  f"({self.target.credits} total)." \
+                                  f"({self.target.get_credits()} total)." \
                                   + os.linesep
         if self.items:
             self.player.report += f"You sent {self.target.name} items." + os.linesep
@@ -1149,14 +1149,14 @@ class PlaceBounty(Action):
             self.player.report += f"You cannot place a bounty on {self.target.name} " \
                                   f"because they are dead." + os.linesep + os.linesep
             return
-        if self.player.credits < self.amount:
+        if self.player.get_credits() < self.amount:
             self.player.report += f"You cannot place a {self.amount} credit bounty on {self.target.name} " \
                                   f"because you don't have enough credits." + os.linesep + os.linesep
             return
-        self.player.credits -= self.amount
+        self.player.lose_credits(self.amount)
         self.target.bounty += self.amount
         self.player.report += f"You placed a {self.amount} credit bounty on {self.target.name} " \
-                              f"({self.player.credits})" + os.linesep + os.linesep
+                              f"({self.player.get_credits()})" + os.linesep + os.linesep
         DayReport().add_bounty(self.player, self.target, self.amount)
 
 
@@ -1530,6 +1530,11 @@ class StatusChangeStep(Action):
                             turn += 's'
                         player.report += f"You are grievously wounded you must heal " \
                                          f"within {4-count} {turn} or you will die." + os.linesep
+
+                if self.game.night:
+                    player.gain_credits(1)
+                    player.report += f"Student Services has granted you 1 credit ({player.get_credits()})" \
+                                     + os.linesep + os.linesep
 
 
 class Resurrect(Action):

@@ -813,6 +813,9 @@ class Player:
             self.conditions.remove(Condition.INJURED)
         return Condition.INJURED in self.conditions
 
+    def get_credits(self):
+        return self.credits
+
     def gain_credits(self, amount):
         self.credits += amount
 
