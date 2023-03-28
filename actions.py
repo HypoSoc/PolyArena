@@ -8,7 +8,7 @@ from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
     COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS
 from items import get_item_by_name, get_item, Item, Rune
-from report import DayReport
+from report import Report, get_main_report
 
 if TYPE_CHECKING:
     from game import Game
@@ -119,18 +119,18 @@ class Action:
                 not self.player.has_condition(Condition.FRESH_HIDING):
             if self.game and not self.game.night and not self.maintains_hiding:
                 self.player.report += "You came out of hiding." + os.linesep
-                DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
                 self.player.conditions.remove(Condition.HIDING)
-                DayReport().mark_revealed(self.player)
+                get_main_report().mark_revealed(self.player)
 
         interrupted = self.player in Action.interrupted_players
 
         if not interrupted or not self.fragile:
             if self.public_description:
-                DayReport().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
+                get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
                 self.player.report += self.public_description + os.linesep
         if interrupted and self.fragile:
-            DayReport().add_action(self.player, self.on_interrupt, hidden=self.player in Illusion.handled)
+            get_main_report().add_action(self.player, self.on_interrupt, hidden=self.player in Illusion.handled)
             self.player.report += self.on_interrupt + os.linesep
         if not interrupted or not self.fragile:
             self._act()
@@ -167,7 +167,7 @@ class Action:
             if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect):
                 tic.act()
             elif Condition.PETRIFIED in tic.player.conditions:
-                DayReport().add_petrification(tic.player)
+                get_main_report().add_petrification(tic.player)
 
     @classmethod
     def progress(cls, player: 'Player', amt: int):
@@ -210,7 +210,7 @@ class Action:
 
     @classmethod
     def create_automata(cls, game: 'Game', owner: 'Player', name: 'str'):
-        DayReport().broadcast(f"The Automata {name} was brought into being.")
+        get_main_report().broadcast(f"The Automata {name} was brought into being.")
         if owner.is_automata:
             owner = owner.owner
         import automata
@@ -251,31 +251,31 @@ class HandleSkill(Action):
                     .replace(TARGET_PLACEHOLDER, target.name)
 
                 if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
-                    self.player.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                    self.player.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
                                                                             self.player.name)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
-                        target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                        target.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
                                                                            target.name)
                 elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
                     if target != self.player:
-                        self.player.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                        self.player.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
                                                                                 self.player.name)
                     if target.has_condition(Condition.INTUITION) \
                             or self.skill.info == InfoScope.NARROW \
                             or target == self.player:
-                        target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                        target.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
                                                                            target.name)
                     if target.has_condition(Condition.INTUITION) and target != self.player:
                         assert self.player.concept
-                        target.report += DayReport().face_mask_replacement(f"Your intuition tells you "
+                        target.report += get_main_report().face_mask_replacement(f"Your intuition tells you "
                                                                            f"this has to do with {self.player.name}'s "
                                                                            f"Aeromancy ({self.player.concept})."
                                                                            + os.linesep, target.name)
                     target.report += os.linesep
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
-                    DayReport().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
+                    get_main_report().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
                 elif self.skill.info == InfoScope.BROADCAST:
-                    DayReport().broadcast(text)
+                    get_main_report().broadcast(text)
 
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                 continue
@@ -347,9 +347,9 @@ class Attack(Action):
                     not self.player.has_condition(Condition.FRESH_HIDING):
                 if self.game and not self.game.night:
                     self.player.report += "You came out of hiding." + os.linesep
-                    DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                    get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
                     self.player.conditions.remove(Condition.HIDING)
-                    DayReport().mark_revealed(self.player)
+                    get_main_report().mark_revealed(self.player)
             if self.target in Illusion.handled:
                 if self.target.fake_action.combat_on_interrupt:
                     self.public_description += " " + self.target.fake_action.combat_on_interrupt
@@ -365,11 +365,11 @@ class Attack(Action):
 
             if self.target.has_condition(Condition.HIDING):
                 if self.game and not self.game.night:
-                    DayReport().broadcast(f"{self.target.name} was discovered to be alive.")
+                    get_main_report().broadcast(f"{self.target.name} was discovered to be alive.")
                     self.target.conditions.remove(Condition.HIDING)
 
             # The combat handler will ensure it gets added to the players regular report
-            DayReport().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
+            get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
             Action.add_action_record(self.player, Attack, self.target)
 
@@ -416,7 +416,7 @@ class Learn(Action):
         else:
             Action.student_teacher[self.player] = self.target
             ability = Action.teacher_ability[self.target]
-            DayReport().add_action(self.player, f"{self.player.name} learned from {self.target.name}.",
+            get_main_report().add_action(self.player, f"{self.player.name} learned from {self.target.name}.",
                                    hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} learned {ability.name} from {self.target.name}." + os.linesep
             self.player.gain_ability(ability)
@@ -455,7 +455,7 @@ class TeachFollow(Action):
 
     def _act(self):
         if Action.student_teacher.get(self.target, None) == self.player:
-            DayReport().add_action(self.player, f"{self.player.name} taught {self.target.name}.",
+            get_main_report().add_action(self.player, f"{self.player.name} taught {self.target.name}.",
                                    hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} taught {self.target.name} {self.ability.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:
@@ -482,9 +482,9 @@ class Train(Action):
         Action.add_action_record(self.player, Train)
         if self.player not in Illusion.handled:
             if not self.player.dev_plan:
-                DayReport().set_training(self.player, "nothing")
+                get_main_report().set_training(self.player, "nothing")
             else:
-                DayReport().set_training(self.player, get_ability(self.player.dev_plan[0]).name)
+                get_main_report().set_training(self.player, get_ability(self.player.dev_plan[0]).name)
 
 
 # Day Actions
@@ -559,7 +559,7 @@ class Shop(Action):
                 self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Shop)
         pruned_items = {k: v for k, v in self.items.items() if k.pin != AUTOMATA}
-        DayReport().add_shop(self.player, total_cost, pruned_items, self.automata_names)
+        get_main_report().add_shop(self.player, total_cost, pruned_items, self.automata_names)
 
     @staticmethod
     def get_total_cost(items: Dict['Item', int]):
@@ -690,7 +690,7 @@ class StealFollow(Action):
 
     def _act(self):
         if len(Steal.victim_to_thieves[self.target]) > 1:
-            involved = " and ".join(sorted([DayReport().face_mask_replacement(player.name, self.player.name)
+            involved = " and ".join(sorted([get_main_report().face_mask_replacement(player.name, self.player.name)
                                             for player in Steal.victim_to_thieves[self.target]]))
             self.player.report += f"{involved} fought over the loot." + os.linesep
             self.player.report += "It was all lost." + os.linesep
@@ -705,7 +705,7 @@ class StealFollow(Action):
         if self.trap:
             self.player.report += "A booby trap exploded in your face!" + os.linesep
             noncombat_wound(self.target, self.player, [InjuryModifier.NONLETHAL])
-            DayReport().broadcast(f"A booby trap exploded in {self.player.name}'s face!")
+            get_main_report().broadcast(f"A booby trap exploded in {self.player.name}'s face!")
 
         if self.target not in StealFollow.handled:
             StealFollow.handled.add(self.target)
@@ -904,7 +904,7 @@ class Canvas(Action):
         else:
             Action.canvas_artist[self.player] = self.target
             rune = Action.artist_rune[self.target]
-            DayReport().add_action(self.player, f"{self.player.name} got tattooed by {self.target.name}.",
+            get_main_report().add_action(self.player, f"{self.player.name} got tattooed by {self.target.name}.",
                                    hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} got tattooed by {self.target.name} " \
                                   f"with {rune.get_ability_name()}." + os.linesep
@@ -987,7 +987,7 @@ class TattooFollow(Action):
 
     def _act(self):
         if Action.canvas_artist.get(self.target) == self.player:
-            DayReport().add_action(self.player, f"{self.player.name} tattooed {self.target.name}.",
+            get_main_report().add_action(self.player, f"{self.player.name} tattooed {self.target.name}.",
                                    hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} tattooed {self.target.name} " \
                                   f"with {self.rune.name}." + os.linesep
@@ -1018,9 +1018,9 @@ class MultiAttack(Action):
                 not self.player.has_condition(Condition.FRESH_HIDING):
             if self.game and not self.game.night and not isinstance(self, Wander):
                 self.player.report += "You came out of hiding." + os.linesep
-                DayReport().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
                 self.player.conditions.remove(Condition.HIDING)
-                DayReport().mark_revealed(self.player)
+                get_main_report().mark_revealed(self.player)
 
         interruption_strings = []
         attacked_someone = False
@@ -1045,7 +1045,7 @@ class MultiAttack(Action):
 
                 if target.has_condition(Condition.HIDING):
                     if self.game and not self.game.night:
-                        DayReport().broadcast(f"{target.name} was discovered to be alive.")
+                        get_main_report().broadcast(f"{target.name} was discovered to be alive.")
                         target.conditions.remove(Condition.HIDING)
 
                 Action.add_action_record(self.player, Attack, target)
@@ -1053,7 +1053,7 @@ class MultiAttack(Action):
             self.public_description += (" and ".join(interruption_strings))[:-1]
             self.public_description += "."
 
-            DayReport().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
+            get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
 
 
@@ -1079,7 +1079,7 @@ class Spy(Action):
                     if skill.trigger == Trigger.SPIED_ON:
                         HandleSkill(self.game, self.target, skill, self.player)
                 return
-        self.player.report += DayReport().get_spy_report(self.player, self.target, counter_int) + os.linesep
+        self.player.report += get_main_report().get_spy_report(self.player, self.target, counter_int) + os.linesep
         if self.player not in Action.spied:
             Action.spied[self.player] = set()
         Action.spied[self.player].add(self.target)
@@ -1322,7 +1322,7 @@ class TradeFinal(Action):
             self.player.report += f"You transferred control of {automaton.name} to {self.target.name}." + os.linesep
             self.target.report += f"{self.player.name} gave you control over {automaton.name}." + os.linesep
             automaton.owner = self.target
-        DayReport().add_trade(self.player, self.target, self.credits, self.items, self.automata)
+        get_main_report().add_trade(self.player, self.target, self.credits, self.items, self.automata)
 
 
 class PlaceBounty(Action):
@@ -1348,7 +1348,7 @@ class PlaceBounty(Action):
         self.target.bounty += self.amount
         self.player.report += f"You placed a {self.amount} credit bounty on {self.target.name} " \
                               f"({self.player.get_credits()})" + os.linesep + os.linesep
-        DayReport().add_bounty(self.player, self.target, self.amount)
+        get_main_report().add_bounty(self.player, self.target, self.amount)
 
 
 class Disguise(Action):
@@ -1359,7 +1359,7 @@ class Disguise(Action):
         self.maintains_hiding = True
 
     def _act(self):
-        DayReport().apply_face_mask(self.player.name, self.target.name)
+        get_main_report().apply_face_mask(self.player.name, self.target.name)
 
 
 class Blackmail(Action):
@@ -1382,7 +1382,7 @@ class Blackmail(Action):
 
 
 class Attune(Action):
-    def __init__(self, game: Optional['Game'], player: "Player", circuits: Tuple[Element]):
+    def __init__(self, game: Optional['Game'], player: "Player", circuits: Tuple[Element, ...]):
         super().__init__(priority=15, game=game, player=player, fragile=False)
         self.circuits = circuits
 
@@ -1392,7 +1392,7 @@ class Attune(Action):
                                   + os.linesep
             if not self.player.has_ability("Quiet Attune"):
                 Action.no_class.add(self.player)
-                DayReport().set_attunement(self.player, self.circuits)
+                get_main_report().set_attunement(self.player, self.circuits)
             for skill in self.player.get_skills():
                 if skill.trigger == Trigger.NONCOMBAT_POST_ATTUNE:
                     HandleSkill(self.game, self.player, skill)
@@ -1445,7 +1445,7 @@ class UseHydro(Action):
         self.player.hydro_spells[self.ability.pin] = self.will
 
         if not self.player.has_ability("Quiet Casting"):
-            DayReport().spend_willpower(self.player, total_will)
+            get_main_report().spend_willpower(self.player, total_will)
 
         if self.contingency:
             for skill in self.ability.get_skills_for_hydro_contingency(self.will):
@@ -1469,16 +1469,16 @@ class Illusion(Action):
 
         if self.target not in Illusion.handled:
             self.target.fake_action = self.fake_action
-            DayReport().add_action(self.target, self.fake_action.public_description, fake=True)
+            get_main_report().add_action(self.target, self.fake_action.public_description, fake=True)
             Action.add_action_record(self.target, type(self.fake_action),
                                      target=getattr(self.target.fake_action, 'target', None),
                                      fake=True)
             if isinstance(self.fake_action, Train):
                 self.target.fake_ability = self.fake_training
                 if self.fake_training:
-                    DayReport().set_training(self.target, self.fake_training.name)
+                    get_main_report().set_training(self.target, self.fake_training.name)
                 else:
-                    DayReport().set_training(self.target, "nothing")
+                    get_main_report().set_training(self.target, "nothing")
 
             Illusion.handled.add(self.target)
 
@@ -1530,7 +1530,7 @@ class NoncombatSkillStep(Action):
         for player in Action.players:
             if not player.is_dead():
                 if player.has_condition(Condition.HIDING):
-                    DayReport().mark_hiding(player)
+                    get_main_report().mark_hiding(player)
                 if WORKBENCH in player.items:
                     if isinstance(player.action, Craft):
                         player.turn_conditions.append(Condition.BONUS_BUNKER)
@@ -1590,7 +1590,7 @@ class CombatSimStep(Action):
                     if player.has_ability("Fast Attune I") or player.has_ability("Fast Attune II"):
                         fast_attune_players.append(player)
 
-        fast_attunes: Dict[Player, Tuple[Element]] = {}
+        fast_attunes: Dict[Player, Tuple[Element, ...]] = {}
         for reacting_player in fast_attune_players:
             circuit_possibilities = []
             if reacting_player.has_ability("Fast Attune II") or reacting_player.has_ability("Fast Attune III"):
@@ -1620,7 +1620,7 @@ class CombatSimStep(Action):
             final_player.report += f"You fast attuned to {'/'.join([circuit.name for circuit in circuits])}." \
                                    + os.linesep
             if not final_player.has_ability("Quiet Attune"):
-                DayReport().set_attunement(final_player, circuits)
+                get_main_report().set_attunement(final_player, circuits)
                 if circuits:
                     Action.no_class.add(final_player)
             final_player.tentative_conditions.clear()
@@ -1656,7 +1656,7 @@ class CombatStep(Action):
                 player.destroy_fragile_items(include_loot=True)
                 player.report += os.linesep
         for player in get_combat_handler().full_escape:
-            DayReport().add_action(player, f"{player.name} escaped combat.")
+            get_main_report().add_action(player, f"{player.name} escaped combat.")
             self.interrupted_players.discard(player)
 
 
@@ -1713,7 +1713,7 @@ class StatusChangeStep(Action):
                         player.report += f"You are Petrified. You will be free after {count} {turn}." + os.linesep
                     else:
                         player.report += f"You have broken free from your Petrification." + os.linesep
-                        DayReport().broadcast(f"{player.name} has escaped Petrification.")
+                        get_main_report().broadcast(f"{player.name} has escaped Petrification.")
                 elif Condition.GRIEVOUS in player.conditions:
                     # Just using the count of Grievous to mark lethality
                     player.conditions.append(Condition.GRIEVOUS)
@@ -1745,7 +1745,7 @@ class Resurrect(Action):
         if not self.player.is_dead():
             return
         if not self.stealth:
-            DayReport().add_action(self.player, f"{self.player.name} died.")
+            get_main_report().add_action(self.player, f"{self.player.name} died.")
         super().act()
 
     def _act(self):
@@ -1758,7 +1758,7 @@ class Resurrect(Action):
         if self.stealth:
             self.player.conditions.append(Condition.HIDING)
             self.player.turn_conditions.append(Condition.FRESH_HIDING)
-            DayReport().mark_hiding(self.player)
+            get_main_report().mark_hiding(self.player)
 
 
 def reset_action_handler():

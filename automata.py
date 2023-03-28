@@ -5,7 +5,7 @@ from constants import Temperament, Condition, Element, InfoScope, InjuryModifier
 from game import Game
 from items import get_item_by_name
 from player import Player, LIZARD_TAIL
-from report import DayReport, ReportCallable
+from report import Report, ReportCallable, get_main_report
 from skill import Skill, get_skill
 
 
@@ -117,7 +117,7 @@ class Automata(Player):
             reporting_func = self._non_combat_report_callable()
         self.conditions.append(Condition.DEAD)
         reporting_func(message, InfoScope.BROADCAST)
-        DayReport().add_death(self)
+        get_main_report().add_death(self)
 
     def wound(self, injury_modifiers: Optional[List[InjuryModifier]] = None,
               reporting_func: Optional[ReportCallable] = None) -> bool:

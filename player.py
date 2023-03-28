@@ -10,7 +10,7 @@ from combat import get_combat_handler
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
-from report import ReportCallable, DayReport
+from report import ReportCallable, Report, get_main_report
 from skill import Skill
 
 if TYPE_CHECKING:
@@ -178,7 +178,7 @@ class Player:
         if not self.game.is_day() and self.has_ability("Awareness I"):
             self.report += os.linesep
             self.report += "You are Aware:" + os.linesep
-            night_combat_report = DayReport().get_night_combat_report(self.name,
+            night_combat_report = get_main_report().get_night_combat_report(self.name,
                                                                       intuition=self.has_condition(Condition.INTUITION))
             if not night_combat_report:
                 night_combat_report = "The night was peaceful."
@@ -186,46 +186,46 @@ class Player:
 
         elif self.game.is_day() and get_combat_handler().wide_check and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
-            self.report += DayReport().get_night_combat_report(self.name,
+            self.report += get_main_report().get_night_combat_report(self.name,
                                                                intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
 
         if (self.game.is_day() or self.has_ability("Panopticon")) and self.has_ability("Awareness II"):
-            if len(DayReport().training) > 1 or (len(DayReport().training) == 1 and self not in DayReport().training):
+            if len(get_main_report().training) > 1 or (len(get_main_report().training) == 1 and self not in get_main_report().training):
                 self.report += os.linesep
                 self.report += "You are Aware:" + os.linesep
-                for trainer in sorted(DayReport().training.keys(), key=lambda x: x.name):
+                for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
                     if trainer != self:
-                        self.report += f"{trainer.name} was training {DayReport().training[trainer]}." + os.linesep
+                        self.report += f"{trainer.name} was training {get_main_report().training[trainer]}." + os.linesep
 
         if self.has_ability("Panopticon"):
             self.report += os.linesep
-            self.report += DayReport().get_action_report(pierce_illusions=True, ignore_player=self,
+            self.report += get_main_report().get_action_report(pierce_illusions=True, ignore_player=self,
                                                          intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
             self.report += "INSERT PANOPTICON COMMENTARY HERE"
             self.report += os.linesep
         elif self.game.is_day() and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
-            self.report += DayReport().get_action_report(pierce_illusions=True, ignore_player=self,
+            self.report += get_main_report().get_action_report(pierce_illusions=True, ignore_player=self,
                                                          intuition=self.has_condition(Condition.INTUITION),
                                                          aero_only=True)
             self.report += os.linesep
 
         if self.has_ability("Attunement Detection"):
             self.report += os.linesep
-            self.report += DayReport().get_attunement_report(self)
+            self.report += get_main_report().get_attunement_report(self)
 
         if self.has_ability("Willpower Detection"):
             self.report += os.linesep
-            self.report += DayReport().get_willpower_report(self)
+            self.report += get_main_report().get_willpower_report(self)
 
         if self.has_ability("Market Connections I") or self.has_ability("Market Connections II"):
             self.report += os.linesep
-            self.report += DayReport().get_money_report(full=self.has_ability("Market Connections II"))
+            self.report += get_main_report().get_money_report(full=self.has_ability("Market Connections II"))
 
         cleaned = self.report\
-            .replace(COMBAT_PLACEHOLDER, DayReport().get_combat_report_for_player(self))\
+            .replace(COMBAT_PLACEHOLDER, get_main_report().get_combat_report_for_player(self))\
             .replace(self.name+"'s", "your")\
             .replace(self.name, "you")\
             .replace("you was", "you were") \
@@ -589,7 +589,7 @@ class Player:
             total += progress
         return total
 
-    def _check_attunement(self, attunement: Tuple[Element]) -> bool:
+    def _check_attunement(self, attunement: Tuple[Element, ...]) -> bool:
         total_circuits = (self.conditions + self.turn_conditions).count(Condition.CIRCUIT)
         max_anti = (self.conditions + self.turn_conditions).count(Condition.ANTI_CIRCUIT)
         max_fire = (self.conditions + self.turn_conditions).count(Condition.FIRE_CIRCUIT)
@@ -616,14 +616,14 @@ class Player:
         return True
 
     # Returns if attunement was legal. Only sets if legal
-    def set_attunement(self, attunement: Tuple[Element]) -> bool:
+    def set_attunement(self, attunement: Tuple[Element, ...]) -> bool:
         if self._check_attunement(attunement):
             self.circuits = attunement[:]
             return True
 
         return False
 
-    def get_one_swap_attunement(self) -> List[Tuple[Element]]:
+    def get_one_swap_attunement(self) -> List[Tuple[Element, ...]]:
         possibilities = {tuple(self.circuits)}
         if self.circuits:
             for i in range(len(list(self.circuits))):
@@ -635,11 +635,11 @@ class Player:
 
         return [possibility for possibility in possibilities if self._check_attunement(possibility)]
 
-    def get_possible_attunement(self) -> List[Tuple[Element]]:
-        all_possibilities: List[Tuple[Element]] = []
+    def get_possible_attunement(self) -> List[Tuple[Element, ...]]:
+        all_possibilities: List[Tuple[Element, ...]] = []
         total_circuits = (self.conditions + self.turn_conditions).count(Condition.CIRCUIT)
 
-        def legal_attunement(attunement: Tuple[Element]):
+        def legal_attunement(attunement: Tuple[Element, ...]):
             return self._check_attunement(attunement)
 
         for i in range(total_circuits+1):
@@ -812,7 +812,7 @@ class Player:
                 return
             self.report += message + os.linesep
             if info_scope == InfoScope.BROADCAST:
-                DayReport().broadcast(message)
+                get_main_report().broadcast(message)
         return report_callable
 
     def die(self, message, reporting_func: Optional[ReportCallable] = None):
@@ -823,12 +823,12 @@ class Player:
             Resurrect(self.game, self, self.has_condition(Condition.STEALTH_REZ))
             if self.has_condition(Condition.STEALTH_REZ):
                 reporting_func(message, InfoScope.BROADCAST)
-                DayReport().add_death(self)
+                get_main_report().add_death(self)
             else:
                 reporting_func(message, InfoScope.PUBLIC)
         else:
             reporting_func(message, InfoScope.BROADCAST)
-            DayReport().add_death(self)
+            get_main_report().add_death(self)
 
     def wound(self, injury_modifiers: Optional[List[InjuryModifier]] = None,
               reporting_func: Optional[ReportCallable] = None) -> bool:

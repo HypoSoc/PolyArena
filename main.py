@@ -5,7 +5,7 @@ from game import Game
 from items import get_item_by_name
 from player import Player
 from automata import Automata
-from report import DayReport
+from report import get_main_report
 
 GAME = Game(night=True)
 
@@ -117,7 +117,7 @@ if __name__ == '__main__':
         print(p.get_report())
         print()
 
-    print(DayReport().generate_report(GAME))
+    print(get_main_report().generate_report(GAME))
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

@@ -63,7 +63,7 @@ class CombatHandler:
         self.wide_check = False
         self.is_real = False
 
-    def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element]]) -> Dict['Player', int]:
+    def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element, ...]]) -> Dict['Player', int]:
         sim = CombatHandler(self.for_speed)
         player_to_clone: Dict["Player", "Player"] = {}
 

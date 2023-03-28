@@ -1,5 +1,5 @@
 import os
-from typing import NoReturn, TYPE_CHECKING, Callable, Any, Dict, Optional, Tuple, List
+from typing import NoReturn, TYPE_CHECKING, Callable, Any, Dict, Optional, Tuple, List, Set
 
 from ability import get_ability
 from combat import get_combat_handler
@@ -14,27 +14,28 @@ if TYPE_CHECKING:
 ReportCallable = Callable[[str, InfoScope], Any]
 
 
-class DayReport(object):
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(DayReport, cls).__new__(cls)
-            cls.instance.actions = []
-            cls.instance.broadcast_events = []
-            cls.instance.dead = set()
-            cls.instance.petrified = set()
-            cls.instance.face_mask = {}
-            cls.instance.training = {}
-            cls.instance.circuits = {}  # Player to list of circuits
-            cls.instance.willpower = {}  # Player to int
-            cls.instance.shop = []  # List of (player, credits, items)
-            cls.instance.trades = []  # List of (player, target, credits, items, automata)
-            cls.instance.bounties = []  # List of (player, target, credits)
-            cls.instance.hiding = set()  # Set[Players]
-        return cls.instance
+class Report(object):
+    MAIN_REPORT: 'Report' = None
+
+    def __init__(self):
+        self.actions: List[Tuple['Player', str, bool, bool, bool]] = []
+        self.broadcast_events: List[Tuple[str, bool]] = []
+        self.aero_broadcast: bool = False
+        self.dead: Set['Player'] = set()
+        self.petrified: Set['Player'] = set()
+        self.face_mask: Dict[str, str] = {}
+        self.training: Dict['Player', str] = {}
+        self.circuits: Dict['Player', Tuple[Element, ...]] = {}
+        self.willpower: Dict['Player', int] = {}
+        self.shop: List[Tuple['Player', int, Dict['Item', int], List[str]]] = []
+        self.trades: List[Tuple['Player', 'Player', int, Dict['Item', int], List['Automata']]] = []
+        self.bounties: List[Tuple['Player', 'Player', int]] = []
+        self.hiding: Set['Player'] = set()
 
     def reset(self):
         self.actions.clear()
         self.broadcast_events.clear()
+        self.aero_broadcast = False
         self.dead.clear()
         self.petrified.clear()
         self.face_mask.clear()
@@ -61,7 +62,7 @@ class DayReport(object):
         if player not in self.dead:
             self.dead.add(player)
 
-    def set_attunement(self, player: "Player", elements: Tuple[Element]):
+    def set_attunement(self, player: "Player", elements: Tuple[Element, ...]):
         self.circuits[player] = elements
 
     def spend_willpower(self, player: "Player", will: int):
@@ -81,8 +82,10 @@ class DayReport(object):
     def add_bounty(self, player: "Player", target: "Player", money: int):
         self.bounties.append((player, target, money))
 
-    def broadcast(self, content: str) -> NoReturn:
-        self.broadcast_events.append(content)
+    def broadcast(self, content: str, intuition_required: bool = False) -> NoReturn:
+        self.broadcast_events.append((content, intuition_required))
+        if intuition_required:
+            self.aero_broadcast = True
 
     def set_training(self, player: 'Player', ability: str):
         self.training[player] = ability
@@ -273,8 +276,15 @@ class DayReport(object):
 
         for event in get_combat_handler().broadcast_events:
             report += self.face_mask_replacement(event) + os.linesep
-        for event in self.broadcast_events:
-            report += self.face_mask_replacement(event) + os.linesep
+        for event, intuition_required in self.broadcast_events:
+            if not intuition_required:
+                report += self.face_mask_replacement(event) + os.linesep
         for player in sorted(set([target.name for (player, target, amount) in self.bounties])):
             report += f"A bounty was placed on {player}." + os.linesep
         return report
+
+
+def get_main_report():
+    if Report.MAIN_REPORT is None:
+        Report.MAIN_REPORT = Report()
+    return Report.MAIN_REPORT
