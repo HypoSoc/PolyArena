@@ -91,7 +91,7 @@ if __name__ == '__main__':
                        "Healing Tank", "Booby Trap", "Leather Armor"],
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Unnatural Intuition",
-                                  "Illusions III",
+                                  "Illusions III", "Aeromancy Intuition II",
                                   "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
                       dev_goals=[])

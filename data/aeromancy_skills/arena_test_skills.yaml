@@ -1,0 +1,38 @@
+301:
+  text: "A flower bloomed."
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "WIDE"
+  priority: 70
+
+302:
+  text: "A rainbow appeared."
+  effect: "INFO"
+  info: "WIDE"
+  priority: 10
+
+303:
+  text: "The sea sparkled for %TARGET%."
+  effect: "INFO"
+  trigger: "TARGET"
+  info: "NARROW"
+  priority: 10
+
+304:
+  text: "The winds chimed for %TARGET%."
+  effect: "INFO"
+  trigger: "ATTACK"
+  info: "NARROW"
+  priority: 10
+
+305:
+  text: "The air smells faintly of cinnamon to %TARGET%."
+  effect: "INFO"
+  trigger: "ALL"
+  info: "SUBTLE"
+
+306:
+  text: "A snowflake falls on %TARGET%'s tongue."
+  effect: "INFO"
+  trigger: "RANGE"
+  info: "SUBTLE"

@@ -3,18 +3,18 @@
   concept: "ARENA_TEST"
   cost: 10
   skills:
-    - 118
+    - 301
   aero:
-    119:
+    302:
       fragile: true
 
 302:
   name: "Dummy Concept II"
   cost: 10
   skills:
-    - 120
+    - 303
   aero:
-    121:
+    304:
       fragile: true
   max_targets: 2
   prerequisite: 301
@@ -23,8 +23,8 @@
   name: "Dummy Concept III"
   cost: 10
   skills:
-    - 122
-    - 123
+    - 305
+    - 306
   prerequisite: 302
 
 304:

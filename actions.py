@@ -254,13 +254,18 @@ class HandleSkill(Action):
                     self.player.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
                                                                             self.player.name)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
-                        target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep, target.name)
+                        target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                                                                           target.name)
                 elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
+                    if target != self.player:
+                        self.player.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                                                                                self.player.name)
                     if target.has_condition(Condition.INTUITION) \
                             or self.skill.info == InfoScope.NARROW \
                             or target == self.player:
-                        target.report += DayReport().face_mask_replacement(text + os.linesep, target.name)
-                    if target.has_condition(Condition.INTUITION):
+                        target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                                                                           target.name)
+                    if target.has_condition(Condition.INTUITION) and target != self.player:
                         assert self.player.concept
                         target.report += DayReport().face_mask_replacement(f"Your intuition tells you "
                                                                            f"this has to do with {self.player.name}'s "
@@ -553,7 +558,7 @@ class Shop(Action):
             else:
                 self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Shop)
-        pruned_items = {k:v for k,v in self.items.items() if k.pin != AUTOMATA}
+        pruned_items = {k: v for k, v in self.items.items() if k.pin != AUTOMATA}
         DayReport().add_shop(self.player, total_cost, pruned_items, self.automata_names)
 
     @staticmethod
