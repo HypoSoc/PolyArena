@@ -11,7 +11,12 @@
 302:
   name: "Dummy Concept II"
   cost: 10
-  skills: []
+  skills:
+    - 120
+  aero:
+    121:
+      fragile: true
+  max_targets: 2
   prerequisite: 301
 
 303:

@@ -249,16 +249,26 @@ class HandleSkill(Action):
                     .replace(TARGET_PLACEHOLDER, target.name)
 
                 if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
-                    self.player.report += text + os.linesep + os.linesep
+                    self.player.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep,
+                                                                            self.player.name)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
-                        target.report += text + os.linesep + os.linesep
+                        target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep, target.name)
+                elif self.skill.info in [InfoScope.NARROW]:
+                    target.report += DayReport().face_mask_replacement(text + os.linesep, target.name)
+                    if target.has_condition(Condition.INTUITION):
+                        assert self.player.concept
+                        target.report += DayReport().face_mask_replacement(f"Your intuition tells you "
+                                                                           f"this has to do with {self.player.name}'s "
+                                                                           f"Aeromancy ({self.player.concept})."
+                                                                           + os.linesep, target.name)
+                    target.report += os.linesep
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
                     DayReport().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
                 elif self.skill.info == InfoScope.BROADCAST:
                     DayReport().broadcast(text)
 
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
-                return
+                continue
 
             if self.skill.effect == Effect.CONDITION:
                 if not self.fake:

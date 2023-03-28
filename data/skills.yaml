@@ -780,4 +780,18 @@
   text: "A rainbow appeared."
   effect: "INFO"
   info: "WIDE"
-  priority: 0
+  priority: 10
+
+120:
+  text: "The sea sparkled."
+  effect: "INFO"
+  trigger: "TARGET"
+  info: "NARROW"
+  priority: 10
+
+121:
+  text: "The winds chimed."
+  effect: "INFO"
+  trigger: "ATTACK"
+  info: "NARROW"
+  priority: 10

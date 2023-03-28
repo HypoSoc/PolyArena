@@ -127,6 +127,7 @@ class Ability:
                  aero_qualified_skills: List[AeroQualifiedSkill],
                  max_will: int, contingency_forbidden: bool, linked: bool,
                  concept: Optional[str],
+                 max_targets: int,
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
         self.name = name
@@ -139,6 +140,7 @@ class Ability:
         self.contingency_forbidden = contingency_forbidden
         self.linked = linked
         self.concept = concept
+        self.max_targets = max_targets
         self.prerequisite_pin = prerequisite_pin
 
     def get_prerequisite(self) -> Optional[Ability]:
@@ -269,6 +271,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    contingency_forbidden=dictionary.get('not_contingency', False),
                    linked=dictionary.get('linked', False),
                    concept=dictionary.get('concept'),
+                   max_targets=dictionary.get('max_targets', 1),
                    prerequisite_pin=dictionary.get('prerequisite'))
 
 

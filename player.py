@@ -500,6 +500,7 @@ class Player:
             raise Exception(f"Player {self.name} is trying to spend too much willpower on {ability_name} ({will}).")
 
         if targets:
+            assert len(targets) <= ability.max_targets
             self.ability_targets[ability.pin] = targets
 
         UseHydro(self.game, self, ability, will, contingency)
@@ -507,6 +508,11 @@ class Player:
         if ability.name == "Illusions III":
             assert len(targets) == 3 == len(set(targets))
             MasterIllusion(self.game, self, target=targets[0], defended=targets[1], redirected=targets[2])
+
+    def plan_target(self, ability_name: str, *targets: "Player"):
+        ability = get_ability_by_name(ability_name)
+        assert len(targets) <= ability.max_targets
+        self.ability_targets[ability.pin] = list(targets)
 
     def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
         assert not self.used_illusion

@@ -554,7 +554,7 @@ class CombatHandler:
                             if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
                                                            [p, target] if skill.info != InfoScope.PERSONAL else [p],
-                                                           skill.info, p.concept)
+                                                           skill.info, p)
                             if skill.effect == Effect.INFO_ONCE:
                                 self.info_once.add(msg)
 
@@ -566,7 +566,7 @@ class CombatHandler:
                 def petrify():
                     def reporting_function(message: str, info_scope: InfoScope):
                         self._append_to_event_list(self.combat_group_to_events[group],
-                                                   message, [p], info_scope, p.concept)
+                                                   message, [p], info_scope, p)
 
                     p.petrify(reporting_function, long=long)
                     if Condition.PETRIFIED in p.conditions:
@@ -595,7 +595,7 @@ class CombatHandler:
 
                     def reporting_function(message: str, info_scope: InfoScope):
                         self._append_to_event_list(self.combat_group_to_events[group],
-                                                   message, [p], info_scope, p.concept)
+                                                   message, [p], info_scope, p)
                     wounded = p.wound(_injury_modifiers, reporting_function)
                     if wounded and not p.is_dead():
                         for injured_skill in p.get_skills():
@@ -955,13 +955,19 @@ class CombatHandler:
     def _append_to_event_list(self, event_list: Event_List, message: str,
                               affected: List[Player],
                               info: InfoScope = InfoScope.PUBLIC,
-                              concept: Optional[str] = None):
+                              aero: Optional[Player] = None):
         if info == InfoScope.WIDE:
             event_list.append((message, affected, InfoScope.PUBLIC))
             event_list.append((f"Your intuition tells you "
-                               f"this has to do with the concept {concept}.",
+                               f"this has to do with the concept {aero.concept}.",
                                affected, InfoScope.WIDE))
             self.wide_check = True
+        elif info == InfoScope.NARROW:
+            event_list.append((message, affected, InfoScope.PRIVATE))
+            event_list.append((f"Your intuition tells you "
+                               f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
+                               [p for p in affected if p.has_condition(Condition.INTUITION)],
+                               InfoScope.PRIVATE))
         else:
             event_list.append((message, affected, info))
         if info == InfoScope.BROADCAST:

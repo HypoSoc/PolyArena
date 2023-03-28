@@ -102,11 +102,12 @@ if __name__ == '__main__':
 
     GAME.advance()
 
+    a.plan_target("Dummy Concept II", c, d)
     a.plan_attack(c)
-    a.plan_face_mask(c)
+    # a.plan_face_mask(d)
     b.plan_train()
     b.plan_attune(Element.EARTH)
-    c.plan_attune(Element.ANTI)
+    # c.plan_attune(Element.ANTI)
     d.plan_train()
 
     Action.run_turn(GAME)
