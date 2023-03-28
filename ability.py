@@ -99,10 +99,32 @@ class HydroQualifiedSkill:
         return skills
 
 
+class AeroQualifiedSkill:
+    def __init__(self, pin: int, fragile: Optional[Condition] = None):
+        self.pin = pin
+        self.fragile = fragile
+
+    def get_skills(self, for_rune=False) -> List[Skill]:
+        skill = get_skill(self.pin).copy()
+        if not for_rune:
+            if self.fragile:
+                skill.set_fragile(self.fragile)
+                if skill.trigger not in NONCOMBAT_TRIGGERS:
+                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                        skill.priority = 20
+                if skill.effect == Effect.CONDITION:
+                    skill.effect = Effect.TENTATIVE_CONDITION
+                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                        skill.priority = 20
+
+        return [skill]
+
+
 class Ability:
     def __init__(self, pin: int, name: str, cost: int, skill_pins: List[int],
                  geo_qualified_skills: List[GeoQualifiedSkill],
                  hydro_qualified_skills: List[HydroQualifiedSkill],
+                 aero_qualified_skills: List[AeroQualifiedSkill],
                  max_will: int, contingency_forbidden: bool, linked: bool,
                  concept: Optional[str],
                  prerequisite_pin: Optional[int] = None):
@@ -112,6 +134,7 @@ class Ability:
         self.skill_pins = skill_pins
         self.geo_qualified_skills = geo_qualified_skills
         self.hydro_qualified_skills = hydro_qualified_skills
+        self.aero_qualified_skills = aero_qualified_skills
         self.max_will = max_will
         self.contingency_forbidden = contingency_forbidden
         self.linked = linked
@@ -135,6 +158,8 @@ class Ability:
                            for skill in qualified.get_skills(circuits)])
             skills.extend([skill for i in range(len(self.hydro_qualified_skills))
                            for skill in self.hydro_qualified_skills[i].get_skills(will[i])])
+            skills.extend([skill for qualified in self.aero_qualified_skills
+                           for skill in qualified.get_skills()])
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
@@ -146,6 +171,8 @@ class Ability:
                            for skill in qualified.get_skills(FULL_ELEMENTS, for_rune=True)])
             skills.extend([skill for qualified in self.hydro_qualified_skills
                            for skill in qualified.get_skills(qualified.cost, for_rune=True)])
+            skills.extend([skill for qualified in self.aero_qualified_skills
+                           for skill in qualified.get_skills(for_rune=True)])
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
@@ -203,6 +230,7 @@ def get_ability_by_name(name: str) -> Ability:
 def __parse_ability(pin: int, dictionary: Dict) -> Ability:
     geo_qualified_skills = []
     hydro_qualified_skills = []
+    aero_qualified_skills = []
     for entry_pin, entry_value in dictionary.get('geo', {}).items():
         circuits = []
         element_options: List[List[Element]] = []
@@ -223,6 +251,12 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
         hydro_qualified_skills.append(HydroQualifiedSkill(pin=entry_pin, cost=entry_value['cost'],
                                                           each=entry_value.get('each', False), fragile=fragile))
 
+    for entry_pin, entry_value in dictionary.get('aero', {}).items():
+        fragile = None
+        if entry_value.get('fragile', None):
+            fragile = Condition.AERO_LOCKED
+        aero_qualified_skills.append(AeroQualifiedSkill(pin=entry_pin, fragile=fragile))
+
     skills = []
     if 'skills' in dictionary:
         skills = dictionary['skills']
@@ -230,6 +264,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    skill_pins=skills,
                    geo_qualified_skills=geo_qualified_skills,
                    hydro_qualified_skills=hydro_qualified_skills,
+                   aero_qualified_skills=aero_qualified_skills,
                    max_will=dictionary.get('max_will', 1000000),
                    contingency_forbidden=dictionary.get('not_contingency', False),
                    linked=dictionary.get('linked', False),

@@ -6,6 +6,7 @@ from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
     MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill
+from combat import get_combat_handler
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -177,10 +178,17 @@ class Player:
         if not self.game.is_day() and self.has_ability("Awareness I"):
             self.report += os.linesep
             self.report += "You are Aware:" + os.linesep
-            night_combat_report = DayReport().get_night_combat_report(self.name)
+            night_combat_report = DayReport().get_night_combat_report(self.name,
+                                                                      intuition=self.has_condition(Condition.INTUITION))
             if not night_combat_report:
                 night_combat_report = "The night was peaceful."
             self.report += night_combat_report
+
+        elif self.game.is_day() and get_combat_handler().wide_check and self.has_condition(Condition.INTUITION):
+            self.report += os.linesep
+            self.report += DayReport().get_night_combat_report(self.name,
+                                                               intuition=self.has_condition(Condition.INTUITION))
+            self.report += os.linesep
 
         if (self.game.is_day() or self.has_ability("Panopticon")) and self.has_ability("Awareness II"):
             if len(DayReport().training) > 1 or (len(DayReport().training) == 1 and self not in DayReport().training):
@@ -192,9 +200,16 @@ class Player:
 
         if self.has_ability("Panopticon"):
             self.report += os.linesep
-            self.report += DayReport().get_action_report(pierce_illusions=True, ignore_player=self)
+            self.report += DayReport().get_action_report(pierce_illusions=True, ignore_player=self,
+                                                         intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
             self.report += "INSERT PANOPTICON COMMENTARY HERE"
+            self.report += os.linesep
+        elif self.game.is_day() and self.has_condition(Condition.INTUITION):
+            self.report += os.linesep
+            self.report += DayReport().get_action_report(pierce_illusions=True, ignore_player=self,
+                                                         intuition=self.has_condition(Condition.INTUITION),
+                                                         aero_only=True)
             self.report += os.linesep
 
         if self.has_ability("Attunement Detection"):

@@ -46,14 +46,16 @@ class DayReport(object):
         self.bounties.clear()
         self.hiding.clear()
 
-    def add_action(self, player: "Player", content: str, fake: bool = False, hidden: bool = False) -> NoReturn:
+    def add_action(self, player: "Player", content: str,
+                   fake: bool = False, hidden: bool = False,
+                   aero: bool = False) -> NoReturn:
         if player not in self.hiding:
-            self.actions.append((player, content, fake, hidden))
+            self.actions.append((player, content, fake, hidden, aero))
 
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:
             self.petrified.add(player)
-            self.actions.append((player, f"{player.name} was Petrified.", False, False))
+            self.add_action(player, f"{player.name} was Petrified.")
 
     def add_death(self, player: "Player"):
         if player not in self.dead:
@@ -120,8 +122,8 @@ class DayReport(object):
         return self.face_mask_replacement(get_combat_handler().get_combat_report_for_player(player),
                                           player_name=player.name)
 
-    def get_night_combat_report(self, player_name=""):
-        return self.face_mask_replacement(get_combat_handler().get_public_combat_report(), player_name)
+    def get_night_combat_report(self, player_name="", intuition=False):
+        return self.face_mask_replacement(get_combat_handler().get_public_combat_report(intuition), player_name)
 
     def get_spy_report(self, spy: 'Player', target: 'Player', counter_int: bool = False):
         fake_ability_str = "nothing"
@@ -243,13 +245,19 @@ class DayReport(object):
             report += "No trades happened." + os.linesep
         return report
 
-    def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None) -> str:
+    def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None,
+                          intuition: bool = False, aero_only: bool = False) -> str:
         report = ""
-        for (player, content, fake, hidden) in sorted(self.actions, key=lambda x: x[0].name):
+        for (player, content, fake, hidden, aero) in sorted(self.actions, key=lambda x: (x[4], x[0].name)):
             if not ignore_player or ignore_player.name != player.name:
                 if not hidden or pierce_illusions:
                     if not pierce_illusions or not fake:
-                        report += content + os.linesep
+                        if not aero_only or aero:
+                            report += content + os.linesep
+                            if aero and intuition:
+                                assert player.concept
+                                report += f"Your intuition tells you " \
+                                          f"this has to do with the concept {player.concept}." + os.linesep
         return report
 
     def generate_report(self, game: Game):

@@ -2,7 +2,11 @@
   name: "Dummy Concept I"
   concept: "ARENA_TEST"
   cost: 10
-  skills: []
+  skills:
+    - 118
+  aero:
+    119:
+      fragile: true
 
 302:
   name: "Dummy Concept II"

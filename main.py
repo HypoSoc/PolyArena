@@ -82,9 +82,9 @@ def create_automata(name: str, owner: 'Player') -> Automata:
 
 
 if __name__ == '__main__':
-    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
+    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Willpower V", "Crafting III", "Dummy Concept III", "Reality Imposition"],
-                      ["Healing Tank", "Workbench", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
+                      ["Healing Tank", "Workbench", "Booby Trap", "Face Mask", "Leather Armor", "Bokken"],
                       injured=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
@@ -92,7 +92,7 @@ if __name__ == '__main__':
                       dev_goals=["Martial Arts I"])
     c = create_player("Charlie", ["Theft", "Unnatural Intuition",
                                   "Illusions III",
-                                  "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
+                                  "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
                       dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection",
@@ -102,11 +102,11 @@ if __name__ == '__main__':
 
     GAME.advance()
 
-    a.plan_attack(d)
+    a.plan_attack(c)
+    a.plan_face_mask(c)
     b.plan_train()
     b.plan_attune(Element.EARTH)
-    c.plan_hydro("Unnatural Intuition")
-
+    c.plan_attune(Element.ANTI)
     d.plan_train()
 
     Action.run_turn(GAME)

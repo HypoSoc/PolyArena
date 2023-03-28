@@ -252,8 +252,8 @@ class HandleSkill(Action):
                     self.player.report += text + os.linesep + os.linesep
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
                         target.report += text + os.linesep + os.linesep
-                elif self.skill.info == InfoScope.PUBLIC:
-                    DayReport().add_action(self.player, text)
+                elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
+                    DayReport().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
                 elif self.skill.info == InfoScope.BROADCAST:
                     DayReport().broadcast(text)
 

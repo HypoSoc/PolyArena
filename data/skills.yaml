@@ -768,3 +768,16 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "INTUITION"
+
+118:
+  text: "A flower bloomed."
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "WIDE"
+  priority: 70
+
+119:
+  text: "A rainbow appeared."
+  effect: "INFO"
+  info: "WIDE"
+  priority: 0

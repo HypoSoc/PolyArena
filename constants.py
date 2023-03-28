@@ -98,6 +98,7 @@ class InfoScope(Enum):
     PRIVATE = 2
     BROADCAST = 3
     PERSONAL = 4  # Like Private, but targets don't get to see, only the originator
+    WIDE = 5  # Like Public, but for Aero. Players with AI will learn concept names but not aeromancer names
 
 
 class Effect(Enum):

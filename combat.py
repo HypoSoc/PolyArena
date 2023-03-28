@@ -60,6 +60,8 @@ class CombatHandler:
         self.no_escape: Set['Player'] = set()
         self.contingency_locked: Set['Player'] = set()
 
+        self.wide_check = False
+
     def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element]]) -> Dict['Player', int]:
         sim = CombatHandler(self.for_speed)
         player_to_clone: Dict["Player", "Player"] = {}
@@ -552,7 +554,7 @@ class CombatHandler:
                             if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
                                                            [p, target] if skill.info != InfoScope.PERSONAL else [p],
-                                                           skill.info)
+                                                           skill.info, p.concept)
                             if skill.effect == Effect.INFO_ONCE:
                                 self.info_once.add(msg)
 
@@ -564,7 +566,7 @@ class CombatHandler:
                 def petrify():
                     def reporting_function(message: str, info_scope: InfoScope):
                         self._append_to_event_list(self.combat_group_to_events[group],
-                                                   message, [p], info_scope)
+                                                   message, [p], info_scope, p.concept)
 
                     p.petrify(reporting_function, long=long)
                     if Condition.PETRIFIED in p.conditions:
@@ -593,7 +595,7 @@ class CombatHandler:
 
                     def reporting_function(message: str, info_scope: InfoScope):
                         self._append_to_event_list(self.combat_group_to_events[group],
-                                                   message, [p], info_scope)
+                                                   message, [p], info_scope, p.concept)
                     wounded = p.wound(_injury_modifiers, reporting_function)
                     if wounded and not p.is_dead():
                         for injured_skill in p.get_skills():
@@ -952,8 +954,16 @@ class CombatHandler:
 
     def _append_to_event_list(self, event_list: Event_List, message: str,
                               affected: List[Player],
-                              info: InfoScope = InfoScope.PUBLIC):
-        event_list.append((message, affected, info))
+                              info: InfoScope = InfoScope.PUBLIC,
+                              concept: Optional[str] = None):
+        if info == InfoScope.WIDE:
+            event_list.append((message, affected, InfoScope.PUBLIC))
+            event_list.append((f"Your intuition tells you "
+                               f"this has to do with the concept {concept}.",
+                               affected, InfoScope.WIDE))
+            self.wide_check = True
+        else:
+            event_list.append((message, affected, info))
         if info == InfoScope.BROADCAST:
             self.broadcast_events.append(message)
 
@@ -969,14 +979,17 @@ class CombatHandler:
                         report += other.action.public_description\
                                       .replace("attacked", self.verb_dict.get(other, 'attacked')) + os.linesep
                 for event in events:
-                    if event[2] in [InfoScope.PUBLIC, InfoScope.BROADCAST] or player in event[1]:
+                    if event[2] == InfoScope.WIDE:
+                        if player.has_condition(Condition.INTUITION):
+                            report += event[0] + os.linesep
+                    elif event[2] in [InfoScope.PUBLIC, InfoScope.BROADCAST] or player in event[1]:
                         report += event[0] + os.linesep
                 for other in group:
                     if not self.check_range(player, other, ignore_escape=True):
                         report = report.replace(other.name, "Someone")
         return report
 
-    def get_public_combat_report(self):
+    def get_public_combat_report(self, intuition=False):
         report = ""
         for (group, events) in self.combat_group_to_events.items():
             for player in group:
@@ -985,6 +998,8 @@ class CombatHandler:
             for event in events:
                 if event[2] in (InfoScope.PUBLIC, InfoScope.BROADCAST):
                     report += event[0]+os.linesep
+                elif event[2] == InfoScope.WIDE and intuition:
+                    report += event[0] + os.linesep
         return report
 
     def reset(self):
@@ -1016,6 +1031,8 @@ class CombatHandler:
         self.full_escape.clear()
         self.no_escape.clear()
         self.contingency_locked.clear()
+
+        self.wide_check = False
 
 
 def get_combat_handler() -> CombatHandler:
