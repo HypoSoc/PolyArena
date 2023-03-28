@@ -768,6 +768,7 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "INTUITION"
+  priority: -50  # Ensure this happens before other Aero, even weird ones
 
 118:
   text: "A flower bloomed."
@@ -795,3 +796,15 @@
   trigger: "ATTACK"
   info: "NARROW"
   priority: 10
+
+122:
+  text: "The air smells faintly of cinnamon."
+  effect: "INFO"
+  trigger: "ALL"
+  info: "SUBTLE"
+
+123:
+  text: "A snowflake falls on %TARGET%'s tongue."
+  effect: "INFO"
+  trigger: "RANGE"
+  info: "SUBTLE"

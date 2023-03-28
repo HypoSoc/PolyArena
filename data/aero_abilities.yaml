@@ -22,7 +22,9 @@
 303:
   name: "Dummy Concept III"
   cost: 10
-  skills: []
+  skills:
+    - 122
+    - 123
   prerequisite: 302
 
 304:
@@ -40,11 +42,11 @@
 306:
   name: "Legacy Magic"
   cost: 10
-  skills: []
+  skills: [] # TODO
   # prerequisite varies
 
 307:
   name: "Reality Imposition"
   cost: 10
-  skills: []
+  skills: [] # TODO
   # prerequisite varies

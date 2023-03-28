@@ -238,6 +238,8 @@ class HandleSkill(Action):
         if self.skill.self_not_condition and self.player.has_condition(self.skill.self_not_condition):
             return
 
+        # TODO Noncombat FRAGILE
+
         for target in self.targets:
             if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
                 return
@@ -253,8 +255,11 @@ class HandleSkill(Action):
                                                                             self.player.name)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
                         target.report += DayReport().face_mask_replacement(text + os.linesep + os.linesep, target.name)
-                elif self.skill.info in [InfoScope.NARROW]:
-                    target.report += DayReport().face_mask_replacement(text + os.linesep, target.name)
+                elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
+                    if target.has_condition(Condition.INTUITION) \
+                            or self.skill.info == InfoScope.NARROW \
+                            or target == self.player:
+                        target.report += DayReport().face_mask_replacement(text + os.linesep, target.name)
                     if target.has_condition(Condition.INTUITION):
                         assert self.player.concept
                         target.report += DayReport().face_mask_replacement(f"Your intuition tells you "
@@ -1527,9 +1532,11 @@ class NoncombatSkillStep(Action):
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.NONCOMBAT:
                         HandleSkill(self.game, player, skill)
-                    if skill.trigger == Trigger.TARGET:
+                    elif skill.trigger == Trigger.TARGET:
                         if skill.targets:
                             HandleSkill(self.game, player, skill, targets=skill.targets)
+                    elif skill.trigger == Trigger.ALL:
+                        HandleSkill(self.game, player, skill, targets=list(Action.players))
 
 
 class TattooStep(Action):

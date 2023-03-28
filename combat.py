@@ -61,6 +61,7 @@ class CombatHandler:
         self.contingency_locked: Set['Player'] = set()
 
         self.wide_check = False
+        self.is_real = False
 
     def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element]]) -> Dict['Player', int]:
         sim = CombatHandler(self.for_speed)
@@ -968,6 +969,14 @@ class CombatHandler:
                                f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
                                [p for p in affected if p.has_condition(Condition.INTUITION)],
                                InfoScope.PRIVATE))
+        elif info == InfoScope.SUBTLE:
+            event_list.append((message,
+                               [p for p in affected if p.has_condition(Condition.INTUITION) or p == aero],
+                               InfoScope.PRIVATE))
+            event_list.append((f"Your intuition tells you "
+                               f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
+                               [p for p in affected if p.has_condition(Condition.INTUITION)],
+                               InfoScope.PRIVATE))
         else:
             event_list.append((message, affected, info))
         if info == InfoScope.BROADCAST:
@@ -1044,4 +1053,5 @@ class CombatHandler:
 def get_combat_handler() -> CombatHandler:
     if CombatHandler.REAL_HANDLER is None:
         CombatHandler.REAL_HANDLER = CombatHandler()
+        CombatHandler.REAL_HANDLER.is_real = True
     return CombatHandler.REAL_HANDLER

@@ -99,7 +99,8 @@ class InfoScope(Enum):
     BROADCAST = 3
     PERSONAL = 4  # Like Private, but targets don't get to see, only the originator
     WIDE = 5  # Like Public, but for Aero. Players with AI will learn concept names but not aeromancer names
-    NARROW = 6  # Like Public, but for Aero. Players with AI will learn concept names and aeromancer name
+    NARROW = 6  # Like Private, but for Aero. Players with AI will learn concept names and aeromancer name
+    SUBTLE = 7  # Like Narrow, but AI is necessary to SEE the message
 
 
 class Effect(Enum):
@@ -148,11 +149,12 @@ class Trigger(Enum):
     TARGET = 16  # Manually selected target
     ACQUISITION = 17
     START_OF_GAME = 18  # Only happens at start of Game
+    ALL = 19  # Affects all players outside combat
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
                       Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET,
-                      Trigger.ACQUISITION, Trigger.START_OF_GAME]
+                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL]
 
 
 class ItemType(Enum):
