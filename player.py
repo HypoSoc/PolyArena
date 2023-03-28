@@ -5,7 +5,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty
+    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
@@ -71,6 +71,10 @@ class Player:
                 if ability.concept:
                     aeromancer = ability.concept.upper()
                     aero_index = ability_pin // 100
+                if self.game.turn <= 0:
+                    for skill in ability.get_skills([], []):
+                        if skill.trigger in [Trigger.ACQUISITION, Trigger.START_OF_GAME]:
+                            HandleSkill(self.game, self, skill)
 
         for (ability_pin, progress) in progress_dict.items():
             ability = get_ability(ability_pin)
@@ -744,6 +748,9 @@ class Player:
         self.progress_dict[ability.pin] = ability.cost
         if ability.pin in self.dev_plan:
             self.dev_plan.remove(ability.pin)
+        for skill in ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, [])):
+            if skill.trigger == Trigger.ACQUISITION:
+                HandleSkill(self.game, self, skill)
 
     def copycat(self, target: 'Player', fake: 'bool' = False) -> NoReturn:
         available_abilities = [ability for ability in target.get_abilities()

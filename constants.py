@@ -86,6 +86,7 @@ class Condition(Enum):
     LOW_CRAFTING = 70  # Single item worth 2 or less
     CRAFTING = 71  # Combination of items adding up to less than 3
     HIGH_CRAFTING = 72  # Combination of items adding up to 5. No Liquid Memories
+    INTUITION = 73  # Aeromancy Intuition
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -143,10 +144,13 @@ class Trigger(Enum):
     POST_COMBAT = 14
     RANGE_IGNORE_SPEED = 15  # Used for speed affecting in range abilities to avoid edge cases
     TARGET = 16  # Manually selected target
+    ACQUISITION = 17
+    START_OF_GAME = 18  # Only happens at start of Game
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
-                      Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET]
+                      Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET,
+                      Trigger.ACQUISITION, Trigger.START_OF_GAME]
 
 
 class ItemType(Enum):

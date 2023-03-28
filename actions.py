@@ -1620,9 +1620,10 @@ class CombatStep(Action):
             player.report += COMBAT_PLACEHOLDER + os.linesep + os.linesep
 
             if get_combat_handler().hot_blood_check(player) and player.temperament == Temperament.HOT_BLOODED:
-                player.report += "Your blood boils in excitement." + os.linesep
-                Action.progress(player, 3)
-                player.report += os.linesep
+                if not player.is_dead() or player.has_condition(Condition.RESURRECT):
+                    player.report += "Your blood boils in excitement." + os.linesep
+                    Action.progress(player, 3)
+                    player.report += os.linesep
 
             if not player.is_dead():
                 for skill in player.get_skills():
@@ -1707,7 +1708,8 @@ class StatusChangeStep(Action):
                 if self.game.night:
                     if not player.is_automata:
                         player.gain_credits(1)
-                        player.report += f"Student Services has granted you 1 credit ({player.get_credits()})" \
+                        player.report += f"Student Services has granted you 1 credit " \
+                                         f"({player.get_credits()} total)." \
                                          + os.linesep + os.linesep
 
 

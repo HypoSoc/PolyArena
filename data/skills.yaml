@@ -715,7 +715,7 @@
   value: "UNNATURAL_INTUITION"
 
 109:
-  text: "%SELF% detected Aeromancy: (%REPLACE_WITH_CONCEPT%)"
+  text: "%SELF% detected Aeromancy (%REPLACE_WITH_CONCEPT%)."
   effect: "INTUITION"
   trigger: "RANGE_EX_SELF"
   target_has_condition: "USING_AERO"
@@ -744,3 +744,27 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "HIGH_CRAFTING"
+
+114:
+  text: "!!!!INSERT LIST OF PREPARED PLAYERS!!!!"
+  effect: "INFO"
+  trigger: "START_OF_GAME"
+  info: "PERSONAL"
+
+115:
+  text: "!!!!INSERT LIST OF PREPARED PLAYERS AND THEIR ITEMS!!!!"
+  effect: "INFO"
+  trigger: "START_OF_GAME"
+  info: "PERSONAL"
+
+116:
+  text: "!!!!INSERT LIST OF ALL AEROMANCY AND CONCEPTS!!!!"
+  effect: "INFO"
+  trigger: "ACQUISITION"
+  info: "PERSONAL"
+
+117:
+  text: "Can detect Aeromancy"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "INTUITION"

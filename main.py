@@ -7,7 +7,7 @@ from player import Player
 from automata import Automata
 from report import DayReport
 
-GAME = Game(night=False)
+GAME = Game(night=True)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -85,41 +85,35 @@ if __name__ == '__main__':
     combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
     a = create_player("Alpha", ["Willpower V", "Crafting III", "Dummy Concept III", "Reality Imposition"],
                       ["Healing Tank", "Workbench", "Booby Trap", "Fire II Rune", "Leather Armor", "Bokken"],
-                      injured=True)
+                      injured=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Leather Armor"],
                       dev_goals=["Martial Arts I"])
-    c = create_player("Charlie", ["Theft", "Armor Break", "Martial Arts I", "Water II", "Earth III",
+    c = create_player("Charlie", ["Theft", "Unnatural Intuition",
                                   "Illusions III",
                                   "Circuit III", "Antimagic (Hydro)", "Light II", "Willpower IV"],
-                      ["Venom", "Poison Gas", "Face Mask", "Synthetic Weave", "Camo Cloak", "Bokken"],
-                      dev_goals=["Sniping"])
+                      ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
+                      dev_goals=[])
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection",
-                                "Awareness II", "Theft", "Market Connections II"],
+                                "Awareness II", "Theft", "Aeromancy Intuition I"],
                       items=["Shrooms", "Medkit"],
-                      dev_goals=["Martial Arts I", "Martial Arts II", "Armed Combat I", "Armed Combat II"])
-
-    e = create_automata("ROBO_ALPHA", a)
+                      dev_goals=["Aeromancy Intuition II"])
 
     GAME.advance()
 
-    a.plan_hydro("Crafting III")
-    a.plan_shop("Automata", "Automata", automata_name=['DAVE', "Betsy"])
-    a.plan_trade(c, automata=['DAVE', e], item_name_condition=(c, 3, []))
+    a.plan_attack(d)
     b.plan_train()
     b.plan_attune(Element.EARTH)
-    c.plan_attune(Element.ANTI)
-    c.plan_trade(a, money=3, item_name_condition=(a,0,["Automata", "Automata"]))
-    e.plan_craft("Automata", automata_name='DAVID')
+    c.plan_hydro("Unnatural Intuition")
+
+    d.plan_train()
 
     Action.run_turn(GAME)
 
     for p in [a, b, c, d]:
         print(f"{p.name} Report")
         print(p.get_report())
-        if p.concept:
-            print(p.concept)
         print()
 
     print(DayReport().generate_report(GAME))

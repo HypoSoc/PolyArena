@@ -535,13 +535,13 @@ class CombatHandler:
                         elif skill.effect == Effect.DRAIN:
                             queue.put(drain_tic(p, target))
                         elif skill.effect == Effect.INTUITION:
-                            # TODO
-                            self._append_to_event_list(self.combat_group_to_events[group],
-                                                       skill.text.replace(SELF_PLACEHOLDER, p.name)
-                                                       .replace(TARGET_PLACEHOLDER, target.name)
-                                                       .replace("%REPLACE_WITH_CONCEPT%", "!!!UNIMPLEMENTED!!!"),
-                                                       [p],
-                                                       InfoScope.PERSONAL)
+                            if target.concept:
+                                self._append_to_event_list(self.combat_group_to_events[group],
+                                                           skill.text.replace(SELF_PLACEHOLDER, p.name)
+                                                           .replace(TARGET_PLACEHOLDER, target.name)
+                                                           .replace("%REPLACE_WITH_CONCEPT%", target.concept),
+                                                           [p],
+                                                           InfoScope.PERSONAL)
                         else:
                             raise Exception(f"Unhandled effect type in combat! {skill.effect.name}")
 
@@ -802,7 +802,8 @@ class CombatHandler:
                 if player.hydro_spells:
                     conditions[player].append(Condition.USING_HYDRO)
 
-                # TODO mark aeromancers
+                if player.concept:
+                    conditions[player].append(Condition.USING_AERO)
 
                 for _skill in player.get_skills():
                     # Apply effects from skills to players in order of skill priority
