@@ -274,8 +274,12 @@ class HandleSkill(Action):
                     target.report += os.linesep
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
                     get_main_report().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
-                elif self.skill.info == InfoScope.BROADCAST:
+                elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT]:
                     get_main_report().broadcast(text)
+                    if self.skill.info == InfoScope.BLATANT:
+                        get_main_report().broadcast(f"Your intuition tells you this has to do "
+                                                    f"with the concept {self.player.concept}.",
+                                                    intuition_required=True)
 
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                 continue

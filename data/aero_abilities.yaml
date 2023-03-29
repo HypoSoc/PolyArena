@@ -30,7 +30,9 @@
 304:
   name: "Dummy Concept IV"
   cost: 10
-  skills: []
+  skills:
+    - 307
+    - 308
   prerequisite: 303
 
 305:

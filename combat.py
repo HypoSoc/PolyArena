@@ -33,7 +33,7 @@ class CombatHandler:
         self.tic_index = 0
         self.for_speed = for_speed
 
-        self.broadcast_events: List[str] = []
+        self.broadcast_events: List[Tuple[str, bool]] = []
 
         self.hot_blood = set()
         self.report_dict = {}
@@ -977,10 +977,19 @@ class CombatHandler:
                                f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
                                [p for p in affected if p.has_condition(Condition.INTUITION)],
                                InfoScope.PRIVATE))
+        elif info == InfoScope.BLATANT:
+            event_list.append((message, affected, InfoScope.BROADCAST))
+            event_list.append((f"Your intuition tells you "
+                               f"this has to do with the concept {aero.concept}.",
+                               affected, InfoScope.WIDE))
         else:
             event_list.append((message, affected, info))
-        if info == InfoScope.BROADCAST:
-            self.broadcast_events.append(message)
+
+        if info in [InfoScope.BROADCAST, InfoScope.BLATANT]:
+            self.broadcast_events.append((message, False))
+            if info == InfoScope.BLATANT:
+                self.broadcast_events.append((f"Your intuition tells you this "
+                                              f"has to do with the concept {aero.concept}.", True))
 
     def hot_blood_check(self, player: "Player"):
         return player.name in self.hot_blood
@@ -1020,7 +1029,7 @@ class CombatHandler:
     def reset(self):
         self.tic_index = 0
 
-        self.broadcast_events: List[str] = []
+        self.broadcast_events = []
 
         self.hot_blood = set()
         self.report_dict = {}

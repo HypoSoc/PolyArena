@@ -10,7 +10,7 @@ from combat import get_combat_handler
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
-from report import ReportCallable, Report, get_main_report
+from report import ReportCallable, get_main_report
 from skill import Skill
 
 if TYPE_CHECKING:
@@ -175,6 +175,10 @@ class Player:
         return score
 
     def get_report(self):
+        if get_main_report().aero_broadcast and self.has_condition(Condition.INTUITION):
+            self.report += os.linesep + get_main_report().get_broadcasts(intuition=True,
+                                                                         skip_combat=self.game.night) + os.linesep
+
         if not self.game.is_day() and self.has_ability("Awareness I"):
             self.report += os.linesep
             self.report += "You are Aware:" + os.linesep
@@ -239,7 +243,10 @@ class Player:
             .replace("you animated their bunker",
                      "you animated your bunker") \
             .replace("your bunker collapsed around them",
-                     "your bunker collapsed around you")
+                     "your bunker collapsed around you") \
+            .replace(f"Your intuition tells you this has to do with the concept {self.concept}.{os.linesep}", "") \
+            .replace(f"Your intuition tells you this has to do with "
+                     f"{self.name}'s Aeromancy ({self.concept}).{os.linesep}", "")
 
         gather = []
         line_break = False

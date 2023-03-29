@@ -146,9 +146,10 @@ class Report(object):
             if counter_int:
                 report += target.fake_action.public_description
             else:
-                for (player, content, fake, hidden) in self.actions:
+                for (player, content, fake, hidden, aero) in self.actions:
                     if player.name == target.name and not hidden:
-                        report += self.face_mask_replacement(content, spy.name) + os.linesep
+                        if not aero or spy.has_condition(Condition.INTUITION):
+                            report += self.face_mask_replacement(content, spy.name) + os.linesep
 
             # Normally you see night combat with Awareness I, so it is redundant to include
             # But there are potential edge cases with Runes
@@ -263,6 +264,17 @@ class Report(object):
                                           f"this has to do with the concept {player.concept}." + os.linesep
         return report
 
+    def get_broadcasts(self, intuition: bool, skip_combat: bool = False):
+        report = ""
+        if not skip_combat:
+            for event, intuition_required in get_combat_handler().broadcast_events:
+                if intuition or not intuition_required:
+                    report += self.face_mask_replacement(event) + os.linesep
+        for event, intuition_required in self.broadcast_events:
+            if intuition or not intuition_required:
+                report += self.face_mask_replacement(event) + os.linesep
+        return report
+
     def generate_report(self, game: Game):
         report = str(game) + os.linesep
         if game.is_day():
@@ -274,11 +286,8 @@ class Report(object):
             for (player, verb) in get_combat_handler().verb_dict.items():
                 report = report.replace(f"{player.name} attacked", f"{player.name} {verb}")
 
-        for event in get_combat_handler().broadcast_events:
-            report += self.face_mask_replacement(event) + os.linesep
-        for event, intuition_required in self.broadcast_events:
-            if not intuition_required:
-                report += self.face_mask_replacement(event) + os.linesep
+        report += self.get_broadcasts(intuition=False)
+
         for player in sorted(set([target.name for (player, target, amount) in self.bounties])):
             report += f"A bounty was placed on {player}." + os.linesep
         return report

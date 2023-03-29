@@ -36,3 +36,15 @@
   effect: "INFO"
   trigger: "RANGE"
   info: "SUBTLE"
+
+307:
+  text: "A gentle breeze brushes against your skin."
+  effect: "INFO"
+  trigger: "SPIED_ON"
+  info: "BLATANT"
+
+308:
+  text: "You take a deep breath."
+  effect: "INFO_ONCE"
+  trigger: "ATTACKED"
+  info: "BLATANT"
