@@ -51,8 +51,8 @@
 
 309:
   text: "It is a good day."
-  effect: "INFO"
-  trigger: "NONCOMBAT"
+  effect: "INFO_ONCE"
+  trigger: "ALL"
   info: "UNMISTAKABLE"
 
 310:

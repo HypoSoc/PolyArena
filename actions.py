@@ -229,6 +229,9 @@ class Action:
 
 
 class HandleSkill(Action):
+    info_once_dict: Dict['Player', Set[str]] = {}
+    info_once_broadcast: Set[str] = set()
+
     def __init__(self, game: Optional['Game'], player: "Player", skill: 'Skill',
                  targets: Optional[List['Player']] = None, fake: bool = False):
         super().__init__(priority=skill.priority, game=game, player=player, fragile=False)
@@ -247,6 +250,28 @@ class HandleSkill(Action):
 
         # TODO Noncombat FRAGILE
 
+        def add_to_report(p: 'Player', msg: str, override: bool = False) -> bool:
+            if override or self.skill.effect != Effect.INFO_ONCE:
+                p.report += get_main_report().face_mask_replacement(msg+os.linesep, p.name)
+                return True
+            elif msg not in HandleSkill.info_once_dict.get(p, []):
+                p.report += get_main_report().face_mask_replacement(msg + os.linesep, p.name)
+                if p not in HandleSkill.info_once_dict:
+                    HandleSkill.info_once_dict[p] = set()
+                HandleSkill.info_once_dict[p].add(msg)
+                return True
+            return False
+
+        def add_to_broadcast(msg: str, intuition_required: bool = False, override: bool = False) -> bool:
+            if override or self.skill.effect != Effect.INFO_ONCE:
+                get_main_report().broadcast(msg, intuition_required=intuition_required)
+                return True
+            elif msg not in HandleSkill.info_once_broadcast:
+                HandleSkill.info_once_broadcast.add(msg)
+                get_main_report().broadcast(msg, intuition_required=intuition_required)
+                return True
+            return False
+
         for target in self.targets:
             if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
                 return
@@ -258,38 +283,36 @@ class HandleSkill(Action):
                     .replace(TARGET_PLACEHOLDER, target.name)
 
                 if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
-                    self.player.report += get_main_report().face_mask_replacement(text + os.linesep,
-                                                                                  self.player.name)
+                    add_to_report(self.player, text)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
-                        target.report += get_main_report().face_mask_replacement(text + os.linesep,
-                                                                                 target.name)
+                        add_to_report(target, text)
                 elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
+                    was_printed = False
                     if target != self.player:
-                        self.player.report += get_main_report().face_mask_replacement(text + os.linesep,
-                                                                                      self.player.name)
+                        add_to_report(self.player, text)
                     if target.has_condition(Condition.INTUITION) \
                             or self.skill.info == InfoScope.NARROW \
                             or target == self.player:
-                        target.report += get_main_report().face_mask_replacement(text + os.linesep,
-                                                                                 target.name)
+                        was_printed = add_to_report(target, text)
                     if target.has_condition(Condition.INTUITION) and target != self.player:
                         assert self.player.concept
-                        target.report += get_main_report().face_mask_replacement(f"Your intuition tells you this has to"
-                                                                                 f" do with {self.player.name}'s "
-                                                                                 f"Aeromancy ({self.player.concept})."
-                                                                                 + os.linesep, target.name)
+                        if was_printed:
+                            add_to_report(target,
+                                          f"Your intuition tells you this has to do "
+                                          f"with {self.player.name}'s Aeromancy ({self.player.concept}).",
+                                          override=True)
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
                     get_main_report().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
                 elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
-                    get_main_report().broadcast(text)
-                    if self.skill.info == InfoScope.BLATANT:
-                        get_main_report().broadcast(f"Your intuition tells you this has to do "
-                                                    f"with the concept {self.player.concept}.",
-                                                    intuition_required=True)
-                    elif self.skill.info == InfoScope.UNMISTAKABLE:
-                        get_main_report().broadcast(f"This unmistakably has to do with "
-                                                    f"{self.player.name}'s Aeromancy ({self.player.concept}).",
-                                                    intuition_required=False)
+                    if add_to_broadcast(text):
+                        if self.skill.info == InfoScope.BLATANT:
+                            get_main_report().broadcast(f"Your intuition tells you this has to do "
+                                                        f"with the concept {self.player.concept}.",
+                                                        intuition_required=True)
+                        elif self.skill.info == InfoScope.UNMISTAKABLE:
+                            get_main_report().broadcast(f"This unmistakably has to do with "
+                                                        f"{self.player.name}'s Aeromancy ({self.player.concept}).",
+                                                        intuition_required=False)
 
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                 continue
@@ -1807,6 +1830,9 @@ def reset_action_handler():
     Action.canvas_artist = {}
     # Artist: Rune
     Action.artist_rune = {}
+
+    HandleSkill.info_once_dict = {}
+    HandleSkill.info_once_broadcast = set()
 
     Steal.victim_to_thieves = {}
     StealFollow.handled = set()
