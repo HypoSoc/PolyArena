@@ -248,7 +248,8 @@ class HandleSkill(Action):
         if self.skill.self_not_condition and self.player.has_condition(self.skill.self_not_condition):
             return
 
-        # TODO Noncombat FRAGILE
+        if self.skill.fragile and self.player.has_condition(self.skill.fragile):
+            return
 
         def add_to_report(p: 'Player', msg: str, override: bool = False) -> bool:
             if override or self.skill.effect != Effect.INFO_ONCE:
@@ -274,9 +275,9 @@ class HandleSkill(Action):
 
         for target in self.targets:
             if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
-                return
+                continue
             if self.skill.target_not_condition and target.has_condition(self.skill.target_not_condition):
-                return
+                continue
 
             if self.skill.text:
                 text = self.skill.text.replace(SELF_PLACEHOLDER, self.player.name)\
@@ -286,6 +287,8 @@ class HandleSkill(Action):
                     add_to_report(self.player, text)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
                         add_to_report(target, text)
+                elif self.skill.info == InfoScope.IMPERSONAL:
+                    add_to_report(target, text)
                 elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
                     was_printed = False
                     if target != self.player:
@@ -1566,6 +1569,8 @@ class NoncombatSkillStep(Action):
     def act(self):
         for player in Action.players:
             if not player.is_dead():
+                if player.concept and not player.has_condition(Condition.AEROMANCER):
+                    player.turn_conditions.append(Condition.AEROMANCER)
                 if player.has_condition(Condition.HIDING):
                     get_main_report().mark_hiding(player)
                 if WORKBENCH in player.items:

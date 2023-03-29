@@ -266,13 +266,13 @@ class Report(object):
 
     def get_broadcasts(self, intuition: bool, skip_combat: bool = False):
         report = ""
+        for event, intuition_required in self.broadcast_events:
+            if intuition or not intuition_required:
+                report += self.face_mask_replacement(event) + os.linesep
         if not skip_combat:
             for event, intuition_required in get_combat_handler().broadcast_events:
                 if intuition or not intuition_required:
                     report += self.face_mask_replacement(event) + os.linesep
-        for event, intuition_required in self.broadcast_events:
-            if intuition or not intuition_required:
-                report += self.face_mask_replacement(event) + os.linesep
         return report
 
     def generate_report(self, game: Game):

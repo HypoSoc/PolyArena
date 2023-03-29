@@ -7,7 +7,7 @@ from typing import List, Optional, Tuple, Iterable, Dict
 
 from yaml import safe_load
 
-from constants import Element, Condition, Trigger, Effect, NONCOMBAT_TRIGGERS
+from constants import Element, Condition, Trigger, Effect, NONCOMBAT_TRIGGERS, InfoScope
 from skill import Skill, get_skill
 
 
@@ -128,6 +128,7 @@ class Ability:
                  max_will: int, contingency_forbidden: bool, linked: bool,
                  concept: Optional[str],
                  max_targets: int,
+                 explanation: str,
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
         self.name = name
@@ -141,6 +142,7 @@ class Ability:
         self.linked = linked
         self.concept = concept
         self.max_targets = max_targets
+        self.explanation = explanation   # Adds an on acquisition skill to explain what a concept level does
         self.prerequisite_pin = prerequisite_pin
 
     def get_prerequisite(self) -> Optional[Ability]:
@@ -162,6 +164,7 @@ class Ability:
                            for skill in self.hydro_qualified_skills[i].get_skills(will[i])])
             skills.extend([skill for qualified in self.aero_qualified_skills
                            for skill in qualified.get_skills()])
+            skills.extend(self._get_aeromancy_explanation_skill())
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
@@ -198,6 +201,13 @@ class Ability:
         if self.prerequisite_pin is None:
             return 0, pin, self.pin
         return self.get_prerequisite()._get_index()[0] + 1, pin, self.pin
+
+    def _get_aeromancy_explanation_skill(self) -> List[Skill]:
+        if self.explanation:
+            return [Skill(pin=-999, text=self.name+os.linesep+self.explanation,
+                          effect=Effect.INFO_ONCE, value=None, priority=0,
+                          info=InfoScope.PERSONAL, trigger=Trigger.ACQUISITION)]
+        return []
 
     def __str__(self):
         val = f"{self.name} ({self.cost}):{os.linesep}"
@@ -272,6 +282,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    linked=dictionary.get('linked', False),
                    concept=dictionary.get('concept'),
                    max_targets=dictionary.get('max_targets', 1),
+                   explanation=dictionary.get('explanation', ""),
                    prerequisite_pin=dictionary.get('prerequisite'))
 
 

@@ -769,3 +769,22 @@
   trigger: "NONCOMBAT"
   value: "INTUITION"
   priority: -50  # Ensure this happens before other Aero, even weird ones
+
+118:
+  text: "%SELF% imposed their Aeromancy on Reality!"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "IMPOSING"
+  info: "UNMISTAKABLE"
+  priority: -15  # Before Most, but not ALL Aeromancy
+
+119:
+  text: "%TARGET%'s Concept has been locked!"
+  effect: "CONDITION"
+  trigger: "ALL"
+  value: "AERO_LOCKED"
+  self_has_condition: "IMPOSING"
+  target_not_condition: "IMPOSING"
+  target_has_condition: "AEROMANCER"
+  info: "IMPERSONAL"
+  priority: -14  # Before Most, but not ALL Aeromancy

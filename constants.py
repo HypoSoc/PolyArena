@@ -87,6 +87,8 @@ class Condition(Enum):
     CRAFTING = 71  # Combination of items adding up to less than 3
     HIGH_CRAFTING = 72  # Combination of items adding up to 5. No Liquid Memories
     INTUITION = 73  # Aeromancy Intuition
+    IMPOSING = 74  # Reality Imposition
+    AEROMANCER = 75  # Permanently marks Aeromancers
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -97,12 +99,13 @@ class InfoScope(Enum):
     PUBLIC = 1
     PRIVATE = 2
     BROADCAST = 3
-    PERSONAL = 4  # Like Private, but targets don't get to see, only the originator
-    WIDE = 5  # Like Public, but for Aero. Players with AI will learn concept names but not aeromancer names
-    NARROW = 6  # Like Private, but for Aero. Players with AI will learn concept names and aeromancer name
-    SUBTLE = 7  # Like Narrow, but AI is necessary to SEE the message
-    BLATANT = 8  # Like Broadcast, but for Aero. Players with AI will learn concept names but not aeromancer names
-    UNMISTAKABLE = 9  # Like Broadcast, but also reveals the aeromancer name and concept to EVERYONE, no AI needed
+    PERSONAL = 4  # Like Private for Noncombat, but targets don't get to see, only the originator
+    IMPERSONAL = 5  # Like Private for Noncombat, but ONLY the targets see, not the originator
+    WIDE = 6  # Like Public, but for Aero. Players with AI will learn concept names but not aeromancer names
+    NARROW = 7  # Like Private, but for Aero. Players with AI will learn concept names and aeromancer name
+    SUBTLE = 8  # Like Narrow, but AI is necessary to SEE the message
+    BLATANT = 9  # Like Broadcast, but for Aero. Players with AI will learn concept names but not aeromancer names
+    UNMISTAKABLE = 10  # Like Broadcast, but also reveals the aeromancer name and concept to EVERYONE, no AI needed
 
 
 class Effect(Enum):
@@ -152,6 +155,7 @@ class Trigger(Enum):
     ACQUISITION = 17
     START_OF_GAME = 18  # Only happens at start of Game
     ALL = 19  # Affects all players outside combat
+    TOGGLE = 20  # Noncombat self that defaults off
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,

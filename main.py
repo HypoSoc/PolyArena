@@ -7,7 +7,7 @@ from player import Player
 from automata import Automata
 from report import get_main_report
 
-GAME = Game(night=True)
+GAME = Game(night=False)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -33,6 +33,8 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
         for skill in ability.get_skills([], []):
             if skill.effect == Effect.MAX_WILLPOWER:
                 willpower += skill.value
+        if ability.pin in [306, 307]:
+            continue
         prereq = ability.get_prerequisite()
         while prereq and prereq.pin not in devs:
             if prereq.concept:
@@ -102,7 +104,7 @@ if __name__ == '__main__':
 
     GAME.advance()
 
-    a.plan_target("Dummy Concept II", c, d)
+    # a.plan_target("Dummy Concept II", c, d)
     a.plan_hydro("Crafting III")
     a.plan_craft("Automata", automata_name="Fred")
     # a.plan_face_mask(d)
@@ -110,7 +112,6 @@ if __name__ == '__main__':
     b.plan_attune(Element.EARTH)
     # c.plan_attune(Element.ANTI)
     d.plan_attack(a)
-    d.plan_spy(a)
 
     Action.run_turn(GAME)
 

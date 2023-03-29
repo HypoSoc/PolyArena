@@ -7,6 +7,9 @@
   aero:
     302:
       fragile: true
+  explanation: |-
+    Every turn a flower will bloom.
+    Every time you are in combat, a rainbow will appear.
 
 302:
   name: "Dummy Concept II"
@@ -46,11 +49,13 @@
 306:
   name: "Legacy Magic"
   cost: 10
-  skills: [] # TODO
+  skills: []  # Happens BEFORE start of game during character creation
   # prerequisite varies
 
 307:
   name: "Reality Imposition"
   cost: 10
-  skills: [] # TODO
+  skills:
+    - 118
+    - 119
   # prerequisite varies
