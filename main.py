@@ -83,7 +83,7 @@ def create_automata(name: str, owner: 'Player') -> Automata:
 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Willpower V", "Crafting III", "Dummy Concept IV", "Reality Imposition"],
+    a = create_player("Alpha", ["Willpower V", "Crafting III", "Dummy Concept V", "Reality Imposition"],
                       ["Healing Tank", "Workbench", "Booby Trap", "Face Mask", "Leather Armor", "Bokken"],
                       injured=False)
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],

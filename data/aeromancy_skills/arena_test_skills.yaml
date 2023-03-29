@@ -48,3 +48,15 @@
   effect: "INFO_ONCE"
   trigger: "ATTACKED"
   info: "BLATANT"
+
+309:
+  text: "It is a good day."
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "UNMISTAKABLE"
+
+310:
+  text: "You whistle a jaunty tune."
+  effect: "INFO_ONCE"
+  trigger: "RANGE_EX_SELF"
+  info: "UNMISTAKABLE"

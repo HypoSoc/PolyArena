@@ -982,14 +982,22 @@ class CombatHandler:
             event_list.append((f"Your intuition tells you "
                                f"this has to do with the concept {aero.concept}.",
                                affected, InfoScope.WIDE))
+        elif info == InfoScope.UNMISTAKABLE:
+            event_list.append((message, affected, InfoScope.BROADCAST))
+            event_list.append((f"This unmistakably has to do with "
+                               f"{aero.name}'s Aeromancy ({aero.concept}).",
+                               affected, InfoScope.BROADCAST))
         else:
             event_list.append((message, affected, info))
 
-        if info in [InfoScope.BROADCAST, InfoScope.BLATANT]:
+        if info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
             self.broadcast_events.append((message, False))
             if info == InfoScope.BLATANT:
                 self.broadcast_events.append((f"Your intuition tells you this "
                                               f"has to do with the concept {aero.concept}.", True))
+            elif info == InfoScope.UNMISTAKABLE:
+                self.broadcast_events.append((f"This unmistakably has to do with "
+                                              f"{aero.name}'s Aeromancy ({aero.concept}).", False))
 
     def hot_blood_check(self, player: "Player"):
         return player.name in self.hot_blood

@@ -38,7 +38,9 @@
 305:
   name: "Dummy Concept V"
   cost: 10
-  skills: []
+  skills:
+    - 309
+    - 310
   prerequisite: 304
 
 306:

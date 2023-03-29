@@ -8,7 +8,7 @@ from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
     COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS
 from items import get_item_by_name, get_item, Item, Rune
-from report import Report, get_main_report
+from report import get_main_report
 
 if TYPE_CHECKING:
     from game import Game
@@ -127,7 +127,8 @@ class Action:
 
         if not interrupted or not self.fragile:
             if self.public_description:
-                get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
+                get_main_report().add_action(self.player, self.public_description,
+                                             hidden=self.player in Illusion.handled)
                 self.player.report += self.public_description + os.linesep
         if interrupted and self.fragile:
             get_main_report().add_action(self.player, self.on_interrupt, hidden=self.player in Illusion.handled)
@@ -162,12 +163,18 @@ class Action:
         WillpowerStep(game)
         StatusChangeStep(game)
 
+        last_tic = -100
+
         while not cls.queue.empty():
             tic = cls.queue.get()
             if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect):
                 tic.act()
             elif Condition.PETRIFIED in tic.player.conditions:
                 get_main_report().add_petrification(tic.player)
+            if tic.priority > last_tic:
+                for player in Action.players:
+                    player.report += os.linesep
+                last_tic = tic.priority
 
     @classmethod
     def progress(cls, player: 'Player', amt: int):
@@ -251,35 +258,38 @@ class HandleSkill(Action):
                     .replace(TARGET_PLACEHOLDER, target.name)
 
                 if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
-                    self.player.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
-                                                                            self.player.name)
+                    self.player.report += get_main_report().face_mask_replacement(text + os.linesep,
+                                                                                  self.player.name)
                     if target != self.player and self.skill.info != InfoScope.PERSONAL:
-                        target.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
-                                                                           target.name)
+                        target.report += get_main_report().face_mask_replacement(text + os.linesep,
+                                                                                 target.name)
                 elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
                     if target != self.player:
-                        self.player.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
-                                                                                self.player.name)
+                        self.player.report += get_main_report().face_mask_replacement(text + os.linesep,
+                                                                                      self.player.name)
                     if target.has_condition(Condition.INTUITION) \
                             or self.skill.info == InfoScope.NARROW \
                             or target == self.player:
-                        target.report += get_main_report().face_mask_replacement(text + os.linesep + os.linesep,
-                                                                           target.name)
+                        target.report += get_main_report().face_mask_replacement(text + os.linesep,
+                                                                                 target.name)
                     if target.has_condition(Condition.INTUITION) and target != self.player:
                         assert self.player.concept
-                        target.report += get_main_report().face_mask_replacement(f"Your intuition tells you "
-                                                                           f"this has to do with {self.player.name}'s "
-                                                                           f"Aeromancy ({self.player.concept})."
-                                                                           + os.linesep, target.name)
-                    target.report += os.linesep
+                        target.report += get_main_report().face_mask_replacement(f"Your intuition tells you this has to"
+                                                                                 f" do with {self.player.name}'s "
+                                                                                 f"Aeromancy ({self.player.concept})."
+                                                                                 + os.linesep, target.name)
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
                     get_main_report().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
-                elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT]:
+                elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
                     get_main_report().broadcast(text)
                     if self.skill.info == InfoScope.BLATANT:
                         get_main_report().broadcast(f"Your intuition tells you this has to do "
                                                     f"with the concept {self.player.concept}.",
                                                     intuition_required=True)
+                    elif self.skill.info == InfoScope.UNMISTAKABLE:
+                        get_main_report().broadcast(f"This unmistakably has to do with "
+                                                    f"{self.player.name}'s Aeromancy ({self.player.concept}).",
+                                                    intuition_required=False)
 
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                 continue
@@ -421,7 +431,7 @@ class Learn(Action):
             Action.student_teacher[self.player] = self.target
             ability = Action.teacher_ability[self.target]
             get_main_report().add_action(self.player, f"{self.player.name} learned from {self.target.name}.",
-                                   hidden=self.player in Illusion.handled)
+                                         hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} learned {ability.name} from {self.target.name}." + os.linesep
             self.player.gain_ability(ability)
             Action.add_action_record(self.player, Learn, self.target)
@@ -460,7 +470,7 @@ class TeachFollow(Action):
     def _act(self):
         if Action.student_teacher.get(self.target, None) == self.player:
             get_main_report().add_action(self.player, f"{self.player.name} taught {self.target.name}.",
-                                   hidden=self.player in Illusion.handled)
+                                         hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} taught {self.target.name} {self.ability.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:
                 Action.progress(self.player, 8)
@@ -909,7 +919,7 @@ class Canvas(Action):
             Action.canvas_artist[self.player] = self.target
             rune = Action.artist_rune[self.target]
             get_main_report().add_action(self.player, f"{self.player.name} got tattooed by {self.target.name}.",
-                                   hidden=self.player in Illusion.handled)
+                                         hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} got tattooed by {self.target.name} " \
                                   f"with {rune.get_ability_name()}." + os.linesep
             self.player.tattoo = rune.pin
@@ -992,7 +1002,7 @@ class TattooFollow(Action):
     def _act(self):
         if Action.canvas_artist.get(self.target) == self.player:
             get_main_report().add_action(self.player, f"{self.player.name} tattooed {self.target.name}.",
-                                   hidden=self.player in Illusion.handled)
+                                         hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} tattooed {self.target.name} " \
                                   f"with {self.rune.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:

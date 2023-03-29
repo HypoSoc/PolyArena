@@ -102,6 +102,7 @@ class InfoScope(Enum):
     NARROW = 6  # Like Private, but for Aero. Players with AI will learn concept names and aeromancer name
     SUBTLE = 7  # Like Narrow, but AI is necessary to SEE the message
     BLATANT = 8  # Like Broadcast, but for Aero. Players with AI will learn concept names but not aeromancer names
+    UNMISTAKABLE = 9  # Like Broadcast, but also reveals the aeromancer name and concept to EVERYONE, no AI needed
 
 
 class Effect(Enum):

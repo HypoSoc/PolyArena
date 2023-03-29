@@ -183,7 +183,8 @@ class Player:
             self.report += os.linesep
             self.report += "You are Aware:" + os.linesep
             night_combat_report = get_main_report().get_night_combat_report(self.name,
-                                                                      intuition=self.has_condition(Condition.INTUITION))
+                                                                            intuition=self.has_condition(
+                                                                                Condition.INTUITION))
             if not night_combat_report:
                 night_combat_report = "The night was peaceful."
             self.report += night_combat_report
@@ -191,29 +192,31 @@ class Player:
         elif self.game.is_day() and get_combat_handler().wide_check and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
             self.report += get_main_report().get_night_combat_report(self.name,
-                                                               intuition=self.has_condition(Condition.INTUITION))
+                                                                     intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
 
         if (self.game.is_day() or self.has_ability("Panopticon")) and self.has_ability("Awareness II"):
-            if len(get_main_report().training) > 1 or (len(get_main_report().training) == 1 and self not in get_main_report().training):
+            if len(get_main_report().training) > 1 or (len(get_main_report().training) == 1
+                                                       and self not in get_main_report().training):
                 self.report += os.linesep
                 self.report += "You are Aware:" + os.linesep
                 for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
                     if trainer != self:
-                        self.report += f"{trainer.name} was training {get_main_report().training[trainer]}." + os.linesep
+                        self.report += f"{trainer.name} was training {get_main_report().training[trainer]}." \
+                                       + os.linesep
 
         if self.has_ability("Panopticon"):
             self.report += os.linesep
             self.report += get_main_report().get_action_report(pierce_illusions=True, ignore_player=self,
-                                                         intuition=self.has_condition(Condition.INTUITION))
+                                                               intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
             self.report += "INSERT PANOPTICON COMMENTARY HERE"
             self.report += os.linesep
         elif self.game.is_day() and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
             self.report += get_main_report().get_action_report(pierce_illusions=True, ignore_player=self,
-                                                         intuition=self.has_condition(Condition.INTUITION),
-                                                         aero_only=True)
+                                                               intuition=self.has_condition(Condition.INTUITION),
+                                                               aero_only=True)
             self.report += os.linesep
 
         if self.has_ability("Attunement Detection"):
@@ -246,7 +249,9 @@ class Player:
                      "your bunker collapsed around you") \
             .replace(f"Your intuition tells you this has to do with the concept {self.concept}.{os.linesep}", "") \
             .replace(f"Your intuition tells you this has to do with "
-                     f"{self.name}'s Aeromancy ({self.concept}).{os.linesep}", "")
+                     f"your Aeromancy ({self.concept}).{os.linesep}", "") \
+            .replace(f"This unmistakably has to do with "
+                     f"your Aeromancy ({self.concept}).{os.linesep}", "")
 
         gather = []
         line_break = False
