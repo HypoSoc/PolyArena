@@ -67,7 +67,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
-                    items=item_pins, money=3, willpower=willpower, bounty=0,
+                    items=item_pins, money=3, willpower=willpower, bounty=1,
                     relative_conditions={}, tattoo=tattoo, concept=concept,
                     game=GAME)
 
