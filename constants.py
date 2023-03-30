@@ -1,7 +1,7 @@
 from enum import Enum, IntEnum
 
 
-class Temperament(Enum):
+class Temperament(IntEnum):
     NONE = 0
     ALTRUISTIC = 1
     HOT_BLOODED = 2
@@ -12,7 +12,7 @@ class Temperament(Enum):
     SCHOLASTIC = 7
 
 
-class Condition(Enum):
+class Condition(IntEnum):
     DEAD = 1
     INJURED = 2
     BUNKERING = 3

@@ -37,6 +37,13 @@ class Automata(Player):
         clone.temporary_abilities = self.temporary_abilities
         return clone
 
+    def serialize(self) -> Dict:
+        serialized = {'name': self.name, 'owner': self.owner.name,
+                      'conditions': self.conditions[:], 'items': self.items,
+                      'bounty': self.bounty,
+                      'relative_conditions': {k: v[:] for k, v in self.relative_conditions}, 'tattoo': self.tattoo}
+        return serialized
+
     def get_report(self):
         return ""
 

@@ -118,7 +118,7 @@ class Action:
         self.player.report += os.linesep
         if self.player and self.player.has_condition(Condition.HIDING) and \
                 not self.player.has_condition(Condition.FRESH_HIDING):
-            if self.game and not self.game.night and not self.maintains_hiding:
+            if self.game and self.game.is_day() and not self.maintains_hiding:
                 self.player.report += "You came out of hiding." + os.linesep
                 get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
                 self.player.conditions.remove(Condition.HIDING)
@@ -386,7 +386,7 @@ class Attack(Action):
         else:
             if self.player.has_condition(Condition.HIDING) and \
                     not self.player.has_condition(Condition.FRESH_HIDING):
-                if self.game and not self.game.night:
+                if self.game and self.game.is_day():
                     self.player.report += "You came out of hiding." + os.linesep
                     get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
                     self.player.conditions.remove(Condition.HIDING)
@@ -405,7 +405,7 @@ class Attack(Action):
                 self.target.fake_action.public_description = self.target.fake_action.on_interrupt
 
             if self.target.has_condition(Condition.HIDING):
-                if self.game and not self.game.night:
+                if self.game and self.game.is_day():
                     get_main_report().broadcast(f"{self.target.name} was discovered to be alive.")
                     self.target.conditions.remove(Condition.HIDING)
 
@@ -1057,7 +1057,7 @@ class MultiAttack(Action):
 
         if self.player and self.player.has_condition(Condition.HIDING) and \
                 not self.player.has_condition(Condition.FRESH_HIDING):
-            if self.game and not self.game.night and not isinstance(self, Wander):
+            if self.game and self.game.is_day() and not isinstance(self, Wander):
                 self.player.report += "You came out of hiding." + os.linesep
                 get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
                 self.player.conditions.remove(Condition.HIDING)
@@ -1085,7 +1085,7 @@ class MultiAttack(Action):
                     target.fake_action.public_description = target.fake_action.on_interrupt
 
                 if target.has_condition(Condition.HIDING):
-                    if self.game and not self.game.night:
+                    if self.game and self.game.is_day():
                         get_main_report().broadcast(f"{target.name} was discovered to be alive.")
                         target.conditions.remove(Condition.HIDING)
 
@@ -1726,7 +1726,7 @@ class WillpowerStep(Action):
                 if not player.is_dead():
                     if player.max_willpower:
                         player.report += os.linesep
-                        if self.game.night or player.has_ability("Rapid Regen II"):
+                        if self.game.is_night() or player.has_ability("Rapid Regen II"):
                             if player.has_ability("Rapid Regen I"):
                                 regen = player.max_willpower
                             else:
@@ -1770,7 +1770,7 @@ class StatusChangeStep(Action):
                         player.report += f"You are grievously wounded you must heal " \
                                          f"within {4-count} {turn} or you will die." + os.linesep
 
-                if self.game.night:
+                if self.game.is_night():
                     if not player.is_automata:
                         player.gain_credits(1)
                         player.report += f"Student Services has granted you 1 credit " \

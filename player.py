@@ -53,8 +53,6 @@ class Player:
         self.tattoo = tattoo  # Rune item pin
         self.game = game
 
-        game.register(self)
-
         self.consuming = False
         self.masking = False
         self.attuning = False
@@ -139,6 +137,8 @@ class Player:
         # Used so that automata can be traded the same turn they are created
         self.automata_registry: Dict[str, 'Automata'] = {}
 
+        game.register(self)
+
     def make_copy_for_simulation(self, game: 'Game') -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
                        academics=self.academics, temperament=self.temperament, concept=self.concept,
@@ -156,6 +156,14 @@ class Player:
         clone.max_willpower = self.max_willpower
         clone.hydro_spells = self.hydro_spells
         return clone
+
+    def serialize(self) -> Dict:
+        serialized = {'name': self.name, 'progress_dict': self.progress_dict.copy(), 'dev_plan': self.dev_plan[:],
+                      'academics': self.academics, 'temperament': self.temperament, 'concept': self.concept,
+                      'conditions': self.conditions[:], 'items': self.items, 'money': self.credits,
+                      'willpower': self.willpower, 'bounty': self.bounty,
+                      'relative_conditions': {k: v[:] for k, v in self.relative_conditions}, 'tattoo': self.tattoo}
+        return serialized
 
     # Used for evaluating simulations
     def get_score(self) -> int:
@@ -178,7 +186,7 @@ class Player:
     def get_report(self):
         if get_main_report().aero_broadcast and self.has_condition(Condition.INTUITION):
             self.report += os.linesep + get_main_report().get_broadcasts(intuition=True,
-                                                                         skip_combat=self.game.night) + os.linesep
+                                                                         skip_combat=self.game.is_night()) + os.linesep
 
         if not self.game.is_day() and self.has_ability("Awareness I"):
             self.report += os.linesep

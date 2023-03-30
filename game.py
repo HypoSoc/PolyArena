@@ -1,3 +1,4 @@
+import json
 from typing import Tuple, List, TYPE_CHECKING, Dict, Optional
 
 from skill import get_skill
@@ -18,6 +19,7 @@ class Game:
         self.simulation = False
 
         self.players: Dict[str, 'Player'] = {}
+        self.automata: Dict[str, 'Player'] = {}
 
     def __str__(self):
         time_of_day = "Day"
@@ -37,6 +39,32 @@ class Game:
 
         return clone
 
+    def serialize(self) -> Dict:
+        turn = {'turn': self.turn, 'night': self.night, 'events': self.events,
+                'players': {player_name: player.serialize() for (player_name, player) in self.players.items()},
+                'automata': {automata_name: automata.serialize() for (automata_name, automata) in
+                             self.automata.items()}}
+        return turn
+
+    def save(self, file_prefix: str, permit_sim: bool = False):
+        if not permit_sim:
+            assert not self.simulation
+
+        serialized = self.serialize()
+
+        with open(f"save/{file_prefix}_{str(self).replace(' ', '_')}.json", 'w') as f:
+            json.dump(serialized, f)
+
+        with open(f"save/{file_prefix}_latest.json", 'w') as f:
+            json.dump(serialized, f)
+
+    def get_player(self, name: str):
+        if name in self.players:
+            return self.players[name]
+        if name in self.automata:
+            return self.automata[name]
+        raise Exception(f"Unknown player {name}.")
+
     def advance(self):
         if self.night:
             self.night = False
@@ -48,8 +76,9 @@ class Game:
         for turn, night, skill_pin, source, targets in self.events:
             if turn == self.turn:
                 if night == self.night:
-                    source_player = self.players[source]
-                    target_players = [self.players[target] for target in targets if not self.players[target].is_dead()]
+                    source_player = self.get_player(source)
+                    target_players = [self.get_player(target)
+                                      for target in targets if not self.get_player(target).is_dead()]
                     if not source_player.is_dead():
                         from actions import HandleSkill
                         HandleSkill(self, source_player, get_skill(skill_pin),
@@ -60,6 +89,9 @@ class Game:
 
     def is_day(self):
         return not self.night
+
+    def is_night(self):
+        return self.night
 
     def add_event(self, turn: int, night: bool, skill_pin: int,
                   source: 'Player', targets: Optional[List['Player']] = None):
@@ -73,4 +105,8 @@ class Game:
 
     def register(self, player: 'Player'):
         assert player.name not in self.players
-        self.players[player.name] = player
+        assert player.name not in self.automata
+        if player.is_automata:
+            self.automata[player.name] = player
+        else:
+            self.players[player.name] = player

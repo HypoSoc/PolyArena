@@ -119,5 +119,7 @@ if __name__ == '__main__':
 
     print(get_main_report().generate_report(GAME))
 
+    GAME.save("test")
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
