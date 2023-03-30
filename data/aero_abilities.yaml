@@ -48,7 +48,7 @@
 
 306:
   name: "Legacy Magic"
-  cost: 10
+  cost: 5
   skills: []  # Happens BEFORE start of game during character creation
   # prerequisite varies
 
