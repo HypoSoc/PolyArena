@@ -788,3 +788,10 @@
   target_has_condition: "AEROMANCER"
   info: "IMPERSONAL"
   priority: -14  # Before Most, but not ALL Aeromancy
+
+120:
+  text: "%SELF%'s Patience Pays Off!"
+  effect: "PROGRESS"
+  trigger: "NONCOMBAT"
+  value: 20
+  info: "PERSONAL"

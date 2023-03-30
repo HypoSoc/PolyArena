@@ -111,6 +111,7 @@ class Action:
         Action.tic_index += 1
 
         if self.game and not game.simulation:  # Hack to make fake actions
+            # TODO refactor Action Queue to be a part of game, so simulations are permitted
             Action.queue.put(self)
 
     def act(self):
@@ -350,7 +351,7 @@ class HandleSkill(Action):
                     target.max_willpower += self.skill.value
 
             else:
-                raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name}")
+                raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
 
 
 class Wander(Action):

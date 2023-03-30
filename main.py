@@ -7,7 +7,7 @@ from player import Player
 from automata import Automata
 from report import get_main_report
 
-GAME = Game(night=False)
+GAME = Game(turn=5, night=False)
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -68,11 +68,8 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
                     relative_conditions={}, tattoo=tattoo, concept=concept,
                     game=GAME)
 
-    def patient():
-        Action.progress(player, 20)
-
     if temperament == Temperament.PATIENT:
-        GAME.add_event(5, False, patient)
+        GAME.add_event(5, False, 120, player)
 
     return player
 
@@ -91,7 +88,8 @@ if __name__ == '__main__':
     b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Fast Attune II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Leather Armor"],
-                      dev_goals=["Martial Arts I"])
+                      dev_goals=["Martial Arts I", "Martial Arts II", "Martial Arts III"],
+                      temperament=Temperament.PATIENT)
     c = create_player("Charlie", ["Theft", "Unnatural Intuition", "Fast Attune III",
                                   "Illusions III", "Aeromancy Intuition II", "Speed (Geo) II",
                                   "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
@@ -100,7 +98,7 @@ if __name__ == '__main__':
     d = create_player("Delta", ["Attunement Detection", "Willpower Detection",
                                 "Awareness II", "Theft", "Aeromancy Intuition I"],
                       items=["Shrooms", "Medkit"],
-                      dev_goals=["Aeromancy Intuition II"])
+                      dev_goals=["Aeromancy Intuition II"], temperament=Temperament.PATIENT)
 
     GAME.advance()
 
@@ -110,7 +108,7 @@ if __name__ == '__main__':
     # a.plan_face_mask(d)
     b.plan_train()
     c.plan_attack(d)
-    d.plan_attack(b)
+    d.plan_bunker()
 
     Action.run_turn(GAME)
 
