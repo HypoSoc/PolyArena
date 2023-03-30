@@ -162,7 +162,8 @@ class Player:
                       'academics': self.academics, 'temperament': self.temperament, 'concept': self.concept,
                       'conditions': self.conditions[:], 'items': self.items, 'money': self.credits,
                       'willpower': self.willpower, 'bounty': self.bounty,
-                      'relative_conditions': {k: v[:] for k, v in self.relative_conditions}, 'tattoo': self.tattoo}
+                      'relative_conditions': {k: v[:] for k, v in self.relative_conditions.items()},
+                      'tattoo': self.tattoo}
         return serialized
 
     # Used for evaluating simulations

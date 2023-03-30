@@ -25,7 +25,7 @@ class Automata(Player):
         self.owner.automata_registry[self.name] = self
 
     def make_copy_for_simulation(self, game: 'Game') -> 'Automata':
-        clone = Automata(name=self.name+"_CLONE", conditions=self.conditions.copy(),
+        clone = Automata(name=self.name+"_CLONE", owner=self.owner, conditions=self.conditions.copy(),
                          items=self.items.copy(), bounty=self.bounty,
                          relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
                          tattoo=self.tattoo,
@@ -41,7 +41,8 @@ class Automata(Player):
         serialized = {'name': self.name, 'owner': self.owner.name,
                       'conditions': self.conditions[:], 'items': self.items,
                       'bounty': self.bounty,
-                      'relative_conditions': {k: v[:] for k, v in self.relative_conditions}, 'tattoo': self.tattoo}
+                      'relative_conditions': {k: v[:] for k, v in self.relative_conditions.items()},
+                      'tattoo': self.tattoo}
         return serialized
 
     def get_report(self):

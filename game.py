@@ -40,10 +40,12 @@ class Game:
         return clone
 
     def serialize(self) -> Dict:
-        turn = {'turn': self.turn, 'night': self.night, 'events': self.events,
+        turn = {'turn': self.turn, 'night': self.night,
+                'remaining': [player.name for player in self.players.values() if not player.is_dead()],
+                'events': self.events,
                 'players': {player_name: player.serialize() for (player_name, player) in self.players.items()},
                 'automata': {automata_name: automata.serialize() for (automata_name, automata) in
-                             self.automata.items()}}
+                             self.automata.items() if not automata.is_dead()}}
         return turn
 
     def save(self, file_prefix: str, permit_sim: bool = False):
@@ -52,11 +54,11 @@ class Game:
 
         serialized = self.serialize()
 
-        with open(f"save/{file_prefix}_{str(self).replace(' ', '_')}.json", 'w') as f:
-            json.dump(serialized, f)
+        with open(f"save/{file_prefix}_{str(self).replace(' ', '_').lower()}.json", 'w') as f:
+            json.dump(serialized, f, indent=4)
 
-        with open(f"save/{file_prefix}_latest.json", 'w') as f:
-            json.dump(serialized, f)
+        with open(f"save/{file_prefix}.json", 'w') as f:
+            json.dump(serialized, f, indent=4)
 
     def get_player(self, name: str):
         if name in self.players:
@@ -106,7 +108,7 @@ class Game:
     def register(self, player: 'Player'):
         assert player.name not in self.players
         assert player.name not in self.automata
-        if player.is_automata:
+        if type(player).__name__ == 'Automata':
             self.automata[player.name] = player
         else:
             self.players[player.name] = player

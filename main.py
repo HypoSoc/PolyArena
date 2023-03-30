@@ -1,3 +1,6 @@
+import json
+
+import ability
 from actions import *
 import combat
 from constants import Temperament, Condition
@@ -7,7 +10,7 @@ from player import Player
 from automata import Automata
 from report import get_main_report
 
-GAME = Game(turn=5, night=False)
+GAME = Game()
 
 
 def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
@@ -64,7 +67,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
-                    items=item_pins, money=10, willpower=willpower, bounty=0,
+                    items=item_pins, money=3, willpower=willpower, bounty=0,
                     relative_conditions={}, tattoo=tattoo, concept=concept,
                     game=GAME)
 
@@ -80,42 +83,68 @@ def create_automata(name: str, owner: 'Player') -> Automata:
                     game=GAME)
 
 
+def load(file_prefix: str):
+    with open(f"save/{file_prefix}.json", 'r') as f:
+        data = json.load(f)
+        global GAME
+        GAME = Game()
+        GAME.turn = data['turn']
+        GAME.night = data['night']
+        GAME.events = data['events']
+
+        for player_name, player_data in data['players'].items():
+            player_data['game'] = GAME
+            player_data['progress_dict'] = {int(k): v for k,v in player_data['progress_dict'].items()}
+            Player(**player_data)
+
+        for automata_name, automata_data in data['automata'].items():
+            automata_data['owner'] = GAME.get_player(automata_data['owner'])
+            automata_data['game'] = GAME
+            Automata(**automata_data)
+
+
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Willpower V", "Crafting III"],
-                      ["Healing Tank", "Workbench", "Booby Trap", "Face Mask", "Leather Armor", "Bokken"],
-                      injured=False)
-    b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Fast Attune II"],
-                      ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
-                       "Healing Tank", "Booby Trap", "Leather Armor"],
-                      dev_goals=["Martial Arts I", "Martial Arts II", "Martial Arts III"],
-                      temperament=Temperament.PATIENT)
-    c = create_player("Charlie", ["Theft", "Unnatural Intuition", "Fast Attune III",
-                                  "Illusions III", "Aeromancy Intuition II", "Speed (Geo) II",
-                                  "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
-                      ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
-                      dev_goals=[])
-    d = create_player("Delta", ["Attunement Detection", "Willpower Detection",
-                                "Awareness II", "Theft", "Aeromancy Intuition I"],
-                      items=["Shrooms", "Medkit"],
-                      dev_goals=["Aeromancy Intuition II"], temperament=Temperament.PATIENT)
+    # a = create_player("Alpha", ["Willpower V", "Crafting III"],
+    #                   ["Healing Tank", "Workbench", "Booby Trap", "Face Mask", "Leather Armor", "Bokken"],
+    #                   injured=False)
+    # b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Fast Attune II"],
+    #                   ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
+    #                    "Healing Tank", "Booby Trap", "Leather Armor"],
+    #                   dev_goals=["Martial Arts I", "Martial Arts II", "Martial Arts III"],
+    #                   temperament=Temperament.PATIENT)
+    # c = create_player("Charlie", ["Theft", "Unnatural Intuition", "Fast Attune III",
+    #                               "Illusions III", "Aeromancy Intuition II", "Speed (Geo) II",
+    #                               "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
+    #                   ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
+    #                   dev_goals=[])
+    # d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Know Thy Enemy",
+    #                             "Awareness II", "Theft", "Aeromancy Intuition I"],
+    #                   items=["Shrooms", "Medkit"],
+    #                   dev_goals=["Aeromancy Intuition II"], temperament=Temperament.PATIENT)
+    load("test")
 
     GAME.advance()
 
-    # a.plan_target("Dummy Concept II", c, d)
+    a = GAME.get_player("Alpha")
+    b = GAME.get_player("Beta")
+    c = GAME.get_player("Charlie")
+    d = GAME.get_player("Delta")
+    f = GAME.get_player("Fred")
+
     a.plan_hydro("Crafting III")
-    a.plan_craft("Automata", automata_name="Fred")
-    # a.plan_face_mask(d)
-    b.plan_train()
-    c.plan_attack(d)
-    d.plan_bunker()
+    a.plan_craft("Sword", "Leather Armor")
+    a.plan_trade(c, item_names=["Sword", "Leather Armor"])
+    b.plan_attack(f)
+    c.plan_attack(f)
 
     Action.run_turn(GAME)
 
-    for p in [a, b, c, d]:
-        print(f"{p.name} Report")
-        print(p.get_report())
-        print()
+    for p in GAME.players.values():
+        if not p.is_dead():
+            print(f"{p.name} Report")
+            print(p.get_report())
+            print()
 
     print(get_main_report().generate_report(GAME))
 
