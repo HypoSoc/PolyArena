@@ -38,7 +38,6 @@ class Player:
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
                  game: Game):
         assert "%" not in name, "Illegal character %"
-        game.register_name(name)
 
         self.name = name
         self.progress_dict = progress_dict
@@ -53,6 +52,8 @@ class Player:
         self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy_abilities
         self.tattoo = tattoo  # Rune item pin
         self.game = game
+
+        game.register(self)
 
         self.consuming = False
         self.masking = False
@@ -138,14 +139,14 @@ class Player:
         # Used so that automata can be traded the same turn they are created
         self.automata_registry: Dict[str, 'Automata'] = {}
 
-    def make_copy_for_simulation(self) -> 'Player':
+    def make_copy_for_simulation(self, game: 'Game') -> 'Player':
         clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
                        academics=self.academics, temperament=self.temperament, concept=self.concept,
                        conditions=self.conditions.copy(),
                        items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
                        relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
                        tattoo=self.tattoo,
-                       game=self.game.clone())
+                       game=game)
         clone.disabled_ability_pins = set()
         clone.consumed_items = self.consumed_items.copy()
         clone.turn_conditions = self.turn_conditions.copy()

@@ -85,15 +85,15 @@ def create_automata(name: str, owner: 'Player') -> Automata:
 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
-    a = create_player("Alpha", ["Willpower V", "Crafting III", "Dummy Concept V", "Reality Imposition"],
+    a = create_player("Alpha", ["Willpower V", "Crafting III"],
                       ["Healing Tank", "Workbench", "Booby Trap", "Face Mask", "Leather Armor", "Bokken"],
                       injured=False)
-    b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Light II"],
+    b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Fast Attune II"],
                       ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
                        "Healing Tank", "Booby Trap", "Leather Armor"],
                       dev_goals=["Martial Arts I"])
-    c = create_player("Charlie", ["Theft", "Unnatural Intuition",
-                                  "Illusions III", "Aeromancy Intuition II",
+    c = create_player("Charlie", ["Theft", "Unnatural Intuition", "Fast Attune III",
+                                  "Illusions III", "Aeromancy Intuition II", "Speed (Geo) II",
                                   "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
                       ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
                       dev_goals=[])
@@ -109,9 +109,8 @@ if __name__ == '__main__':
     a.plan_craft("Automata", automata_name="Fred")
     # a.plan_face_mask(d)
     b.plan_train()
-    b.plan_attune(Element.EARTH)
-    # c.plan_attune(Element.ANTI)
-    d.plan_attack(a)
+    c.plan_attack(d)
+    d.plan_attack(b)
 
     Action.run_turn(GAME)
 

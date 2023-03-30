@@ -5,7 +5,7 @@ from constants import Temperament, Condition, Element, InfoScope, InjuryModifier
 from game import Game
 from items import get_item_by_name
 from player import Player, LIZARD_TAIL
-from report import Report, ReportCallable, get_main_report
+from report import ReportCallable, get_main_report
 from skill import Skill, get_skill
 
 
@@ -23,6 +23,19 @@ class Automata(Player):
 
         self.is_automata = True
         self.owner.automata_registry[self.name] = self
+
+    def make_copy_for_simulation(self, game: 'Game') -> 'Automata':
+        clone = Automata(name=self.name+"_CLONE", conditions=self.conditions.copy(),
+                         items=self.items.copy(), bounty=self.bounty,
+                         relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
+                         tattoo=self.tattoo,
+                         game=game)
+        clone.disabled_ability_pins = set()
+        clone.consumed_items = self.consumed_items.copy()
+        clone.turn_conditions = self.turn_conditions.copy()
+        clone.tentative_conditions = self.tentative_conditions
+        clone.temporary_abilities = self.temporary_abilities
+        return clone
 
     def get_report(self):
         return ""

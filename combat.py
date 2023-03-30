@@ -67,8 +67,11 @@ class CombatHandler:
         sim = CombatHandler(self.for_speed)
         player_to_clone: Dict["Player", "Player"] = {}
 
+        clone_game = None
+
         def make_and_modify_clone(player: 'Player'):
-            clone = player.make_copy_for_simulation()
+            assert clone_game
+            clone = player.make_copy_for_simulation(clone_game)
             if player in circuit_change:
                 assert clone.set_attunement(circuit_change[player]), \
                     f"Somehow an illegal circuit configuration is being tested for {player.name} " \
@@ -77,6 +80,8 @@ class CombatHandler:
 
         for attacker, defender_set in self.attacker_to_defenders.items():
             for defender in defender_set:
+                if clone_game is None:
+                    clone_game = attacker.game.clone()
                 if attacker not in player_to_clone:
                     make_and_modify_clone(attacker)
                 if defender not in player_to_clone:
@@ -84,6 +89,8 @@ class CombatHandler:
                 sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
+            if clone_game is None:
+                clone_game = self_attacker.game.clone()
             if self_attacker not in player_to_clone:
                 make_and_modify_clone(self_attacker)
             sim.add_solitary_combat(player_to_clone[self_attacker])
@@ -96,13 +103,18 @@ class CombatHandler:
         player_to_clone: Dict["Player", "Player"] = {}
         clone_to_player: Dict["Player", "Player"] = {}
 
+        clone_game = None
+
         def make_and_modify_clone(_player: 'Player'):
-            clone = _player.make_copy_for_simulation()
+            assert clone_game
+            clone = _player.make_copy_for_simulation(clone_game)
             player_to_clone[_player] = clone
             clone_to_player[clone] = _player
 
         for attacker, defender_set in self.attacker_to_defenders.items():
             for defender in defender_set:
+                if clone_game is None:
+                    clone_game = attacker.game.clone()
                 if attacker not in player_to_clone:
                     make_and_modify_clone(attacker)
                 if defender not in player_to_clone:
@@ -110,6 +122,8 @@ class CombatHandler:
                 sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
+            if clone_game is None:
+                clone_game = self_attacker.game.clone()
             if self_attacker not in player_to_clone:
                 make_and_modify_clone(self_attacker)
             sim.add_solitary_combat(player_to_clone[self_attacker])
@@ -125,13 +139,18 @@ class CombatHandler:
         player_to_clone: Dict["Player", "Player"] = {}
         clone_to_player: Dict["Player", "Player"] = {}
 
+        clone_game = None
+
         def make_and_modify_clone(_player: 'Player'):
-            clone = _player.make_copy_for_simulation()
+            assert clone_game
+            clone = _player.make_copy_for_simulation(clone_game)
             player_to_clone[_player] = clone
             clone_to_player[clone] = _player
 
         for attacker, defender_set in self.attacker_to_defenders.items():
             for defender in defender_set:
+                if clone_game is None:
+                    clone_game = attacker.game.clone()
                 if attacker not in player_to_clone:
                     make_and_modify_clone(attacker)
                 if defender not in player_to_clone:
@@ -139,6 +158,8 @@ class CombatHandler:
                 sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
+            if clone_game is None:
+                clone_game = self_attacker.game.clone()
             if self_attacker not in player_to_clone:
                 make_and_modify_clone(self_attacker)
             sim.add_solitary_combat(player_to_clone[self_attacker])

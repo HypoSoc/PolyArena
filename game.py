@@ -1,7 +1,9 @@
-from typing import Callable, Tuple, List
+from typing import Callable, Tuple, List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from player import Player
 
 
-# TODO Serialize events
 class Game:
     def __init__(self, turn=1, night=False):
         # Sets turn to one before provided, with the expectation that advance happens first
@@ -12,7 +14,7 @@ class Game:
         self.events: List[Tuple[int, bool, Callable]] = []
         self.simulation = False
 
-        self.names = []
+        self.players: Dict[str, 'Player'] = {}
 
     def __str__(self):
         time_of_day = "Day"
@@ -20,12 +22,16 @@ class Game:
             time_of_day = "Night"
         return f"{time_of_day} {self.turn}"
 
-    def clone(self):
+    def clone(self, complete: bool = False):
         clone = Game()
         clone.turn = self.turn
         clone.night = self.night
         clone.events = []  # Todo if serializing
         clone.simulation = True
+
+        if complete:
+            clone.players = {c.name: c for c in [p.make_copy_for_simulation(clone) for p in self.players.values()]}
+
         return clone
 
     def advance(self):
@@ -54,6 +60,6 @@ class Game:
             return
         self.events.append((turn, night, event))
 
-    def register_name(self, name: str):
-        assert name not in self.names
-        self.names.append(name)
+    def register(self, player: 'Player'):
+        assert player.name not in self.players
+        self.players[player.name] = player
