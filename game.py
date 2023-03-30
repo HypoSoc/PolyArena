@@ -106,8 +106,13 @@ class Game:
         self.events.append((turn, night, skill_pin, source.name, [target.name for target in targets]))
 
     def register(self, player: 'Player'):
-        assert player.name not in self.players
-        assert player.name not in self.automata
+        name_list = list(self.players.keys()) + list(self.automata.keys())
+        for name in name_list:
+            if name in player.name:
+                raise Exception(f"{player.name} is a superstring of {name}!")
+            if player.name in name:
+                raise Exception(f"{player.name} is a substring of {name}!")
+
         if type(player).__name__ == 'Automata':
             self.automata[player.name] = player
         else:
