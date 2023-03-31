@@ -320,7 +320,7 @@
   prerequisite: 232
 
 234:
-  name: "Mental Reinforcement III"
+  name: "Mental Fortification III"
   cost: 15
   hydro:
     63:
