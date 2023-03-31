@@ -300,7 +300,7 @@
   prerequisite: 229
 
 232:
-  name: "Mental Reinforcement I"
+  name: "Mental Fortification I"
   cost: 5
   hydro:
     76:
@@ -309,7 +309,7 @@
   prerequisite: 201
 
 233:
-  name: "Mental Reinforcement II"
+  name: "Mental Fortification II"
   cost: 10
   hydro:
     76:
