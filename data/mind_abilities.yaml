@@ -92,7 +92,7 @@
 
 514:
   name: "Counter Ambush Tactics"
-  cost: 10
+  cost: 5
   skills:
     - 46
   prerequisite: 512
