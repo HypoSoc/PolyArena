@@ -662,24 +662,30 @@ class Heal(Action):
                 self.player.report += f"{self.player.name} could not treat {self.target.name} " \
                                       f"because they are dead." + os.linesep
             else:
-                was_injured = Condition.INJURED in self.target.conditions
+                was_injured = self.target.has_condition(Condition.INJURED)
                 if was_injured:
                     Action.was_healed.add(self.target)
-                if self.target.heal():
-                    self.player.report += f"{self.player.name} treated {self.target.name}, " \
-                                          f"but they remain wounded." + os.linesep
-                    self.target.report += f"{self.player.name} treated {self.target.name}, " \
-                                          f"but {self.target.name} remain wounded." + os.linesep
+                if self.target.has_condition(Condition.PETRIFIED):
+                    self.player.report += f"{self.player.name} tried to treat {self.target.name}, " \
+                                          f"but they were a statue." + os.linesep
+                    self.target.report += f"{self.player.name} tried to treat {self.target.name}, " \
+                                          f"but {self.target.name} were a statue." + os.linesep
                 else:
-                    self.player.report += f"{self.player.name} treated {self.target.name} and they are now healthy." \
-                                          + os.linesep
-                    self.target.report += f"{self.player.name} treated {self.target.name} " \
-                                          f"and {self.target.name} is now healthy." + os.linesep
-                if self.player.temperament == Temperament.ALTRUISTIC:
-                    if was_injured or self.target in Action.was_healed:
-                        Action.progress(self.player, 8)
+                    if self.target.heal():
+                        self.player.report += f"{self.player.name} treated {self.target.name}, " \
+                                              f"but they remain wounded." + os.linesep
+                        self.target.report += f"{self.player.name} treated {self.target.name}, " \
+                                              f"but {self.target.name} remain wounded." + os.linesep
                     else:
-                        self.player.report += f"{self.target.name} did not require treatment." + os.linesep
+                        self.player.report += f"{self.player.name} treated {self.target.name} and they are now healthy." \
+                                              + os.linesep
+                        self.target.report += f"{self.player.name} treated {self.target.name} " \
+                                              f"and {self.target.name} is now healthy." + os.linesep
+                    if self.player.temperament == Temperament.ALTRUISTIC:
+                        if was_injured or self.target in Action.was_healed:
+                            Action.progress(self.player, 8)
+                        else:
+                            self.player.report += f"{self.target.name} did not require treatment." + os.linesep
                 Action.add_action_record(self.player, Heal, self.target)
 
 
