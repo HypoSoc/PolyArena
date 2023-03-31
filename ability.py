@@ -204,7 +204,7 @@ class Ability:
 
     def _get_aeromancy_explanation_skill(self) -> List[Skill]:
         if self.explanation:
-            return [Skill(pin=-999, text=self.name+os.linesep+self.explanation,
+            return [Skill(pin=-999, text=f"{self.name} ({self.cost}){os.linesep}{self.explanation}{os.linesep}",
                           effect=Effect.INFO_ONCE, value=None, priority=0,
                           info=InfoScope.PERSONAL, trigger=Trigger.ACQUISITION)]
         return []

@@ -89,6 +89,8 @@ class Condition(IntEnum):
     INTUITION = 73  # Aeromancy Intuition
     IMPOSING = 74  # Reality Imposition
     AEROMANCER = 75  # Permanently marks Aeromancers
+    ONCE = 76  # Marker for once
+    CHARGE = 77  # Marker for charges
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -155,7 +157,8 @@ class Trigger(Enum):
     ACQUISITION = 17
     START_OF_GAME = 18  # Only happens at start of Game
     ALL = 19  # Affects all players outside combat
-    TOGGLE = 20  # Noncombat self that defaults off
+    OTHERS = 20  # Affects all players but the user
+    ATTACKED_IGNORE_RANGE = 21
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,

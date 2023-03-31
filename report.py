@@ -125,8 +125,9 @@ class Report(object):
         return self.face_mask_replacement(get_combat_handler().get_combat_report_for_player(player),
                                           player_name=player.name)
 
-    def get_night_combat_report(self, player_name="", intuition=False):
-        return self.face_mask_replacement(get_combat_handler().get_public_combat_report(intuition), player_name)
+    def get_night_combat_report(self, player: 'Player', intuition=False):
+        return self.face_mask_replacement(get_combat_handler()
+                                          .get_public_combat_report(intuition, ignore_player=player), player.name)
 
     def get_spy_report(self, spy: 'Player', target: 'Player', counter_int: bool = False):
         fake_ability_str = "nothing"

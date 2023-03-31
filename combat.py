@@ -439,6 +439,12 @@ class CombatHandler:
                                 if d == p:
                                     if a not in targets and self.check_range(d, a):
                                         targets.append(a)
+                    elif skill.trigger == Trigger.ATTACKED_IGNORE_RANGE:
+                        for a, d_set in self.attacker_to_defenders.items():
+                            for d in d_set:
+                                if d == p:
+                                    if a not in targets:
+                                        targets.append(a)
                     elif skill.trigger == Trigger.ENEMY:  # EXPLICITLY IGNORES RANGE
                         if p in self.attacker_to_defenders:
                             for x in self.attacker_to_defenders[p]:
@@ -472,9 +478,13 @@ class CombatHandler:
                     if skill.effect == Effect.INTUITION:
                         random.shuffle(targets)  # Ensure there is no way to tell WHICH player is which Aeromancer
 
-                    for target in targets:
+                    for original_target in targets:
                         if skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                             continue
+
+                        target = original_target
+                        if skill.self_override:
+                            target = p  # Effect based on target conditions, but impacts only self
 
                         if skill.effect == Effect.COMBAT:
                             # If combat value is set to -1, then it can't be changed
@@ -788,12 +798,20 @@ class CombatHandler:
 
                 return priority, self.tic_index, debug_print
 
+            def escape_message_tic(p: Player, e: Player):
+                self.tic_index += 1
+
+                def escape_message():
+                    self._append_to_event_list(self.combat_group_to_events[group],
+                                               f"{p.name} escaped {e.name}.",
+                                               [p, e], info=InfoScope.PUBLIC)
+
+                return -1, self.tic_index, escape_message
+
             if not self.for_speed:
                 self.escape = self.speed_sim()
                 for player, escaped in self.escape:
-                    self._append_to_event_list(self.combat_group_to_events[group],
-                                               f"{player.name} escaped {escaped.name}.",
-                                               [player, escaped], info=InfoScope.PUBLIC)
+                    queue.put(escape_message_tic(player, escaped))
 
             for player in group:
                 combat[player] = 0
@@ -1042,17 +1060,18 @@ class CombatHandler:
                         report = report.replace(other.name, "Someone")
         return report
 
-    def get_public_combat_report(self, intuition=False):
+    def get_public_combat_report(self, intuition=False, ignore_player: Optional['Player'] = None):
         report = ""
         for (group, events) in self.combat_group_to_events.items():
-            for player in group:
-                if player in self.attacker_to_defenders:
-                    report += player.action.public_description + os.linesep
-            for event in events:
-                if event[2] in (InfoScope.PUBLIC, InfoScope.BROADCAST):
-                    report += event[0]+os.linesep
-                elif event[2] == InfoScope.WIDE and intuition:
-                    report += event[0] + os.linesep
+            if not ignore_player or ignore_player not in group:
+                for player in group:
+                    if player in self.attacker_to_defenders:
+                        report += player.action.public_description + os.linesep
+                for event in events:
+                    if event[2] in (InfoScope.PUBLIC, InfoScope.BROADCAST):
+                        report += event[0]+os.linesep
+                    elif event[2] == InfoScope.WIDE and intuition:
+                        report += event[0] + os.linesep
         return report
 
     def reset(self):

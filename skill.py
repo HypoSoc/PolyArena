@@ -10,7 +10,7 @@ __skill_dict = {}
 
 class Skill:
     def __init__(self, pin: int, text: str, effect: Effect, value: Any, priority: int, info: InfoScope,
-                 trigger: Trigger,
+                 trigger: Trigger, self_override: bool = False,
                  self_has_condition: Optional[Condition] = None, self_not_condition: Optional[Condition] = None,
                  target_has_condition: Optional[Condition] = None, target_not_condition: Optional[Condition] = None):
         self.pin = pin
@@ -20,6 +20,7 @@ class Skill:
         self.priority = priority
         self.info = info
         self.trigger = trigger
+        self.self_override = self_override
         self.self_has_condition = self_has_condition
         self.self_not_condition = self_not_condition
         self.target_has_condition = target_has_condition
@@ -33,7 +34,7 @@ class Skill:
 
     def copy(self) -> 'Skill':
         copied = Skill(pin=self.pin, text=self.text, effect=self.effect, value=self.value, priority=self.priority,
-                       info=self.info, trigger=self.trigger,
+                       info=self.info, trigger=self.trigger, self_override=self.self_override,
                        self_has_condition=self.self_has_condition, self_not_condition=self.self_not_condition,
                        target_has_condition=self.target_has_condition, target_not_condition=self.target_not_condition)
         copied.source = self.source
@@ -71,6 +72,7 @@ def __parse_skill(pin: int, dictionary: Dict) -> Skill:
                  value=dictionary.get('value', 0), priority=dictionary.get('priority', 0),
                  info=InfoScope[dictionary.get('info', "HIDDEN")],
                  trigger=Trigger[dictionary.get('trigger', "SELF")],
+                 self_override=dictionary.get('self_override', False),
                  self_has_condition=sc,
                  self_not_condition=snc,
                  target_has_condition=tc,

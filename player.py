@@ -192,7 +192,7 @@ class Player:
         if not self.game.is_day() and self.has_ability("Awareness I"):
             self.report += os.linesep
             self.report += "You are Aware:" + os.linesep
-            night_combat_report = get_main_report().get_night_combat_report(self.name,
+            night_combat_report = get_main_report().get_night_combat_report(self,
                                                                             intuition=self.has_condition(
                                                                                 Condition.INTUITION))
             if not night_combat_report:
@@ -201,7 +201,7 @@ class Player:
 
         elif self.game.is_day() and get_combat_handler().wide_check and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
-            self.report += get_main_report().get_night_combat_report(self.name,
+            self.report += get_main_report().get_night_combat_report(self,
                                                                      intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
 

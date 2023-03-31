@@ -168,14 +168,14 @@ class Action:
 
         while not cls.queue.empty():
             tic = cls.queue.get()
-            if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect):
-                tic.act()
-            elif Condition.PETRIFIED in tic.player.conditions:
-                get_main_report().add_petrification(tic.player)
             if tic.priority > last_tic:
                 for player in Action.players:
                     player.report += os.linesep
                 last_tic = tic.priority
+            if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect):
+                tic.act()
+            elif Condition.PETRIFIED in tic.player.conditions:
+                get_main_report().add_petrification(tic.player)
 
     @classmethod
     def progress(cls, player: 'Player', amt: int):
@@ -244,6 +244,9 @@ class HandleSkill(Action):
         self.fake = fake  # Used to disguise that copycat and trade secrets fail vs counter int
 
     def act(self):
+        if self.player.is_dead():
+            return
+
         if self.skill.self_has_condition and not self.player.has_condition(self.skill.self_has_condition):
             return
         if self.skill.self_not_condition and self.player.has_condition(self.skill.self_not_condition):
@@ -275,6 +278,8 @@ class HandleSkill(Action):
             return False
 
         for target in self.targets:
+            if target.is_dead():
+                continue
             if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
                 continue
             if self.skill.target_not_condition and target.has_condition(self.skill.target_not_condition):
@@ -324,6 +329,9 @@ class HandleSkill(Action):
             if self.skill.effect == Effect.CONDITION:
                 if not self.fake:
                     target.turn_conditions.append(Condition[self.skill.value])
+            elif self.skill.effect == Effect.PERMANENT_CONDITION:
+                if not self.fake:
+                    target.conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.TENTATIVE_CONDITION:
                 if not self.fake:
                     target.tentative_conditions.append(Condition[self.skill.value])
@@ -333,6 +341,9 @@ class HandleSkill(Action):
                     raise Exception("No target for relative condition?")
                 if not self.fake:
                     self.player.add_relative_condition(target, Condition[self.skill.value])
+            elif self.skill.effect == Effect.REMOVE_CONDITION:
+                if not self.fake:
+                    target.conditions.remove(Condition[self.skill.value])
             elif self.skill.effect == Effect.DEV_SABOTAGE:
                 if target == self.player:
                     raise Exception("No target for dev sabotage?")
@@ -349,6 +360,9 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.MAX_WILLPOWER:
                 if not self.fake:
                     target.max_willpower += self.skill.value
+            elif self.skill.effect == Effect.NONLETHAL:
+                if not self.fake:
+                    noncombat_wound(self.player, target, [InjuryModifier.NONLETHAL])
 
             else:
                 raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
@@ -1591,6 +1605,8 @@ class NoncombatSkillStep(Action):
                             HandleSkill(self.game, player, skill, targets=skill.targets)
                     elif skill.trigger == Trigger.ALL:
                         HandleSkill(self.game, player, skill, targets=list(Action.players))
+                    elif skill.trigger == Trigger.OTHERS:
+                        HandleSkill(self.game, player, skill, targets=[p for p in Action.players if p != player])
 
 
 class TattooStep(Action):
