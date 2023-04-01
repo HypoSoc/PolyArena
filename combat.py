@@ -552,6 +552,11 @@ class CombatHandler:
                                                  dmg_type=get_damage_type(p, DamageType.NONLETHAL),
                                                  injury_modifiers=get_injury_modifiers(p),
                                                  target_not_condition=skill.target_not_condition))
+                        elif skill.effect == Effect.PETRIFY:
+                            queue.put(damage_tic(skill.priority+1, source=p, target=target,
+                                                 dmg_type=get_damage_type(p, DamageType.PETRIFY),
+                                                 injury_modifiers=get_injury_modifiers(p),
+                                                 target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.AMBUSH:
                             if p not in self.ambushes:
                                 self.ambushes[p] = set()

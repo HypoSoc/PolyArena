@@ -91,7 +91,22 @@ class Condition(IntEnum):
     AEROMANCER = 75  # Permanently marks Aeromancers
     ONCE = 76  # Marker for once
     CHARGE = 77  # Marker for charges
-
+    OPTION_A = 78
+    OPTION_B = 79
+    OPTION_C = 80
+    OPTION_D = 81
+    OPTION_E = 82
+    OPTION_F = 83
+    OPTION_G = 84
+    OPTION_H = 85
+    OPTION_I = 86
+    OPTION_J = 87
+    SCHOOLED = 88  # Went to Class
+    TRAINED = 89  # Trained
+    SHOPPED = 90  # Bunkered
+    DOCTOR = 91  # Went to the Doctor
+    ATTACKED = 92  # Attacked
+    WANDERED = 93  # Wandered
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
 
@@ -137,6 +152,7 @@ class Effect(Enum):
     MAX_WILLPOWER = 23
     DRAIN = 24  # Drain Willpower
     INTUITION = 25  # Detect Aeromancy Concept
+    PETRIFY = 26
 
 
 class Trigger(Enum):

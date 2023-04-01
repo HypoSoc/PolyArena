@@ -36,11 +36,11 @@ ACTION_CONDITION = Tuple['Player', Type['Action'], Optional['Player']]
 ITEM_CONDITION = Tuple['Player', int, Dict['Item', int]]
 
 
-def noncombat_wound(source: 'Player', victim: 'Player', modifiers: List[InjuryModifier] = None):
+def noncombat_wound(source: 'Player', victim: 'Player', modifiers: List[InjuryModifier] = None, petrify=False):
     if not modifiers:
         modifiers = []
 
-    if source.has_condition(Condition.PETRIFY):
+    if source.has_condition(Condition.PETRIFY) or petrify:
         victim.petrify(long=source.has_condition(Condition.LONG_PETRIFY))
 
     else:
@@ -363,6 +363,9 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.NONLETHAL:
                 if not self.fake:
                     noncombat_wound(self.player, target, [InjuryModifier.NONLETHAL])
+            elif self.skill.effect == Effect.PETRIFY:
+                if not self.fake:
+                    noncombat_wound(self.player, target, petrify=True)
 
             else:
                 raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
@@ -378,6 +381,9 @@ class Wander(Action):
     def act(self):
         if self.player not in Action.not_wandering:
             super().act()
+
+    def _act(self):
+        self.player.turn_conditions.append(Condition.WANDERED)
 
 
 # Universal Actions
@@ -427,6 +433,7 @@ class Attack(Action):
             get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
             Action.add_action_record(self.player, Attack, self.target)
+            self.player.turn_conditions.append(Condition.ATTACKED)
 
 
 class Bunker(Action):
@@ -540,6 +547,7 @@ class Train(Action):
                 get_main_report().set_training(self.player, "nothing")
             else:
                 get_main_report().set_training(self.player, get_ability(self.player.dev_plan[0]).name)
+        self.player.turn_conditions.append(Condition.TRAINED)
 
 
 # Day Actions
@@ -563,6 +571,7 @@ class Class(Action):
         if self.player.temperament == Temperament.SCHOLASTIC:
             Action.progress(self.player, 3)
         Action.add_action_record(self.player, Class)
+        self.player.turn_conditions.append(Condition.SCHOOLED)
 
 
 class Doctor(Action):
@@ -579,6 +588,7 @@ class Doctor(Action):
         else:
             self.player.report += f"{self.player.name} is now healthy." + os.linesep
         Action.add_action_record(self.player, Doctor)
+        self.player.turn_conditions.append(Condition.DOCTOR)
 
 
 class Shop(Action):
@@ -615,6 +625,7 @@ class Shop(Action):
         Action.add_action_record(self.player, Shop)
         pruned_items = {k: v for k, v in self.items.items() if k.pin != AUTOMATA}
         get_main_report().add_shop(self.player, total_cost, pruned_items, self.automata_names)
+        self.player.turn_conditions.append(Condition.SHOPPED)
 
     @staticmethod
     def get_total_cost(items: Dict['Item', int]):
@@ -1116,6 +1127,7 @@ class MultiAttack(Action):
 
             get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
+            self.player.turn_conditions.append(Condition.ATTACKED)
 
 
 # Bonus Actions

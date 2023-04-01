@@ -278,6 +278,8 @@ class Report(object):
 
     def generate_report(self, game: Game):
         report = str(game) + os.linesep
+        report += self.get_broadcasts(intuition=False)
+
         if game.is_day():
             report += get_combat_handler().get_public_combat_report()
             report += os.linesep
@@ -286,8 +288,6 @@ class Report(object):
 
             for (player, verb) in get_combat_handler().verb_dict.items():
                 report = report.replace(f"{player.name} attacked", f"{player.name} {verb}")
-
-        report += self.get_broadcasts(intuition=False)
 
         for player in sorted(set([target.name for (player, target, amount) in self.bounties])):
             report += f"A bounty was placed on {player}." + os.linesep

@@ -100,11 +100,15 @@ class HydroQualifiedSkill:
 
 
 class AeroQualifiedSkill:
-    def __init__(self, pin: int, fragile: Optional[Condition] = None):
+    def __init__(self, pin: int, fragile: Optional[Condition] = None, option: int = -1):
         self.pin = pin
         self.fragile = fragile
+        self.option = option
 
-    def get_skills(self, for_rune=False) -> List[Skill]:
+    def get_skills(self, option: int, for_rune=False) -> List[Skill]:
+        if -1 < self.option != option:
+            return []  # Option not chosen
+
         skill = get_skill(self.pin).copy()
         if not for_rune:
             if self.fragile:
@@ -128,6 +132,7 @@ class Ability:
                  max_will: int, contingency_forbidden: bool, linked: bool,
                  concept: Optional[str],
                  max_targets: int,
+                 must_choose: int,
                  explanation: str,
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
@@ -142,6 +147,7 @@ class Ability:
         self.linked = linked
         self.concept = concept
         self.max_targets = max_targets
+        self.must_choose = must_choose  # must_choose: number of options
         self.explanation = explanation   # Adds an on acquisition skill to explain what a concept level does
         self.prerequisite_pin = prerequisite_pin
 
@@ -150,7 +156,14 @@ class Ability:
             return get_ability(self.prerequisite_pin)
         return None
 
-    def get_skills(self, circuits: Iterable[Element], will: List[int]) -> List[Skill]:
+    def _get_aero_skills(self, choice, for_rune=False) -> List[Skill]:
+        if self.must_choose:
+            assert choice >= 0, f"No choice made for {self.name}."
+            assert choice < self.must_choose, f"Illegal choice made for {self.name}."
+        return [skill for qualified in self.aero_qualified_skills
+                for skill in qualified.get_skills(option=choice, for_rune=for_rune)]
+
+    def get_skills(self, circuits: Iterable[Element], will: List[int], choice: int = -1) -> List[Skill]:
         while len(will) < len(self.hydro_qualified_skills):
             if self.linked and will:
                 will.append(will[0])  # Multiple skills for the same willpower
@@ -162,22 +175,20 @@ class Ability:
                            for skill in qualified.get_skills(circuits)])
             skills.extend([skill for i in range(len(self.hydro_qualified_skills))
                            for skill in self.hydro_qualified_skills[i].get_skills(will[i])])
-            skills.extend([skill for qualified in self.aero_qualified_skills
-                           for skill in qualified.get_skills()])
+            skills.extend(self._get_aero_skills(choice))
             skills.extend(self._get_aeromancy_explanation_skill())
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
 
-    def get_skills_for_rune(self) -> List[Skill]:
+    def get_skills_for_rune(self, choice=-1) -> List[Skill]:
         try:
             skills = list(map(get_skill, self.skill_pins))
             skills.extend([skill for qualified in self.geo_qualified_skills
                            for skill in qualified.get_skills(FULL_ELEMENTS, for_rune=True)])
             skills.extend([skill for qualified in self.hydro_qualified_skills
                            for skill in qualified.get_skills(qualified.cost, for_rune=True)])
-            skills.extend([skill for qualified in self.aero_qualified_skills
-                           for skill in qualified.get_skills(for_rune=True)])
+            skills.extend(self._get_aero_skills(choice, for_rune=True))
             return skills
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
@@ -267,7 +278,8 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
         fragile = None
         if entry_value.get('fragile', None):
             fragile = Condition.AERO_LOCKED
-        aero_qualified_skills.append(AeroQualifiedSkill(pin=entry_pin, fragile=fragile))
+        aero_qualified_skills.append(AeroQualifiedSkill(pin=entry_pin, fragile=fragile,
+                                                        option=entry_value.get('option', -1)))
 
     skills = []
     if 'skills' in dictionary:
@@ -282,6 +294,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    linked=dictionary.get('linked', False),
                    concept=dictionary.get('concept'),
                    max_targets=dictionary.get('max_targets', 1),
+                   must_choose=dictionary.get('must_choose', 0),
                    explanation=dictionary.get('explanation', ""),
                    prerequisite_pin=dictionary.get('prerequisite'))
 

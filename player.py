@@ -72,7 +72,7 @@ class Player:
                     aeromancer = ability.concept.upper()
                     aero_index = ability_pin // 100
                 if self.game.turn <= 0:
-                    for skill in ability.get_skills([], []):
+                    for skill in ability.get_skills([], [], choice=0):
                         if skill.trigger in [Trigger.ACQUISITION, Trigger.START_OF_GAME]:
                             HandleSkill(self.game, self, skill)
 
@@ -128,6 +128,8 @@ class Player:
         self.hydro_spells: Dict[int, List[int]] = {}
 
         self.ability_targets: Dict[int, List[Player]] = {}
+        self.ability_choices: Dict[int, int] = {}
+        self.item_choices: Dict[int, int] = {}
 
         self.used_illusion = False
         self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
@@ -152,6 +154,8 @@ class Player:
         clone.turn_conditions = self.turn_conditions.copy()
         clone.tentative_conditions = self.tentative_conditions
         clone.temporary_abilities = self.temporary_abilities
+        clone.ability_choices = self.ability_choices
+        clone.item_choices = self.item_choices
         clone.circuits = self.circuits[:]
         clone.max_willpower = self.max_willpower
         clone.hydro_spells = self.hydro_spells
@@ -536,6 +540,16 @@ class Player:
         assert len(targets) <= ability.max_targets
         self.ability_targets[ability.pin] = list(targets)
 
+    def plan_ability_choose(self, ability_name: str, choice: int, for_rune=False):
+        ability = get_ability_by_name(ability_name)
+        assert ability.must_choose
+        assert choice >= 0
+        assert choice < ability.must_choose
+        if for_rune:
+            self.item_choices[get_item_by_name(ability_name+" rune").pin] = choice
+        else:
+            self.ability_choices[ability.pin] = choice
+
     def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
         assert not self.used_illusion
 
@@ -712,7 +726,8 @@ class Player:
         skills = []
         for ability in self.get_abilities():
             if ability.pin not in self.disabled_ability_pins:
-                ability_skills = ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, []))
+                ability_skills = ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, []),
+                                                    choice=self.ability_choices.get(ability.pin, -1))
                 if ability.pin in self.ability_targets:
                     for skill in ability_skills:
                         if skill.trigger == Trigger.TARGET:
@@ -722,7 +737,7 @@ class Player:
             if item.item_type != ItemType.CONSUMABLE:
                 skills += item.get_skills()
         for item in self.get_consumed_items():
-            skills += item.get_skills()
+            skills += item.get_skills(choice=self.item_choices.get(item.pin, -1))
 
         return skills
 
@@ -833,6 +848,8 @@ class Player:
             if info_scope == InfoScope.HIDDEN:
                 return
             self.report += message + os.linesep
+            if info_scope == InfoScope.PUBLIC:
+                get_main_report().add_action(self, message)
             if info_scope == InfoScope.BROADCAST:
                 get_main_report().broadcast(message)
         return report_callable

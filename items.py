@@ -29,7 +29,7 @@ class Item:
         if self.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE]:
             self.destruction_message = "consumed"
 
-    def get_skills(self) -> List[Skill]:
+    def get_skills(self, choice=-1) -> List[Skill]:
         try:
             skills = []
             for skill_pin in self.skill_pins:
@@ -55,8 +55,8 @@ class Rune(Item):
         super().__init__(pin, name=name, alt_name=name, cost=-2, skill_pins=[], item_type=ItemType.CONSUMABLE,
                          loot=True, fragile=False)
 
-    def get_skills(self) -> List[Skill]:
-        return get_ability(self.pin - RUNE_INDEX).get_skills_for_rune()
+    def get_skills(self, choice=-1) -> List[Skill]:
+        return get_ability(self.pin - RUNE_INDEX).get_skills_for_rune(choice=choice)
 
     def is_disruptive(self) -> bool:
         if get_ability(self.pin - RUNE_INDEX).geo_qualified_skills:
