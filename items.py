@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import List
+import glob
+from typing import List, Dict
 
 from yaml import safe_load
 
@@ -95,7 +96,10 @@ def get_item_by_name(name: str) -> Item:
     raise Exception(f"Item {name} not found")
 
 
-def __parse_ability(pin: int, dictionary: Dict) -> Item:
+def __parse_item(pin: int, dictionary: Dict) -> Item:
+    for key in dictionary.keys():
+        assert key in ['name', 'alt_name', 'cost',
+                       'skills', 'type', 'loot', 'fragile'], f"Item {pin}: illegal key {key}"
     return Item(pin=pin, name=dictionary['name'], alt_name=dictionary.get('alt_name', dictionary['name']),
                 cost=dictionary['cost'],
                 skill_pins=dictionary['skills'],
@@ -105,10 +109,14 @@ def __parse_ability(pin: int, dictionary: Dict) -> Item:
 
 
 if not __item_dict:
-    for file_name in ['data/items.yaml']:
+    file_names = ['data/items.yaml']
+    file_names.extend(
+        glob.glob("data/aeromancy_items/*.yaml")
+    )
+    for file_name in file_names:
         with open(file_name) as file:
             item_list = safe_load(file)
             for (k, v) in item_list.items():
                 if k in __item_dict:
                     raise Exception(f"ID collision in {file_name} {k}")
-                __item_dict[k] = __parse_ability(k, v)
+                __item_dict[k] = __parse_item(k, v)

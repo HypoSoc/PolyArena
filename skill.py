@@ -10,7 +10,7 @@ __skill_dict = {}
 
 class Skill:
     def __init__(self, pin: int, text: str, effect: Effect, value: Any, priority: int, info: InfoScope,
-                 trigger: Trigger, self_override: bool = False,
+                 trigger: Trigger, self_override: bool = False, value_b: Optional[Any] = None,
                  self_has_condition: Optional[Condition] = None, self_not_condition: Optional[Condition] = None,
                  target_has_condition: Optional[Condition] = None, target_not_condition: Optional[Condition] = None):
         self.pin = pin
@@ -21,6 +21,7 @@ class Skill:
         self.info = info
         self.trigger = trigger
         self.self_override = self_override
+        self.value_b = value_b
         self.self_has_condition = self_has_condition
         self.self_not_condition = self_not_condition
         self.target_has_condition = target_has_condition
@@ -68,11 +69,17 @@ def __parse_skill(pin: int, dictionary: Dict) -> Skill:
     if 'target_not_condition' in dictionary:
         tnc = Condition[dictionary['target_not_condition']]
 
+    for key in dictionary.keys():
+        assert key in ['text', 'effect', 'value', 'value_b', 'priority', 'info', 'trigger', 'self_override',
+                       'self_has_condition', 'self_not_condition',
+                       'target_has_condition', 'target_not_condition'], f"Skill {pin}: illegal key {key}"
+
     return Skill(pin=pin, text=dictionary['text'], effect=Effect[dictionary['effect']],
                  value=dictionary.get('value', 0), priority=dictionary.get('priority', 0),
                  info=InfoScope[dictionary.get('info', "HIDDEN")],
                  trigger=Trigger[dictionary.get('trigger', "SELF")],
                  self_override=dictionary.get('self_override', False),
+                 value_b=dictionary.get('value_b'),
                  self_has_condition=sc,
                  self_not_condition=snc,
                  target_has_condition=tc,

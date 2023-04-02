@@ -107,6 +107,8 @@ class Condition(IntEnum):
     DOCTOR = 91  # Went to the Doctor
     ATTACKED = 92  # Attacked
     WANDERED = 93  # Wandered
+    LOCKED = 94
+
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
 
@@ -153,6 +155,8 @@ class Effect(Enum):
     DRAIN = 24  # Drain Willpower
     INTUITION = 25  # Detect Aeromancy Concept
     PETRIFY = 26
+    ITEM = 27  # Gain Item
+    CREDITS = 28  # Gain or Lose Credits
 
 
 class Trigger(Enum):

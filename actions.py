@@ -366,9 +366,33 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.PETRIFY:
                 if not self.fake:
                     noncombat_wound(self.player, target, petrify=True)
+            elif self.skill.effect == Effect.ITEM:
+                if not self.fake:
+                    if self.skill.value_b:
+                        target.gain_item(get_item(self.skill.value), self.skill.value_b)
+                    else:
+                        target.gain_item(get_item(self.skill.value))
+            elif self.skill.effect == Effect.CREDITS:
+                if not self.fake:
+                    if self.skill.value > 0:
+                        target.gain_credits(self.skill.value)
+                    elif self.skill.value < 0:
+                        target.lose_credits(self.skill.value * -1)
 
             else:
                 raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
+
+    @classmethod
+    def handle_noncombat_skill(cls, game: 'Game', player: 'Player', skill: 'Skill'):
+        if skill.trigger == Trigger.NONCOMBAT:
+            HandleSkill(game, player, skill)
+        elif skill.trigger == Trigger.TARGET:
+            if skill.targets:
+                HandleSkill(game, player, skill, targets=skill.targets)
+        elif skill.trigger == Trigger.ALL:
+            HandleSkill(game, player, skill, targets=list(Action.players))
+        elif skill.trigger == Trigger.OTHERS:
+            HandleSkill(game, player, skill, targets=[p for p in Action.players if p != player])
 
 
 class Wander(Action):
@@ -702,7 +726,8 @@ class Heal(Action):
                         self.target.report += f"{self.player.name} treated {self.target.name}, " \
                                               f"but {self.target.name} remain wounded." + os.linesep
                     else:
-                        self.player.report += f"{self.player.name} treated {self.target.name} and they are now healthy." \
+                        self.player.report += f"{self.player.name} treated {self.target.name} " \
+                                              f"and they are now healthy." \
                                               + os.linesep
                         self.target.report += f"{self.player.name} treated {self.target.name} " \
                                               f"and {self.target.name} is now healthy." + os.linesep
@@ -1196,8 +1221,7 @@ class ConsumeItem(Action):
             self.player.report += f"{self.player.name} used {self.item.name} " \
                                   f"({self.player.items.count(self.item.pin)} remaining)." + os.linesep
             for skill in self.item.get_skills():
-                if skill.trigger == Trigger.NONCOMBAT:
-                    HandleSkill(self.game, self.player, skill)
+                HandleSkill.handle_noncombat_skill(self.game, self.player, skill)
             if self.item.pin == POISON_GAS:
                 Action.no_class.add(self.player)
                 get_combat_handler().add_solitary_combat(self.player)
@@ -1610,15 +1634,7 @@ class NoncombatSkillStep(Action):
                     if isinstance(player.action, Craft):
                         player.turn_conditions.append(Condition.BONUS_BUNKER)
                 for skill in player.get_skills():
-                    if skill.trigger == Trigger.NONCOMBAT:
-                        HandleSkill(self.game, player, skill)
-                    elif skill.trigger == Trigger.TARGET:
-                        if skill.targets:
-                            HandleSkill(self.game, player, skill, targets=skill.targets)
-                    elif skill.trigger == Trigger.ALL:
-                        HandleSkill(self.game, player, skill, targets=list(Action.players))
-                    elif skill.trigger == Trigger.OTHERS:
-                        HandleSkill(self.game, player, skill, targets=[p for p in Action.players if p != player])
+                    HandleSkill.handle_noncombat_skill(self.game, player, skill)
 
 
 class TattooStep(Action):

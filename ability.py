@@ -255,6 +255,9 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
     hydro_qualified_skills = []
     aero_qualified_skills = []
     for entry_pin, entry_value in dictionary.get('geo', {}).items():
+        for key in entry_value.keys():
+            assert key in ['circuits', 'each', 'fragile'], f"Ability {pin}, illegal key geo {key}"
+
         circuits = []
         element_options: List[List[Element]] = []
         for element_string in entry_value['circuits']:
@@ -268,6 +271,9 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                                                       each=entry_value.get('each', False), fragile=fragile))
 
     for entry_pin, entry_value in dictionary.get('hydro', {}).items():
+        for key in entry_value.keys():
+            assert key in ['cost', 'each', 'fragile'], f"Ability {pin}, illegal key hydro {key}"
+
         fragile = None
         if entry_value.get('fragile', None):
             fragile = Condition.HYDRO_LOCKED
@@ -275,6 +281,9 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                                                           each=entry_value.get('each', False), fragile=fragile))
 
     for entry_pin, entry_value in dictionary.get('aero', {}).items():
+        for key in entry_value.keys():
+            assert key in ['fragile', 'option'], f"Ability {pin}, illegal key aero {key}"
+
         fragile = None
         if entry_value.get('fragile', None):
             fragile = Condition.AERO_LOCKED
@@ -284,6 +293,11 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
     skills = []
     if 'skills' in dictionary:
         skills = dictionary['skills']
+
+    for key in dictionary.keys():
+        assert key in ['name', 'cost', 'skills', 'geo', 'hydro', 'aero', 'max_will', 'not_contingency', 'linked',
+                       'concept', 'max_targets', 'must_choose', 'explanation', 'prerequisite'], \
+            f"Ability {pin}, illegal key {key}"
     return Ability(pin=pin, name=dictionary['name'], cost=dictionary['cost'],
                    skill_pins=skills,
                    geo_qualified_skills=geo_qualified_skills,
