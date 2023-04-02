@@ -108,6 +108,8 @@ class Condition(IntEnum):
     ATTACKED = 92  # Attacked
     WANDERED = 93  # Wandered
     LOCKED = 94
+    MARKED = 95
+    CRUMBLING = 96  # -1 Survivability when petrified
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -179,6 +181,7 @@ class Trigger(Enum):
     ALL = 19  # Affects all players outside combat
     OTHERS = 20  # Affects all players but the user
     ATTACKED_IGNORE_RANGE = 21
+    COMBAT_DAMAGED = 22  # Triggers when damaged targeting the source
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,

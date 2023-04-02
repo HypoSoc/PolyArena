@@ -769,6 +769,7 @@
   trigger: "NONCOMBAT"
   value: "INTUITION"
   priority: -50  # Ensure this happens before other Aero, even weird ones
+  works_when_petrified: true
 
 118:
   text: "%SELF% imposed their Aeromancy on Reality!"

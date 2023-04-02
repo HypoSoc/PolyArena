@@ -278,7 +278,7 @@ class Report(object):
 
     def generate_report(self, game: Game):
         report = str(game) + os.linesep
-        report += self.get_broadcasts(intuition=False)
+        report += self.get_broadcasts(intuition=False) + os.linesep
 
         if game.is_day():
             report += get_combat_handler().get_public_combat_report()

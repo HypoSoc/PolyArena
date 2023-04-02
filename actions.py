@@ -172,7 +172,10 @@ class Action:
                 for player in Action.players:
                     player.report += os.linesep
                 last_tic = tic.priority
-            if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect):
+            if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect) or \
+                    (isinstance(tic, HandleSkill) and
+                     ((tic.skill.works_when_petrified and not player.is_dead())
+                      or (tic.skill.trigger in [Trigger.ACQUISITION, Trigger.START_OF_GAME]))):
                 tic.act()
             elif Condition.PETRIFIED in tic.player.conditions:
                 get_main_report().add_petrification(tic.player)
@@ -326,24 +329,34 @@ class HandleSkill(Action):
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
                 continue
 
+            times = 1  # For repeated CONDITION type effects
+            if self.skill.value_b and isinstance(self.skill.value_b, int):
+                times = self.skill.value_b
+
             if self.skill.effect == Effect.CONDITION:
                 if not self.fake:
-                    target.turn_conditions.append(Condition[self.skill.value])
+                    for _ in range(times):
+                        target.turn_conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.PERMANENT_CONDITION:
                 if not self.fake:
-                    target.conditions.append(Condition[self.skill.value])
+                    for _ in range(times):
+                        target.conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.TENTATIVE_CONDITION:
                 if not self.fake:
-                    target.tentative_conditions.append(Condition[self.skill.value])
+                    for _ in range(times):
+                        target.tentative_conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.REL_CONDITION:
                 # To be refactored if I ever need to give arbitrary players relative_conditions
                 if target == self.player:
                     raise Exception("No target for relative condition?")
                 if not self.fake:
-                    self.player.add_relative_condition(target, Condition[self.skill.value])
+                    for _ in range(times):
+                        self.player.add_relative_condition(target, Condition[self.skill.value])
             elif self.skill.effect == Effect.REMOVE_CONDITION:
                 if not self.fake:
-                    target.conditions.remove(Condition[self.skill.value])
+                    for _ in range(times):
+                        if Condition[self.skill.value] in target.conditions:
+                            target.conditions.remove(Condition[self.skill.value])
             elif self.skill.effect == Effect.DEV_SABOTAGE:
                 if target == self.player:
                     raise Exception("No target for dev sabotage?")

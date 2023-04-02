@@ -411,7 +411,7 @@ class CombatHandler:
 
                 return 25, self.tic_index, drain
 
-            def skill_tic(p: Player, skill: 'Skill') -> Tic:
+            def skill_tic(p: Player, skill: 'Skill', _targets: Optional[List[Player]] = None) -> Tic:
                 self.tic_index += 1
 
                 def handle_skill():
@@ -427,48 +427,51 @@ class CombatHandler:
                         return
 
                     targets: List['Player'] = []
-                    if skill.trigger == Trigger.SELF:
-                        targets = [p]
-                    elif skill.trigger == Trigger.ATTACK:
-                        if p in self.attacker_to_defenders:
-                            targets = [target for target in self.attacker_to_defenders[p]
-                                       if self.check_range(p, target) or skill.effect == Effect.AMBUSH]
-                    elif skill.trigger == Trigger.ATTACKED:
-                        for a, d_set in self.attacker_to_defenders.items():
-                            for d in d_set:
-                                if d == p:
-                                    if a not in targets and self.check_range(d, a):
-                                        targets.append(a)
-                    elif skill.trigger == Trigger.ATTACKED_IGNORE_RANGE:
-                        for a, d_set in self.attacker_to_defenders.items():
-                            for d in d_set:
-                                if d == p:
-                                    if a not in targets:
-                                        targets.append(a)
-                    elif skill.trigger == Trigger.ENEMY:  # EXPLICITLY IGNORES RANGE
-                        if p in self.attacker_to_defenders:
-                            for x in self.attacker_to_defenders[p]:
-                                if x not in targets:
-                                    targets.append(x)
-                        for o in self.attacker_to_defenders:
-                            if p in self.attacker_to_defenders[o]:
-                                if o not in targets:
-                                    targets.append(o)
-                    elif skill.trigger == Trigger.RANGE:
-                        targets = [o for o in group if self.check_range(p, o)]
-                    elif skill.trigger == Trigger.RANGE_IGNORE_SPEED:
-                        targets = [o for o in group if self.check_range(p, o, ignore_escape=True)]
-                    elif skill.trigger == Trigger.RANGE_EX_SELF:
-                        targets = [o for o in group if self.check_range(p, o) and o.name != p.name]
-                    elif skill.trigger == Trigger.COMBAT_INJURY:
-                        targets = [p]
+                    if _targets is not None:
+                        targets = _targets
+                    else:
+                        if skill.trigger == Trigger.SELF:
+                            targets = [p]
+                        elif skill.trigger == Trigger.ATTACK:
+                            if p in self.attacker_to_defenders:
+                                targets = [target for target in self.attacker_to_defenders[p]
+                                           if self.check_range(p, target) or skill.effect == Effect.AMBUSH]
+                        elif skill.trigger == Trigger.ATTACKED:
+                            for a, d_set in self.attacker_to_defenders.items():
+                                for d in d_set:
+                                    if d == p:
+                                        if a not in targets and self.check_range(d, a):
+                                            targets.append(a)
+                        elif skill.trigger == Trigger.ATTACKED_IGNORE_RANGE:
+                            for a, d_set in self.attacker_to_defenders.items():
+                                for d in d_set:
+                                    if d == p:
+                                        if a not in targets:
+                                            targets.append(a)
+                        elif skill.trigger == Trigger.ENEMY:  # EXPLICITLY IGNORES RANGE
+                            if p in self.attacker_to_defenders:
+                                for x in self.attacker_to_defenders[p]:
+                                    if x not in targets:
+                                        targets.append(x)
+                            for o in self.attacker_to_defenders:
+                                if p in self.attacker_to_defenders[o]:
+                                    if o not in targets:
+                                        targets.append(o)
+                        elif skill.trigger == Trigger.RANGE:
+                            targets = [o for o in group if self.check_range(p, o)]
+                        elif skill.trigger == Trigger.RANGE_IGNORE_SPEED:
+                            targets = [o for o in group if self.check_range(p, o, ignore_escape=True)]
+                        elif skill.trigger == Trigger.RANGE_EX_SELF:
+                            targets = [o for o in group if self.check_range(p, o) and o.name != p.name]
+                        elif skill.trigger == Trigger.COMBAT_INJURY:
+                            targets = [p]
 
-                    if skill.trigger != Trigger.SELF:
-                        if skill.target_has_condition:
-                            targets = [target for target in targets if skill.target_has_condition in conditions[target]]
-                        if skill.target_not_condition:
-                            targets = [target for target in targets if
-                                       skill.target_not_condition not in conditions[target]]
+                        if skill.trigger != Trigger.SELF:
+                            if skill.target_has_condition:
+                                targets = [target for target in targets if skill.target_has_condition in conditions[target]]
+                            if skill.target_not_condition:
+                                targets = [target for target in targets if
+                                           skill.target_not_condition not in conditions[target]]
 
                     if not targets:
                         return
@@ -477,6 +480,10 @@ class CombatHandler:
 
                     if skill.effect == Effect.INTUITION:
                         random.shuffle(targets)  # Ensure there is no way to tell WHICH player is which Aeromancer
+
+                    times = 1  # For repeated CONDITION type effects
+                    if skill.value_b and isinstance(skill.value_b, int):
+                        times = skill.value_b
 
                     for original_target in targets:
                         if skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
@@ -512,17 +519,24 @@ class CombatHandler:
                                     survivability[target] += 1
                         elif skill.effect in [Effect.CONDITION, Effect.TENTATIVE_CONDITION]:
                             condition = Condition[skill.value]
-                            if condition not in conditions[target]:
-                                conditions[target].append(condition)
+                            if skill.value_b is None:
+                                if condition not in conditions[target]:
+                                    conditions[target].append(condition)
+                            else:
+                                for _ in range(times):
+                                    conditions[target].append(condition)
                         elif skill.effect == Effect.REMOVE_CONDITION:
-                            queue.put(condition_remove_tic(skill.priority, target, Condition[skill.value]))
+                            for _ in range(times):
+                                queue.put(condition_remove_tic(skill.priority, target, Condition[skill.value]))
                         elif skill.effect == Effect.REL_CONDITION:
                             condition = Condition[skill.value]
-                            p.add_relative_condition(target, condition)
+                            for _ in range(times):
+                                p.add_relative_condition(target, condition)
                         elif skill.effect == Effect.PERMANENT_CONDITION:
                             condition = Condition[skill.value]
-                            conditions[target].append(condition)
-                            target.conditions.append(condition)
+                            for _ in range(times):
+                                conditions[target].append(condition)
+                                target.conditions.append(condition)
                         elif skill.effect == Effect.DISARM:
                             queue.put(condition_remove_tic(skill.priority, target, Condition.ARMED))
                             if target.get_held_weapon():
@@ -672,15 +686,24 @@ class CombatHandler:
                 def wound():
                     if not target_not_condition or target_not_condition not in conditions[target]:
                         queue.put(wound_tic(priority+1, target, injury_modifiers))
+                        for damaged_skill in target.get_skills():
+                            if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
+                                queue.put(skill_tic(target, damaged_skill, [source]))
 
                 def petrify():
                     if not target_not_condition or target_not_condition not in conditions[target]:
                         queue.put(petrify_tic(priority+1, target, Condition.LONG_PETRIFY in conditions[source]))
+                        for damaged_skill in target.get_skills():
+                            if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
+                                queue.put(skill_tic(target, damaged_skill, [source]))
 
                 def nonlethal():
                     if not target_not_condition or target_not_condition not in conditions[target]:
                         if Condition.INJURED not in target.conditions:
                             queue.put(wound_tic(priority+1, target, injury_modifiers+[InjuryModifier.NONLETHAL]))
+                            for damaged_skill in target.get_skills():
+                                if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
+                                    queue.put(skill_tic(target, damaged_skill, [source]))
 
                 if dmg_type == DamageType.DEFAULT:
                     return priority, self.tic_index, wound
@@ -718,7 +741,7 @@ class CombatHandler:
 
             def get_survivability(p: 'Player', a: Optional['Player'] = None):
                 if Condition.PETRIFIED in conditions[p]:
-                    return 8
+                    return 8 - conditions[p].count(Condition.CRUMBLING)
                 s = survivability[p]
                 if s >= 0:
                     if Condition.FIRE_PROOF in conditions[p]:
@@ -852,15 +875,16 @@ class CombatHandler:
                 if player.concept:
                     conditions[player].append(Condition.USING_AERO)
 
-                for _skill in player.get_skills():
-                    # Apply effects from skills to players in order of skill priority
-                    if _skill.trigger not in NONCOMBAT_TRIGGERS:
-                        queue.put(skill_tic(player, _skill))
-                    elif _skill.effect == Effect.TENTATIVE_CONDITION:
-                        modified_skill = _skill.copy()
-                        modified_skill.effect = Effect.CONDITION
-                        modified_skill.trigger = Trigger.SELF
-                        queue.put(skill_tic(player, modified_skill))
+                if not player.has_condition(Condition.PETRIFIED):
+                    for _skill in player.get_skills():
+                        # Apply effects from skills to players in order of skill priority
+                        if _skill.trigger not in NONCOMBAT_TRIGGERS:
+                            queue.put(skill_tic(player, _skill))
+                        elif _skill.effect == Effect.TENTATIVE_CONDITION:
+                            modified_skill = _skill.copy()
+                            modified_skill.effect = Effect.CONDITION
+                            modified_skill.trigger = Trigger.SELF
+                            queue.put(skill_tic(player, modified_skill))
 
             if DEBUG:
                 for player in group:
