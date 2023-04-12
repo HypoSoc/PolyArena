@@ -91,7 +91,7 @@ class Player:
         assert self.concept == aeromancer
 
         self.dev_plan = dev_plan
-        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
+        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name, aero_index)
 
         self.report = ""
         self.action = Wander(self.game, self)
@@ -122,6 +122,8 @@ class Player:
         # Used so that automata can be traded the same turn they are created
         self.automata_registry: Dict[str, 'Automata'] = {}
 
+        self.abilities_gained_this_turn: List[int] = []
+
         game.register(self)
 
     def make_copy_for_simulation(self, game: 'Game') -> 'Player':
@@ -142,6 +144,7 @@ class Player:
         clone.circuits = self.circuits[:]
         clone.max_willpower = self.max_willpower
         clone.hydro_spells = self.hydro_spells
+        clone.abilities_gained_this_turn = self.abilities_gained_this_turn
         return clone
 
     def serialize(self) -> Dict:
@@ -272,7 +275,7 @@ class Player:
         return Condition.DEAD in self.conditions
 
     @staticmethod
-    def _validate_dev_plan(dev_plan, complete_ability_pins, name):
+    def _validate_dev_plan(dev_plan, complete_ability_pins, name, aero_index):
         for ability_pin in dev_plan:
             if (ability_pin % 100 + 300 if ability_pin > 700 else ability_pin) == CONCEPT_I:
                 raise Exception(f"Player {name} is trying to learn Concept I without starting with it.")
@@ -294,8 +297,13 @@ class Player:
     def set_dev_plan(self, *ability_names: str):
         self.dev_plan = [get_ability_by_name(ability).pin for ability in ability_names]
 
+        aero_index = 3
+        for ability in self.get_abilities():
+            if ability.concept:
+                aero_index = ability.pin // 100
+
         complete_ability_pins = [ability.pin for ability in self.get_abilities()]
-        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
+        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name, aero_index)
 
     def _generic_action_check(self, bonus=False, day_only=False) -> NoReturn:
         if self.is_dead():
@@ -613,11 +621,14 @@ class Player:
             awareness += 1
         return awareness
 
-    def has_ability(self, ability_name: str, strict=False):
+    def has_ability(self, ability_name: str, strict=False, ignore_this_turn=True):
         ability = get_ability_by_name(ability_name)
         if not strict:
             if ability.pin in self.temporary_abilities:
                 return True
+        if ignore_this_turn:
+            if ability.pin in self.abilities_gained_this_turn:
+                return False
         return ability.pin in self.progress_dict and self.progress_dict[ability.pin] >= ability.cost
 
     def get_abilities(self) -> List[Ability]:
@@ -818,6 +829,7 @@ class Player:
     def gain_ability(self, ability: Ability) -> NoReturn:
         self.report += f'You have gained {ability.name}{os.linesep}'
         self.progress_dict[ability.pin] = ability.cost
+        self.abilities_gained_this_turn.append(ability.pin)
         if ability.pin in self.dev_plan:
             self.dev_plan.remove(ability.pin)
         for skill in ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, [])):
@@ -827,7 +839,7 @@ class Player:
     def copycat(self, target: 'Player', fake: 'bool' = False) -> NoReturn:
         available_abilities = [ability for ability in target.get_abilities()
                                if ability.is_copyable() and
-                               not self.has_ability(ability.name, strict=True) and
+                               not self.has_ability(ability.name, strict=True, ignore_this_turn=False) and
                                self.has_prerequisite(ability)]
         available_abilities.sort()
         if not fake and available_abilities:

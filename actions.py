@@ -1798,8 +1798,8 @@ class WillpowerStep(Action):
                 if not player.is_dead():
                     if player.max_willpower:
                         player.report += os.linesep
-                        if self.game.is_night() or player.has_ability("Rapid Regen II"):
-                            if player.has_ability("Rapid Regen I"):
+                        if self.game.is_night() or player.has_ability("Rapid Regen II", ignore_this_turn=False):
+                            if player.has_ability("Rapid Regen I", ignore_this_turn=False):
                                 regen = player.max_willpower
                             else:
                                 regen = player.max_willpower // 2 + (player.max_willpower % 2)  # Divide by 2 round up
