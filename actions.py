@@ -3,6 +3,8 @@ from queue import PriorityQueue
 from random import random
 from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type, Union
 
+import roman as roman
+
 from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
@@ -583,7 +585,11 @@ class Train(Action):
             if not self.player.dev_plan:
                 get_main_report().set_training(self.player, "nothing")
             else:
-                get_main_report().set_training(self.player, get_ability(self.player.dev_plan[0]).name)
+                train_ability = get_ability(self.player.dev_plan[0])
+                train_name = train_ability.name
+                if train_ability.pin >= 700:
+                    train_name = 'Concept ' + roman.toRoman((train_ability.pin % 100)+1)
+                get_main_report().set_training(self.player, train_name)
         self.player.turn_conditions.append(Condition.TRAINED)
 
 
@@ -758,7 +764,7 @@ class Steal(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player"):
         super().__init__(priority=60, game=game, player=player, fragile=True,
                          public_description=f"{player.name} robbed {target.name}.",
-                         on_interrupt=f"{player.name} failed rob {target.name}.",
+                         on_interrupt=f"{player.name} failed to rob {target.name}.",
                          combat_on_interrupt=f"while they were trying to rob {target.name}")
         self.target = target
 
@@ -1586,7 +1592,10 @@ class Illusion(Action):
             if isinstance(self.fake_action, Train):
                 self.target.fake_ability = self.fake_training
                 if self.fake_training:
-                    get_main_report().set_training(self.target, self.fake_training.name)
+                    train_name = self.fake_training.name
+                    if self.fake_training.pin >= 700:
+                        train_name = 'Concept ' + roman.toRoman((self.fake_training.pin % 100) + 1)
+                    get_main_report().set_training(self.target, train_name)
                 else:
                     get_main_report().set_training(self.target, "nothing")
 

@@ -1101,6 +1101,7 @@ class CombatHandler:
                         report += event[0]+os.linesep
                     elif event[2] == InfoScope.WIDE and intuition:
                         report += event[0] + os.linesep
+            report += os.linesep
         return report
 
     def reset(self):

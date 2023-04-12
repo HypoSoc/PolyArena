@@ -110,6 +110,7 @@ class Condition(IntEnum):
     LOCKED = 94
     MARKED = 95
     CRUMBLING = 96  # -1 Survivability when petrified
+    RINGER = 97  # Is the ringer
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]

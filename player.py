@@ -91,24 +91,7 @@ class Player:
         assert self.concept == aeromancer
 
         self.dev_plan = dev_plan
-
-        for ability_pin in dev_plan:
-            if (ability_pin % 100 + 300 if ability_pin > 700 else ability_pin) == CONCEPT_I:
-                raise Exception(f"Player {name} is trying to learn Concept I without starting with it.")
-            if ability_pin == LEGACY_MAGIC:
-                raise Exception(f"Player {name} is trying to learn Legacy Magic without starting with it.")
-            ability = get_ability(ability_pin)
-            if ability_pin == LEGACY_MAGIC:
-                ability.prerequisite_pin = aero_index * 100 + 1
-            if ability_pin == REALITY_IMPOSITION:
-                ability.prerequisite_pin = aero_index * 100 + 3
-
-            if ability_pin in complete_ability_pins:
-                raise Exception(f"Player {name} already has dev plan ability {ability.name}")
-            if ability.prerequisite_pin not in complete_ability_pins:
-                raise Exception(f"Player {name} is missing prerequisite "
-                                f"for dev plan ability {ability.name} ({ability.get_prerequisite().name})")
-            complete_ability_pins.append(ability_pin)
+        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
 
         self.report = ""
         self.action = Wander(self.game, self)
@@ -287,6 +270,32 @@ class Player:
 
     def is_dead(self):
         return Condition.DEAD in self.conditions
+
+    @staticmethod
+    def _validate_dev_plan(dev_plan, complete_ability_pins, name):
+        for ability_pin in dev_plan:
+            if (ability_pin % 100 + 300 if ability_pin > 700 else ability_pin) == CONCEPT_I:
+                raise Exception(f"Player {name} is trying to learn Concept I without starting with it.")
+            if ability_pin == LEGACY_MAGIC:
+                raise Exception(f"Player {name} is trying to learn Legacy Magic without starting with it.")
+            ability = get_ability(ability_pin)
+            if ability_pin == LEGACY_MAGIC:
+                ability.prerequisite_pin = aero_index * 100 + 1
+            if ability_pin == REALITY_IMPOSITION:
+                ability.prerequisite_pin = aero_index * 100 + 3
+
+            if ability_pin in complete_ability_pins:
+                raise Exception(f"Player {name} already has dev plan ability {ability.name}")
+            if ability.prerequisite_pin and ability.prerequisite_pin not in complete_ability_pins:
+                raise Exception(f"Player {name} is missing prerequisite "
+                                f"for dev plan ability {ability.name} ({ability.get_prerequisite().name})")
+            complete_ability_pins.append(ability_pin)
+
+    def set_dev_plan(self, *ability_names: str):
+        self.dev_plan = [get_ability_by_name(ability).pin for ability in ability_names]
+
+        complete_ability_pins = [ability.pin for ability in self.get_abilities()]
+        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
 
     def _generic_action_check(self, bonus=False, day_only=False) -> NoReturn:
         if self.is_dead():
@@ -766,6 +775,11 @@ class Player:
         for k, v in self.relative_conditions.items():
             for c in v:
                 results.append(f"{k}_{c.name}")
+        return results
+
+    def condition_debug(self) -> List[str]:
+        results = [condition.name for condition in self.conditions]
+        results.extend(self.relative_condition_debug())
         return results
 
     def total_progress(self) -> int:
