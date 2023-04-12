@@ -33,7 +33,7 @@ QM_ABILITY_PINS = [get_ability_by_name("Divination").pin, get_ability_by_name("D
 
 # For conditional trading
 # Player action target
-ACTION_CONDITION = Tuple['Player', Type['Action'], Optional['Player']]
+ACTION_CONDITION = Tuple['Player', Type['Action'], Optional['Player'], bool]  # source, action, target, Positive
 # Player, minimum credits, minimum items
 ITEM_CONDITION = Tuple['Player', int, Dict['Item', int]]
 
@@ -176,7 +176,7 @@ class Action:
                 last_tic = tic.priority
             if not tic.player or Action.can_act(tic.player) or isinstance(tic, Resurrect) or \
                     (isinstance(tic, HandleSkill) and
-                     ((tic.skill.works_when_petrified and not player.is_dead())
+                     ((tic.skill.works_when_petrified and not tic.player.is_dead())
                       or (tic.skill.trigger in [Trigger.ACQUISITION, Trigger.START_OF_GAME]))):
                 tic.act()
             elif Condition.PETRIFIED in tic.player.conditions:
@@ -193,9 +193,9 @@ class Action:
     def add_action_record(cls, player: 'Player', action: Type['Action'],
                           target: Optional['Player'] = None, fake=False):
         if fake:
-            Action.fake_action_record.append((player, action, target))
+            Action.fake_action_record.append((player, action, target, True))
         else:
-            Action.action_record.append((player, action, target))
+            Action.action_record.append((player, action, target, True))
 
     @classmethod
     def check_action_record(cls, game: 'Game', observer: 'Player', condition: ACTION_CONDITION) -> bool:
@@ -204,22 +204,22 @@ class Action:
                 if condition[0] not in Action.spied.get(observer, []):
                     if not condition[2] == observer or condition[1] not in [Teach, Learn, Heal]:
                         # Can't validate action for condition
-                        return False
+                        return not condition[3]
 
             if condition[0] in Action.fake_spied.get(observer, []):
                 for record in Action.fake_action_record:
                     if record[0] == condition[0]:
                         if record[1] == condition[1]:
                             if not condition[2] or record[2] == condition[2]:
-                                return True
-                return False
+                                return condition[3]
+                return not condition[3]
 
         for record in Action.action_record:
             if record[0] == condition[0]:
                 if record[1] == condition[1]:
                     if not condition[2] or record[2] == condition[2]:
-                        return True
-        return False
+                        return condition[3]
+        return not condition[3]
 
     @classmethod
     def create_automata(cls, game: 'Game', owner: 'Player', name: 'str'):

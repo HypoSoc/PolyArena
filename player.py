@@ -459,11 +459,14 @@ class Player:
 
     def plan_trade(self, target: "Player", money: int = 0, item_names: Optional[List[str]] = None,
                    automata: Union[Optional[List[Union['Automata', str]]], 'Automata', str] = None,
-                   action_condition: Optional[Union[ACTION_CONDITION, Tuple['Player', Type['Action']]]] = None,
+                   action_condition: Optional[Union[ACTION_CONDITION, Tuple['Player', Type['Action']],
+                                                    Tuple['Player', Type['Action'], 'Player']]] = None,
                    item_name_condition: Optional[Tuple["Player", int, List[str]]] = None):
         if action_condition:
             if len(action_condition) == 2:
-                action_condition = (action_condition[0], action_condition[1], None)
+                action_condition = (action_condition[0], action_condition[1], None, True)
+            elif len(action_condition) == 3:
+                action_condition = (action_condition[0], action_condition[1], action_condition[2], True)
         items: Optional[Dict['Item', int]] = None
         if item_names is not None:
             item_names_to_amount = {}
