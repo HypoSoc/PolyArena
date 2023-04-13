@@ -578,8 +578,6 @@ class Train(Action):
 
     def _act(self):
         Action.progress(self.player, 3)
-        if self.player.temperament == Temperament.INTUITIVE:
-            Action.progress(self.player, 1)
         Action.add_action_record(self.player, Train)
         if self.player not in Illusion.handled:
             if not self.player.dev_plan:
@@ -1780,12 +1778,17 @@ class ProgressStep(Action):
         super().__init__(90, game=game, player=None)
 
     def act(self):
-        for player, progress in Action.progress_dict.items():
+        for player in Action.progress_dict.keys():
             if player.is_dead():
                 continue
 
-            if progress > 0:
-                player.gain_progress(progress)
+            if player.temperament == Temperament.INTUITIVE:
+                if player not in Action.interrupted_players:
+                    player.report += "Intuitive: "
+                    Action.progress(player, 1)
+                    player.report += os.linesep
+            if Action.progress_dict[player] > 0:
+                player.gain_progress(Action.progress_dict[player])
 
 
 class WillpowerStep(Action):
