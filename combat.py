@@ -839,7 +839,8 @@ class CombatHandler:
             if not self.for_speed:
                 self.escape = self.speed_sim()
                 for player, escaped in self.escape:
-                    queue.put(escape_message_tic(player, escaped))
+                    if player in group:
+                        queue.put(escape_message_tic(player, escaped))
 
             for player in group:
                 combat[player] = 0
