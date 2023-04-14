@@ -586,7 +586,7 @@ class Train(Action):
                 train_ability = get_ability(self.player.dev_plan[0])
                 train_name = train_ability.name
                 if train_ability.pin >= 700:
-                    train_name = 'Concept ' + roman.toRoman((train_ability.pin % 100)+1)
+                    train_name = 'Concept ' + roman.toRoman((train_ability.pin % 100))
                 get_main_report().set_training(self.player, train_name)
         self.player.turn_conditions.append(Condition.TRAINED)
 
