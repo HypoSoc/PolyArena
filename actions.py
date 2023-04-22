@@ -1461,7 +1461,7 @@ class PlaceBounty(Action):
         self.player.lose_credits(self.amount)
         self.target.bounty += self.amount
         self.player.report += f"You placed a {self.amount} credit bounty on {self.target.name} " \
-                              f"({self.player.get_credits()})" + os.linesep + os.linesep
+                              f"({self.player.get_credits()} credits remain)" + os.linesep + os.linesep
         get_main_report().add_bounty(self.player, self.target, self.amount)
 
 
@@ -1783,7 +1783,7 @@ class ProgressStep(Action):
                 continue
 
             if player.temperament == Temperament.INTUITIVE:
-                if player not in Action.interrupted_players:
+                if player not in Action.interrupted_players or not player.action.fragile:
                     player.report += "Intuitive: "
                     Action.progress(player, 1)
                     player.report += os.linesep

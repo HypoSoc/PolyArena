@@ -321,7 +321,7 @@ class Player:
 
     # For turning off Petrify and the like
     def disable_ability(self, ability_name: str):
-        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION", "REALITY IMPOSITION"):
+        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION", "REALITY IMPOSITION", "ARMOR BREAK"):
             raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
         self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 

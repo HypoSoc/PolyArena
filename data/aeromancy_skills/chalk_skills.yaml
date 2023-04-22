@@ -1,0 +1,68 @@
+1001:
+  text: "-4 Power"
+  effect: "COMBAT"
+  value: -4
+  priority: 68
+
+1002:
+  text: "-4 Survivability"
+  effect: "SURVIVABILITY"
+  value: -4
+  priority: 68
+
+1003:
+  text: "%SELF% crumbled under the weight of %TARGET%'s blow, before reforming."
+  effect: "INFO"
+  info: "WIDE"
+  trigger: "COMBAT_DAMAGED"
+
+1004:
+  text: "%SELF% left a thin residue of dust on %TARGET%."
+  effect: "PERMANENT_CONDITION"
+  value: "MARKED"
+  info: "SUBTLE"
+  trigger: "COMBAT_DAMAGED"
+  priority: 10 # After 1003
+
+1005:
+  text: "%TARGET%'s statue seems to be crumbling."
+  effect: "CONDITION"
+  value: "CRUMBLING"
+  value_b: 8
+  trigger: "RANGE_EX_SELF"
+  target_has_condition: "PETRIFIED"
+  info: "WIDE"
+
+1006:
+  text: "%SELF% emerged from Petrification."
+  effect: "REMOVE_CONDITION"
+  value: "PETRIFIED"
+  value_b: 10
+  trigger: "POST_COMBAT"
+  info: "WIDE"
+  self_has_condition: "PETRIFIED"
+  works_when_petrified: true
+
+1007:
+  text: "Set up to Petrify Once."
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "ACQUISITION"
+  priority: 101
+
+1008:
+  text: "The dust around %TARGET% solidified, Petrifying them!"
+  effect: "PETRIFY"
+  trigger: "ALL"
+  info: "BLATANT"
+  self_has_condition: "CHARGE"
+  target_has_condition: "MARKED"
+  priority: 1
+
+1009:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+  priority: 2
+  self_has_condition: "CHARGE"

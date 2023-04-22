@@ -1,0 +1,57 @@
+701:
+  text: "%SELF% can sense %TARGET% is weak."
+  effect: "COMBAT"
+  info: "SUBTLE"
+  trigger: "ATTACK"
+  value: 2
+  target_has_condition: "INJURED"
+  self_override: true
+
+702:
+  text: "%TARGET%'s wounds leave a scent in the air."
+  effect: "INFO"
+  info: "SUBTLE"
+  trigger: "OTHERS"
+  target_has_condition: "INJURED"
+  priority: 100
+
+703:
+  text: "%SELF% sized up %TARGET%."
+  effect: "CONDITION"
+  trigger: "ATTACKED_IGNORE_RANGE"
+  value: "ONCE"
+  info: "WIDE"
+  target_not_condition: "INJURED"
+  self_override: true
+  priority: -5
+
+704:
+  text: "Speed +1 if attacked by uninjured."
+  effect: "SPEED"
+  value: 1
+  self_has_condition: "ONCE"
+  priority: 5
+
+705:
+  text: "The Cackle prowls with hunger. Be wary next turn."
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  info: "BLATANT"
+  trigger: "ACQUISITION"
+  priority: 101
+
+706:
+  text: "The Cackle strikes %TARGET%!"
+  effect: "NONLETHAL"
+  info: "NARROW"
+  trigger: "OTHERS"
+  priority: 99
+  self_has_condition: "CHARGE"
+
+707:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+  priority: 100
+  self_has_condition: "CHARGE"

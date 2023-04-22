@@ -301,7 +301,7 @@ class CombatHandler:
 
                 def snipe():
                     # Attacking the sniper or having sniper yourself lets you hit back against a sniper
-                    for target in self.attacker_to_defenders[p]:
+                    for target in self.attacker_to_defenders.get(p, []):
                         if Condition.SNIPING not in conditions[target]:
                             if p not in self.attacker_to_defenders.get(target, []):
                                 if (target, p) in self.range_edges:

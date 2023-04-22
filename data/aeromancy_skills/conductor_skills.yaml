@@ -1,0 +1,181 @@
+801:
+  text: "The Conductor indicates everyone should Go to Class."
+  effect: "CONDITION"
+  value: "OPTION_A"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+802:
+  text: "%TARGET%'s performance in Class was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_A"
+  target_has_condition: "SCHOOLED"
+  priority: 89
+
+803:
+  text: "The Conductor indicates everyone should Go to the Doctor."
+  effect: "CONDITION"
+  value: "OPTION_B"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+804:
+  text: "%TARGET%'s performance at the Doctor was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_B"
+  target_has_condition: "DOCTOR"
+  priority: 89
+
+805:
+  text: "The Conductor indicates everyone should Train."
+  effect: "CONDITION"
+  value: "OPTION_C"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+806:
+  text: "%TARGET%'s performance in Training was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_C"
+  target_has_condition: "TRAINED"
+  priority: 89
+
+807:
+  text: "The Conductor indicates everyone should Bunker."
+  effect: "CONDITION"
+  value: "OPTION_D"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+808:
+  text: "%TARGET%'s performance in the Bunker was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_D"
+  target_has_condition: "BUNKERING"
+  priority: 89
+
+809:
+  text: "The Conductor indicates everyone should Shop."
+  effect: "CONDITION"
+  value: "OPTION_E"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+810:
+  text: "%TARGET%'s performance at Shop Club was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_E"
+  target_has_condition: "SHOPPED"
+  priority: 89
+
+811:
+  text: "The Conductor indicates everyone should Commence with Violence."
+  effect: "CONDITION"
+  value: "OPTION_F"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+812:
+  text: "%TARGET%'s aggressive performance was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_F"
+  target_has_condition: "ATTACKED"
+  priority: 89
+
+813:
+  text: "The Conductor indicates everyone should Wander Aimlessly."
+  effect: "CONDITION"
+  value: "OPTION_G"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+814:
+  text: "%TARGET%'s meandering performance was harmonious."
+  effect: "PROGRESS"
+  value: 4
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "OPTION_G"
+  target_has_condition: "WANDERED"
+  priority: 89
+
+815:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_A"
+  target_not_condition: "SCHOOLED"
+  priority: 91
+
+816:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_B"
+  target_not_condition: "DOCTOR"
+  priority: 91
+
+817:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_C"
+  target_not_condition: "TRAINED"
+  priority: 91
+
+818:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_D"
+  target_not_condition: "BUNKERING"
+  priority: 91
+
+819:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_E"
+  target_not_condition: "SHOPPED"
+  priority: 91
+
+820:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_F"
+  target_not_condition: "ATTACKED"
+  priority: 91
+
+821:
+  text: "The Conductor is displeased with %TARGET%'s Noncompliance!"
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "OPTION_G"
+  target_not_condition: "WANDERED"
+  priority: 91

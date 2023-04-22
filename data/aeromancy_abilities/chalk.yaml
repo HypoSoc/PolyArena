@@ -1,0 +1,72 @@
+# Chalk I (10): -4 Combat, -4 Survivability (Fragile)
+#               You cannot be Wounded in Combat. (Wide) (Fragile)
+# Chalk II (10): Anyone that Damages you in Combat will be permanently Marked. (Subtle) (Fragile)
+# Chalk III (10): Other petrified players In Range have 8 less survivability. (Wide) (Fragile)
+# Chalk IV (10): Unpetrify yourself after each combat if you are Petrified. (Wide) (Fragile)
+# Chalk V (10): Petrify all Marked Players at the start of the next turn. (Blatant)
+
+1001:
+  name: "Chalk I"
+  concept: "CHALK"
+  cost: 10
+  aero:
+    64:
+      fragile: true
+    1001:
+      fragile: true
+    1002:
+      fragile: true
+    1003:
+      fragile: true
+  explanation: |-
+    -4 Combat and Survivability (Fragile)
+    When you are Damaged in Combat, you will crumble and reform, preventing all Wounds. (Wide) (Fragile)
+    Chalk II costs 10
+
+1002:
+  name: "Chalk II"
+  concept: "CHALK"
+  cost: 10
+  aero:
+    1004:
+      fragile: true
+  explanation: |-
+    Anyone that Damages you in Combat will be permanently Marked. (Subtle) (Fragile)
+    Chalk II costs 10
+  prerequisite: 1001
+
+1003:
+  name: "Chalk III"
+  concept: "CHALK"
+  cost: 10
+  aero:
+    1005:
+      fragile: true
+  explanation: |-
+    Petrified Players in range have 8 less Survivability. (Wide) (Fragile)
+    Chalk IV costs 10
+  prerequisite: 1002
+
+1004:
+  name: "Chalk IV"
+  concept: "CHALK"
+  cost: 10
+  aero:
+    1006:
+      fragile: true
+  explanation: |-
+    Unpetrify yourself after each combat if you are Petrified. (Wide) (Fragile)
+    Chalk V costs 10
+  prerequisite: 1003
+
+1005:
+  name: "Chalk V"
+  concept: "CHALK"
+  cost: 10
+  skills:
+    - 1007
+    - 1008
+    - 1009
+  explanation: |-
+    Petrify all Marked Players at the start of the next turn. (Blatant) (Fragile)
+  prerequisite: 1004

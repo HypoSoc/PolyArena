@@ -1,0 +1,64 @@
+#Hyena I (10): Whenever you attack an Injured Player, gain +2 Combat. (Subtle) (Fragile)
+#Hyena II (5): At the end of each turn, learn the names of all Injured players. (Subtle) (Fragile)
+#Hyena III (15): If you are attacked by one or more uninjured players, gain 1 Speed. (Wide)
+#Hyena IV (10): Injuries you inflict are Grievous. (Fragile)
+#Hyena V (10): At the end of the next turn, deal Nonlethal Damage to all other players. (Blatant)
+
+701:
+  name: "Hyena I"
+  concept: "HYENA"
+  cost: 10
+  aero:
+    701:
+      fragile: true
+  explanation: |-
+    Whenever you attack and Injured Player, gain +2 Combat (Subtle) (Fragile)
+    Hyena II costs 5
+
+702:
+  name: "Hyena II"
+  concept: "HYENA"
+  cost: 5
+  aero:
+    702:
+      fragile: true
+  explanation: |-
+    At the end of each turn, learn the name of all Injured players (Subtle) (Fragile)
+    Hyena III costs 15
+  prerequisite: 701
+
+703:
+  name: "Hyena III"
+  concept: "HYENA"
+  cost: 15
+  skills:
+    - 703
+    - 704
+  explanation: |-
+    If you are attacked by one or more uninjured players, gain 1 Speed. (Wide)
+    Hyena IV costs 10
+  prerequisite: 702
+
+704:
+  name: "Hyena IV"
+  concept: "HYENA"
+  cost: 10
+  aero:
+    23:
+      fragile: true
+  explanation: |-
+    Injuries you inflict are Grievous. (Fragile)
+    Hyena V costs 10
+  prerequisite: 703
+
+705:
+  name: "Hyena V"
+  concept: "HYENA"
+  cost: 10
+  skills:
+    - 705
+    - 706
+    - 707
+  explanation: |-
+    At the end of the next turn, deal Nonlethal Damage to all other players. (Blatant)
+  prerequisite: 704
