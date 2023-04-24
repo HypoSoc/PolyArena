@@ -796,3 +796,10 @@
   trigger: "NONCOMBAT"
   value: 20
   info: "PERSONAL"
+
+121:
+  text: "%TARGET%'s soul was wrenched apart!"
+  effect: "DAMAGE"
+  trigger: "TARGET"
+  value: 89.5
+  info: "PRIVATE"

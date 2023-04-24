@@ -8,8 +8,10 @@ class Temperament(IntEnum):
     INTUITIVE = 3
     PARANOIAC = 4
     PATIENT = 5
-    PREPARED = 6
+    PREPARED = 6  # No longer used
     SCHOLASTIC = 7
+    LUCRATIVE = 8
+    PRIVILEGED = 9
 
 
 class Condition(IntEnum):
@@ -160,6 +162,7 @@ class Effect(Enum):
     PETRIFY = 26
     ITEM = 27  # Gain Item
     CREDITS = 28  # Gain or Lose Credits
+    DAMAGE = 29  # Directly damage a foe
 
 
 class Trigger(Enum):

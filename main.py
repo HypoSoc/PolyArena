@@ -12,15 +12,18 @@ from report import get_main_report
 GAME = Game()
 
 
-def create_player(name: str, abilities=None, items=None, injured: bool = False, hiding: bool = False,
+def create_player(name: str, abilities=None, items=None,
                   dev_goals=None, temperament=Temperament.HOT_BLOODED,
-                  tattoo=None) -> Player:
+                  tattoo=None,
+                  conditions=None) -> Player:
     if dev_goals is None:
         dev_goals = []
     if items is None:
         items = []
     if abilities is None:
         abilities = []
+    if conditions is None:
+        conditions = []
     devs = {}
 
     willpower = 0
@@ -32,7 +35,7 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
         if ability.concept:
             concept = ability.concept
         devs[ability.pin] = ability.cost
-        for skill in ability.get_skills([], []):
+        for skill in ability.get_skills([], [], choice=0):
             if skill.effect == Effect.MAX_WILLPOWER:
                 willpower += skill.value
         if ability.pin in [306, 307]:
@@ -42,10 +45,12 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
             if prereq.concept:
                 concept = prereq.concept
             devs[prereq.pin] = prereq.cost
-            for skill in prereq.get_skills([], []):
+            for skill in prereq.get_skills([], [], choice=0):
                 if skill.effect == Effect.MAX_WILLPOWER:
                     willpower += skill.value
             prereq = prereq.get_prerequisite()
+
+    devs = {k: devs[k] for k in sorted(devs.keys())}
 
     item_pins = []
     for item_names in items:
@@ -56,18 +61,13 @@ def create_player(name: str, abilities=None, items=None, injured: bool = False, 
     for dev_name in dev_goals:
         dev_list.append(get_ability_by_name(dev_name).pin)
 
-    conditions = []
-    if injured:
-        conditions.append(Condition.INJURED)
-    if hiding:
-        conditions.append(Condition.HIDING)
-
     if tattoo:
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
                     items=item_pins, money=3, willpower=willpower, bounty=1,
                     relative_conditions={}, tattoo=tattoo, concept=concept,
+                    crafted_before=[],
                     game=GAME)
 
     if temperament == Temperament.PATIENT:
@@ -93,58 +93,106 @@ def load(file_prefix: str):
 
         for player_name, player_data in data['players'].items():
             player_data['game'] = GAME
-            player_data['progress_dict'] = {int(k): v for k,v in player_data['progress_dict'].items()}
+            player_data['progress_dict'] = {int(k): v for k, v in player_data['progress_dict'].items()}
+            player_data['temperament'] = Temperament(player_data['temperament'])
+            player_data['conditions'] = [Condition(c) for c in player_data['conditions']]
+            player_data['relative_conditions'] = {k: [Condition(c) for c in v]
+                                                  for k, v in player_data['relative_conditions'].items()}
             Player(**player_data)
 
         for automata_name, automata_data in data['automata'].items():
             automata_data['owner'] = GAME.get_player(automata_data['owner'])
             automata_data['game'] = GAME
+            automata_data['conditions'] = [Condition(c) for c in automata_data['conditions']]
+            automata_data['relative_conditions'] = {k: [Condition(c) for c in v]
+                                                    for k, v in automata_data['relative_conditions'].items()}
+
             Automata(**automata_data)
+
+
+def init():
+    create_player("Artful Lounger", ["Martial Arts III", "Sniping"], temperament=Temperament.PREPARED,
+                  dev_goals=["Armored Combat", "Armed Combat II", "Circuit I", "Water I"],
+                  items=["Oblivion Ordinance"])
+    create_player("BlueMangoAdea", ["Theft", "Market Connections II"], temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Awareness III", "Trade Secrets", "Copycat"])
+    create_player("Megaolix", ["Psy Ops", "Armed Combat II"],
+                  temperament=Temperament.PREPARED,
+                  dev_goals=["Awareness III", "Theft"],
+                  items=["Force Projection", "Bokken"],
+                  conditions=[Condition.RINGER])
+    create_player("Paradosi", ["Mental Fortification I", "Armed Combat I", "Ambush Tactics I"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Counter Ambush Tactics", "Armed Combat II"])
+    create_player("PocketRikimaru", ["Conductor I", "Legacy Magic", "Forged in Fire"],
+                  temperament=Temperament.PREPARED,
+                  dev_goals=["Awareness I", "Conductor II", "Conductor III", "Conductor IV", "Conductor V",
+                             "Conductor VI", "Conductor VII"],
+                  items=["Synthetic Weave", "Oxygen Mask", "Poison Gas"])
+    create_player("Random Anon", ["Martial Arts I", "Awareness III", "Counter Ambush Tactics"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Armed Combat I", "Martial Arts II", "Martial Arts III"])
+    create_player("Ricardian", ["Awareness III", "Copycat"], temperament=Temperament.PREPARED,
+                  dev_goals=["Attunement Detection", "Willpower Detection", "Theft"],
+                  items=["Force Projection", "Booby Trap"])
+    create_player("Sargon", ["Panopticon", "Martial Arts I"],
+                  temperament=Temperament.PREPARED,
+                  dev_goals=["Armed Combat I", "Armored Combat", "Know Thy Enemy", "Psy Ops",
+                             "Martial Arts II", "Aeromancy Intuition I"],
+                  items=["Bokken", "Force Projection"])
+    create_player("Seventeen", ["Hyena III"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Martial Arts I", "Martial Arts II", "Hyena IV"])
+    create_player("Songaro", ["Chalk II", "Mental Fortification I"], temperament=Temperament.INTUITIVE)
+    create_player("Zeal Iskander", ["Martial Arts III", "Armed Combat II"],
+                  temperament=Temperament.PREPARED,
+                  dev_goals=["Armored Combat", "Armor Break"],
+                  items=["Bokken", "Oxygen Mask", "Poison Gas", "Poison Gas", "Poison Gas", "Poison Gas"])
+
+    summary()
+
+
+def summary():
+    for player_name, player in GAME.players.items():
+        if not player.is_dead():
+            print(f"{player_name} ({player.temperament.name}) [{player.academics} Academics]: "
+                  f"{[ability.name for ability in player.get_abilities()]}({player.get_total_dev()}) "
+                  f"{[item.name for item in player.get_items(duplicates=True)]}"
+                  f"({player.get_total_credit_value()}) "
+                  f"{player.condition_debug()}")
+            print()
+    print()
+
+
+def to_conductor_choice(choice):
+    return [Class, Doctor, Train, Bunker, Shop, Attack, Wander].index(choice)
 
 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
-    # a = create_player("Alpha", ["Willpower V", "Crafting III"],
-    #                   ["Healing Tank", "Workbench", "Booby Trap", "Face Mask", "Leather Armor", "Bokken"],
-    #                   injured=False)
-    # b = create_player("Beta", ["Circuit V", "Earth III", "Awareness I", "Willpower Draining", "Fast Attune II"],
-    #                   ["1/2 Medkit", "Poison Gas", "Bunker Shields", "Bunker Munitions", "Venom",
-    #                    "Healing Tank", "Booby Trap", "Leather Armor"],
-    #                   dev_goals=["Martial Arts I", "Martial Arts II", "Martial Arts III"],
-    #                   temperament=Temperament.PATIENT)
-    # c = create_player("Charlie", ["Theft", "Unnatural Intuition", "Fast Attune III",
-    #                               "Illusions III", "Aeromancy Intuition II", "Speed (Geo) II",
-    #                               "Circuit III", "Antimagic (Aero)", "Light II", "Willpower IV"],
-    #                   ["Venom", "Poison Gas", "Face Mask", "Camo Cloak", "Bokken"],
-    #                   dev_goals=[])
-    # d = create_player("Delta", ["Attunement Detection", "Willpower Detection", "Know Thy Enemy",
-    #                             "Awareness II", "Theft", "Aeromancy Intuition I"],
-    #                   items=["Shrooms", "Medkit"],
-    #                   dev_goals=["Aeromancy Intuition II"], temperament=Temperament.PATIENT)
-    load("test")
+    # init()
+
+    a = create_player("Alpha", ["Soul Strike"])
+    b = create_player("Beta", conditions=[Condition.INJURED], items=["Lizard Tail"])
 
     GAME.advance()
 
-    a = GAME.get_player("Alpha")
-    b = GAME.get_player("Beta")
-    c = GAME.get_player("Charlie")
-    d = GAME.get_player("Delta")
-    f = GAME.get_player("Fred")
+    a.plan_hydro("Soul Strike", targets=b)
+    a.plan_class()
+    b.plan_class()
 
-    a.plan_hydro("Crafting III")
-    a.plan_craft("Sword", "Leather Armor")
-    a.plan_trade(c, item_names=["Sword", "Leather Armor"])
-    b.plan_attack(f)
-    c.plan_attack(f)
+    was_alive = [p for p in GAME.players.values() if not p.is_dead()]
 
     Action.run_turn(GAME)
 
-    for p in GAME.players.values():
-        if not p.is_dead():
-            print(f"{p.name} Report")
-            print(p.get_report())
-            print()
+    for p in was_alive:
+        print(f"{p.name} Report{os.linesep}")
+        print(p.get_report())
+        print()
 
     print(get_main_report().generate_report(GAME))
+    # # # # # #
 
-    GAME.save("test")
+    summary()
+
+# git update-index --no-assume-unchanged main.py

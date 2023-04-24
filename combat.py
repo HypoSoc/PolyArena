@@ -561,6 +561,11 @@ class CombatHandler:
                             for sniped in self.attacker_to_defenders.get(target, []):
                                 conditions[sniped].append(Condition.SNIPED)
                             queue.put(sniper_tic(skill.priority, target))
+                        elif skill.effect == Effect.DAMAGE:
+                            queue.put(damage_tic(skill.priority + 1, source=p, target=target,
+                                                 dmg_type=get_damage_type(p),
+                                                 injury_modifiers=get_injury_modifiers(p),
+                                                 target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.NONLETHAL:
                             queue.put(damage_tic(skill.priority+1, source=p, target=target,
                                                  dmg_type=get_damage_type(p, DamageType.NONLETHAL),

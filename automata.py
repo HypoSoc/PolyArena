@@ -17,7 +17,7 @@ class Automata(Player):
                  game: Game):
         super().__init__(name, progress_dict={}, dev_plan=[], academics=0, temperament=Temperament.NONE, concept=None,
                          conditions=conditions, items=items, money=0, willpower=0, bounty=bounty,
-                         relative_conditions=relative_conditions, tattoo=tattoo,
+                         relative_conditions=relative_conditions, tattoo=tattoo, crafted_before=[],
                          game=game)
         self.owner = owner
 

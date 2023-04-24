@@ -363,3 +363,11 @@
   skills:
     - 82
   prerequisite: 201
+
+239:
+  name: "Soul Strike"
+  cost: 10
+  hydro:
+    121:
+      cost: 5
+  prerequisite: 204

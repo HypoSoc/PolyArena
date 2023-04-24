@@ -126,13 +126,11 @@
 519:
   name: "Market Connections I"
   cost: 5
-  skills:
-    - 114
+  skills: []
   prerequisite: 501
 
 520:
   name: "Market Connections II"
   cost: 5
-  skills:
-    - 115
+  skills: []
   prerequisite: 519

@@ -38,7 +38,7 @@ ACTION_CONDITION = Tuple['Player', Type['Action'], Optional['Player'], bool]  # 
 ITEM_CONDITION = Tuple['Player', int, Dict['Item', int]]
 
 
-def noncombat_wound(source: 'Player', victim: 'Player', modifiers: List[InjuryModifier] = None, petrify=False):
+def noncombat_damage(source: 'Player', victim: 'Player', modifiers: List[InjuryModifier] = None, petrify=False):
     if not modifiers:
         modifiers = []
 
@@ -375,12 +375,15 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.MAX_WILLPOWER:
                 if not self.fake:
                     target.max_willpower += self.skill.value
+            elif self.skill.effect == Effect.DAMAGE:
+                if not self.fake:
+                    noncombat_damage(self.player, target)
             elif self.skill.effect == Effect.NONLETHAL:
                 if not self.fake:
-                    noncombat_wound(self.player, target, [InjuryModifier.NONLETHAL])
+                    noncombat_damage(self.player, target, [InjuryModifier.NONLETHAL])
             elif self.skill.effect == Effect.PETRIFY:
                 if not self.fake:
-                    noncombat_wound(self.player, target, petrify=True)
+                    noncombat_damage(self.player, target, petrify=True)
             elif self.skill.effect == Effect.ITEM:
                 if not self.fake:
                     if self.skill.value_b:
@@ -610,7 +613,7 @@ class Class(Action):
         self.player.academics += 1 + (self.player.conditions + self.player.turn_conditions).count(Condition.STUDIOUS)
         self.player.report += f"Academics ({self.player.academics})"+os.linesep
         if self.player.temperament == Temperament.SCHOLASTIC:
-            Action.progress(self.player, 3)
+            Action.progress(self.player, 5)
         Action.add_action_record(self.player, Class)
         self.player.turn_conditions.append(Condition.SCHOOLED)
 
@@ -818,7 +821,7 @@ class StealFollow(Action):
 
         if self.trap:
             self.player.report += "A booby trap exploded in your face!" + os.linesep
-            noncombat_wound(self.target, self.player, [InjuryModifier.NONLETHAL])
+            noncombat_damage(self.target, self.player, [InjuryModifier.NONLETHAL])
             get_main_report().broadcast(f"A booby trap exploded in {self.player.name}'s face!")
 
         if self.target not in StealFollow.handled:
@@ -913,6 +916,10 @@ class Craft(Action):
                     Action.create_automata(self.game, self.player, self.automata_names[i])
             else:
                 self.player.gain_item(item, amount)
+            if item.pin not in self.player.crafted_before:
+                self.player.crafted_before.add(item.pin)
+                if self.player.temperament == Temperament.PARANOIAC:
+                    Action.progress(self.player, 2)
         Action.add_action_record(self.player, Craft)
 
 
@@ -1847,10 +1854,16 @@ class StatusChangeStep(Action):
 
                 if self.game.is_night():
                     if not player.is_automata:
-                        player.gain_credits(1)
-                        player.report += f"Student Services has granted you 1 credit " \
-                                         f"({player.get_credits()} total)." \
-                                         + os.linesep + os.linesep
+                        if player.temperament == Temperament.LUCRATIVE:
+                            player.gain_credits(2)
+                            player.report += f"Student Services has granted you 2 credits " \
+                                             f"({player.get_credits()} total)." \
+                                             + os.linesep + os.linesep
+                        else:
+                            player.gain_credits(1)
+                            player.report += f"Student Services has granted you 1 credit " \
+                                             f"({player.get_credits()} total)." \
+                                             + os.linesep + os.linesep
 
 
 class Resurrect(Action):

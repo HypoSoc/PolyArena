@@ -36,6 +36,7 @@ class Player:
                  conditions: List[Condition], items: List[int], money: int,
                  willpower: int, bounty: int,
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
+                 crafted_before: List[int],
                  game: Game):
         assert "%" not in name, "Illegal character %"
 
@@ -51,6 +52,7 @@ class Player:
         self.bounty = bounty
         self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy_abilities
         self.tattoo = tattoo  # Rune item pin
+        self.crafted_before = crafted_before
         self.game = game
 
         self.consuming = False
@@ -132,7 +134,7 @@ class Player:
                        conditions=self.conditions.copy(),
                        items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
                        relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
-                       tattoo=self.tattoo,
+                       tattoo=self.tattoo, crafted_before=self.crafted_before,
                        game=game)
         clone.disabled_ability_pins = set()
         clone.consumed_items = self.consumed_items.copy()
@@ -153,7 +155,7 @@ class Player:
                       'conditions': self.conditions[:], 'items': self.items, 'money': self.credits,
                       'willpower': self.willpower, 'bounty': self.bounty,
                       'relative_conditions': {k: v[:] for k, v in self.relative_conditions.items()},
-                      'tattoo': self.tattoo}
+                      'tattoo': self.tattoo, 'crafted_before': self.crafted_before}
         return serialized
 
     # Used for evaluating simulations
