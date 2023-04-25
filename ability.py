@@ -83,13 +83,8 @@ class HydroQualifiedSkill:
             if not for_rune:
                 if self.fragile:
                     skill.set_fragile(self.fragile)
-                    if skill.trigger not in NONCOMBAT_TRIGGERS:
-                        if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                            skill.priority = 20
-                    if skill.effect == Effect.CONDITION:
-                        skill.effect = Effect.TENTATIVE_CONDITION
-                        if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                            skill.priority = 20
+                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                        skill.priority = 20
 
             # To prevent multi triggers of progress, we combine them into a single skill for the each case
             skills.append(skill)
@@ -113,13 +108,8 @@ class AeroQualifiedSkill:
         if not for_rune:
             if self.fragile:
                 skill.set_fragile(self.fragile)
-                if skill.trigger not in NONCOMBAT_TRIGGERS:
-                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                        skill.priority = 20
-                if skill.effect == Effect.CONDITION:
-                    skill.effect = Effect.TENTATIVE_CONDITION
-                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                        skill.priority = 20
+                if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                    skill.priority = 20
 
         return [skill]
 
@@ -323,7 +313,8 @@ if not __ability_dict:
     for file_name in file_names:
         with open(file_name) as file:
             ability_list = safe_load(file)
-            for (k, v) in ability_list.items():
-                if k in __ability_dict:
-                    raise Exception(f"ID collision in {file_name} {k}")
-                __ability_dict[k] = __parse_ability(k, v)
+            if ability_list:
+                for (k, v) in ability_list.items():
+                    if k in __ability_dict:
+                        raise Exception(f"ID collision in {file_name} {k}")
+                    __ability_dict[k] = __parse_ability(k, v)

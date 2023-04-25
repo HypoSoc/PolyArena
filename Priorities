@@ -11,6 +11,7 @@ Fighting
 21: Bunker Bonus
 25: Speed Ambush/Willpower Drain/Armor Break
 31+: ARMED properly reset after will blades
+68: Combat/Surv down
 69: Weakest Stat Buff  # NO COMBAT/NO SURV effects should happen after this
 70-99: Reserved Poison Gas + Wounding
 100-109: Reserved Damage Calculation/Fighting

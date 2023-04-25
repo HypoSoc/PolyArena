@@ -27,6 +27,12 @@ class Game:
             time_of_day = "Night"
         return f"{time_of_day} {self.turn}"
 
+    def to_file_suffix(self):
+        time_of_day = "d"
+        if self.night:
+            time_of_day = "n"
+        return f"{self.turn}{time_of_day}"
+
     def clone(self, complete: bool = False):
         clone = Game()
         clone.turn = self.turn
@@ -54,7 +60,7 @@ class Game:
 
         serialized = self.serialize()
 
-        with open(f"save/{file_prefix}_{str(self).replace(' ', '_').lower()}.json", 'w') as f:
+        with open(f"save/{file_prefix}_{self.to_file_suffix().replace(' ', '_').lower()}.json", 'w') as f:
             json.dump(serialized, f, indent=4)
 
         with open(f"save/{file_prefix}.json", 'w') as f:

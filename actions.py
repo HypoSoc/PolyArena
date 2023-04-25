@@ -1,14 +1,14 @@
 import os
 from queue import PriorityQueue
-from random import random
 from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type, Union
 
 import roman as roman
+import random
 
 from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
-    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS
+    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY
 from items import get_item_by_name, get_item, Item, Rune
 from report import get_main_report
 
@@ -337,16 +337,22 @@ class HandleSkill(Action):
 
             if self.skill.effect == Effect.CONDITION:
                 if not self.fake:
-                    for _ in range(times):
-                        target.turn_conditions.append(Condition[self.skill.value])
+                    if Condition[self.skill.value] not in CONDITION_IMMUNITY \
+                            or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
+                        for _ in range(times):
+                            target.turn_conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.PERMANENT_CONDITION:
                 if not self.fake:
-                    for _ in range(times):
-                        target.conditions.append(Condition[self.skill.value])
+                    if Condition[self.skill.value] not in CONDITION_IMMUNITY \
+                            or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
+                        for _ in range(times):
+                            target.conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.TENTATIVE_CONDITION:
                 if not self.fake:
-                    for _ in range(times):
-                        target.tentative_conditions.append(Condition[self.skill.value])
+                    if Condition[self.skill.value] not in CONDITION_IMMUNITY \
+                            or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
+                        for _ in range(times):
+                            target.tentative_conditions.append(Condition[self.skill.value])
             elif self.skill.effect == Effect.REL_CONDITION:
                 # To be refactored if I ever need to give arbitrary players relative_conditions
                 if target == self.player:
@@ -396,6 +402,9 @@ class HandleSkill(Action):
                         target.gain_credits(self.skill.value)
                     elif self.skill.value < 0:
                         target.lose_credits(self.skill.value * -1)
+            elif self.skill.effect == Effect.INTERRUPT:
+                if not self.fake:
+                    Action.interrupted_players.add(target)
 
             else:
                 raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
@@ -409,6 +418,8 @@ class HandleSkill(Action):
                 HandleSkill(game, player, skill, targets=skill.targets)
         elif skill.trigger == Trigger.ALL:
             HandleSkill(game, player, skill, targets=list(Action.players))
+        elif skill.trigger == Trigger.RANDOM:
+            HandleSkill(game, player, skill, targets=[random.choice([p for p in Action.players if not p.is_dead()])])
         elif skill.trigger == Trigger.OTHERS:
             HandleSkill(game, player, skill, targets=[p for p in Action.players if p != player])
 
@@ -917,7 +928,7 @@ class Craft(Action):
             else:
                 self.player.gain_item(item, amount)
             if item.pin not in self.player.crafted_before:
-                self.player.crafted_before.add(item.pin)
+                self.player.crafted_before.append(item.pin)
                 if self.player.temperament == Temperament.PARANOIAC:
                     Action.progress(self.player, 2)
         Action.add_action_record(self.player, Craft)
@@ -1579,7 +1590,7 @@ class Illusion(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player",
                  fake_action: 'Action', fake_training: Optional['Ability'] = None):
         # Randomly sort multiple illusions on the same target
-        super().__init__(12+(random()/2.0), game=game, player=player, fragile=False)
+        super().__init__(12+(random.random()/2.0), game=game, player=player, fragile=False)
         self.target = target
         self.fake_action = fake_action
         self.fake_training = fake_training
@@ -1613,7 +1624,7 @@ class MasterIllusion(Action):
     def __init__(self, game: Optional['Game'], player: "Player",
                  target: "Player", defended: "Player", redirected: "Player"):
         # Randomly sort multiple illusions on the same target
-        super().__init__(12+(random()/2.0), game=game, player=player, fragile=False)
+        super().__init__(12+(random.random()/2.0), game=game, player=player, fragile=False)
         self.target = target
         self.defended = defended
         self.redirected = redirected

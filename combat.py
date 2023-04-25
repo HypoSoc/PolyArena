@@ -869,6 +869,18 @@ class CombatHandler:
 
                 survivability[player] += conditions[player].count(Condition.FORGED)
 
+                if Condition.COMBAT_DOWN in conditions[player]:
+                    combat_down_skill = Skill(-1, text="Combat -X", effect=Effect.COMBAT,
+                                              value=-1*conditions[player].count(Condition.COMBAT_DOWN),
+                                              priority=69, info=InfoScope.HIDDEN, trigger=Trigger.SELF)
+                    queue.put(skill_tic(player, combat_down_skill))
+
+                if Condition.SURVIVABILITY_DOWN in conditions[player]:
+                    survivability_down_skill = Skill(-1, text="Survivability -X", effect=Effect.SURVIVABILITY,
+                                                     value=-1*conditions[player].count(Condition.SURVIVABILITY_DOWN),
+                                                     priority=69, info=InfoScope.HIDDEN, trigger=Trigger.SELF)
+                    queue.put(skill_tic(player, survivability_down_skill))
+
                 if Condition.PETRIFIED in conditions[player]:
                     conditions[player].append(Condition.GAS_IMMUNE)
 

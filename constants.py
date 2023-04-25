@@ -113,9 +113,17 @@ class Condition(IntEnum):
     MARKED = 95
     CRUMBLING = 96  # -1 Survivability when petrified
     RINGER = 97  # Is the ringer
+    SICKENED = 98
+    SICK_IMMUNE = 99
+    COMBAT_DOWN = 100  # -1 Combat
+    SURVIVABILITY_DOWN = 101  # -1 Survivability
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
+
+CONDITION_IMMUNITY = {
+    Condition.SICKENED: Condition.SICK_IMMUNE
+}
 
 
 class InfoScope(Enum):
@@ -163,6 +171,7 @@ class Effect(Enum):
     ITEM = 27  # Gain Item
     CREDITS = 28  # Gain or Lose Credits
     DAMAGE = 29  # Directly damage a foe
+    INTERRUPT = 30  # Prevent interruptable actions
 
 
 class Trigger(Enum):
@@ -186,11 +195,12 @@ class Trigger(Enum):
     OTHERS = 20  # Affects all players but the user
     ATTACKED_IGNORE_RANGE = 21
     COMBAT_DAMAGED = 22  # Triggers when damaged targeting the source
+    RANDOM = 23  # Random Player
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
                       Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET,
-                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL]
+                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL, Trigger.RANDOM]
 
 
 class ItemType(Enum):
