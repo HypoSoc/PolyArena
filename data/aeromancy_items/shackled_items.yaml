@@ -1,8 +1,0 @@
-901:
-  name: "Dimensional Key"
-  cost: -2
-  type: "CONSUMABLE"
-  skills:
-    - 906
-    - 907
-    - 910
