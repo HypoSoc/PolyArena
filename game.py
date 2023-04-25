@@ -89,8 +89,9 @@ class Game:
                                       for target in targets if not self.get_player(target).is_dead()]
                     if not source_player.is_dead():
                         from actions import HandleSkill
-                        HandleSkill(self, source_player, get_skill(skill_pin),
-                                    target_players if target_players else None)
+                        skill = get_skill(skill_pin)
+                        skill.targets = target_players
+                        HandleSkill.handle_noncombat_skill(self, source_player, skill)
                     handled.append((turn, night, skill_pin, source, targets))
         for handled_event in handled:
             self.events.remove(handled_event)
@@ -100,6 +101,18 @@ class Game:
 
     def is_night(self):
         return self.night
+
+    def add_event_in_x_turns(self, turns: int, skill_pin: int,
+                             source: 'Player', targets: Optional[List['Player']] = None):
+        assert turns > 0
+        turn = self.turn
+        night = self.night
+        while turns > 0:
+            turns -= 1
+            if night:
+                turn += 1
+            night = not night
+        self.add_event(turn, night, skill_pin, source, targets)
 
     def add_event(self, turn: int, night: bool, skill_pin: int,
                   source: 'Player', targets: Optional[List['Player']] = None):

@@ -139,10 +139,10 @@ class Player:
         clone.disabled_ability_pins = set()
         clone.consumed_items = self.consumed_items.copy()
         clone.turn_conditions = self.turn_conditions.copy()
-        clone.tentative_conditions = self.tentative_conditions
-        clone.temporary_abilities = self.temporary_abilities
-        clone.ability_choices = self.ability_choices
-        clone.item_choices = self.item_choices
+        clone.tentative_conditions = self.tentative_conditions.copy()
+        clone.temporary_abilities = self.temporary_abilities.copy()
+        clone.ability_choices = self.ability_choices.copy()
+        clone.item_choices = self.item_choices.copy()
         clone.circuits = self.circuits[:]
         clone.max_willpower = self.max_willpower
         clone.hydro_spells = self.hydro_spells
@@ -445,7 +445,7 @@ class Player:
                 raise Exception(f"Player {self.name} is trying to blackmail {target.name} when they don't have a hook.")
             Blackmail(self.game, self, target)
 
-    def plan_consume_item(self, *item_names: 'str'):
+    def plan_consume_item(self, *item_names: 'str', ignore_possession_check=False):
         if self.consuming:
             raise Exception(f"Player {self.name} is trying to consume multiple times.")
         self.consuming = True
@@ -454,7 +454,7 @@ class Player:
             if item.pin in CONSUME_PREFER:
                 if CONSUME_PREFER[item.pin] in self.items:
                     item = get_item(CONSUME_PREFER[item.pin])
-            if item.pin not in self.items:
+            if not ignore_possession_check and item.pin not in self.items:
                 raise Exception(f"Player {self.name} is trying to use an item they don't have ({item_name}).")
             if item.item_type != ItemType.CONSUMABLE:
                 raise Exception(f"Player {self.name} is trying to use an item that isn't consumable ({item_name}).")

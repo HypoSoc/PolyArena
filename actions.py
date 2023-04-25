@@ -282,6 +282,8 @@ class HandleSkill(Action):
                 return True
             return False
 
+        schedule_targets = []
+
         for target in self.targets:
             if target.is_dead():
                 continue
@@ -405,9 +407,17 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.INTERRUPT:
                 if not self.fake:
                     Action.interrupted_players.add(target)
+            elif self.skill.effect == Effect.SCHEDULE:
+                if not self.fake:
+                    schedule_targets.append(target)
 
             else:
                 raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
+
+        if self.skill.effect == Effect.SCHEDULE:
+            if schedule_targets:
+                self.game.add_event_in_x_turns(self.skill.value_b, skill_pin=self.skill.value,
+                                               source=self.player, targets=schedule_targets)
 
     @classmethod
     def handle_noncombat_skill(cls, game: 'Game', player: 'Player', skill: 'Skill'):
@@ -1840,6 +1850,8 @@ class StatusChangeStep(Action):
             if not player.is_dead():
                 player.report += os.linesep
                 if Condition.PETRIFIED in player.conditions:
+                    if self.player not in Action.not_wandering:
+                        get_main_report().add_action(player, f"{player.name} was stuck as a Statue.")
                     player.conditions.remove(Condition.PETRIFIED)
                     count = player.conditions.count(Condition.PETRIFIED)
                     if count:

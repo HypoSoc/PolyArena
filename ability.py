@@ -51,8 +51,9 @@ class GeoQualifiedSkill:
             if not for_rune:
                 if self.fragile:
                     skill.set_fragile(self.fragile)
-                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                        skill.priority = 20
+                    if skill.trigger not in NONCOMBAT_TRIGGERS:
+                        if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                            skill.priority = 20
                 if skill.trigger == Trigger.NONCOMBAT:
                     skill.trigger = Trigger.NONCOMBAT_POST_ATTUNE
                     if skill.effect == Effect.CONDITION:
@@ -83,8 +84,9 @@ class HydroQualifiedSkill:
             if not for_rune:
                 if self.fragile:
                     skill.set_fragile(self.fragile)
-                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                        skill.priority = 20
+                    if skill.trigger not in NONCOMBAT_TRIGGERS:
+                        if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                            skill.priority = 20
 
             # To prevent multi triggers of progress, we combine them into a single skill for the each case
             skills.append(skill)
@@ -108,8 +110,9 @@ class AeroQualifiedSkill:
         if not for_rune:
             if self.fragile:
                 skill.set_fragile(self.fragile)
-                if skill.priority < 20:  # Fragile Skills have to happen after antimagic
-                    skill.priority = 20
+                if skill.trigger not in NONCOMBAT_TRIGGERS:
+                    if skill.priority < 20:  # Fragile Skills have to happen after antimagic
+                        skill.priority = 20
 
         return [skill]
 

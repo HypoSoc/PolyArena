@@ -56,7 +56,6 @@ class Report(object):
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:
             self.petrified.add(player)
-            self.add_action(player, f"{player.name} was Petrified.")
 
     def add_death(self, player: "Player"):
         if player not in self.dead:

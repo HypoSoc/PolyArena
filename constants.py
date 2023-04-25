@@ -117,6 +117,7 @@ class Condition(IntEnum):
     SICK_IMMUNE = 99
     COMBAT_DOWN = 100  # -1 Combat
     SURVIVABILITY_DOWN = 101  # -1 Survivability
+    ORDERLY = 102
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -172,6 +173,7 @@ class Effect(Enum):
     CREDITS = 28  # Gain or Lose Credits
     DAMAGE = 29  # Directly damage a foe
     INTERRUPT = 30  # Prevent interruptable actions
+    SCHEDULE = 31  # Schedule skill value in value_b turns
 
 
 class Trigger(Enum):
