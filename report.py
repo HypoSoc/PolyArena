@@ -52,6 +52,8 @@ class Report(object):
                    aero: bool = False) -> NoReturn:
         if player not in self.hiding:
             self.actions.append((player, content, fake, hidden, aero))
+        else:
+            self.actions.append((player, content, fake, True, aero))
 
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:

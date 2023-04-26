@@ -470,6 +470,9 @@ class Wander(Action):
 
     def act(self):
         if self.player not in Action.not_wandering:
+            if self.player.has_condition(Condition.HIDING):
+                self.public_description = f"{self.player.name} hid."
+                self.on_interrupt = f"{self.player.name} failed to hide."
             super().act()
 
     def _act(self):
