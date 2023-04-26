@@ -424,6 +424,19 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.SCHEDULE:
                 if not self.fake:
                     schedule_targets.append(target)
+            elif self.skill.effect == Effect.GAIN_ABILITY_OR_PROGRESS:
+                if not self.fake:
+                    ability = get_ability(self.skill.value)
+                    if target.has_ability(ability.name, strict=True):
+                        target.report += f"You already have {ability.name}.{os.linesep}"
+                        Action.progress(target, ability.cost)
+                    elif ability.get_prerequisite() and \
+                            not target.has_ability(ability.get_prerequisite().name, strict=True,
+                                                   ignore_this_turn=False):
+                        target.report += f"You lack the prerequisite for {ability.name}.{os.linesep}"
+                        Action.progress(target, ability.cost)
+                    else:
+                        target.gain_ability(ability)
 
             else:
                 raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
@@ -1222,6 +1235,13 @@ class Spy(Action):
                          public_description=f"{player.name} spied on {target.name}.")
         self.target = target
 
+    def act(self):
+        if not self.player.has_condition(Condition.CAN_SPY):
+            return
+        if self.game.is_day() and not self.player.has_condition(Condition.DAY_SPY):
+            return
+        super().act()
+
     def _act(self):
         counter_int = self.target.has_condition(Condition.COUNTER_INT)
         if counter_int:
@@ -1864,7 +1884,7 @@ class StatusChangeStep(Action):
             if not player.is_dead():
                 player.report += os.linesep
                 if Condition.PETRIFIED in player.conditions:
-                    if self.player not in Action.not_wandering:
+                    if player not in Action.not_wandering:
                         get_main_report().add_action(player, f"{player.name} was stuck as a Statue.")
                     player.conditions.remove(Condition.PETRIFIED)
                     count = player.conditions.count(Condition.PETRIFIED)

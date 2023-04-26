@@ -424,10 +424,6 @@ class Player:
 
     def plan_spy(self, *targets: "Player"):
         self._generic_action_check(bonus=True)
-        if self.game.is_day():
-            raise Exception(f"Player {self.name} is trying to spy in broad daylight.")
-        if not self.has_ability("Awareness II"):
-            raise Exception(f"Player {self.name} is trying to spy but lacks the ability.")
         max_targets = 1
         if self.has_ability("Awareness III"):
             max_targets += 1

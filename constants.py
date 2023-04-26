@@ -119,6 +119,8 @@ class Condition(IntEnum):
     SURVIVABILITY_DOWN = 101  # -1 Survivability
     ORDERLY = 102
     HONED = 103  # Permanent Combat Increase
+    DAY_SPY = 104
+    CAN_SPY = 105
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -175,6 +177,7 @@ class Effect(Enum):
     DAMAGE = 29  # Directly damage a foe
     INTERRUPT = 30  # Prevent interruptable actions
     SCHEDULE = 31  # Schedule skill value in value_b turns
+    GAIN_ABILITY_OR_PROGRESS = 32  # Grant the ability, or grant equivalent progress if ability cannot be gained
 
 
 class Trigger(Enum):
