@@ -867,6 +867,7 @@ class CombatHandler:
                 queue.put(skill_tic(player, bunker_combat_skill))
                 queue.put(skill_tic(player, bunker_survive_skill))
 
+                combat[player] += conditions[player].count(Condition.HONED)
                 survivability[player] += conditions[player].count(Condition.FORGED)
 
                 if Condition.COMBAT_DOWN in conditions[player]:

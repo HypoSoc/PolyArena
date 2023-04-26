@@ -118,6 +118,7 @@ class Condition(IntEnum):
     COMBAT_DOWN = 100  # -1 Combat
     SURVIVABILITY_DOWN = 101  # -1 Survivability
     ORDERLY = 102
+    HONED = 103  # Permanent Combat Increase
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -198,11 +199,13 @@ class Trigger(Enum):
     ATTACKED_IGNORE_RANGE = 21
     COMBAT_DAMAGED = 22  # Triggers when damaged targeting the source
     RANDOM = 23  # Random Player
+    PLAYER_DIED = 24  # Happens whenever a player dies. Target is the dead player
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
                       Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET,
-                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL, Trigger.RANDOM]
+                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL, Trigger.RANDOM,
+                      Trigger.PLAYER_DIED]
 
 
 class ItemType(Enum):

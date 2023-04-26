@@ -233,6 +233,15 @@ class Action:
         Action.not_wandering.add(automata)
         owner.report += f"You acquired {name}." + os.linesep
 
+    @classmethod
+    def handle_death_triggers(cls, game: Optional['Game'], dead_player: 'Player'):
+        if game and not game.simulation:
+            for player in Action.players:
+                if not player.is_dead():
+                    for skill in player.get_skills():
+                        if skill.trigger == Trigger.PLAYER_DIED:
+                            HandleSkill(game, player, skill, targets=[dead_player])
+
 
 class HandleSkill(Action):
     info_once_dict: Dict['Player', Set[str]] = {}
@@ -284,8 +293,10 @@ class HandleSkill(Action):
 
         schedule_targets = []
 
-        for target in self.targets:
-            if target.is_dead():
+        for original_target in self.targets:
+            target = original_target
+
+            if target.is_dead() and not self.skill.trigger == Trigger.PLAYER_DIED:
                 continue
             if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
                 continue
@@ -336,6 +347,9 @@ class HandleSkill(Action):
             times = 1  # For repeated CONDITION type effects
             if self.skill.value_b and isinstance(self.skill.value_b, int):
                 times = self.skill.value_b
+
+            if self.skill.self_override:
+                target = self.player
 
             if self.skill.effect == Effect.CONDITION:
                 if not self.fake:

@@ -237,7 +237,8 @@ class Player:
         cleaned = self.report\
             .replace(COMBAT_PLACEHOLDER, get_main_report().get_combat_report_for_player(self))\
             .replace(self.name+"'s", "your")\
-            .replace(self.name, "you")\
+            .replace(self.name, "you") \
+            .replace("you has", "you have") \
             .replace("you was", "you were") \
             .replace("you is", "you are") \
             .replace("you healed themself", "you healed yourself") \
@@ -890,6 +891,7 @@ class Player:
         if not reporting_func:
             reporting_func = self._non_combat_report_callable()
         self.conditions.append(Condition.DEAD)
+        Action.handle_death_triggers(self.game, self)
         if self.has_condition(Condition.RESURRECT):
             Resurrect(self.game, self, self.has_condition(Condition.STEALTH_REZ))
             if self.has_condition(Condition.STEALTH_REZ):

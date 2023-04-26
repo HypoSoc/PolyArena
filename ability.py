@@ -182,7 +182,7 @@ class Ability:
             skills.extend([skill for qualified in self.hydro_qualified_skills
                            for skill in qualified.get_skills(qualified.cost, for_rune=True)])
             skills.extend(self._get_aero_skills(choice, for_rune=True))
-            return skills
+            return [skill for skill in skills if skill.trigger not in [Trigger.ACQUISITION, Trigger.START_OF_GAME]]
         except Exception as e:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
 
