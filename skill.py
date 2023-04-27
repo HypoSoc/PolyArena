@@ -53,7 +53,7 @@ class Skill:
 
 def get_skill(pin: int) -> Skill:
     try:
-        return __skill_dict[pin]
+        return __skill_dict[pin].copy()
     except KeyError:
         raise Exception(f"Skill {pin} does not exist.")
 

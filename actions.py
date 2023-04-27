@@ -457,6 +457,9 @@ class HandleSkill(Action):
             HandleSkill(game, player, skill, targets=list(Action.players))
         elif skill.trigger == Trigger.RANDOM:
             HandleSkill(game, player, skill, targets=[random.choice([p for p in Action.players if not p.is_dead()])])
+        elif skill.trigger == Trigger.RANDOM_OTHER:
+            HandleSkill(game, player, skill, targets=[random.choice([p for p in Action.players if not p.is_dead()
+                                                                     and p != player])])
         elif skill.trigger == Trigger.OTHERS:
             HandleSkill(game, player, skill, targets=[p for p in Action.players if p != player])
 
