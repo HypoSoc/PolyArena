@@ -121,6 +121,7 @@ class Condition(IntEnum):
     HONED = 103  # Permanent Combat Increase
     DAY_SPY = 104
     CAN_SPY = 105
+    ECLIPSE = 106
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
