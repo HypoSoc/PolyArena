@@ -1,4 +1,5 @@
 import json
+import random
 from typing import Tuple, List, TYPE_CHECKING, Dict, Optional
 
 from skill import get_skill
@@ -9,6 +10,8 @@ if TYPE_CHECKING:
 
 class Game:
     def __init__(self, turn=1, night=False):
+        self.seed = int(random.random() * 100000)
+        self.seed = 39587
         # Sets turn to one before provided, with the expectation that advance happens first
         self.turn = turn
         if not night:
@@ -35,6 +38,7 @@ class Game:
 
     def clone(self, complete: bool = False):
         clone = Game()
+        clone.seed = self.seed
         clone.turn = self.turn
         clone.night = self.night
         clone.events = []  # Todo if serializing
@@ -46,7 +50,7 @@ class Game:
         return clone
 
     def serialize(self) -> Dict:
-        turn = {'turn': self.turn, 'night': self.night,
+        turn = {'turn': self.turn, 'night': self.night, 'seed': self.seed,
                 'remaining': [player.name for player in self.players.values() if not player.is_dead()],
                 'events': self.events,
                 'players': {player_name: player.serialize() for (player_name, player) in self.players.items()},
@@ -79,6 +83,11 @@ class Game:
             self.turn += 1
         else:
             self.night = True
+
+        seed = self.turn * 2
+        if self.night:
+            seed += 1
+        random.seed(seed+self.seed)
 
         handled: List[Tuple[int, bool, int, str, List[str]]] = []
         for turn, night, skill_pin, source, targets in self.events:
