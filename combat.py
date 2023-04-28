@@ -280,6 +280,8 @@ class CombatHandler:
                 def condition_remove():
                     if c in conditions[p]:
                         conditions[p].remove(c)
+                    if c in p.conditions:
+                        p.conditions.remove(c)
                 return priority+1, self.tic_index, condition_remove
 
             # Generate a tic to remove an item from a player's inventory
