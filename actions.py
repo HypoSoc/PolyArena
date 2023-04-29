@@ -416,8 +416,13 @@ class HandleSkill(Action):
                 if not self.fake:
                     if self.skill.value > 0:
                         target.gain_credits(self.skill.value)
+                        target.report += f"You gained {self.skill.value} credits. ({target.credits} total)." \
+                                         + os.linesep
                     elif self.skill.value < 0:
                         target.lose_credits(self.skill.value * -1)
+                        target.report += f"You lost {self.skill.value * -1} credits. ({target.credits} remaining)." \
+                                         + os.linesep
+
             elif self.skill.effect == Effect.INTERRUPT:
                 if not self.fake:
                     Action.interrupted_players.add(target)

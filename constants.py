@@ -124,6 +124,7 @@ class Condition(IntEnum):
     ECLIPSE = 106
     PORTENT = 107
     OMEN = 108
+    CELEBRATED = 109
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
