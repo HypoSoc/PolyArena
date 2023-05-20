@@ -809,3 +809,10 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "CAN_SPY"
+
+123:
+  text: "%SELF% fled into their bolthole."
+  effect: "SPEED"
+  value: 1
+  info: "PUBLIC"
+  self_has_condition: "BUNKERING"

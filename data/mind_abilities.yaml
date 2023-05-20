@@ -135,3 +135,10 @@
   cost: 5
   skills: []
   prerequisite: 519
+
+521:
+  name: "Bolthole"
+  cost: 5
+  skills:
+    - 123
+  prerequisite: 502
