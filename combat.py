@@ -208,14 +208,24 @@ class CombatHandler:
             for defender in defender_set:
                 self.solitary_combat.discard(attacker)
                 self.solitary_combat.discard(defender)
-                new_group = True
+                candidate_groups = []
                 for _group in combat_groups:
                     if attacker in _group or defender in _group:
-                        new_group = False
-                        _group.add(attacker)
-                        _group.add(defender)
-                if new_group:
+                        candidate_groups.append(_group)
+
+                if len(candidate_groups) > 1:
+                    for discard_group in candidate_groups[1:]:
+                        for player in discard_group:
+                            candidate_groups[0].add(player)
+                        combat_groups.remove(discard_group)
+
+                if candidate_groups:
+                    candidate_groups[0].add(attacker)
+                    candidate_groups[0].add(defender)
+
+                else:
                     combat_groups.append({attacker, defender})
+
                 self.range_edges.append((attacker, defender))
                 self.range_edges.append((defender, attacker))
 
@@ -319,7 +329,7 @@ class CombatHandler:
                         return
 
                     failed_ambush = False
-                    if Condition.AMBUSH_IMMUNE in conditions[ambushee]:
+                    if Condition.AMBUSH_IMMUNE in conditions.get(ambushee):
                         failed_ambush = True
 
                     if Condition.AMBUSH_AWARE in conditions[ambushee]:

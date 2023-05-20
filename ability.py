@@ -187,6 +187,12 @@ class Ability:
             raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
 
     def get_skills_for_hydro_contingency(self, will: List[int]) -> List[Skill]:
+        while len(will) < len(self.hydro_qualified_skills):
+            if self.linked and will:
+                will.append(will[0])  # Multiple skills for the same willpower
+            else:
+                will.append(0)
+
         return [skill for i in range(len(self.hydro_qualified_skills))
                 for skill in self.hydro_qualified_skills[i].get_skills(will[i]) if skill.trigger in NONCOMBAT_TRIGGERS]
 

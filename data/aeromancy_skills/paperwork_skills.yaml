@@ -1,0 +1,68 @@
+1201:
+  text: "Everything is in good order now."
+  effect: "CONDITION"
+  value: "ORDERLY"
+  trigger: "NONCOMBAT"
+  info: "PRIVATE"
+
+1202:
+  text: "+5 Paperwork"
+  effect: "ITEM"
+  trigger: "START_OF_GAME"
+  value: 1201
+  value_b: 5
+  priority: 1
+
+1203:
+  text: "%TARGET% progressed in good order."
+  effect: "PROGRESS"
+  trigger: "ALL"
+  value: 2
+  target_has_condition: "ORDERLY"
+  info: "NARROW"
+  priority: 89
+
+1204:
+  text: "%TARGET% failed to properly notify %SELF% of hostile intent."
+  effect: "CONDITION"
+  trigger: "ATTACKED_IGNORE_RANGE"
+  value: "ONCE"
+  info: "WIDE"
+  self_has_condition: "ORDERLY"
+  target_not_condition: "ORDERLY"
+  self_override: true
+  priority: -5
+
+1205:
+  text: "Speed +1 if attacked by unorderly while orderly."
+  effect: "SPEED"
+  value: 1
+  self_has_condition: "ONCE"
+  priority: 5
+
+1206:
+  text: "Attention, Polyhistor Academy! An audit is forthcoming in two turns! Please have your paperwork in proper order!"
+  effect: "SCHEDULE"
+  value: 1207
+  value_b: 1
+  info: "BLATANT"
+  trigger: "ACQUISITION"
+  priority: 101
+
+1207:
+  text: "Attention, Polyhistor Academy! An audit is forthcoming in one turn! Please have your paperwork in proper order!"
+  effect: "SCHEDULE"
+  value: 1208
+  value_b: 1
+  info: "BLATANT"
+  trigger: "ACQUISITION"
+  priority: 101
+
+1208:
+  text: "%TARGET% failed inspection and was Petrified."
+  effect: "PETRIFY"
+  info: "BLATANT"
+  trigger: "ALL"
+  target_not_condition: "ORDERLY"
+  priority: 11
+

@@ -1,0 +1,70 @@
+1401:
+  text: "%SELF% is empowered by spite for %TARGET%."
+  effect: "COMBAT"
+  info: "SUBTLE"
+  trigger: "ATTACK"
+  value: 2
+  target_has_condition: "RINGER"
+  self_override: true
+
+1402:
+  text: "+2 Survivability when attacking Ringers"
+  effect: "SURVIVABILITY"
+  trigger: "ATTACK"
+  value: 2
+  target_has_condition: "RINGER"
+  self_override: true
+
+1403:
+  text: "%SELF% reveled in %TARGET%'s Death."
+  effect: "PERMANENT_CONDITION"
+  trigger: "PLAYER_DIED"
+  value: "FORGED"
+  info: "NARROW"
+  target_has_condition: "RINGER"
+  self_override: true
+
+1404:
+  text: "Permanent combat from Ringer Death"
+  effect: "PERMANENT_CONDITION"
+  trigger: "PLAYER_DIED"
+  value: "HONED"
+  target_has_condition: "RINGER"
+  self_override: true
+
+1405:
+  text: "You suspect there must be another Ringer about!"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  priority: 5
+
+1406:
+  text: "%TARGET% has been unveiled as a Secret Ringer!"
+  effect: "PERMANENT_CONDITION"
+  value: "RINGER"
+  info: "BLATANT"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  target_not_condition: "RINGER"
+  priority: 86
+
+1407:
+  text: "%TARGET% has been empowered as a Ringer!"
+  effect: "PROGRESS"
+  value: 10
+  info: "NARROW"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  target_has_condition: "RINGER"
+  priority: 89.5
+
+1408:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 100
+  self_has_condition: "CHARGE"
+  self_override: true

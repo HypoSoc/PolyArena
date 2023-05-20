@@ -202,7 +202,7 @@ class Action:
         if not game.is_day() and not observer.has_ability("Panopticon"):
             if condition[0] != observer:
                 if condition[0] not in Action.spied.get(observer, []):
-                    if not condition[2] == observer or condition[1] not in [Teach, Learn, Heal]:
+                    if not condition[2] == observer or condition[1] not in [Teach, Learn, Heal, Attack]:
                         # Can't validate action for condition
                         return not condition[3]
 
@@ -491,7 +491,7 @@ class Wander(Action):
 
 # Adds player to combat
 class Attack(Action):
-    def __init__(self, game: "Game", player: "Player", target: "Player"):
+    def __init__(self, game: Optional["Game"], player: "Player", target: "Player"):
         super().__init__(priority=30, game=game, player=player, fragile=False,
                          public_description=f"{player.name} attacked {target.name}",
                          combat_on_interrupt=f"while they were attacking {target.name}")
@@ -790,31 +790,37 @@ class Heal(Action):
                 self.player.report += f"{self.player.name} could not treat {self.target.name} " \
                                       f"because they are dead." + os.linesep
             else:
+                def add_to_player_report(msg: str):
+                    self.player.report += get_main_report().face_mask_replacement(msg,
+                                                                                  self.player.name)
+
+                def add_to_target_report(msg: str):
+                    self.target.report += get_main_report().face_mask_replacement(msg,
+                                                                                  self.target.name)
                 was_injured = self.target.has_condition(Condition.INJURED)
                 if was_injured:
                     Action.was_healed.add(self.target)
                 if self.target.has_condition(Condition.PETRIFIED):
-                    self.player.report += f"{self.player.name} tried to treat {self.target.name}, " \
-                                          f"but they were a statue." + os.linesep
-                    self.target.report += f"{self.player.name} tried to treat {self.target.name}, " \
-                                          f"but {self.target.name} were a statue." + os.linesep
+                    add_to_player_report(f"{self.player.name} tried to treat {self.target.name}, "
+                                         f"but they were a statue." + os.linesep)
+                    add_to_target_report(f"{self.player.name} tried to treat {self.target.name}, "
+                                         f"but {self.target.name} were a statue." + os.linesep)
                 else:
                     if self.target.heal():
-                        self.player.report += f"{self.player.name} treated {self.target.name}, " \
-                                              f"but they remain wounded." + os.linesep
-                        self.target.report += f"{self.player.name} treated {self.target.name}, " \
-                                              f"but {self.target.name} remain wounded." + os.linesep
+                        add_to_player_report(f"{self.player.name} treated {self.target.name}, "
+                                             f"but they remain wounded." + os.linesep)
+                        add_to_target_report(f"{self.player.name} treated {self.target.name}, "
+                                             f"but {self.target.name} remain wounded." + os.linesep)
                     else:
-                        self.player.report += f"{self.player.name} treated {self.target.name} " \
-                                              f"and they are now healthy." \
-                                              + os.linesep
-                        self.target.report += f"{self.player.name} treated {self.target.name} " \
-                                              f"and {self.target.name} is now healthy." + os.linesep
+                        add_to_player_report(f"{self.player.name} treated {self.target.name} "
+                                             f"and they are now healthy." + os.linesep)
+                        add_to_target_report(f"{self.player.name} treated {self.target.name} "
+                                             f"and {self.target.name} is now healthy." + os.linesep)
                     if self.player.temperament == Temperament.ALTRUISTIC:
                         if was_injured or self.target in Action.was_healed:
                             Action.progress(self.player, 8)
                         else:
-                            self.player.report += f"{self.target.name} did not require treatment." + os.linesep
+                            add_to_player_report(f"{self.target.name} did not require treatment." + os.linesep)
                 Action.add_action_record(self.player, Heal, self.target)
 
 
@@ -1379,8 +1385,12 @@ class Trade(Action):
     def act(self):
         if self.action_condition:
             if not Action.check_action_record(self.game, self.player, self.action_condition):
-                self.player.report += f"You did not trade with {self.target.name} " \
-                                      f"because the required action did not happen." + os.linesep
+                if self.action_condition[3]:
+                    self.player.report += f"You did not trade with {self.target.name} " \
+                                          f"because the required action did not happen." + os.linesep
+                else:
+                    self.player.report += f"You did not trade with {self.target.name} " \
+                                          f"because the forbidden action occurred." + os.linesep
                 return
         failed_trade = False
         reserved_credits, reserved_items, reserved_automata_names = Trade.reserved.get(self.player, (0, {}, []))
@@ -1837,6 +1847,16 @@ class CombatStep(Action):
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.POST_COMBAT:
                         HandleSkill(self.game, player, skill)
+                if player.tattoo is not None:
+                    rune = get_item(player.tattoo)
+                    assert isinstance(rune, Rune)
+                    for skill in rune.get_skills():
+                        if skill.trigger == Trigger.POST_COMBAT:
+                            HandleSkill(self.game, player, skill)
+                for item in player.get_consumed_items():
+                    for skill in item.get_skills():
+                        if skill.trigger == Trigger.POST_COMBAT:
+                            HandleSkill(self.game, player, skill)
             elif was_alive[player]:
                 player.report += os.linesep
                 player.destroy_fragile_items(include_loot=True)
@@ -1847,21 +1867,35 @@ class CombatStep(Action):
 
 
 class ProgressStep(Action):
-    def __init__(self, game: Optional['Game']):
+    def __init__(self, game: Optional['Game'], skip_intuitive: bool = False):
         super().__init__(90, game=game, player=None)
+        self.skip_intuitive = skip_intuitive
 
     def act(self):
-        for player in Action.progress_dict.keys():
+        if not self.skip_intuitive:
+            for player in self.game.players.values():
+                if player.is_dead():
+                    continue
+
+                if player.temperament == Temperament.INTUITIVE:
+                    if player not in Action.interrupted_players or not player.action.fragile:
+                        player.report += "Intuitive: "
+                        Action.progress(player, 1)
+                        player.report += os.linesep
+
+        was_progress = False
+        for player in Action.progress_dict:
             if player.is_dead():
                 continue
 
-            if player.temperament == Temperament.INTUITIVE:
-                if player not in Action.interrupted_players or not player.action.fragile:
-                    player.report += "Intuitive: "
-                    Action.progress(player, 1)
-                    player.report += os.linesep
-            if Action.progress_dict[player] > 0:
+            if Action.progress_dict.get(player) > 0:
                 player.gain_progress(Action.progress_dict[player])
+                Action.progress_dict[player] = 0
+                was_progress = True
+
+        if was_progress:
+            # It is possible for abilities to give progress
+            ProgressStep(self.game, skip_intuitive=True)
 
 
 class WillpowerStep(Action):
@@ -1872,6 +1906,10 @@ class WillpowerStep(Action):
         if self.game:
             for player in Action.players:
                 if not player.is_dead():
+                    player.max_willpower = 0
+                    for skill in player.get_skills(include_this_turn=True):
+                        if skill.effect == Effect.MAX_WILLPOWER:
+                            player.max_willpower += skill.value
                     if player.max_willpower:
                         player.report += os.linesep
                         if self.game.is_night() or player.has_ability("Rapid Regen II", ignore_this_turn=False):

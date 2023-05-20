@@ -1,0 +1,76 @@
+1901:
+  text: "A Seal of Cursed Flesh Binds you."
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  trigger: "START_OF_GAME"
+  value: "LOCKED"
+  value_b: 5
+  priority: 1
+
+1902:
+  text: "+1 Combat Permanently when Injured and Sealed"
+  effect: "PERMANENT_CONDITION"
+  value: "HONED"
+  trigger: "COMBAT_INJURY"
+  self_has_condition: "LOCKED"
+  priority: 190
+
+1903:
+  text: "+1 Survivability Permanently when Injured and Sealed"
+  effect: "PERMANENT_CONDITION"
+  value: "FORGED"
+  trigger: "COMBAT_INJURY"
+  self_has_condition: "LOCKED"
+  priority: 190
+
+1904:
+  text: "Bits of %SELF% escaped the curse of mortal flesh."
+  info: "WIDE"
+  effect: "REMOVE_CONDITION"
+  value: "LOCKED"
+  trigger: "COMBAT_INJURY"
+  self_has_condition: "LOCKED"
+  priority: 195
+
+1905:
+  text: "+Gain Healing Tank"
+  effect: "ITEM"
+  trigger: "ACQUISITION"
+  value: 19
+  priority: 1
+
+1906:
+  text: "You revel in your freedom."
+  info: "PRIVATE"
+  effect: "PROGRESS"
+  value: 20
+  trigger: "ACQUISITION"
+  self_not_condition: "LOCKED"
+  priority: 1
+
+1907:
+  text: "+2 Combat Permanently if Sealed"
+  effect: "PERMANENT_CONDITION"
+  value: "HONED"
+  value_b: 2
+  trigger: "ACQUISITION"
+  self_has_condition: "LOCKED"
+  priority: 2
+
+1908:
+  text: "+2 Survivability Permanently if Sealed"
+  effect: "PERMANENT_CONDITION"
+  value: "FORGED"
+  value_b: 2
+  trigger: "ACQUISITION"
+  self_has_condition: "LOCKED"
+  priority: 2
+
+1909:
+  text: "Your have torn free from your cursed flesh."
+  info: "PRIVATE"
+  effect: "REMOVE_CONDITION"
+  value: "LOCKED"
+  trigger: "ACQUISITION"
+  self_has_condition: "LOCKED"
+  priority: 5

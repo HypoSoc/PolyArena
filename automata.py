@@ -1,3 +1,4 @@
+import os
 from typing import Optional, List, Dict, Union, Tuple, Type
 
 from actions import Action, AutomataCraft, ACTION_CONDITION
@@ -95,7 +96,7 @@ class Automata(Player):
                    targets: Union[Optional[List['Player']], 'Player'] = None):
         raise Exception(f"Automata {self.name} cannot use hydromancy.")
 
-    def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
+    def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str] = None):
         raise Exception(f"Automata {self.name} cannot use hydromancy.")
 
     def plan_craft(self, *item_names, automata_name: Union[Optional[List[str]], str] = None):
@@ -122,7 +123,7 @@ class Automata(Player):
             raise Exception("Automata cannot take bonus crafting actions.")
         self.action = AutomataCraft(self.game, self, items)
 
-    def get_skills(self) -> List[Skill]:
+    def get_skills(self, include_this_turn: bool = False) -> List[Skill]:
         automata_skills = [get_skill(22), get_skill(2), get_skill(2)]  # Gas Immune and 0/2 Stat baseline
         automata_skills.extend(super(Automata, self).get_skills())
         return automata_skills
@@ -164,6 +165,26 @@ class Automata(Player):
 
     def gain_credits(self, amount):
         self.owner.gain_credits(amount)
+        credit = "credit"
+        if amount != 1:
+            credit = "credits"
+        self.owner.report += f"Your automata {self.name} gained {amount} {credit} ({self.owner.credits} total)." \
+                             + os.linesep
 
     def lose_credits(self, amount):
         self.owner.lose_credits(amount)
+        credit = "credit"
+        if amount != 1:
+            credit = "credits"
+        self.owner.report += f"Your automata {self.name} lost {amount} {credit} ({self.owner.credits} remaining)." \
+                             + os.linesep
+
+    def gain_item(self, item: "Item", amount=1):
+        super().gain_item(item, amount)
+        self.owner.report += f"Your automata gained {amount} {item.name} ({self.items.count(item.pin)} total)" \
+                             + os.linesep
+
+    def lose_item(self, item: "Item", amount=1):
+        super().lose_item(item, amount)
+        self.owner.report += f"Your automata lost {amount} {item.name} ({self.items.count(item.pin)} remaining)" \
+                             + os.linesep

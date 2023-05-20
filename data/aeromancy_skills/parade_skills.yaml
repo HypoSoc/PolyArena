@@ -1,0 +1,94 @@
+2001:
+  text: "3 Charges"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 3
+  priority: -5
+
+2002:
+  text: "A Grand Parade was thrown for %TARGET%!"
+  info: "BLATANT"
+  effect: "CONDITION"
+  value: "CELEBRATED"
+  self_has_condition: "CHARGE"
+  trigger: "TARGET"
+  priority: 0
+
+2003:
+  text: "%SELF% threw a Parade for %TARGET%!"
+  info: "PERSONAL"
+  effect: "CONDITION"
+  value: "ONCE"
+  self_override: true
+  target_has_condition: "CELEBRATED"
+  trigger: "ALL"
+  priority: 5
+
+2004:
+  text: "%TARGET% was the star of a Parade!"
+  info: "WIDE"
+  effect: "INTERRUPT"
+  target_has_condition: "CELEBRATED"
+  trigger: "ALL"
+  priority: 5
+
+2005:
+  text: "%TARGET% was showered with money in the Parade!"
+  info: "NARROW"
+  effect: "CREDITS"
+  value: 2
+  target_has_condition: "CELEBRATED"
+  trigger: "ALL"
+  priority: 6
+
+2006:
+  text: "%SELF% managed to collect money from the Parade!"
+  info: "PRIVATE"
+  effect: "CREDITS"
+  value: 2
+  self_has_condition: "ONCE"
+  trigger: "NONCOMBAT"
+  priority: 6
+
+2007:
+  text: "Lose a Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  self_has_condition: "ONCE"
+  trigger: "NONCOMBAT"
+  priority: 8
+
+2008:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: -5
+
+2009:
+  text: "%SELF% was invigorated by the Parade!"
+  info: "PRIVATE"
+  effect: "PROGRESS"
+  value: 5
+  self_has_condition: "ONCE"
+  trigger: "NONCOMBAT"
+  priority: 6
+
+2010:
+  text: "%SELF% was inspired by the Parade!"
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  value: "FORGED"
+  self_has_condition: "ONCE"
+  trigger: "NONCOMBAT"
+  priority: 6
+
+2011:
+  text: "%SELF% was elevated by the Parade!"
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  value: "HONED"
+  self_has_condition: "ONCE"
+  trigger: "NONCOMBAT"
+  priority: 6

@@ -1,0 +1,57 @@
+2101:
+  text: "+1 Sword"
+  effect: "ITEM"
+  value: 2
+  trigger: "ACQUISITION"
+  priority: 1
+
+2102:
+  text: "%SELF% disarmed %TARGET%."
+  effect: "DISARM"
+  priority: 5
+  info: "PUBLIC"
+  trigger: "ATTACK"
+  self_has_condition: "ARMED"
+  target_has_condition: "ARMED"
+  target_not_condition: "GRIP"
+
+2103:
+  text: "%SELF% disarmed %TARGET%."
+  effect: "DISARM"
+  priority: 8
+  info: "PUBLIC"
+  trigger: "ATTACKED"
+  self_has_condition: "ARMED"
+  target_has_condition: "ARMED"
+  target_not_condition: "GRIP"
+
+2104:
+  text: "%SELF% held their sword en-garde."
+  effect: "SURVIVABILITY"
+  value: 2
+  info: "WIDE"
+  self_has_condition: "ARMED"
+  priority: 32
+
+2105:
+  text: "%SELF% riposted %TARGET%!"
+  effect: "NONLETHAL"
+  trigger: "ATTACKED"
+  priority: 69
+  info: "WIDE"
+  self_has_condition: "ARMED"
+
+2106:
+  text: "Combat Regen if sword"
+  effect: "CONDITION"
+  value: "COMBAT_REGEN"
+  self_has_condition: "ARMED"
+  priority: 32
+
+2107:
+  text: "%SELF% parried %TARGET%'s blow!"
+  effect: "INFO"
+  info: "WIDE"
+  trigger: "COMBAT_DAMAGED"
+  self_has_condition: "ARMED"
+  self_not_condition: "PETRIFIED"

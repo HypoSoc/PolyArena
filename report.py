@@ -170,13 +170,13 @@ class Report(object):
                     report += f"{target.name} was training {self.training[target]}."
 
             if spy.has_ability("Trade Secrets"):
-                if counter_int and type(target.fake_action).__name__ != 'Train':
+                if counter_int:
                     report += os.linesep
                     if target.fake_ability:
                         report += f"{target.name} seems to be working on {fake_ability_str}."
                     else:
                         report += f"{target.name} is not working on anything."
-                elif target not in self.training:
+                else:
                     report += os.linesep
                     if target.dev_plan:
                         report += f"{target.name} seems to be working on {get_ability(target.dev_plan[0]).name}."

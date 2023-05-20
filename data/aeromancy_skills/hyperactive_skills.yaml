@@ -1,0 +1,57 @@
+1801:
+  text: "Start the game CHARGE"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "START_OF_GAME"
+
+1802:
+  text: "Remove CHARGE"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  value_b: 10
+  trigger: "NONCOMBAT"
+  priority: 150
+
+1803:
+  text: "You feel energized from your fight!"
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  self_has_condition: "ATTACKED"
+  trigger: "NONCOMBAT"
+  priority: 150
+
+1804:
+  text: "You feel energized from your training!"
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  self_has_condition: "TRAINED"
+  trigger: "NONCOMBAT"
+  priority: 150
+
+1805:
+  text: "You feel lethargic..."
+  info: "PRIVATE"
+  effect: "INFO"
+  self_not_condition: "CHARGE"
+  trigger: "NONCOMBAT"
+  priority: 160
+
+1806:
+  text: "+1 Speed if CHARGE"
+  effect: "SPEED"
+  value: 1
+  self_has_condition: "CHARGE"
+
+1807:
+  text: "+1 Combat if CHARGE"
+  effect: "COMBAT"
+  value: 1
+  self_has_condition: "CHARGE"
+
+1808:
+  text: "+1 Survivability if CHARGE"
+  effect: "SURVIVABILITY"
+  value: 1
+  self_has_condition: "CHARGE"

@@ -1,0 +1,44 @@
+1501:
+  text: "Gain Awareness I"
+  effect: "GAIN_ABILITY_OR_PROGRESS"
+  value: 501
+  trigger: "ACQUISITION"
+  priority: 5
+
+1502:
+  text: "Gain Awareness II"
+  effect: "GAIN_ABILITY_OR_PROGRESS"
+  value: 502
+  trigger: "ACQUISITION"
+  priority: 6
+
+1503:
+  text: "%SELF%'s gaze pierced through %TARGET%."
+  effect: "PERMANENT_CONDITION"
+  value: "MARKED"
+  target_not_condition: "MARKED"
+  info: "SUBTLE"
+  trigger: "SPY"
+  priority: 3
+
+1504:
+  text: "Day Spy"
+  effect: "CONDITION"
+  value: "DAY_SPY"
+  trigger: "NONCOMBAT"
+
+1505:
+  text: "%SELF%'s gaze paralyzed %TARGET%."
+  effect: "PETRIFY"
+  target_has_condition: "MARKED"
+  info: "NARROW"
+  trigger: "SPY"
+  priority: 0
+
+1506:
+  text: "Remove Mark"
+  effect: "REMOVE_CONDITION"
+  value: "MARKED"
+  target_has_condition: "MARKED"
+  trigger: "SPY"
+  priority: 5

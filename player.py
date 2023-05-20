@@ -129,7 +129,8 @@ class Player:
         game.register(self)
 
     def make_copy_for_simulation(self, game: 'Game') -> 'Player':
-        clone = Player(name=self.name+"_CLONE", progress_dict=self.progress_dict.copy(), dev_plan=self.dev_plan.copy(),
+        clone = Player(name=self.name + "_CLONE", progress_dict=self.progress_dict.copy(),
+                       dev_plan=self.dev_plan.copy(),
                        academics=self.academics, temperament=self.temperament, concept=self.concept,
                        conditions=self.conditions.copy(),
                        items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
@@ -234,9 +235,9 @@ class Player:
             self.report += os.linesep
             self.report += get_main_report().get_money_report(full=self.has_ability("Market Connections II"))
 
-        cleaned = self.report\
-            .replace(COMBAT_PLACEHOLDER, get_main_report().get_combat_report_for_player(self))\
-            .replace(self.name+"'s", "your")\
+        cleaned = self.report \
+            .replace(COMBAT_PLACEHOLDER, get_main_report().get_combat_report_for_player(self)) \
+            .replace(self.name + "'s", "your") \
             .replace(self.name, "you") \
             .replace("you has", "you have") \
             .replace("you was", "you were") \
@@ -566,11 +567,11 @@ class Player:
         assert choice >= 0
         assert choice < ability.must_choose
         if for_rune:
-            self.item_choices[get_item_by_name(ability_name+" rune").pin] = choice
+            self.item_choices[get_item_by_name(ability_name + " rune").pin] = choice
         else:
             self.ability_choices[ability.pin] = choice
 
-    def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str]):
+    def plan_illusion(self, target: 'Player', action: 'Action', ability: Optional[str] = None):
         assert not self.used_illusion
 
         if ability:
@@ -599,7 +600,7 @@ class Player:
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)
-        items = {get_item_by_name(ability_name+" Rune"): 1}
+        items = {get_item_by_name(ability_name + " Rune"): 1}
         if bonus:
             self.bonus_action = Craft(self.game, self, items, is_bonus=True)
         else:
@@ -607,7 +608,7 @@ class Player:
 
     def plan_tattoo(self, target: 'Player', ability_name: str):
         self._generic_action_check()
-        rune = get_item_by_name(ability_name+" Rune")
+        rune = get_item_by_name(ability_name + " Rune")
         assert isinstance(rune, Rune)
         self.action = Tattoo(self.game, self, target, rune)
 
@@ -634,12 +635,13 @@ class Player:
                 return False
         return ability.pin in self.progress_dict and self.progress_dict[ability.pin] >= ability.cost
 
-    def get_abilities(self) -> List[Ability]:
+    def get_abilities(self, include_this_turn: bool = False) -> List[Ability]:
         abilities = []
         for (ability_pin, progress) in self.progress_dict.items():
-            ability = get_ability(ability_pin)
-            if progress >= ability.cost:
-                abilities.append(ability)
+            if include_this_turn or ability_pin not in self.abilities_gained_this_turn:
+                ability = get_ability(ability_pin)
+                if progress >= ability.cost:
+                    abilities.append(ability)
         return abilities
 
     def get_total_dev(self) -> int:
@@ -687,10 +689,10 @@ class Player:
         if self.circuits:
             for i in range(len(list(self.circuits))):
                 for element in Element:
-                    possibility = tuple(self.circuits[:i]) + (element,) + tuple(self.circuits[i+1:])
+                    possibility = tuple(self.circuits[:i]) + (element,) + tuple(self.circuits[i + 1:])
                     possibilities.add(possibility)
         for element in Element:
-            possibilities.add(tuple(self.circuits[:])+(element,))
+            possibilities.add(tuple(self.circuits[:]) + (element,))
 
         return [possibility for possibility in possibilities if self._check_attunement(possibility)]
 
@@ -701,7 +703,7 @@ class Player:
         def legal_attunement(attunement: Tuple[Element, ...]):
             return self._check_attunement(attunement)
 
-        for i in range(total_circuits+1):
+        for i in range(total_circuits + 1):
             possibilities = itertools.combinations_with_replacement([Element.ANTI, Element.FIRE, Element.WATER,
                                                                      Element.EARTH, Element.AIR, Element.LIGHT], i)
             all_possibilities.extend(filter(legal_attunement, possibilities))
@@ -745,9 +747,9 @@ class Player:
                     cost = item.cost
         return best
 
-    def get_skills(self) -> List[Skill]:
+    def get_skills(self, include_this_turn: bool = False) -> List[Skill]:
         skills = []
-        for ability in self.get_abilities():
+        for ability in self.get_abilities(include_this_turn):
             if ability.pin not in self.disabled_ability_pins:
                 ability_skills = ability.get_skills(self.circuits, self.hydro_spells.get(ability.pin, []),
                                                     choice=self.ability_choices.get(ability.pin, -1))
@@ -881,6 +883,7 @@ class Player:
                 get_main_report().add_action(self, message)
             if info_scope == InfoScope.BROADCAST:
                 get_main_report().broadcast(message)
+
         return report_callable
 
     def die(self, message, reporting_func: Optional[ReportCallable] = None):

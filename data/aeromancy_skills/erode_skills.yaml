@@ -1,0 +1,42 @@
+1301:
+  text: "%TARGET%'s body crumbles at the edges."
+  effect: "PERMANENT_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  info: "NARROW"
+  trigger: "ATTACK"
+
+1302:
+  text: "-1 Survivability even when Petrified"
+  effect: "PERMANENT_CONDITION"
+  value: "CRUMBLING"
+  trigger: "ATTACK"
+
+1303:
+  text: "-1 Survivability"
+  effect: "SURVIVABILITY"
+  value: -1
+  trigger: "ATTACK"
+  priority: 68
+
+1304:
+  text: "Enables Targeted Erosion"
+  effect: "CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+
+1305:
+  text: "%TARGET%'s body crumbles at the edges."
+  effect: "PERMANENT_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  info: "NARROW"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  priority: 120
+
+1306:
+  text: "-1 Survivability even when Petrified"
+  effect: "PERMANENT_CONDITION"
+  value: "CRUMBLING"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  priority: 120

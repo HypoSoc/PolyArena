@@ -1,0 +1,101 @@
+1701:
+  text: "Gain Charge for first Portent"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "ACQUISITION"
+  priority: -10
+
+1702:
+  text: "%TARGET%'s entrails are quite Portentous."
+  info: "IMPERSONAL"
+  effect: "PERMANENT_CONDITION"
+  value: "PORTENT"
+  trigger: "RANDOM_OTHER"
+  self_has_condition: "CHARGE"
+  priority: 0
+
+1703:
+  text: "A new Portent has been chosen. You must find them!"
+  info: "PRIVATE"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 5
+
+1704:
+  text: "Attacked a Portent. If they die this condition will be checked."
+  effect: "PERMANENT_CONDITION"
+  value: "ONCE"
+  trigger: "ATTACK"
+  target_has_condition: "PORTENT"
+  self_override: true
+
+1705:
+  text: "%TARGET%'s entrails left an Auspicious sign."
+  info: "BLATANT"
+  effect: "PERMANENT_CONDITION"
+  value: "OMEN"
+  trigger: "PLAYER_DIED"
+  self_override: true
+  self_has_condition: "ONCE"
+  target_has_condition: "PORTENT"
+
+1706:
+  text: "There was an Auspicious Omen hidden in %TARGET%'s entrails."
+  info: "PRIVATE"
+  effect: "INFO"
+  trigger: "PLAYER_DIED"
+  self_override: true
+  self_has_condition: "ONCE"
+  target_has_condition: "PORTENT"
+
+1707:
+  text: "A new Portent must be chosen"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "PLAYER_DIED"
+  self_override: true
+  target_has_condition: "PORTENT"
+
+1708:
+  text: "Prevent Rez shenanigans from making multiple Portents."
+  effect: "REMOVE_CONDITION"
+  value: "PORTENT"
+  trigger: "PLAYER_DIED"
+  target_has_condition: "PORTENT"
+  priority: 100
+
+1709:
+  text: "End of turn wear off 'attacked portent' mark"
+  effect: "REMOVE_CONDITION"
+  value: "ONCE"
+  value_b: 10
+  trigger: "NONCOMBAT"
+  self_has_condition: "ONCE"
+  priority: 2000
+
+1710:
+  text: "%SELF% identified %TARGET% as the Portent and was empowered by an all consuming need!"
+  info: "SUBTLE"
+  effect: "COMBAT"
+  value: 3
+  trigger: "ATTACK"
+  target_has_condition: "PORTENT"
+  self_override: true
+
+1711:
+  text: "%SELF% caught sign that %TARGET% has Portentous Entrails!"
+  info: "SUBTLE"
+  effect: "INFO"
+  trigger: "TARGET"
+  target_has_condition: "PORTENT"
+  priority: 100
+
+1712:
+  text: "%SELF% examined %TARGET% for signs, but failed to find any!"
+  info: "SUBTLE"
+  effect: "INFO"
+  trigger: "TARGET"
+  target_not_condition: "PORTENT"
+  priority: 100

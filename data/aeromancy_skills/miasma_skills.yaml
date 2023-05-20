@@ -1,0 +1,63 @@
+1101:
+  text: "Immune to SICKNESS"
+  effect: "PERMANENT_CONDITION"
+  value: "SICK_IMMUNE"
+  trigger: "ACQUISITION"
+
+1102:
+  text: "-2 Combat to all in Range"
+  effect: "COMBAT"
+  value: -2
+  trigger: "RANGE"
+  priority: 68
+
+1103:
+  text: "A cloud of weakness blankets the area."
+  effect: "INFO_ONCE"
+  info: "WIDE"
+
+1104:
+  text: "A fog of sickness settles over campus."
+  effect: "INFO_ONCE"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+1105:
+  text: "-2 Combat"
+  effect: "CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 2
+  trigger: "ALL"
+  priority: 5
+
+1106:
+  text: "-2 Survivability"
+  effect: "CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 2
+  trigger: "ALL"
+  priority: 5
+
+1107:
+  text: "%TARGET% fell ill."
+  effect: "CONDITION"
+  value: "SICKENED"
+  trigger: "RANDOM"
+  info: "BLATANT"
+  target_not_condition: "SICKENED"
+
+1108:
+  text: "%TARGET% was too ill to act."
+  effect: "INTERRUPT"
+  trigger: "ALL"
+  info: "NARROW"
+  target_has_condition: "SICKENED"
+  priority: 21
+
+1109:
+  text: "%TARGET% was ravaged by their illness."
+  effect: "DAMAGE"
+  trigger: "ALL"
+  target_has_condition: "SICKENED"
+  info: "BLATANT"
+  priority: 89.5
