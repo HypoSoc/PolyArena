@@ -1,0 +1,44 @@
+# Eclipse I (10): On Day 6 and Night 6, there will be an Eclipse. This will be blatantly announced at the start of the game.
+#                 During the Eclipse, you gain +7 Combat, +7 Survivability, and three levels of Speed. (Wide)
+# Eclipse II (5): Gain 5 Progress each turn during the Eclipse.
+# Eclipse III (40): The Eclipse begins immediately and never ends. (Blatant)
+
+1601:
+  name: "Eclipse I"
+  concept: "ECLIPSE"
+  cost: 10
+  skills:
+    - 1601
+    - 1602
+    - 1604
+    - 1605
+    - 1606
+    - 1607
+  explanation: |-
+    On Day 6 and Night 6, there will be an Eclipse. This will be blatantly announced at the start of the game.
+    During the Eclipse, you gain +7 Combat, +7 Survivability, and three levels of Speed. (Wide)
+
+    Eclipse II costs 5
+
+1602:
+  name: "Eclipse II"
+  concept: "ECLIPSE"
+  cost: 5
+  skills:
+    - 1608
+  explanation: |-
+    Gain 5 Progress each turn during the Eclipse.
+
+    Eclipse III costs 40
+  prerequisite: 1601
+
+1603:
+  name: "Eclipse III"
+  concept: "ECLIPSE"
+  cost: 40
+  skills:
+    - 1609
+    - 1610
+  explanation: |-
+    The Eclipse begins immediately and never ends. (Blatant)
+  prerequisite: 1602

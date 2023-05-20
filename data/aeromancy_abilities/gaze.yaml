@@ -1,0 +1,45 @@
+# Gaze I (10): Gain Awareness I and Awareness II. If you already have them, gain equivalent progress.
+# Gaze II (10): Whenever you spy on an Unmarked player, permanently Mark them. (Subtle) (Fragile)
+#               You can spy during the day.
+# Gaze III (10): Whenever you spy on a Marked player, remove the Mark and Petrify them. (Narrow) (Fragile)
+
+1501:
+  name: "Gaze I"
+  concept: "GAZE"
+  cost: 10
+  skills:
+    - 1501
+    - 1502
+  explanation: |-
+    Gain Awareness I and Awareness II. If you already have them, gain equivalent progress.
+
+    Gaze II costs 10
+
+1502:
+  name: "Gaze II"
+  concept: "GAZE"
+  cost: 10
+  skills:
+    - 1504
+  aero:
+    1503:
+      fragile: true
+  explanation: |-
+    Whenever you spy on an Unmarked player, permanently Mark them. (Subtle) (Fragile)
+    You can spy during the day.
+
+    Gaze III costs 10
+  prerequisite: 1501
+
+1503:
+  name: "Gaze III"
+  concept: "GAZE"
+  cost: 10
+  aero:
+    1505:
+      fragile: true
+    1506:
+      fragile: true
+  explanation: |-
+    Whenever you spy on an Marked player, remove the Mark and Petrify them. (Narrow) (Fragile)
+  prerequisite: 1502

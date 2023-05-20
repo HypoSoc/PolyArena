@@ -1,0 +1,54 @@
+# Rapier I (10): Gain a Sword.
+#                As long as you are armed, you will Disarm anyone who attacks you or is attacked by you.
+# Rapier II (10): As long as you are armed, you gain 2 Survivability. (Wide)
+# Rapier III (10): As long as you are armed, you will deal Nonlethal damage to anyone that attacks you before clashing. (Wide)
+# Rapier IV (10): As long as you are armed, you cannot be Wounded in Combat. (Wide)
+
+2101:
+  name: "Rapier I"
+  concept: "RAPIER"
+  cost: 10
+  skills:
+    - 2101
+    - 2102
+    - 2103
+  explanation: |-
+    Gain a Sword.
+    As long as you are armed, you will Disarm anyone who attacks you or is attacked by you.
+
+    Rapier II costs 10
+
+2102:
+  name: "Rapier II"
+  concept: "RAPIER"
+  cost: 10
+  skills:
+    - 2104
+  explanation: |-
+    As long as you are armed, you gain 2 Survivability. (Wide)
+
+    Rapier III costs 10
+  prerequisite: 2101
+
+2103:
+  name: "Rapier III"
+  concept: "RAPIER"
+  cost: 10
+  skills:
+    - 2105
+  explanation: |-
+    As long as you are armed, you will deal Nonlethal damage to anyone that attacks you before clashing. (Wide)
+
+    Rapier IV costs 10
+  prerequisite: 2102
+
+2104:
+  name: "Rapier IV"
+  concept: "RAPIER"
+  cost: 10
+  skills:
+    - 2106
+    - 2107
+  explanation: |-
+    As long as you are armed you cannot be Wounded in Combat. (Wide)
+  prerequisite: 2103

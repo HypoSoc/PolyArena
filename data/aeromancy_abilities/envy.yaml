@@ -1,0 +1,80 @@
+# Envy I (10): You cannot graduate as long as a Ringer is alive.
+#              +2 Combat and +2 Survivability when attacking a Ringer. (Subtle) (Fragile)
+# Envy II (5): Whenever a Ringer Dies, permanently gain +1 Combat and +1 Survivability (Narrow)
+# Envy III (10): Gain a Charge.
+#                Each turn, you may spend a charge to make a player into a Ringer at the end of turn (Blatant)
+#                They gain +10 Progress (Narrow)
+# Envy IV (5): Gain a Charge
+# Envy IV (5): Gain two Charges
+
+1401:
+  name: "Envy I"
+  concept: "ENVY"
+  cost: 10
+  aero:
+    1401:
+      fragile: true
+    1402:
+      fragile: true
+  explanation: |-
+    You cannot graduate as long as a Ringer is alive.
+    +2 Combat and +2 Survivability when attacking a Ringer. (Subtle) (Fragile)
+
+    Envy II costs 5
+
+1402:
+  name: "Envy II"
+  concept: "ENVY"
+  cost: 5
+  skills:
+    - 1403
+    - 1404
+  explanation: |-
+    Whenever a Ringer Dies, permanently gain +1 Combat and +1 Survivability
+
+    Envy III costs 10
+  prerequisite: 1401
+
+1403:
+  name: "Envy III"
+  concept: "ENVY"
+  cost: 10
+  max_targets: 1
+  skills:
+    - 1405
+    - 1406
+    - 1407
+    - 1408
+  explanation: |-
+    Gain a Charge.
+    Each turn, you may spend a Charge to make a player into a Ringer at the end of turn (Blatant)
+    They gain +10 Progress (Narrow)
+
+    Envy IV costs 5
+  prerequisite: 1402
+
+1404:
+  name: "Envy IV"
+  concept: "ENVY"
+  cost: 5
+  max_targets: 1
+  skills:
+    - 1405
+  explanation: |-
+    Gain a Charge.
+
+    Envy V costs 5
+  prerequisite: 1403
+
+1405:
+  name: "Envy V"
+  concept: "ENVY"
+  cost: 5
+  max_targets: 1
+  skills:
+    - 1405
+    - 1405
+  explanation: |-
+    Gain 2 Charges.
+
+  prerequisite: 1403

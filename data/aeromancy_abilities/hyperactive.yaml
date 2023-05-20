@@ -1,0 +1,85 @@
+# Hyperactive I (10): You start the game Charged. At the end of each turn, if you didn't Attack or Train, you lose your Charge.
+#                     If you did Attack or Train, regain your Charge.
+#                     As long as you are Charged, you gain a level of Speed.
+# Hyperactive II (10): As long as you are Charged, you gain +1 Combat and +1 Survivability. (Fragile)
+# Hyperactive III (10): You gain a level of Speed.
+# Hyperactive IV (10): +1 Combat and +1 Survivability.
+# Hyperactive V (10): As long as you are Charged, you gain a level of Speed
+#                     As long as you are Charged, +1 Combat, and +1 Survivability. (Fragile)
+
+1801:
+  name: "Hyperactive I"
+  concept: "HYPERACTIVE"
+  cost: 10
+  skills:
+    - 1801
+    - 1802
+    - 1803
+    - 1804
+    - 1805
+    - 1806
+  explanation: |-
+    You start the game Charged. At the end of each turn, if you didn't Attack or Train, you lose your Charge.
+    If you did Attack or Train, regain your Charge.
+    As long as you are Charged, you gain a level of Speed.
+
+    Hyperactive II costs 10
+
+1802:
+  name: "Hyperactive II"
+  concept: "HYPERACTIVE"
+  cost: 10
+  aero:
+    1807:
+      fragile: true
+    1808:
+      fragile: true
+  explanation: |-
+    As long as you are Charged, you gain +1 Combat and +1 Survivability. (Fragile)
+
+    Hyperactive III costs 10
+  prerequisite: 1801
+
+1803:
+  name: "Hyperactive III"
+  concept: "HYPERACTIVE"
+  cost: 10
+  skills:
+    - 80
+  explanation: |-
+    Gain a level of Speed.
+
+    Hyperactive IV costs 10
+  prerequisite: 1802
+
+1804:
+  name: "Hyperactive IV"
+  concept: "HYPERACTIVE"
+  cost: 10
+  aero:
+    1:
+      fragile: true
+    2:
+      fragile: true
+  explanation: |-
+    +1 Combat and +1 Survivability (Fragile)
+
+    Hyperactive V costs 10
+  prerequisite: 1803
+
+1805:
+  name: "Hyperactive V"
+  concept: "HYPERACTIVE"
+  cost: 10
+  skills:
+    - 1806
+  aero:
+    1807:
+      fragile: true
+    1808:
+      fragile: true
+  explanation: |-
+    As long as you are Charged, you gain a level of Speed.
+    As long as you are Charged, you gain +1 Combat and +1 Survivability. (Fragile)
+
+  prerequisite: 1804

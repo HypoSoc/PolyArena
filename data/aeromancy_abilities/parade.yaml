@@ -1,0 +1,88 @@
+# Parade I (10): You start the game with three charges.
+#                Every turn, you may spend a charge to Throw a Parade for another Player of your choice. (Fragile) (Blatant)
+#                Throwing a Parade interrupts your target. (Wide)
+#                Whenever you throw a Parade, you and the target both gain 2 Credits. (Narrow)
+# Parade II (10): Gain a Charge.
+#                 Whenever you throw a Parade, you gain 5 Progress.
+# Parade III (10): Gain a Charge.
+#                  Whenever you throw a Parade, you permanently gain 1 Survivability.
+# Parade IV (10): Gain a Charge.
+#                 Whenever you throw a Parade, you permanently gain 1 Combat.
+# Parade V (10): Gain three charges.
+
+# TODO TARGET OTHER
+
+2001:
+  name: "Parade I"
+  concept: "PARADE"
+  cost: 10
+  skills:
+    - 2001
+    - 2003
+    - 2004
+    - 2005
+    - 2006
+    - 2007
+  aero:
+    2002:
+      fragile: true
+  max_targets: 1
+  explanation: |-
+    You start the game with three Charges.
+    Every turn, you may spend a charge to Throw a Parade for another Player of your choice. (Fragile) (Blatant)
+    Throwing a Parade interrupts your target. (Wide)
+    Whenever you throw a Parade, you and the target both gain 2 Credits. (Narrow)
+
+    Parade II costs 10
+
+2002:
+  name: "Parade II"
+  concept: "PARADE"
+  cost: 10
+  skills:
+    - 2008
+    - 2009
+  explanation: |-
+    Gain a Charge.
+    Whenever you throw a Parade, you gain 5 Progress.
+
+    Parade III costs 10
+  prerequisite: 2001
+
+2003:
+  name: "Parade III"
+  concept: "PARADE"
+  cost: 10
+  skills:
+    - 2008
+    - 2010
+  explanation: |-
+    Gain a Charge.
+    Whenever you throw a Parade, you permanently gain 1 Survivability.
+
+    Parade IV costs 10
+  prerequisite: 2002
+
+2004:
+  name: "Parade IV"
+  concept: "PARADE"
+  cost: 10
+  skills:
+    - 2008
+    - 2011
+  explanation: |-
+    Gain a Charge.
+    Whenever you throw a Parade, you permanently gain 1 Combat.
+
+    Parade V costs 10
+  prerequisite: 2003
+
+2005:
+  name: "Parade V"
+  concept: "PARADE"
+  cost: 10
+  skills:
+    - 2001
+  explanation: |-
+    Gain three Charges.
+  prerequisite: 2004

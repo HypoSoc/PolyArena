@@ -1,0 +1,68 @@
+# Erode I (10): Whenever you attack a player, permanently reduce their Survivability by 1. (Narrow) (Fragile)
+#               This affects even the Petrified forms of players.
+# Erode II (10): +1 to your lowest Stat for every circuit attuned to Earth. (Fragile as if Geomancy)
+#                You can attune an additional circuit to Earth
+#                You gain a circuit.
+# Erode III (5): Every turn, choose up to three players.
+#                If, at the end of the turn, you have at least three circuits attuned to Earth,
+#                permanently reduce their Survivability by 1 (including when Petrified). (Narrow) (Fragile)
+
+1301:
+  name: "Erode I"
+  concept: "ERODE"
+  cost: 10
+  aero:
+    1301:
+      fragile: true
+    1302:
+      fragile: true
+    1303:
+      fragile: true
+  explanation: |-
+    Whenever you attack a player, permanently reduce their Survivability by 1. (Narrow) (Fragile)
+    This affects even the Petrified forms of players.
+
+    Erode II costs 10
+
+1302:
+  name: "Erode II"
+  concept: "ERODE"
+  cost: 10
+  skills:
+    - 47
+    - 50
+  geo:
+    61:
+      circuits:
+        - "EARTH"
+      fragile: true
+      each: true
+  explanation: |-
+    +1 to your lowest Stat for every circuit attuned to Earth. (Fragile as if Geomancy)
+    You can attune an additional circuit to Earth
+    You gain a circuit.
+
+    Erode III costs 5
+  prerequisite: 1301
+
+1304:
+  name: "Erode III"
+  concept: "ERODE"
+  cost: 5
+  max_targets: 3
+  geo:
+    1304:
+      circuits:
+        - "EARTH"
+        - "EARTH"
+        - "EARTH"
+  aero:
+    1305:
+      fragile: true
+    1306:
+      fragile: true
+  explanation: |-
+    Every turn, choose up to three players.
+    If, at the end of the turn, you have at least three circuits attuned to Earth,
+    permanently reduce their Survivability by 1 (including when Petrified). (Narrow) (Fragile)
+  prerequisite: 1302

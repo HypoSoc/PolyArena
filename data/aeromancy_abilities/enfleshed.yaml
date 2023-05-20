@@ -1,0 +1,55 @@
+# Enfleshed I (10): You start the game with five Seals.
+#                   Whenever you are Injured in combat, remove a Seal to permanently gain +2 Combat and +2 Survivability. (WIDE)
+#                   You cannot win the game if you have any Seals.
+#                   You are immune to Poison Gas. (Fragile)
+# Enfleshed II (15): You gain a Healing Tank.
+# Enfleshed III (15): Remove a Seal to permanently gain +2 Combat and +2 Survivability.
+#                     If you don't have a Seal, instead gain 20 Progress
+
+1901:
+  name: "Enfleshed I"
+  concept: "ENFLESHED"
+  cost: 10
+  skills:
+    - 1901
+    - 1902
+    - 1902
+    - 1903
+    - 1903
+    - 1904
+  aero:
+    22:
+      fragile: true
+  explanation: |-
+    You start the game with five Seals.
+    Whenever you are Injured in combat, remove a Seal to permanently gain +2 Combat and +2 Survivability. (WIDE)
+    You cannot win the game if you have any Seals.
+    You are immune to Poison Gas. (Fragile)
+
+    Enfleshed II costs 15
+
+1902:
+  name: "Enfleshed II"
+  concept: "ENFLESHED"
+  cost: 15
+  skills:
+    - 1905
+  explanation: |-
+    Gain a Healing Tank.
+
+    Enfleshed III costs 15
+  prerequisite: 1901
+
+1903:
+  name: "Enfleshed III"
+  concept: "ENFLESHED"
+  cost: 15
+  skills:
+    - 1906
+    - 1907
+    - 1908
+    - 1909
+  explanation: |-
+    Remove a Seal to permanently gain +2 Combat and +2 Survivability.
+    If you don't have a Seal, instead gain 20 Progress.
+  prerequisite: 1902

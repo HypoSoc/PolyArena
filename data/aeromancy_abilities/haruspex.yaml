@@ -1,0 +1,83 @@
+# Haruspex I (10): At the start of the game, a random player other than you will be designated as the Portent.
+#                  They will be informed of their status. You will not learn their identity.
+#                  When the Portent dies, if you attacked them that turn, you gain an Omen. (Blatant)
+#                  If you have three Omens at the end of the game, you win, stealing a graduation slot.
+#                  Whenever a Portent dies, a new one will be chosen at the start of the next turn.
+# Haruspex II (5): You gain +3 Combat when attacking the Portent. (Subtle) (Fragile)
+# Haruspex III (10): You can spend an action to heal any player's injuries. Self-heals are uninterruptible.
+# Haruspex IV (5): Each turn, choose a player. You will be informed if they are the Portent.
+# Haruspex V (5): Each turn, choose a player. You will be informed if they are the Portent.
+
+1701:
+  name: "Haruspex I"
+  concept: "HARUSPEX"
+  cost: 10
+  skills:
+    - 1701
+    - 1702
+    - 1703
+    - 1704
+    - 1705
+    - 1706
+    - 1707
+    - 1708
+    - 1709
+  explanation: |-
+    At the start of the game, a random player other than you will be designated as the Portent.
+    They will be informed of their status. You will not learn their identity.
+    When the Portent dies, if you attacked them that turn, you gain an Omen. (Blatant)
+    If you have three Omens at the end of the game, you win, stealing a graduation slot.
+    Whenever a Portent dies, a new one will be chosen at the start of the next turn.
+
+    Haruspex II costs 5
+
+1702:
+  name: "Haruspex II"
+  concept: "HARUSPEX"
+  cost: 5
+  aero:
+    1710:
+      fragile: true
+  explanation: |-
+    You gain +3 Combat when attacking the Portent. (Subtle) (Fragile)
+
+    Haruspex III costs 10
+  prerequisite: 1701
+
+1703:
+  name: "Haruspex III"
+  concept: "HARUSPEX"
+  cost: 10
+  skills:
+    - 24
+  explanation: |-
+    You can spend an action to heal any player's injuries. Self-heals are uninterruptible.
+
+    Haruspex IV costs 5
+  prerequisite: 1702
+
+1704:
+  name: "Haruspex IV"
+  concept: "HARUSPEX"
+  cost: 5
+  max_targets: 1
+  skills:
+    - 1711
+    - 1712
+  explanation: |-
+    Each turn, choose a player. You will be informed if they are the Portent.
+
+    Haruspex V costs 5
+  prerequisite: 1703
+
+1705:
+  name: "Haruspex V"
+  concept: "HARUSPEX"
+  cost: 5
+  max_targets: 1
+  skills:
+    - 1711
+    - 1712
+  explanation: |-
+    Each turn, choose a player. You will be informed if they are the Portent.
+  prerequisite: 1704
