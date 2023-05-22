@@ -14,7 +14,8 @@
 1103:
   text: "A cloud of weakness blankets the area."
   effect: "INFO_ONCE"
-  info: "WIDE"
+  info: "SUBTLE"
+  trigger: "RANGE"
 
 1104:
   text: "A fog of sickness settles over campus."
@@ -42,7 +43,7 @@
   text: "%TARGET% fell ill."
   effect: "CONDITION"
   value: "SICKENED"
-  trigger: "RANDOM"
+  trigger: "RANDOM_OTHER"
   info: "BLATANT"
   target_not_condition: "SICKENED"
 

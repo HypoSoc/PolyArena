@@ -20,7 +20,7 @@
   effect: "CONDITION"
   trigger: "ATTACKED_IGNORE_RANGE"
   value: "ONCE"
-  info: "WIDE"
+  info: "SUBTLE"
   target_not_condition: "INJURED"
   self_override: true
   priority: -5

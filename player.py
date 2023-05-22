@@ -256,7 +256,10 @@ class Player:
             .replace(f"Your intuition tells you this has to do with "
                      f"your Aeromancy ({self.concept}).{os.linesep}", "") \
             .replace(f"This unmistakably has to do with "
-                     f"your Aeromancy ({self.concept}).{os.linesep}", "")
+                     f"your Aeromancy ({self.concept}).{os.linesep}", "") \
+            .replace("! you", "! You") \
+            .replace(". you", ". You") \
+            .replace("? you", "? You")
 
         gather = []
         line_break = False

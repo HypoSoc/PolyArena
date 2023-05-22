@@ -1,9 +1,9 @@
-#Miasma I (10): Everyone in range gets -2 Combat (Wide) (Fragile)
+#Miasma I (10): Everyone in range gets -2 Combat (Subtle) (Fragile)
 #               You cannot be Sickened.
 #Miasma II (10): Everyone gets -2 Combat and -2 Survivability (Blatant) (Fragile)
-#Miasma III (10): At the start of each turn, a random living player will be Sickened until end of turn. (Blatant) (Fragile)
+#Miasma III (10): At the start of each turn, a random living player other than you will be Sickened until end of turn. (Blatant) (Fragile)
 #                 At the start of each turn, Interrupt all Sickened Players. (Fragile)
-#Miasma IV (10): At the start of each turn, another random living player will be Sickened until end of turn. (Blatant) (Fragile)
+#Miasma IV (10): At the start of each turn, another random living player other than you will be Sickened until end of turn. (Blatant) (Fragile)
 #Miasma V (10): At the end of each turn, Damage all Sickened players. (Blatant) (Fragile)
 
 1101:
@@ -18,7 +18,7 @@
     1103:
       fragile: true
   explanation: |-
-    Everyone in range gets -2 Combat (Wide) (Fragile)
+    Everyone in range gets -2 Combat (Subtle) (Fragile)
     You cannot be Sickened.
 
     Miasma II costs 10
@@ -50,7 +50,7 @@
     1108:
       fragile: true
   explanation: |-
-    At the start of each turn, a random living player will be Sickened until end of turn. (Blatant) (Fragile)
+    At the start of each turn, a random living player other than you will be Sickened until end of turn. (Blatant) (Fragile)
     At the start of each turn, Interrupt all Sickened Players. (Fragile)
 
     Miasma IV costs 10
@@ -64,7 +64,7 @@
     1107:
       fragile: true
   explanation: |-
-    At the start of each turn, another random living player will be Sickened until end of turn. (Blatant) (Fragile)
+    At the start of each turn, another random living player other than you will be Sickened until end of turn. (Blatant) (Fragile)
 
     Miasma V costs 10
   prerequisite: 1103

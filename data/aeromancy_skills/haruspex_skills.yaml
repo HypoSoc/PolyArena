@@ -76,7 +76,7 @@
   priority: 2000
 
 1710:
-  text: "%SELF% identified %TARGET% as the Portent and was empowered by an all consuming need!"
+  text: "%SELF% identified %TARGET% as the Portent! %SELF% was empowered by an all consuming need!"
   info: "SUBTLE"
   effect: "COMBAT"
   value: 3
