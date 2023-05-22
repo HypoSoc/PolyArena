@@ -55,6 +55,9 @@ def noncombat_damage(source: 'Player', victim: 'Player', modifiers: List[InjuryM
             if InjuryModifier.GRIEVOUS in modifiers and InjuryModifier.PERMANENT not in modifiers:
                 modifiers = [modifier for modifier in modifiers if modifier != InjuryModifier.GRIEVOUS]
 
+        if victim.has_condition(Condition.NONLETHAL_IMMUNE) and InjuryModifier.NONLETHAL in modifiers:
+            return
+
         victim.wound(injury_modifiers=modifiers)
 
 

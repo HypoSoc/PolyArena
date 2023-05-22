@@ -125,6 +125,7 @@ class Condition(IntEnum):
     PORTENT = 107
     OMEN = 108
     CELEBRATED = 109
+    NONLETHAL_IMMUNE = 110  # Ignore damage with the Nonlethal modifier
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]

@@ -1,6 +1,6 @@
 # Conductor I (10): Every turn, choose Class, Doctor, Train, Bunker, Shop, Attack, or Wander. You may only choose a legal action. (Blatant).
 #            Everyone, including you, who takes the matching action that turn will gain 4 Progress. (Narrow)
-# Conductor II (20): Every turn, choose a living, unpetrified Player. If they fail to take your chosen action, they will be Petrified. (Blatant) (Fragile)
+# Conductor II (15): Every turn, choose a living, unpetrified Player. If they fail to take your chosen action, they will be Petrified. (Blatant) (Fragile)
 # Conductor III-VII (15): You may choose an additional Player.
 
 # TODO add code to force action choice to be legal, and to prevent petrified targets from being hit
@@ -42,12 +42,12 @@
   explanation: |-
     Every turn, choose a legal action from among Class, Doctor, Train, Bunker, Shop, Attack, or Wander (Blatant).
     Everyone, who takes the matching action that turn, including you, will gain 4 Progress. (Narrow)
-    Conductor II costs 20
+    Conductor II costs 15
 
 802:
   name: "Conductor II"
   concept: "CONDUCTOR"
-  cost: 20
+  cost: 15
   aero:
     815:
       fragile: true

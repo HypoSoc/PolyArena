@@ -74,3 +74,9 @@
   trigger: "ACQUISITION"
   self_has_condition: "LOCKED"
   priority: 5
+
+1910:
+  text: "Nonlethal immune"
+  effect: "CONDITION"
+  value: "NONLETHAL_IMMUNE"
+  self_has_condition: "LOCKED"

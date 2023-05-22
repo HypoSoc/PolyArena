@@ -702,6 +702,9 @@ class CombatHandler:
 
                 def wound():
                     if not target_not_condition or target_not_condition not in conditions[target]:
+                        if InjuryModifier.NONLETHAL in injury_modifiers:
+                            if Condition.NONLETHAL_IMMUNE in conditions[target]:
+                                return
                         queue.put(wound_tic(priority+1, target, injury_modifiers))
                         for damaged_skill in target.get_skills():
                             if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
@@ -716,6 +719,8 @@ class CombatHandler:
 
                 def nonlethal():
                     if not target_not_condition or target_not_condition not in conditions[target]:
+                        if Condition.NONLETHAL_IMMUNE in conditions[target]:
+                            return
                         if Condition.INJURED not in target.conditions:
                             queue.put(wound_tic(priority+1, target, injury_modifiers+[InjuryModifier.NONLETHAL]))
                             for damaged_skill in target.get_skills():
