@@ -11,7 +11,7 @@
   priority: 68
 
 1003:
-  text: "%SELF% crumbled under the weight of %TARGET%'s blow, before reforming."
+  text: "%SELF% crumbled under the weight of %TARGET%'s blow."
   effect: "INFO"
   info: "WIDE"
   trigger: "COMBAT_DAMAGED"

@@ -2,7 +2,7 @@
   text: "%TARGET%'s body crumbles at the edges."
   effect: "PERMANENT_CONDITION"
   value: "SURVIVABILITY_DOWN"
-  info: "NARROW"
+  info: "SUBTLE"
   trigger: "ATTACK"
 
 1302:

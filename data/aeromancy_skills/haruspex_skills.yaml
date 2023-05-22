@@ -7,7 +7,7 @@
 
 1702:
   text: "%TARGET%'s entrails are quite Portentous."
-  info: "IMPERSONAL"
+  info: "SUBTLE_IMPERSONAL"
   effect: "PERMANENT_CONDITION"
   value: "PORTENT"
   trigger: "RANDOM_OTHER"

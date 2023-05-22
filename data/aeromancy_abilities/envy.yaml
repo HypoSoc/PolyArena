@@ -1,5 +1,5 @@
 # Envy I (10): You cannot graduate as long as a Ringer is alive.
-#              +2 Combat and +2 Survivability when attacking a Ringer. (Subtle) (Fragile)
+#              +2 Combat and +3 Survivability when attacking a Ringer. (Subtle) (Fragile)
 # Envy II (5): Whenever a Ringer Dies, permanently gain +1 Combat and +1 Survivability (Narrow)
 # Envy III (10): Gain a Charge.
 #                Each turn, you may spend a charge to make a player into a Ringer at the end of turn (Blatant)
@@ -18,7 +18,7 @@
       fragile: true
   explanation: |-
     You cannot graduate as long as a Ringer is alive.
-    +2 Combat and +2 Survivability when attacking a Ringer. (Subtle) (Fragile)
+    +2 Combat and +3 Survivability when attacking a Ringer. (Subtle) (Fragile)
 
     Envy II costs 5
 

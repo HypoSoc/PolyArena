@@ -1,5 +1,5 @@
-# Haruspex I (10): At the start of the game, a random player other than you will be designated as the Portent.
-#                  They will be informed of their status. You will not learn their identity.
+# Haruspex I (10): At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
+#                  You will not learn their identity.
 #                  When the Portent dies, if you attacked them that turn, you gain an Omen. (Blatant)
 #                  If you have three Omens at the end of the game, you win, stealing a graduation slot.
 #                  Whenever a Portent dies, a new one will be chosen at the start of the next turn.
@@ -23,8 +23,8 @@
     - 1708
     - 1709
   explanation: |-
-    At the start of the game, a random player other than you will be designated as the Portent.
-    They will be informed of their status. You will not learn their identity.
+    At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
+    You will not learn their identity.
     When the Portent dies, if you attacked them that turn, you gain an Omen. (Blatant)
     If you have three Omens at the end of the game, you win, stealing a graduation slot.
     Whenever a Portent dies, a new one will be chosen at the start of the next turn.

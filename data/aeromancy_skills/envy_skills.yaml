@@ -8,10 +8,10 @@
   self_override: true
 
 1402:
-  text: "+2 Survivability when attacking Ringers"
+  text: "+3 Survivability when attacking Ringers"
   effect: "SURVIVABILITY"
   trigger: "ATTACK"
-  value: 2
+  value: 3
   target_has_condition: "RINGER"
   self_override: true
 

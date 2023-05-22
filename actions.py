@@ -316,9 +316,9 @@ class HandleSkill(Action):
                         add_to_report(target, text)
                 elif self.skill.info == InfoScope.IMPERSONAL:
                     add_to_report(target, text)
-                elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE]:
+                elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE, InfoScope.SUBTLE_IMPERSONAL]:
                     was_printed = False
-                    if target != self.player:
+                    if target != self.player and self.skill.info != InfoScope.SUBTLE_IMPERSONAL:
                         add_to_report(self.player, text)
                     if target.has_condition(Condition.INTUITION) \
                             or self.skill.info == InfoScope.NARROW \
