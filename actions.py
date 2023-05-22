@@ -284,8 +284,9 @@ class HandleSkill(Action):
                 return True
             return False
 
-        def add_to_broadcast(msg: str, intuition_required: bool = False, override: bool = False) -> bool:
-            if override or self.skill.effect != Effect.INFO_ONCE:
+        def add_to_broadcast(msg: str, intuition_required: bool = False,
+                             force_once: bool = False) -> bool:
+            if not force_once and self.skill.effect != Effect.INFO_ONCE:
                 get_main_report().broadcast(msg, intuition_required=intuition_required)
                 return True
             elif msg not in HandleSkill.info_once_broadcast:
@@ -334,7 +335,7 @@ class HandleSkill(Action):
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
                     get_main_report().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
                 elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
-                    if add_to_broadcast(text):
+                    if add_to_broadcast(text, force_once=self.skill.info_once_override):
                         if self.skill.info == InfoScope.BLATANT:
                             get_main_report().broadcast(f"Your intuition tells you this has to do "
                                                         f"with the concept {self.player.concept}.",
@@ -403,6 +404,9 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.DAMAGE:
                 if not self.fake:
                     noncombat_damage(self.player, target)
+            elif self.skill.effect == Effect.GRIEVOUS:
+                if not self.fake:
+                    noncombat_damage(self.player, target, [InjuryModifier.GRIEVOUS])
             elif self.skill.effect == Effect.NONLETHAL:
                 if not self.fake:
                     noncombat_damage(self.player, target, [InjuryModifier.NONLETHAL])

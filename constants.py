@@ -184,6 +184,7 @@ class Effect(Enum):
     INTERRUPT = 30  # Prevent interruptable actions
     SCHEDULE = 31  # Schedule skill value in value_b turns
     GAIN_ABILITY_OR_PROGRESS = 32  # Grant the ability, or grant equivalent progress if ability cannot be gained
+    GRIEVOUS = 33  # Deal grievous damage
 
 
 class Trigger(Enum):

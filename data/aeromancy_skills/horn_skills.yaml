@@ -1,0 +1,146 @@
+2201:
+  text: "The Horn of Fervor Resounds!"
+  effect: "SCHEDULE"
+  value: 2202
+  value_b: 1
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+  priority: 135
+
+2202:
+  text: "The Horn of Fervor echoes through the air!"
+  effect: "CONDITION"
+  value: "HONED"
+  value_b: 2
+  info: "BLATANT"
+  trigger: "ALL"
+  info_once: true
+
+2203:
+  text: "The Horn of Fear Resounds!"
+  effect: "SCHEDULE"
+  value: 2204
+  value_b: 1
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+  priority: 135
+
+2204:
+  text: "The Horn of Fear echoes through the air!"
+  effect: "CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 2
+  info: "BLATANT"
+  trigger: "ALL"
+  info_once: true
+
+2205:
+  text: "The Horn of Plenty Resounds!"
+  effect: "SCHEDULE"
+  value: 2206
+  value_b: 1
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+  priority: 135
+  self_has_condition: "OPTION_A"
+
+2206:
+  text: "The Horn of Plenty echoes through the air!"
+  effect: "CREDITS"
+  value: 2
+  info: "BLATANT"
+  trigger: "ALL"
+  info_once: true
+
+2207:
+  text: "The Horn of Revelation Resounds!"
+  effect: "SCHEDULE"
+  value: 2208
+  value_b: 1
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+  priority: 135
+  self_has_condition: "OPTION_B"
+
+2208:
+  text: "The Horn of Revelation echoes through the air!"
+  effect: "PROGRESS"
+  value: 5
+  info: "BLATANT"
+  trigger: "ALL"
+  info_once: true
+
+2209:
+  text: "The Horn of Death Resounds!"
+  effect: "SCHEDULE"
+  value: 2210
+  value_b: 3
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+  priority: 135
+  self_has_condition: "OPTION_C"
+
+2210:
+  text: "The Horn of Death echoes through the air!"
+  effect: "GRIEVOUS"
+  info: "BLATANT"
+  trigger: "ALL"
+  info_once: true
+
+2211:
+  text: "Blew Horn A"
+  effect: "CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+
+2212:
+  text: "Blew Horn B"
+  effect: "CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+
+2213:
+  text: "Blew Horn C"
+  effect: "CONDITION"
+  value: "CHARGE"
+  self_has_condition: "OPTION_A"
+  trigger: "NONCOMBAT"
+
+2214:
+  text: "Blew Horn D"
+  effect: "CONDITION"
+  value: "CHARGE"
+  self_has_condition: "OPTION_B"
+  trigger: "NONCOMBAT"
+
+2215:
+  text: "Blew Horn E"
+  effect: "CONDITION"
+  value: "CHARGE"
+  self_has_condition: "OPTION_C"
+  trigger: "NONCOMBAT"
+
+2216:
+  text: "Can blow horn C"
+  effect: "PERMANENT_CONDITION"
+  value: "OPTION_A"
+  trigger: "ACQUISITION"
+
+2217:
+  text: "Can blow horn D"
+  effect: "PERMANENT_CONDITION"
+  value: "OPTION_B"
+  trigger: "ACQUISITION"
+
+2218:
+  text: "%SELF% is bolstered by their horn."
+  info: "WIDE"
+  effect: "SURVIVABILITY"
+  value: 4
+  self_has_condition: "CHARGE"
+
+2219:
+  text: "Can blow horn E"
+  effect: "PERMANENT_CONDITION"
+  value: "OPTION_C"
+  trigger: "ACQUISITION"

@@ -1,0 +1,94 @@
+# Horn I (10): Every turn, you may choose a Horn to Blow (or none). Blowing a Horn is Blatant and Fragile, and causes an effect the following turn.
+#              You can choose the Horn of Fervor (All players gain +2 Combat), or the Horn of Fear (All players lose 2 Combat).
+# Horn II (10): You gain access to the Horn of Plenty (All players gain 2 Credits).
+# Horn III (10): You gain access to the Horn of Revelation (All players gain +5 Progress).
+# Horn IV (10): +4 Survivability on turns you blow a Horn. (Wide) (Fragile)
+# Horn V (10): You gain access to the Horn of Death (Deal Grievous Damage to all players). This horn takes effect in three turns, not one.
+
+2201:
+  name: "Horn I"
+  concept: "HORN"
+  cost: 10
+  aero:
+    2201:
+      fragile: true
+      option: 0
+    2211:
+      fragile: true
+      option: 0
+    2203:
+      fragile: true
+      option: 1
+    2212:
+      fragile: true
+      option: 1
+    2205:
+      fragile: true
+      option: 2
+    2213:
+      fragile: true
+      option: 2
+    2207:
+      fragile: true
+      option: 3
+    2214:
+      fragile: true
+      option: 3
+    2209:
+      fragile: true
+      option: 4
+    2215:
+      fragile: true
+      option: 4
+  explanation: |-
+    Every turn, you may choose a Horn to Blow (or none). Blowing a Horn is Blatant and Fragile, and causes an effect the following turn.
+    You can choose the Horn of Fervor (All players gain +2 Combat), or the Horn of Fear (All players lose 2 Combat).
+
+    Horn II costs 10
+
+2202:
+  name: "Horn II"
+  concept: "HORN"
+  cost: 10
+  skills:
+    - 2216
+  explanation: |-
+    You gain access to the Horn of Plenty (All players gain 2 Credits).
+
+    Horn III costs 10
+  prerequisite: 2201
+
+2203:
+  name: "Horn III"
+  concept: "HORN"
+  cost: 10
+  skills:
+    - 2217
+  explanation: |-
+    You gain access to the Horn of Revelation (All players gain +5 Progress).
+
+    Horn IV costs 10
+  prerequisite: 2202
+
+2204:
+  name: "Horn IV"
+  concept: "HORN"
+  cost: 10
+  aero:
+    2218:
+      fragile: true
+  explanation: |-
+    +4 Survivability on turns you blow a Horn. (Wide) (Fragile)
+
+    Horn V costs 10
+  prerequisite: 2203
+
+2205:
+  name: "Horn V"
+  concept: "HORN"
+  cost: 10
+  skills:
+    - 2219
+  explanation: |-
+    You gain access to the Horn of Death (Deal Grievous Damage to all players). This horn takes effect in three turns, not one.
+  prerequisite: 2204

@@ -566,9 +566,9 @@ class Player:
 
     def plan_ability_choose(self, ability_name: str, choice: int, for_rune=False):
         ability = get_ability_by_name(ability_name)
-        assert ability.must_choose
         assert choice >= 0
-        assert choice < ability.must_choose
+        if ability.must_choose:
+            assert choice < ability.must_choose
         if for_rune:
             self.item_choices[get_item_by_name(ability_name + " rune").pin] = choice
         else:

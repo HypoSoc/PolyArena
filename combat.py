@@ -578,6 +578,11 @@ class CombatHandler:
                                                  dmg_type=get_damage_type(p),
                                                  injury_modifiers=get_injury_modifiers(p),
                                                  target_not_condition=skill.target_not_condition))
+                        elif skill.effect == Effect.GRIEVOUS:
+                            queue.put(damage_tic(skill.priority + 1, source=p, target=target,
+                                                 dmg_type=get_damage_type(p),
+                                                 injury_modifiers=get_injury_modifiers(p) + [InjuryModifier.GRIEVOUS],
+                                                 target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.NONLETHAL:
                             queue.put(damage_tic(skill.priority+1, source=p, target=target,
                                                  dmg_type=get_damage_type(p, DamageType.NONLETHAL),
