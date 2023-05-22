@@ -70,7 +70,7 @@
   text: "%SELF% was invigorated by the Parade!"
   info: "PRIVATE"
   effect: "PROGRESS"
-  value: 5
+  value: 4
   self_has_condition: "ONCE"
   trigger: "NONCOMBAT"
   priority: 6

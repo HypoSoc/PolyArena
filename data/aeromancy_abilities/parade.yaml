@@ -3,7 +3,7 @@
 #                Throwing a Parade interrupts your target. (Wide)
 #                Whenever you throw a Parade, you and the target both gain 2 Credits. (Narrow)
 # Parade II (10): Gain a Charge.
-#                 Whenever you throw a Parade, you gain 5 Progress.
+#                 Whenever you throw a Parade, you gain 4 Progress.
 # Parade III (10): Gain a Charge.
 #                  Whenever you throw a Parade, you permanently gain 1 Survivability.
 # Parade IV (10): Gain a Charge.
@@ -44,7 +44,7 @@
     - 2009
   explanation: |-
     Gain a Charge.
-    Whenever you throw a Parade, you gain 5 Progress.
+    Whenever you throw a Parade, you gain 4 Progress.
 
     Parade III costs 10
   prerequisite: 2001

@@ -28,7 +28,7 @@
 2104:
   text: "%SELF% held their sword en-garde."
   effect: "SURVIVABILITY"
-  value: 2
+  value: 3
   info: "WIDE"
   self_has_condition: "ARMED"
   priority: 32
