@@ -905,6 +905,19 @@ class Player:
             reporting_func(message, InfoScope.BROADCAST)
             get_main_report().add_death(self)
 
+    def kill(self, reporting_func: Optional[ReportCallable] = None):
+        if reporting_func is None:
+            reporting_func = self._non_combat_report_callable()
+
+        if LIZARD_TAIL in self.items:
+            reporting_func(f"{self.name} used a Lizard Tail to avoid being wounded.", InfoScope.PUBLIC)
+            self.items.remove(LIZARD_TAIL)
+            reporting_func(f"Lizard Tail consumed ({self.items.count(LIZARD_TAIL)} remaining).", InfoScope.PRIVATE)
+            return False
+
+        self.die(f"{self.name} died.", reporting_func)
+        return True
+
     def wound(self, injury_modifiers: Optional[List[InjuryModifier]] = None,
               reporting_func: Optional[ReportCallable] = None) -> bool:
         if injury_modifiers is None:
@@ -942,7 +955,7 @@ class Player:
                 return True
         return False
 
-    def petrify(self, reporting_func: Optional[ReportCallable] = None, long=False):
+    def petrify(self, reporting_func: Optional[ReportCallable] = None, mini=False, long=False):
         if reporting_func is None:
             reporting_func = self._non_combat_report_callable()
 
@@ -950,7 +963,7 @@ class Player:
             if SOFT in self.items:
                 reporting_func(f"{self.name} used a Soft to avoid being petrified.", InfoScope.PUBLIC)
                 self.items.remove(SOFT)
-                reporting_func(f"Soft consumed ({self.items.count(LIZARD_TAIL)} remaining).", InfoScope.PRIVATE)
+                reporting_func(f"Soft consumed ({self.items.count(SOFT)} remaining).", InfoScope.PRIVATE)
                 return
 
             reporting_func(f"{self.name} was Petrified.", InfoScope.PUBLIC)
@@ -958,6 +971,8 @@ class Player:
         timer = 2
         if long:
             timer = 3
+        if mini:
+            timer = 1
         while self.conditions.count(Condition.PETRIFIED) < timer:
             self.conditions.append(Condition.PETRIFIED)
 

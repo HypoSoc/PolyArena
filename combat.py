@@ -593,6 +593,13 @@ class CombatHandler:
                                                  dmg_type=get_damage_type(p, DamageType.PETRIFY),
                                                  injury_modifiers=get_injury_modifiers(p),
                                                  target_not_condition=skill.target_not_condition))
+                        elif skill.effect == Effect.MINI_PETRIFY:
+                            queue.put(damage_tic(skill.priority+1, source=p, target=target,
+                                                 dmg_type=get_damage_type(p, DamageType.PETRIFY),
+                                                 injury_modifiers=get_injury_modifiers(p) + [InjuryModifier.MINI],
+                                                 target_not_condition=skill.target_not_condition))
+                        elif skill.effect == Effect.KILL:
+                            queue.put(kill_tic(skill.priority+1, target))
                         elif skill.effect == Effect.AMBUSH:
                             if p not in self.ambushes:
                                 self.ambushes[p] = set()
@@ -633,7 +640,7 @@ class CombatHandler:
 
                 return skill.priority, self.tic_index, handle_skill
 
-            def petrify_tic(base_priority: int, p: Player, long=False) -> Tic:
+            def petrify_tic(base_priority: int, p: Player, long=False, mini=False) -> Tic:
                 self.tic_index += 1
 
                 def petrify():
@@ -641,12 +648,29 @@ class CombatHandler:
                         self._append_to_event_list(self.combat_group_to_events[group],
                                                    message, [p], info_scope, p)
 
-                    p.petrify(reporting_function, long=long)
+                    p.petrify(reporting_function, mini=mini, long=long)
                     if Condition.PETRIFIED in p.conditions:
                         conditions[p].append(Condition.GAS_IMMUNE)
                         conditions[p].append(Condition.PETRIFIED)
 
                 return base_priority, self.tic_index, petrify
+
+            def kill_tic(base_priority: int, p: Player) -> Tic:
+                self.tic_index += 1
+
+                def kill():
+                    was_alive = not p.is_dead()
+
+                    def reporting_function(message: str, info_scope: InfoScope):
+                        self._append_to_event_list(self.combat_group_to_events[group],
+                                                   message, [p], info_scope, p)
+
+                    p.kill(reporting_function)
+
+                    if was_alive and p.is_dead():
+                        dead_list.append(p)
+
+                return base_priority, self.tic_index, kill
 
             def wound_tic(base_priority: int, p: Player, injury_modifiers: List[InjuryModifier]) -> Tic:
                 self.tic_index += 1
@@ -717,7 +741,8 @@ class CombatHandler:
 
                 def petrify():
                     if not target_not_condition or target_not_condition not in conditions[target]:
-                        queue.put(petrify_tic(priority+1, target, Condition.LONG_PETRIFY in conditions[source]))
+                        queue.put(petrify_tic(priority+1, target, long=Condition.LONG_PETRIFY in conditions[source],
+                                              mini=InjuryModifier.MINI in injury_modifiers))
                         for damaged_skill in target.get_skills():
                             if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
                                 queue.put(skill_tic(target, damaged_skill, [source]))
@@ -804,6 +829,9 @@ class CombatHandler:
                     # Ambushed players attempt to damage 20 priority later
                     if not ambushed_tic and offense in self.ambushes.get(defense, set()):
                         queue.put(combat_tic(offense, defense, True))
+                        return
+
+                    if offense.is_dead() or defense.is_dead():
                         return
 
                     if self.check_range(offense, defense):
@@ -916,9 +944,9 @@ class CombatHandler:
                 if player.concept:
                     conditions[player].append(Condition.USING_AERO)
 
-                if not player.has_condition(Condition.PETRIFIED):
-                    for _skill in player.get_skills():
-                        # Apply effects from skills to players in order of skill priority
+                for _skill in player.get_skills():
+                    # Apply effects from skills to players in order of skill priority
+                    if not player.has_condition(Condition.PETRIFIED) or _skill.works_when_petrified:
                         if _skill.trigger not in NONCOMBAT_TRIGGERS:
                             queue.put(skill_tic(player, _skill))
                         elif _skill.effect == Effect.TENTATIVE_CONDITION:

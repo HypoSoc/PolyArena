@@ -796,6 +796,7 @@
   trigger: "NONCOMBAT"
   value: 20
   info: "PERSONAL"
+  works_when_petrified: True
 
 121:
   text: "%TARGET%'s soul was wrenched apart!"

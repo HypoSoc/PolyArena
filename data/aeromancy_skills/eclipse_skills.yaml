@@ -18,6 +18,7 @@
   effect: "CONDITION"
   value: "ECLIPSE"
   trigger: "ALL"
+  works_when_petrified: True
 
 1604:
   text: "%SELF% is empowered by the Eclipse."
@@ -45,6 +46,7 @@
   trigger: "NONCOMBAT"
   self_has_condition: "ECLIPSE"
   priority: 1
+  works_when_petrified: True
 
 1608:
   text: "The Eclipse calls to you."
@@ -68,3 +70,4 @@
   target_not_condition: "ECLIPSE"
   trigger: "ALL"
   priority: -1
+  works_when_petrified: True

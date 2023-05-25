@@ -1,0 +1,71 @@
+# Snail I (10): Each turn, you may choose to Petrify yourself for the turn (you will be freed at the end of the turn). (Wide).
+#               Everyone who attacks you that turn will be Petrified. (Wide) (Fragile)
+# Snail II (10): In seven turns you will gain 30 Progress.
+# Snail III (10): Gain 3 Softs.
+# Snail IV (10): In two turns, Petrify all players. (Blatant)
+# Snail V (10): When you attack a Petrified player, kill them. (Wide) (Fragile)
+
+# Target self/anyone to use
+
+2301:
+  name: "Snail I"
+  concept: "SNAIL"
+  cost: 10
+  skills:
+    - 2301
+    - 2302
+  aero:
+    2303:
+      fragile: true
+  explanation: |-
+    Each turn, you may choose to Petrify yourself for the turn (you will be freed at the end of the turn). (Wide).
+    Everyone who attacks you that turn will be Petrified. (Wide) (Fragile)
+
+    Snail II costs 10
+
+2302:
+  name: "Snail II"
+  concept: "SNAIL"
+  cost: 10
+  skills:
+    - 2304
+  explanation: |-
+    In seven turns you will gain 30 Progress.
+
+    Snail III costs 10
+  prerequisite: 2301
+
+2303:
+  name: "Snail III"
+  concept: "SNAIL"
+  cost: 10
+  skills:
+    - 2306
+  explanation: |-
+    Gain 3 Softs.
+
+    Snail IV costs 10
+  prerequisite: 2302
+
+2304:
+  name: "Snail IV"
+  concept: "SNAIL"
+  cost: 10
+  skills:
+    - 2307
+  explanation: |-
+    In two turns, Petrify all players. (Blatant)
+
+    Snail V costs 10
+  prerequisite: 2303
+
+2305:
+  name: "Snail V"
+  concept: "SNAIL"
+  cost: 10
+  aero:
+    2309:
+      fragile: true
+  explanation: |-
+    When you attack a Petrified player, kill them. (Wide) (Fragile)
+  prerequisite: 2304

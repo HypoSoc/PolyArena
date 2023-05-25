@@ -43,7 +43,7 @@ def noncombat_damage(source: 'Player', victim: 'Player', modifiers: List[InjuryM
         modifiers = []
 
     if source.has_condition(Condition.PETRIFY) or petrify:
-        victim.petrify(long=source.has_condition(Condition.LONG_PETRIFY))
+        victim.petrify(long=source.has_condition(Condition.LONG_PETRIFY), mini=InjuryModifier.MINI in modifiers)
 
     else:
         if source.has_condition(Condition.INFLICT_CAUTERIZE):
@@ -410,9 +410,15 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.NONLETHAL:
                 if not self.fake:
                     noncombat_damage(self.player, target, [InjuryModifier.NONLETHAL])
+            elif self.skill.effect == Effect.KILL:
+                if not self.fake:
+                    target.kill()
             elif self.skill.effect == Effect.PETRIFY:
                 if not self.fake:
                     noncombat_damage(self.player, target, petrify=True)
+            elif self.skill.effect == Effect.MINI_PETRIFY:
+                if not self.fake:
+                    noncombat_damage(self.player, target, [InjuryModifier.MINI], petrify=True,)
             elif self.skill.effect == Effect.ITEM:
                 if not self.fake:
                     if self.skill.value_b:

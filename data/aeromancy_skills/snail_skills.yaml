@@ -1,0 +1,70 @@
+2301:
+  text: "Self Inflicted Petrify"
+  effect: "CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  self_override: True
+
+2302:
+  text: "%SELF% hardened into a statue."
+  info: "WIDE"
+  effect: "MINI_PETRIFY"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 2
+
+2303:
+  text: "%TARGET% was frozen by %SELF%."
+  info: "WIDE"
+  effect: "PETRIFY"
+  trigger: "ATTACKED"
+  self_has_condition: "CHARGE"
+  works_when_petrified: True
+  priority: 5
+
+2304:
+  text: "+30 Progress in 7 turns"
+  effect: "SCHEDULE"
+  value: 2305
+  value_b: 7
+  trigger: "ACQUISITION"
+  works_when_petrified: True
+
+2305:
+  text: "%SELF%'s slow and steady progress paid off!"
+  effect: "PROGRESS"
+  value: 30
+  trigger: "NONCOMBAT"
+  works_when_petrified: True
+
+2306:
+  text: "+3 Soft"
+  effect: "ITEM"
+  trigger: "ACQUISITION"
+  value: 14
+  value_b: 3
+  priority: 1
+
+2307:
+  text: "Petrify all players in 2 turns"
+  effect: "SCHEDULE"
+  value: 2308
+  value_b: 2
+  trigger: "ACQUISITION"
+  works_when_petrified: True
+
+2308:
+  text: "A wave of venomous slime crashes through campus!"
+  info: "BLATANT"
+  info_once: True
+  effect: "PETRIFY"
+  trigger: "ALL"
+  priority: 5
+  works_when_petrified: True
+
+2309:
+  text: "%SELF% ate through %TARGET%'s statue."
+  info: "WIDE"
+  effect: "KILL"
+  trigger: "ATTACK"
+  target_has_condition: "PETRIFIED"

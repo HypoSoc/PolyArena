@@ -185,6 +185,8 @@ class Effect(Enum):
     SCHEDULE = 31  # Schedule skill value in value_b turns
     GAIN_ABILITY_OR_PROGRESS = 32  # Grant the ability, or grant equivalent progress if ability cannot be gained
     GRIEVOUS = 33  # Deal grievous damage
+    MINI_PETRIFY = 34  # Petrify for this turn only
+    KILL = 35  # Instantly kill (unless lizard tail)
 
 
 class Trigger(Enum):
@@ -239,6 +241,7 @@ class InjuryModifier(IntEnum):
     NONLETHAL = 0
     GRIEVOUS = 1
     PERMANENT = 2
+    MINI = 3  # Used by petrify only
 
 
 COMBAT_PLACEHOLDER = "%COMBAT%"
