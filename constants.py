@@ -126,6 +126,7 @@ class Condition(IntEnum):
     OMEN = 108
     CELEBRATED = 109
     NONLETHAL_IMMUNE = 110  # Ignore damage with the Nonlethal modifier
+    RINGING = 111
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
@@ -187,6 +188,7 @@ class Effect(Enum):
     GRIEVOUS = 33  # Deal grievous damage
     MINI_PETRIFY = 34  # Petrify for this turn only
     KILL = 35  # Instantly kill (unless lizard tail)
+    ACADEMIC = 36  # Gain academic points
 
 
 class Trigger(Enum):

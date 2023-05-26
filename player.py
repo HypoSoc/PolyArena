@@ -750,6 +750,16 @@ class Player:
                     cost = item.cost
         return best
 
+    def _get_non_consumable_item_skills(self) -> List[Skill]:
+        skills = []
+        for item in self.get_items(duplicates=False):
+            if item.item_type != ItemType.CONSUMABLE and not item.stacking:
+                skills += item.get_skills()
+        for item in self.get_items(duplicates=True):
+            if item.item_type != ItemType.CONSUMABLE and item.stacking:
+                skills += item.get_skills()
+        return skills
+
     def get_skills(self, include_this_turn: bool = False) -> List[Skill]:
         skills = []
         for ability in self.get_abilities(include_this_turn):
@@ -761,9 +771,7 @@ class Player:
                         if skill.trigger == Trigger.TARGET:
                             skill.targets = self.ability_targets[ability.pin]
                 skills += ability_skills
-        for item in self.get_items(duplicates=False):
-            if item.item_type != ItemType.CONSUMABLE:
-                skills += item.get_skills()
+        skills += self._get_non_consumable_item_skills()
         for item in self.get_consumed_items():
             skills += item.get_skills(choice=self.item_choices.get(item.pin, -1))
 

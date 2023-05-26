@@ -435,13 +435,20 @@ class HandleSkill(Action):
                         target.lose_credits(self.skill.value * -1)
                         target.report += f"You lost {self.skill.value * -1} credits. ({target.credits} remaining)." \
                                          + os.linesep
-
+            elif self.skill.effect == Effect.ACADEMIC:
+                if not self.fake:
+                    target.academics += self.skill.value
+                    target.report += f"Academics ({target.academics})."
             elif self.skill.effect == Effect.INTERRUPT:
                 if not self.fake:
                     Action.interrupted_players.add(target)
             elif self.skill.effect == Effect.SCHEDULE:
                 if not self.fake:
-                    schedule_targets.append(target)
+                    if self.skill.value_b:
+                        schedule_targets.append(target)
+                    else:
+                        from skill import get_skill
+                        HandleSkill.handle_noncombat_skill(self.game, self.player, get_skill(self.skill.value))
             elif self.skill.effect == Effect.GAIN_ABILITY_OR_PROGRESS:
                 if not self.fake:
                     ability = get_ability(self.skill.value)
