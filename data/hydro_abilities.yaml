@@ -114,7 +114,7 @@
       cost: 1
       fragile: true
   linked: true
-  prerequisite: 211
+  prerequisite: 202
 
 214:
   name: "Sniping (Hydro)"
