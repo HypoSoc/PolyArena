@@ -126,6 +126,7 @@ class Ability:
                  concept: Optional[str],
                  max_targets: int,
                  must_choose: int,
+                 target_other: bool,
                  explanation: str,
                  prerequisite_pin: Optional[int] = None):
         self.pin = pin
@@ -141,6 +142,7 @@ class Ability:
         self.concept = concept
         self.max_targets = max_targets
         self.must_choose = must_choose  # must_choose: number of options
+        self.target_other = target_other
         self.explanation = explanation   # Adds an on acquisition skill to explain what a concept level does
         self.prerequisite_pin = prerequisite_pin
 
@@ -295,7 +297,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
 
     for key in dictionary.keys():
         assert key in ['name', 'cost', 'skills', 'geo', 'hydro', 'aero', 'max_will', 'not_contingency', 'linked',
-                       'concept', 'max_targets', 'must_choose', 'explanation', 'prerequisite'], \
+                       'concept', 'max_targets', 'must_choose', 'target_other', 'explanation', 'prerequisite'], \
             f"Ability {pin}, illegal key {key}"
     return Ability(pin=pin, name=dictionary['name'], cost=dictionary['cost'],
                    skill_pins=skills,
@@ -308,6 +310,7 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    concept=dictionary.get('concept'),
                    max_targets=dictionary.get('max_targets', 1),
                    must_choose=dictionary.get('must_choose', 0),
+                   target_other=dictionary.get('target_other', False),
                    explanation=dictionary.get('explanation', ""),
                    prerequisite_pin=dictionary.get('prerequisite'))
 

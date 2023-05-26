@@ -17,6 +17,7 @@
   aero:
     2303:
       fragile: true
+  max_targets: 1
   explanation: |-
     Each turn, you may choose to Petrify yourself for the turn (you will be freed at the end of the turn). (Wide).
     Everyone who attacks you that turn will be Petrified. (Wide) (Fragile)

@@ -10,8 +10,6 @@
 #                 Whenever you throw a Parade, you permanently gain 1 Combat.
 # Parade V (10): Gain three charges.
 
-# TODO TARGET OTHER
-
 2001:
   name: "Parade I"
   concept: "PARADE"
@@ -27,6 +25,7 @@
     2002:
       fragile: true
   max_targets: 1
+  target_other: true
   explanation: |-
     You start the game with three Charges.
     Every turn, you may spend a charge to Throw a Parade for another Player of your choice. (Fragile) (Blatant)

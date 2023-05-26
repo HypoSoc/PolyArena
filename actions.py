@@ -173,7 +173,7 @@ class Action:
 
         while not cls.queue.empty():
             tic = cls.queue.get()
-            if tic.priority > last_tic:
+            if int(tic.priority) > int(last_tic):
                 for player in Action.players:
                     player.report += os.linesep
                 last_tic = tic.priority
@@ -383,7 +383,9 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.REMOVE_CONDITION:
                 if not self.fake:
                     for _ in range(times):
-                        if Condition[self.skill.value] in target.conditions:
+                        if Condition[self.skill.value] in target.turn_conditions:
+                            target.turn_conditions.remove(Condition[self.skill.value])
+                        elif Condition[self.skill.value] in target.conditions:
                             target.conditions.remove(Condition[self.skill.value])
             elif self.skill.effect == Effect.DEV_SABOTAGE:
                 if target == self.player:
@@ -418,7 +420,10 @@ class HandleSkill(Action):
                     noncombat_damage(self.player, target, petrify=True)
             elif self.skill.effect == Effect.MINI_PETRIFY:
                 if not self.fake:
-                    noncombat_damage(self.player, target, [InjuryModifier.MINI], petrify=True,)
+                    noncombat_damage(self.player, target, [InjuryModifier.MINI], petrify=True)
+            elif self.skill.effect == Effect.HEAL:
+                if not self.fake:
+                    target.heal()
             elif self.skill.effect == Effect.ITEM:
                 if not self.fake:
                     if self.skill.value_b:

@@ -562,6 +562,8 @@ class Player:
     def plan_target(self, ability_name: str, *targets: "Player"):
         ability = get_ability_by_name(ability_name)
         assert len(targets) <= ability.max_targets
+        if ability.target_other:
+            assert self not in targets
         self.ability_targets[ability.pin] = list(targets)
 
     def plan_ability_choose(self, ability_name: str, choice: int, for_rune=False):
