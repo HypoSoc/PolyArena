@@ -1023,16 +1023,17 @@ class CombatHandler:
                         if player in self.attacker_to_defenders.get(fighter, set()) \
                                 or fighter in self.attacker_to_defenders.get(player, set()):
                             enemies.append(fighter)
-                    per_enemy_bounty = bounty // len(enemies)
-                    if per_enemy_bounty:
-                        credit = "credit"
-                        if per_enemy_bounty > 1:
-                            credit = "credits"
-                        self._append_to_event_list(self.combat_group_to_events[group],
-                                                   f"You earned {per_enemy_bounty} {credit} for killing {player.name}.",
-                                                   enemies, InfoScope.PRIVATE)
-                        for bounty_hunter in enemies:
-                            bounty_hunter.gain_credits(per_enemy_bounty)
+                    if enemies:
+                        per_enemy_bounty = bounty // len(enemies)
+                        if per_enemy_bounty:
+                            credit = "credit"
+                            if per_enemy_bounty > 1:
+                                credit = "credits"
+                            self._append_to_event_list(self.combat_group_to_events[group],
+                                                       f"You earned {per_enemy_bounty} {credit} for killing {player.name}.",
+                                                       enemies, InfoScope.PRIVATE)
+                            for bounty_hunter in enemies:
+                                bounty_hunter.gain_credits(per_enemy_bounty)
 
             for player in group:
                 if Condition.NO_CONTINGENCY in conditions[player]:

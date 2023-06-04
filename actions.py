@@ -1700,7 +1700,7 @@ class Illusion(Action):
                 if self.fake_training:
                     train_name = self.fake_training.name
                     if self.fake_training.pin >= 700:
-                        train_name = 'Concept ' + roman.toRoman((self.fake_training.pin % 100) + 1)
+                        train_name = 'Concept ' + roman.toRoman((self.fake_training.pin % 100))
                     get_main_report().set_training(self.target, train_name)
                 else:
                     get_main_report().set_training(self.target, "nothing")

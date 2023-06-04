@@ -351,8 +351,6 @@ class Player:
         self.action = Doctor(self.game, self)
 
     def plan_bounty(self, target: "Player", amount: int):
-        if self.game.is_day():
-            raise Exception(f"{self.name} is trying to place a bounty in the day.")
         if target not in self.bounties_placed:
             PlaceBounty(self.game, self, target, amount)
             self.bounties_placed.add(target)
