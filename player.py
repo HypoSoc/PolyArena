@@ -206,7 +206,11 @@ class Player:
                 self.report += "You are Aware:" + os.linesep
                 for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
                     if trainer != self:
-                        self.report += f"{trainer.name} was training {get_main_report().training[trainer]}." \
+                        trained = get_main_report().training[trainer]
+                        if trainer.has_ability("Counter Intelligence I"):
+                            if trainer.has_ability("Counter Intelligence II") or not self.has_ability("Know Thy Enemy"):
+                                trained = trainer.fake_ability.name
+                        self.report += f"{trainer.name} was training {trained}." \
                                        + os.linesep
 
         if self.has_ability("Panopticon"):
