@@ -829,3 +829,9 @@
   effect: "PETRIFY"
   trigger: "RANGE_EX_SELF"
   priority: 19
+
+126:
+  text: "A Chronoshift Bomb has been detonated! The Test approaches!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "BROADCAST"

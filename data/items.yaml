@@ -185,3 +185,10 @@
   cost: 4
   type: "REACTIVE"
   skills: []
+
+26:
+  name: "Chronoshift Bomb"
+  cost: 6
+  type: "CONSUMABLE"
+  skills:
+    - 126
