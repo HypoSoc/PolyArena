@@ -178,3 +178,10 @@
   type: "AUTOMATA"
   skills: []
   loot: false
+
+25:
+  name: "Ablative Ossification"
+  alt_name: "Ablative"
+  cost: 4
+  type: "REACTIVE"
+  skills: []

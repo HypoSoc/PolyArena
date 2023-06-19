@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING, Dict, Tuple, List, FrozenSet, Callable, Set, A
 
 from constants import Condition, Effect, InfoScope, Trigger, DamageType, InjuryModifier, \
     SELF_PLACEHOLDER, TARGET_PLACEHOLDER, NONCOMBAT_TRIGGERS, Element
-from items import get_item
-from skill import Skill
+from items import get_item, get_item_by_name
+from skill import Skill, get_skill
 
 if TYPE_CHECKING:
     from player import Player
@@ -18,6 +18,10 @@ DEBUG = False
 ATTACK_PRIORITY = 100
 DAMAGE_PRIORITY = 150
 WOUND_PRIORITY = 160
+
+ABLATIVE = get_item_by_name("Ablative").pin
+ABLATIVE_SKILL_A = get_skill(124)
+ABLATIVE_SKILL_B = get_skill(125)
 
 Event_List = List[Tuple[str, List['Player'], InfoScope]]
 
@@ -480,7 +484,8 @@ class CombatHandler:
 
                         if skill.trigger != Trigger.SELF:
                             if skill.target_has_condition:
-                                targets = [target for target in targets if skill.target_has_condition in conditions[target]]
+                                targets = [target for target in targets
+                                           if skill.target_has_condition in conditions[target]]
                             if skill.target_not_condition:
                                 targets = [target for target in targets if
                                            skill.target_not_condition not in conditions[target]]
@@ -768,7 +773,7 @@ class CombatHandler:
 
             def get_combat(p: 'Player', d: Optional['Player'] = None):
                 if Condition.PETRIFIED in conditions[p]:
-                    return 0
+                    return -1
                 c = combat[p]
                 if c < 0:
                     return c
@@ -944,6 +949,12 @@ class CombatHandler:
                 if player.concept:
                     conditions[player].append(Condition.USING_AERO)
 
+                if ABLATIVE in player.items:
+                    if player in [_d for _def in self.attacker_to_defenders.values() for _d in _def]:
+                        queue.put(skill_tic(player, ABLATIVE_SKILL_A))
+                        queue.put(skill_tic(player, ABLATIVE_SKILL_B))
+                        player.lose_item(get_item(ABLATIVE))
+
                 for _skill in player.get_skills():
                     # Apply effects from skills to players in order of skill priority
                     if not player.has_condition(Condition.PETRIFIED) or _skill.works_when_petrified:
@@ -1030,7 +1041,8 @@ class CombatHandler:
                             if per_enemy_bounty > 1:
                                 credit = "credits"
                             self._append_to_event_list(self.combat_group_to_events[group],
-                                                       f"You earned {per_enemy_bounty} {credit} for killing {player.name}.",
+                                                       f"You earned {per_enemy_bounty} "
+                                                       f"{credit} for killing {player.name}.",
                                                        enemies, InfoScope.PRIVATE)
                             for bounty_hunter in enemies:
                                 bounty_hunter.gain_credits(per_enemy_bounty)

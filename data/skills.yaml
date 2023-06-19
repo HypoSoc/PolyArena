@@ -817,3 +817,15 @@
   value: 1
   info: "PUBLIC"
   self_has_condition: "BUNKERING"
+
+124:
+  text: "%SELF%'s Ablative Ossification imploded!"
+  effect: "INFO_ONCE"
+  info: "PUBLIC"
+  priority: 18
+
+125:
+  text: "Petrify all in range excluding self"
+  effect: "PETRIFY"
+  trigger: "RANGE_EX_SELF"
+  priority: 19
