@@ -356,6 +356,7 @@ class Player:
         self.action = Doctor(self.game, self)
 
     def plan_bounty(self, target: "Player", amount: int):
+        assert amount >= 2
         if target not in self.bounties_placed:
             PlaceBounty(self.game, self, target, amount)
             self.bounties_placed.add(target)
