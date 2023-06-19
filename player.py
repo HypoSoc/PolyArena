@@ -210,8 +210,9 @@ class Player:
                 for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
                     if trainer != self:
                         trained = get_main_report().training[trainer]
-                        if trainer.has_ability("Counter Intelligence I"):
-                            if trainer.has_ability("Counter Intelligence II") or not self.has_ability("Know Thy Enemy"):
+                        if trainer.has_condition(Condition.COUNTER_INT):
+                            if trainer.has_condition(Condition.SUPER_COUNTER_INT) \
+                                    or not self.has_condition(Condition.PIERCE_COUNTER_INT):
                                 trained = trainer.fake_ability.name
                         self.report += f"{trainer.name} was training {trained}." \
                                        + os.linesep
