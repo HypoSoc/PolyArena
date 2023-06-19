@@ -1,0 +1,83 @@
+2401:
+  text: "A Singing Stone has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 2401
+  info: "NARROW"
+  trigger: "TARGET"
+  target_not_condition: "RINGING"
+  priority: 10
+
+2402:
+  text: "Mark as having a singing stone"
+  effect: "CONDITION"
+  value: "RINGING"
+  trigger: "NONCOMBAT"
+  self_not_condition: "RINGING"
+
+2403:
+  text: "+1 Progress"
+  effect: "PROGRESS"
+  value: 1
+  trigger: "NONCOMBAT"
+
+2404:
+  text: "Everyone ringing check"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "ALL"
+  self_override: true
+  self_not_condition: "ONCE"
+  target_not_condition: "RINGING"
+  priority: 5
+  works_when_petrified: true
+
+2405:
+  text: "All of campus resonates in harmony."
+  info: "PERSONAL"
+  effect: "ACADEMIC"
+  value: 1
+  trigger: "NONCOMBAT"
+  self_not_condition: "ONCE"
+  priority: 125
+  works_when_petrified: true
+
+2406:
+  text: "Gain a Charge."
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "ACQUISITION"
+  priority: 90
+
+2407:
+  text: "A chilling note resonates through campus, turning everyone to stone."
+  effect: "PETRIFY"
+  trigger: "ALL"
+  self_has_condition: "CHARGE"
+  self_not_condition: "ONCE"
+  priority: 6
+
+2408:
+  text: "A chilling note resonates through campus."
+  info: "BLATANT"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  self_not_condition: "ONCE"
+  priority: 7
+  works_when_petrified: true
+
+2409:
+  text: "ALL on acquisition"
+  effect: "SCHEDULE"
+  value: 2410
+  value_b: 0
+  trigger: "ACQUISITION"
+
+2410:
+  text: "A Singing Stone has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 2401
+  info: "NARROW"
+  trigger: "ALL"
+  priority: 10

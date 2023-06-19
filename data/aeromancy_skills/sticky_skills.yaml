@@ -1,0 +1,111 @@
+2501:
+  text: "%TARGET% was covered in slime."
+  info: "NARROW"
+  effect: "PERMANENT_CONDITION"
+  value: "SLIMED"
+  trigger: "ATTACKED"
+  target_not_condition: "SLIMED"
+  priority: 25
+
+2502:
+  text: "%SELF% coagulated the slime around %TARGET%."
+  info: "WIDE"
+  effect: "PETRIFY"
+  trigger: "ATTACK"
+  target_has_condition: "SLIMED"
+  priority: 21
+
+2503:
+  text: "Consume SLIMED"
+  effect: "REMOVE_CONDITION"
+  value: "SLIMED"
+  trigger: "ATTACK"
+  target_has_condition: "SLIMED"
+  priority: 22
+
+2504:
+  text: "Slime oozed onto %TARGET%."
+  effect: "PERMANENT_CONDITION"
+  value: "SLIMED"
+  info: "SUBTLE"
+  trigger: "TARGET"
+  target_not_condition: "SLIMED"
+  priority: 85
+
+2505:
+  text: "Slime count"
+  effect: "CONDITION"
+  value: "CHARGE"
+  self_override: true
+  target_has_condition: "SLIMED"
+  trigger: "ALL"
+  priority: 0
+
+2506:
+  text: "The Slime calls to you."
+  info: "PERSONAL"
+  effect: "PROGRESS"
+  value: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 1
+
+2507:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 1.1
+
+2508:
+  text: "2 progress"
+  effect: "PROGRESS"
+  value: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 1.2
+
+2509:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 1.3
+
+2510:
+  text: "3 progress"
+  effect: "PROGRESS"
+  value: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 1.4
+
+2511:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  value_b: 20
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 1.5
+
+2512:
+  text: "%TARGET%'s statue seems to be crumbling."
+  effect: "CONDITION"
+  value: "CRUMBLING"
+  value_b: 5
+  trigger: "RANGE_EX_SELF"
+  target_has_condition: "PETRIFIED"
+  info: "WIDE"
+  priority: 50
+
+2513:
+  text: "%SELF% congealed into a healthier state."
+  effect: "HEAL"
+  info: "WIDE"
+  trigger: "NONCOMBAT"
+  priority: 80

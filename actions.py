@@ -647,7 +647,7 @@ class TeachFollow(Action):
                                          hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} taught {self.target.name} {self.ability.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:
-                Action.progress(self.player, 8)
+                Action.progress(self.player, 7)
             Action.add_action_record(self.player, Teach, self.target)
         # Coordination failure
         else:
@@ -843,7 +843,7 @@ class Heal(Action):
                                              f"and {self.target.name} is now healthy." + os.linesep)
                     if self.player.temperament == Temperament.ALTRUISTIC:
                         if was_injured or self.target in Action.was_healed:
-                            Action.progress(self.player, 8)
+                            Action.progress(self.player, 7)
                         else:
                             add_to_player_report(f"{self.target.name} did not require treatment." + os.linesep)
                 Action.add_action_record(self.player, Heal, self.target)
@@ -1203,7 +1203,7 @@ class TattooFollow(Action):
             self.player.report += f"{self.player.name} tattooed {self.target.name} " \
                                   f"with {self.rune.name}." + os.linesep
             if self.player.temperament == Temperament.ALTRUISTIC:
-                Action.progress(self.player, 8)
+                Action.progress(self.player, 7)
             Action.add_action_record(self.player, Tattoo, self.target)
         # Coordination failure
         else:
@@ -1341,7 +1341,7 @@ class ConsumeItem(Action):
             self.player.items.remove(self.item.pin)
             self.player.report += f"{self.player.name} used {self.item.name} " \
                                   f"({self.player.items.count(self.item.pin)} remaining)." + os.linesep
-            for skill in self.item.get_skills():
+            for skill in self.item.get_skills(targets=self.player.item_targets.get(self.item.pin, None)):
                 HandleSkill.handle_noncombat_skill(self.game, self.player, skill)
             if self.item.pin == POISON_GAS:
                 Action.no_class.add(self.player)
@@ -1776,9 +1776,12 @@ class TattooStep(Action):
                     rune = get_item(player.tattoo)
                     assert isinstance(rune, Rune)
                     player.report += f"You were empowered by your {rune.get_ability_name()} Tattoo." + os.linesep
-                    for skill in rune.get_skills():
+                    for skill in rune.get_skills(choice=player.tattoo_choice):
+                        skill.targets = player.tattoo_targets
                         if skill.trigger == Trigger.NONCOMBAT:
                             HandleSkill(self.game, player, skill)
+                        elif skill.targets and skill.trigger == Trigger.TARGET:
+                            HandleSkill(self.game, player, skill, skill.targets)
 
                     if rune.is_disruptive():
                         if not player.has_ability("Quiet Attune"):

@@ -114,7 +114,10 @@ class Player:
 
         self.ability_targets: Dict[int, List[Player]] = {}
         self.ability_choices: Dict[int, int] = {}
+        self.item_targets: Dict[int, List[Player]] = {}
         self.item_choices: Dict[int, int] = {}
+        self.tattoo_targets: List[Player] = []
+        self.tattoo_choice: int = -1
 
         self.used_illusion = False
         self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
@@ -336,7 +339,9 @@ class Player:
             raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
         self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 
-    def plan_fake_ability(self, ability: Ability):
+    def plan_fake_ability(self, ability: Union[Ability, str]):
+        if isinstance(ability, str):
+            ability = get_ability_by_name(ability)
         self.fake_ability = ability
 
     def plan_fake_action(self, action: 'Action'):
@@ -568,13 +573,22 @@ class Player:
             assert self not in targets
         self.ability_targets[ability.pin] = list(targets)
 
-    def plan_ability_choose(self, ability_name: str, choice: int, for_rune=False):
+    def plan_item_target(self, item_name, *targets: "Player"):
+        item = get_item_by_name(item_name)
+        self.item_targets[item.pin] = list(targets)
+
+    def plan_tattoo_target(self,  *targets: "Player"):
+        self.tattoo_targets = list(targets)
+
+    def plan_ability_choose(self, ability_name: str, choice: int, for_rune=False, for_tattoo=False):
         ability = get_ability_by_name(ability_name)
         assert choice >= 0
         if ability.must_choose:
             assert choice < ability.must_choose
         if for_rune:
             self.item_choices[get_item_by_name(ability_name + " rune").pin] = choice
+        if for_tattoo:
+            self.tattoo_choice = choice
         else:
             self.ability_choices[ability.pin] = choice
 
@@ -777,8 +791,8 @@ class Player:
                 skills += ability_skills
         skills += self._get_non_consumable_item_skills()
         for item in self.get_consumed_items():
-            skills += item.get_skills(choice=self.item_choices.get(item.pin, -1))
-
+            skills += item.get_skills(choice=self.item_choices.get(item.pin, -1),
+                                      targets=self.item_targets.get(item.pin, []))
         return skills
 
     def has_prerequisite(self, ability: Ability) -> bool:

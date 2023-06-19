@@ -1,0 +1,61 @@
+# Resonance I (10): Each turn, choose a player. If they don't have a Singing Stone, give them one. (Narrow)
+#                   Singing Stones are permanent items that grant 1 progress each turn. Singing Stones stack.
+# Resonance II (10): At the end of each turn, if every living player had a Singing Stone at the start of the turn, gain 1 Academic Point. (Fragile)
+#                    This ability works even if you are Petrified.
+# Resonance III (10): Gain a Charge.
+#                     At the start of each turn, if every living player has a Singing Stone, consume a Charge to Petrify them all. (Blatant)
+# Resonance IV (15): Give all living players a Singing Stone. (Narrow)
+
+2401:
+  name: "Resonance I"
+  concept: "RESONANCE"
+  cost: 10
+  skills:
+    - 2401
+  max_targets: 1
+  explanation: |-
+    Each turn, choose a player. If they don't have a Singing Stone, give them one. (Narrow)
+    Singing Stones are permanent items that grant 1 progress each turn. Singing Stones stack.
+
+    Resonance II costs 10
+
+2402:
+  name: "Resonance II"
+  concept: "RESONANCE"
+  cost: 10
+  aero:
+    2404:
+      fragile: true
+    2405:
+      fragile: true
+  explanation: |-
+    At the end of each turn, if every living player had a Singing Stone at the start of the turn, gain 1 Academic Point. (Fragile)
+    This ability works even if you are Petrified.
+
+    Resonance III costs 10
+  prerequisite: 2401
+
+2403:
+  name: "Resonance III"
+  concept: "RESONANCE"
+  cost: 10
+  skills:
+    - 2406
+    - 2407
+    - 2408
+  explanation: |-
+    Gain a Charge.
+    At the start of each turn, if every living player has a Singing Stone, consume a Charge to Petrify them all. (Blatant)
+
+    Resonance IV costs 15
+  prerequisite: 2402
+
+2404:
+  name: "Resonance IV"
+  concept: "RESONANCE"
+  cost: 15
+  skills:
+    - 2409
+  explanation: |-
+    Give all living players a Singing Stone. (Narrow)
+  prerequisite: 2403

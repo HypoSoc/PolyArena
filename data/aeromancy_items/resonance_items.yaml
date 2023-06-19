@@ -1,0 +1,8 @@
+2401:
+  name: "Singing Stone"
+  cost: -3
+  type: "PERMANENT"
+  stacking: True
+  skills:
+    - 2402
+    - 2403

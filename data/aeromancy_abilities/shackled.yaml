@@ -1,0 +1,66 @@
+#Shackled I (10): +5 Combat. +5 Survivability
+#                 -5 Combat. -5 Survivability (Wide) (Fragile)
+#Shackled II (5): +1 Combat and +1 Survivability (Fragile)
+#Shackled III (10): Gain a Dimensional Key, a consumable item that disables the Fragile Aeromancy Abilities of all players not using Reality Imposition. (Broadcasted)
+#                   You cannot use Dimension Keys yourself, nor can other Sealed players.
+#Shacked IV (10): Gain 3 Dimensional Keys.
+
+901:
+  name: "Shackled I"
+  concept: "SHACKLED"
+  cost: 10
+  skills:
+    - 901
+    - 902
+    - 905
+  aero:
+    903:
+      fragile: true
+    904:
+      fragile: true
+  explanation: |-
+    +5 Combat and Survivability
+    -5 Combat and Survivability (Wide) (Fragile)
+
+    Shackled II costs 10
+
+902:
+  name: "Shackled II"
+  concept: "SHACKLED"
+  cost: 5
+  aero:
+    1:
+      fragile: true
+    2:
+      fragile: true
+  explanation: |-
+    +1 Combat and Survivability (Fragile)
+
+    Shackled III costs 10
+  prerequisite: 901
+
+903:
+  name: "Shackled III"
+  concept: "SHACKLED"
+  cost: 10
+  skills:
+    - 908
+    - 909
+  explanation: |-
+    Gain a Dimensional Key.
+    Dimensional Keys are 2 Credit Consumables.
+    When used, they disable all fragile Aeromancy abilities for all players not using Reality Imposition for that turn.
+    You cannot use Dimensional Keys yourself, not can other Sealed Players.
+
+    Shackled IV costs 10
+  prerequisite: 902
+
+904:
+  name: "Shackled IV"
+  concept: "SHACKLED"
+  cost: 10
+  skills:
+    - 911
+  explanation: |-
+    Gain 3 Dimensional Keys
+  prerequisite: 903

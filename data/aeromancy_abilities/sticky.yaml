@@ -1,0 +1,80 @@
+# Sticky I (10): Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile).
+#                Whenever you attack a Slimed player, consume the Slime to Petrify them at the start of combat. (Wide) (Fragile)
+# Sticky II (10): Each turn, choose another player. They will become Slimed at the end of the turn. (Subtle) (Fragile).
+# Sticky III (10): At the start of each turn, gain 1 progress for every Slimed player, to a maximum of 3.
+# Sticky IV (10): Petrified players in range get -5 Survivability. (Wide) (Fragile)
+# Sticky V (10): At the end of each turn, heal yourself. (Wide) (Fragile)
+
+2501:
+  name: "Sticky I"
+  concept: "STICKY"
+  cost: 10
+  aero:
+    2501:
+      fragile: true
+    2502:
+      fragile: true
+    2503:
+      fragile: true
+  explanation: |-
+    Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile).
+    Whenever you attack a Slimed player, consume the Slime to Petrify them at the start of combat. (Wide) (Fragile)
+
+    Sticky II costs 10
+
+2502:
+  name: "Sticky II"
+  concept: "STICKY"
+  cost: 10
+  max_targets: 1
+  target_other: true
+  aero:
+    2504:
+      fragile: true
+  explanation: |-
+    Each turn, choose another player. They will become Slimed at the end of the turn. (Subtle) (Fragile).
+
+    Sticky III costs 10
+  prerequisite: 2501
+
+2503:
+  name: "Sticky III"
+  concept: "STICKY"
+  cost: 10
+  skills:
+    - 2505
+    - 2506
+    - 2507
+    - 2508
+    - 2509
+    - 2510
+    - 2511
+  explanation: |-
+    At the start of each turn, gain 1 progress for every Slimed player, to a maximum of 3.
+
+    Sticky IV costs 10
+  prerequisite: 2502
+
+2504:
+  name: "Sticky IV"
+  concept: "STICKY"
+  cost: 10
+  aero:
+    2512:
+      fragile: true
+  explanation: |-
+    Petrified players in range get -5 Survivability. (Wide) (Fragile)
+
+    Sticky V costs 10
+  prerequisite: 2503
+
+2505:
+  name: "Sticky V"
+  concept: "STICKY"
+  cost: 10
+  aero:
+    2513:
+      fragile: true
+  explanation: |-
+    At the end of each turn, heal yourself. (Wide) (Fragile)
+  prerequisite: 2504

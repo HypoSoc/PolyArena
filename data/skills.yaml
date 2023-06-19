@@ -432,7 +432,7 @@
 66:
   text: "%TARGET% hurt themself attacking %SELF%."
   effect: "NONLETHAL"
-  trigger: "ATTACKED"
+  trigger: "ATTACKED_IGNORE_RANGE"
   priority: 180
   info: "PUBLIC"
 
@@ -802,7 +802,7 @@
   text: "%TARGET%'s soul was wrenched apart!"
   effect: "DAMAGE"
   trigger: "TARGET"
-  value: 89.5
+  priority: 89.5
   info: "PRIVATE"
 
 122:

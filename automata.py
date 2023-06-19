@@ -181,10 +181,10 @@ class Automata(Player):
 
     def gain_item(self, item: "Item", amount=1):
         super().gain_item(item, amount)
-        self.owner.report += f"Your automata gained {amount} {item.name} ({self.items.count(item.pin)} total)" \
+        self.owner.report += f"Your automata {self.name} gained {amount} {item.name} ({self.items.count(item.pin)} total)" \
                              + os.linesep
 
     def lose_item(self, item: "Item", amount=1):
         super().lose_item(item, amount)
-        self.owner.report += f"Your automata lost {amount} {item.name} ({self.items.count(item.pin)} remaining)" \
+        self.owner.report += f"Your automata {self.name} lost {amount} {item.name} ({self.items.count(item.pin)} remaining)" \
                              + os.linesep

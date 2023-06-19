@@ -1,0 +1,76 @@
+901:
+  text: "+5 Combat"
+  effect: "COMBAT"
+  value: 5
+
+902:
+  text: "+5 Survivability"
+  effect: "SURVIVABILITY"
+  value: 5
+
+903:
+  text: "%SELF%'s power is being suppressed."
+  effect: "COMBAT"
+  info: "WIDE"
+  value: -5
+  priority: 5
+
+904:
+  text: "-5 Survivability"
+  effect: "SURVIVABILITY"
+  value: -5
+  priority: 5
+
+905:
+  text: "Your full power is unleashed!"
+  effect: "INFO"
+  self_has_condition: "AERO_LOCKED"
+  info: "PRIVATE"
+  priority: 20
+
+906:
+  text: "The Dimensional Key twisted reality!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  self_not_condition: "LOCKED"
+  info: "BROADCAST"
+  priority: -15  # Before Most, but not ALL Aeromancy
+
+907:
+  text: "%TARGET%'s Concept has been locked!"
+  effect: "CONDITION"
+  trigger: "ALL"
+  value: "AERO_LOCKED"
+  self_not_condition: "LOCKED"
+  target_not_condition: "IMPOSING"
+  target_has_condition: "AEROMANCER"
+  info: "IMPERSONAL"
+  priority: -14  # Before Most, but not ALL Aeromancy
+
+908:
+  text: "Unable to use Dimensional Keys"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "LOCKED"
+
+909:
+  text: "+1 Dimensional Key"
+  effect: "ITEM"
+  trigger: "ACQUISITION"
+  value: 901
+  priority: 1
+
+910:
+  text: "The Dimensional Key disappeared from your grasp!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  self_has_condition: "LOCKED"
+  info: "PRIVATE"
+
+911:
+  text: "+3 Dimensional Keys"
+  effect: "ITEM"
+  trigger: "ACQUISITION"
+  value: 901
+  value_b: 3
+  priority: 1
