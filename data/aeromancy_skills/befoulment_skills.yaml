@@ -1,0 +1,48 @@
+2601:
+  text: "A fog of sickness settles over campus."
+  effect: "INFO_ONCE"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+
+2602:
+  text: "Pollute All Others"
+  effect: "CONDITION"
+  value: "POLLUTED"
+  trigger: "OTHERS"
+  priority: 5
+
+2603:
+  text: "Shrooms grew from %TARGET%'s corpse."
+  info: "NARROW"
+  effect: "ITEM"
+  value: 12
+  trigger: "PLAYER_DIED"
+  self_override: true
+  target_has_condition: "POLLUTED"
+
+2604:
+  text: "%TARGET%'s disgusting state is forbidden by Shop Club."
+  info: "SUBTLE_IMPERSONAL"
+  effect: "CONDITION"
+  value: "NO_SHOP"
+  trigger: "ALL"
+  target_has_condition: "POLLUTED"
+  priority: 7
+
+2605:
+  text: "%TARGET%'s disgusting state is too disruptive for classes."
+  info: "SUBTLE_IMPERSONAL"
+  effect: "CONDITION"
+  value: "NO_CLASS"
+  trigger: "ALL"
+  target_has_condition: "POLLUTED"
+  priority: 7
+
+2606:
+  text: "%TARGET%'s disgusting state prevents advancement."
+  info: "SUBTLE_IMPERSONAL"
+  effect: "CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "ALL"
+  target_has_condition: "POLLUTED"
+  priority: 7

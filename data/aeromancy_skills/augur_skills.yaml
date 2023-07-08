@@ -1,0 +1,33 @@
+2801:
+  text: "Gain Charge for a new Portent"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "ACQUISITION"
+  priority: -10
+
+2802:
+  text: "%TARGET%'s entrails are quite Portentous."
+  info: "SUBTLE"
+  effect: "PERMANENT_CONDITION"
+  value: "PORTENT"
+  trigger: "RANDOM_OTHER"
+  self_has_condition: "CHARGE"
+  priority: 0
+
+2803:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 5
+
+2804:
+  text: "%TARGET%'s entrails left an Auspicious sign."
+  info: "BLATANT"
+  effect: "PROGRESS"
+  value: 20
+  trigger: "PLAYER_DIED"
+  self_override: true
+  target_has_condition: "PORTENT"
+

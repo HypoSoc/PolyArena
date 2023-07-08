@@ -1,0 +1,80 @@
+# Edifice I (10): You start the game with four Charges.
+#                 If you would be Wounded in combat, instead consume a Charge. (Wide)
+#                 At the end of each turn, you die if you have no more Charges.
+# Edifice II (10): Gain three Softs.
+#                  Gain a Charge.
+# Edifice III (10): After clashing, inflict non-lethal damage to anyone who attacked you. (Wide) (Fragile)
+#                   Gain a Charge.
+# Edifice IV (10): Gain a Force Projection.
+#                  Gain a Charge.
+# Edifice V (10): Gain four Charges.
+
+2701:
+  name: "Edifice I"
+  concept: "EDIFICE"
+  cost: 10
+  skills:
+    - 64
+    - 2701
+    - 2702
+    - 2703
+  explanation: |-
+    You start the game with four Charges.
+    If you would be Wounded in combat, instead consume a Charge. (Wide) (Fragile)
+    At the end of each turn, you die if you have no more Charges.
+
+    Edifice II costs 10
+
+2702:
+  name: "Edifice II"
+  concept: "EDIFICE"
+  cost: 10
+  skills:
+    - 2704
+    - 2705
+  explanation: |-
+    Gain three Softs.
+    Gain a Charge.
+
+    Edifice III costs 10
+  prerequisite: 2701
+
+2703:
+  name: "Edifice III"
+  concept: "EDIFICE"
+  cost: 10
+  skills:
+    - 2705
+  aero:
+    66:
+      fragile: true
+  explanation: |-
+    After clashing, inflict non-lethal damage to anyone who attacked you. (Wide) (Fragile)
+    Gain a Charge.
+
+    Edifice IV costs 10
+  prerequisite: 2702
+
+2704:
+  name: "Edifice IV"
+  concept: "EDIFICE"
+  cost: 10
+  skills:
+    - 2706
+    - 2705
+  explanation: |-
+    Gain a Force Projection.
+    Gain a Charge.
+
+    Edifice V costs 10
+  prerequisite: 2703
+
+2705:
+  name: "Edifice V"
+  concept: "EDIFICE"
+  cost: 10
+  skills:
+    - 2701
+  explanation: |-
+    Gain four Charges.
+  prerequisite: 2704

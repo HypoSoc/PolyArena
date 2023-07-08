@@ -128,12 +128,19 @@ class Condition(IntEnum):
     NONLETHAL_IMMUNE = 110  # Ignore damage with the Nonlethal modifier
     RINGING = 111
     SLIMED = 112
+    POLLUTED = 113
+    SANITARY = 114
+    NO_SHOP = 115
+    NO_CLASS = 116
+    NO_PROGRESS = 117
 
 
-AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED]
+AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
+               Condition.PORTENT]
 
 CONDITION_IMMUNITY = {
-    Condition.SICKENED: Condition.SICK_IMMUNE
+    Condition.SICKENED: Condition.SICK_IMMUNE,
+    Condition.POLLUTED: Condition.SANITARY
 }
 
 
@@ -221,7 +228,7 @@ class Trigger(Enum):
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
                       Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET,
-                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL,
+                      Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL, Trigger.OTHERS,
                       Trigger.RANDOM, Trigger.RANDOM_OTHER,
                       Trigger.PLAYER_DIED]
 

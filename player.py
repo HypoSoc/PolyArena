@@ -475,6 +475,7 @@ class Player:
                    action_condition: Optional[Union[ACTION_CONDITION, Tuple['Player', Type['Action']],
                                                     Tuple['Player', Type['Action'], 'Player']]] = None,
                    item_name_condition: Optional[Tuple["Player", int, List[str]]] = None):
+        assert target != self
         if action_condition:
             if len(action_condition) == 2:
                 action_condition = (action_condition[0], action_condition[1], None, True)

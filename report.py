@@ -254,7 +254,7 @@ class Report(object):
     def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None,
                           intuition: bool = False, aero_only: bool = False) -> str:
         report = ""
-        for (player, content, fake, hidden, aero) in sorted(self.actions, key=lambda x: (x[4], x[0].name)):
+        for (player, content, fake, hidden, aero) in sorted(self.actions, key=lambda x: (x[4], x[0].name.upper())):
             if not ignore_player or ignore_player.name != player.name:
                 if not hidden or pierce_illusions:
                     if not pierce_illusions or not fake:

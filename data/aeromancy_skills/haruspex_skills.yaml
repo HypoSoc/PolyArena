@@ -51,7 +51,8 @@
   target_has_condition: "PORTENT"
 
 1707:
-  text: "A new Portent must be chosen"
+  text: "A portent has fallen. A new Portent must be chosen."
+  info: "PERSONAL"
   effect: "PERMANENT_CONDITION"
   value: "CHARGE"
   trigger: "PLAYER_DIED"

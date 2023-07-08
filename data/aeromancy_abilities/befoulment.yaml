@@ -1,0 +1,61 @@
+# Befoulment I (10): Each turn, Pollute all other players until end of turn. (Blatant) (Fragile)
+#                    Players that visit the doctor are immune to Pollution for the next four turns.
+#                    Whenever a Polluted player dies, gain Shrooms. (Narrow)
+# Befoulment II (10): Polluted players cannot Shop. (Subtle) (Fragile)
+# Befoulment III (10): Polluted players cannot go to Class. (Subtle) (Fragile)
+# Befoulment IV (10): Polluted players cannot gain Progress. (Subtle) (Fragile)
+
+2601:
+  name: "Befoulment I"
+  concept: "BEFOULMENT"
+  cost: 10
+  skills:
+    - 2603
+  aero:
+    2601:
+      fragile: true
+    2602:
+      fragile: true
+  explanation: |-
+    Each turn, Pollute all other players until end of turn. (Blatant) (Fragile)
+    Players that visit the doctor are immune to Pollution for the next four turns.
+    Whenever a Polluted player dies, gain Shrooms. (Narrow)
+
+    Befoulment II costs 10
+
+2602:
+  name: "Befoulment II"
+  concept: "BEFOULMENT"
+  cost: 10
+  aero:
+    2604:
+      fragile: true
+  explanation: |-
+    Polluted players cannot Shop. (Subtle) (Fragile)
+
+    Befoulment III costs 10
+  prerequisite: 2601
+
+2603:
+  name: "Befoulment III"
+  concept: "BEFOULMENT"
+  cost: 10
+  aero:
+    2605:
+      fragile: true
+  explanation: |-
+    Polluted players cannot go to class. (Subtle) (Fragile)
+
+    Befoulment IV costs 10
+  prerequisite: 2602
+
+2604:
+  name: "Befoulment IV"
+  concept: "BEFOULMENT"
+  cost: 10
+  aero:
+    2606:
+      fragile: true
+  explanation: |-
+    Polluted players cannot gain Progress. (Subtle) (Fragile)
+  prerequisite: 2603

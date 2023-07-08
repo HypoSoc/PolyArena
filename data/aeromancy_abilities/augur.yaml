@@ -1,0 +1,67 @@
+# Augur I (10): At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
+#               Whenever a Portent dies, gain 20 Progress. (Blatant)
+# Augur II (10): At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+# Augur III (10): At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+# Augur IV (10): At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+# Augur V (10): At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+
+2801:
+  name: "Augur I"
+  concept: "AUGUR"
+  cost: 10
+  skills:
+    - 2801
+    - 2802
+    - 2803
+    - 2804
+  explanation: |-
+    At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
+    Whenever a Portent dies, gain 20 Progress. (Blatant)
+
+    Augur II costs 10
+
+2802:
+  name: "Augur II"
+  concept: "AUGUR"
+  cost: 10
+  skills:
+    - 2801
+  explanation: |-
+    At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+
+    Augur III costs 10
+  prerequisite: 2801
+
+2803:
+  name: "Augur III"
+  concept: "AUGUR"
+  cost: 10
+  skills:
+    - 2801
+  explanation: |-
+    At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+
+    Augur IV costs 10
+  prerequisite: 2802
+
+2804:
+  name: "Augur IV"
+  concept: "AUGUR"
+  cost: 10
+  skills:
+    - 2801
+  explanation: |-
+    At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+
+    Augur V costs 10
+  prerequisite: 2803
+
+2805:
+  name: "Augur V"
+  concept: "AUGUR"
+  cost: 10
+  skills:
+    - 2801
+  explanation: |-
+    At the start of the next turn, a random player other than you will be designated as a Portent. (Subtle)
+  prerequisite: 2804

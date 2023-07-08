@@ -27,7 +27,7 @@ Event_List = List[Tuple[str, List['Player'], InfoScope]]
 
 # Type for priority queue, takes PRIORITY, INDEX (to ensure total ordering even with equal priorities),
 # and function to call
-Tic = Tuple[int, int, Callable[[], None]]
+Tic = Tuple[float, float, Callable[[], None]]
 
 
 class CombatHandler:
@@ -312,7 +312,7 @@ class CombatHandler:
                 return priority+1, self.tic_index, item_remove
 
             # We need priority to tic before checking, otherwise defending snipers wouldn't be able to counter-snipe
-            def sniper_tic(priority: int, p: Player) -> Tic:
+            def sniper_tic(priority: float, p: Player) -> Tic:
                 self.tic_index += 1
 
                 def snipe():
@@ -577,7 +577,7 @@ class CombatHandler:
                             conditions[target].append(Condition.SNIPING)
                             for sniped in self.attacker_to_defenders.get(target, []):
                                 conditions[sniped].append(Condition.SNIPED)
-                            queue.put(sniper_tic(skill.priority, target))
+                            queue.put(sniper_tic(skill.priority + 0.1, target))
                         elif skill.effect == Effect.DAMAGE:
                             queue.put(damage_tic(skill.priority + 1, source=p, target=target,
                                                  dmg_type=get_damage_type(p),
@@ -985,10 +985,11 @@ class CombatHandler:
 
             if self.for_speed:
                 for player, other_set in self.damaged_by.items():
-                    for other in other_set:
-                        speed_dif = get_speed(player) - get_speed(other)
-                        if speed_dif > 0:
-                            self.escape.add((player, other))
+                    if player in group:
+                        for other in other_set:
+                            speed_dif = get_speed(player) - get_speed(other)
+                            if speed_dif > 0:
+                                self.escape.add((player, other))
 
             # Disarm Stealing happens BEFORE Looting corpses
             for (victim, thieves) in disarm_thief.items():
@@ -1183,7 +1184,7 @@ class CombatHandler:
     def get_public_combat_report(self, intuition=False, ignore_player: Optional['Player'] = None):
         report = ""
         for (group, events) in self.combat_group_to_events.items():
-            if not ignore_player or ignore_player not in group:
+            if not ignore_player or ignore_player not in group or 'Someone' in self.get_combat_report_for_player(ignore_player):
                 for player in group:
                     if player in self.attacker_to_defenders:
                         report += player.action.public_description + os.linesep

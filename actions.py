@@ -688,7 +688,9 @@ class Class(Action):
                          combat_on_interrupt="while they were trying to go to class")
 
     def act(self):
-        if self.player in Action.no_class:
+        if self.player.has_condition(Condition.NO_CLASS):
+            self.player.report += f"{self.player.name} was kicked out of class." + os.linesep
+        elif self.player in Action.no_class:
             self.player.report += f"{self.player.name} was kicked out of class for being disruptive." + os.linesep
         else:
             super().act()
@@ -717,6 +719,7 @@ class Doctor(Action):
             self.player.report += f"{self.player.name} is now healthy." + os.linesep
         Action.add_action_record(self.player, Doctor)
         self.player.turn_conditions.append(Condition.DOCTOR)
+        self.player.conditions += [Condition.SANITARY] * 5
 
 
 class Shop(Action):
@@ -732,7 +735,10 @@ class Shop(Action):
             self.automata_names = []
 
     def act(self):
-        if Shop.get_total_cost(self.items) > self.player.get_credits():
+        if self.player.has_condition(Condition.NO_SHOP):
+            self.player.report += f"{self.player.name} was kicked out of shop club." + os.linesep
+
+        elif Shop.get_total_cost(self.items) > self.player.get_credits():
             self.player.report += f"{self.player.name} was kicked out of shop club for not having enough credits." \
                                   + os.linesep
         else:
@@ -1408,6 +1414,10 @@ class Trade(Action):
         Trade.unique_pair.add((player, target))
 
     def act(self):
+        if self.target.is_dead() or self.target.has_condition(Condition.HIDING):
+            self.player.report += f"You did not trade with {self.target.name} " \
+                                  f"because they are dead." + os.linesep
+            return
         if self.action_condition:
             if not Action.check_action_record(self.game, self.player, self.action_condition):
                 if self.action_condition[3]:
@@ -1907,9 +1917,10 @@ class ProgressStep(Action):
 
                 if player.temperament == Temperament.INTUITIVE:
                     if player not in Action.interrupted_players or not player.action.fragile:
-                        player.report += "Intuitive: "
-                        Action.progress(player, 1)
-                        player.report += os.linesep
+                        if not player.has_condition(Condition.PETRIFIED):
+                            player.report += "Intuitive: "
+                            Action.progress(player, 1)
+                            player.report += os.linesep
 
         was_progress = False
         for player in Action.progress_dict:
@@ -1917,6 +1928,11 @@ class ProgressStep(Action):
                 continue
 
             if Action.progress_dict.get(player) > 0:
+                if player.has_condition(Condition.NO_PROGRESS):
+                    player.report += f"Your {Action.progress_dict[player]} Progress was negated." + os.linesep
+                    Action.progress_dict[player] = 0
+                    continue
+
                 player.gain_progress(Action.progress_dict[player])
                 Action.progress_dict[player] = 0
                 was_progress = True
@@ -1960,6 +1976,8 @@ class StatusChangeStep(Action):
         for player in Action.players:
             if not player.is_dead():
                 player.report += os.linesep
+                if Condition.SANITARY in player.conditions:
+                    player.conditions.remove(Condition.SANITARY)
                 if Condition.PETRIFIED in player.conditions:
                     if player not in Action.not_wandering:
                         get_main_report().add_action(player, f"{player.name} was stuck as a Statue.")

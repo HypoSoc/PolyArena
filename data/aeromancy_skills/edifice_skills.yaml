@@ -1,0 +1,45 @@
+2701:
+  text: "4 Charges"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 4
+  priority: -5
+
+2702:
+  text: "%SELF% crumbled under the weight of %TARGET%'s blow."
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  info: "WIDE"
+  self_override: true
+  trigger: "COMBAT_DAMAGED"
+
+2703:
+  text: "You have crumbled to nothingness."
+  effect: "KILL"
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+  self_not_condition: "CHARGE"
+  priority: 99
+
+2704:
+  text: "3 Softs"
+  effect: "ITEM"
+  trigger: "ACQUISITION"
+  value: 14
+  value_b: 3
+  priority: 5
+
+2705:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: 5
+
+2706:
+  text: "Force Projection"
+  effect: "ITEM"
+  trigger: "ACQUISITION"
+  value: 7
+  priority: 5

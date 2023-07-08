@@ -17,7 +17,7 @@
   text: "%TARGET% was frozen by %SELF%."
   info: "WIDE"
   effect: "PETRIFY"
-  trigger: "ATTACKED"
+  trigger: "ATTACKED_IGNORE_RANGE"
   self_has_condition: "CHARGE"
   works_when_petrified: True
   priority: 5

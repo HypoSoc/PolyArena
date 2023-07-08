@@ -405,7 +405,6 @@
         - "AIR"
         - "AIR"
         - "AIR"
-      fragile: true
   prerequisite: 133
 
 135:

@@ -812,7 +812,7 @@
   value: "CAN_SPY"
 
 123:
-  text: "%SELF% fled into their bolthole."
+  text: "%SELF% fled into a bolthole."
   effect: "SPEED"
   value: 1
   info: "PUBLIC"
