@@ -133,6 +133,9 @@ class Condition(IntEnum):
     NO_SHOP = 115
     NO_CLASS = 116
     NO_PROGRESS = 117
+    NO_COMBAT = 118
+    WARP_CIRCUIT = 119
+    USING_WARP = 120
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -267,3 +270,4 @@ class Element(IntEnum):
     EARTH = 3
     AIR = 4
     LIGHT = 5
+    WARP = 6

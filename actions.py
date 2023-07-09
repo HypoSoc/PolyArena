@@ -526,6 +526,10 @@ class Attack(Action):
         if self.target in MasterIllusion.redirect.get(self.player, {}):
             self.target = MasterIllusion.redirect[self.player][self.target]
 
+        if self.player.has_condition(Condition.NO_COMBAT):
+            self.player.report += f"{self.player.name} was unable to find any foes.{os.linesep}"
+            return
+
         if self.target.is_dead():
             # Player will wander aimlessly
             pass
@@ -1229,6 +1233,10 @@ class MultiAttack(Action):
 
     def act(self):
         if not self.player.has_condition(Condition.MULTI_ATTACK) or len(self.targets) > 3:
+            return
+
+        if self.player.has_condition(Condition.NO_COMBAT):
+            self.player.report += f"{self.player.name} was unable to find any foes.{os.linesep}"
             return
 
         if self.player and self.player.has_condition(Condition.HIDING) and \

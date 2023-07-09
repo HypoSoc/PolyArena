@@ -835,3 +835,24 @@
   effect: "INFO"
   trigger: "NONCOMBAT"
   info: "BROADCAST"
+
+127:
+  text: "Can Attune to Warp"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "WARP_CIRCUIT"
+
+128:
+  text: "%TARGET% was warped through space and time."
+  effect: "CONDITION"
+  value: "NO_COMBAT"
+  info: "PRIVATE"
+  trigger: "TARGET"
+  self_has_condition: "USING_WARP"
+  priority: 20
+
+129:
+  text: "This condition prevents needing a TARGET_POST_ATTUNE trigger for the above"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "USING_WARP"

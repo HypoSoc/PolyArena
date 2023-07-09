@@ -43,7 +43,7 @@
   name: "Fast Attune I"
   cost: 5
   skills: []
-  prerequisite: 103
+  prerequisite: 102
 
 108:
   name: "Fast Attune II"
@@ -464,4 +464,16 @@
         - "FIRE"
         - "EARTH"
       fragile: true
+  prerequisite: 102
+
+140:
+  name: "Warp"
+  cost: 10
+  skills:
+    - 127
+    - 128
+  geo:
+    129:
+      circuits:
+        - "WARP"
   prerequisite: 102
