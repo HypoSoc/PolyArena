@@ -217,8 +217,12 @@ class Report(object):
             report = "You detected no Willpower."
         return report + os.linesep
 
-    def get_money_report(self, full=False) -> str:
+    def get_money_report(self, full=False, perspective_player: Optional['Player']=None) -> str:
         report = ""
+        perspective_name = ""
+        if perspective_player:
+            perspective_name = perspective_player.name
+
         for player, money, items, automata_names in self.shop:
             report += f"{player.name} spent {money} credits at Shop Club." + os.linesep
             if full:
@@ -229,30 +233,39 @@ class Report(object):
                         report += f"-- {automaton_name}" + os.linesep
         if report:
             report += os.linesep
+
+        unsorted = []
         for player, target, money, items, automata in self.trades:
-            report += f"{player.name} traded with {target.name}." + os.linesep
+            mini_report = f"{self.face_mask_replacement(player.name, perspective_name)} traded with {target.name}." \
+                          + os.linesep
             if full:
                 if money:
                     plural = "credit"
                     if money > 1:
                         plural = "credits"
-                    report += f"-- {money} {plural}." + os.linesep
+                    mini_report += f"-- {money} {plural}." + os.linesep
                 if items:
                     for item, amount in items.items():
-                        report += f"-- {item.name} x{amount}" + os.linesep
+                        mini_report += f"-- {item.name} x{amount}" + os.linesep
                 if automata:
                     for automaton in automata:
-                        report += f"-- {automaton.name}" + os.linesep
+                        mini_report += f"-- {automaton.name}" + os.linesep
+            unsorted.append(mini_report)
+        report += os.linesep.join(sorted(unsorted))
+
         if report:
             report += os.linesep
         if full:
+            unsorted = []
             for player, target, money in self.bounties:
-                report += f"{player.name} placed a {money} credit bounty on {target.name}." + os.linesep
+                unsorted.append(f"{self.face_mask_replacement(player.name, perspective_name)} placed a {money} "
+                                f"credit bounty on {target.name}.")
+            report += os.linesep.join(sorted(unsorted))
         if report:
             report += os.linesep
         else:
             report += "No trades happened." + os.linesep
-        return report
+        return os.linesep + report
 
     def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None,
                           intuition: bool = False, aero_only: bool = False) -> str:

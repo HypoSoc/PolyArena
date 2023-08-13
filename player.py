@@ -241,7 +241,8 @@ class Player:
 
         if self.has_ability("Market Connections I") or self.has_ability("Market Connections II"):
             self.report += os.linesep
-            self.report += get_main_report().get_money_report(full=self.has_ability("Market Connections II"))
+            self.report += get_main_report().get_money_report(full=self.has_ability("Market Connections II"),
+                                                              perspective_player=self)
 
         cleaned = self.report \
             .replace(COMBAT_PLACEHOLDER, get_main_report().get_combat_report_for_player(self)) \
