@@ -856,3 +856,9 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "USING_WARP"
+
+130:
+  text: "+1 Strongest Stat"
+  effect: "IMBALANCE"
+  value: 1
+  priority: 68.99  # Just before BALANCE, so that BALANCE + IMBALANCE is a +1/+1

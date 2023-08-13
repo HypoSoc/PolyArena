@@ -1,6 +1,7 @@
 import json
 import random
 from typing import Tuple, List, TYPE_CHECKING, Dict, Optional
+import os
 
 from skill import get_skill
 
@@ -45,7 +46,8 @@ class Game:
         clone.simulation = True
 
         if complete:
-            clone.players = {c.name: c for c in [p.make_copy_for_simulation(clone) for p in self.players.values()]}
+            clone.players = {c.name: c for c in [
+                p.make_copy_for_simulation(clone) for p in self.players.values()]}
 
         return clone
 
@@ -63,6 +65,9 @@ class Game:
             assert not self.simulation
 
         serialized = self.serialize()
+
+        if not os.path.exists("save"):
+            os.makedirs("save")
 
         with open(f"save/{file_prefix}_{self.to_file_suffix().replace(' ', '_').lower()}.json", 'w') as f:
             json.dump(serialized, f, indent=4)
@@ -100,7 +105,8 @@ class Game:
                         from actions import HandleSkill
                         skill = get_skill(skill_pin)
                         skill.targets = target_players
-                        HandleSkill.handle_noncombat_skill(self, source_player, skill)
+                        HandleSkill.handle_noncombat_skill(
+                            self, source_player, skill)
                     handled.append((turn, night, skill_pin, source, targets))
         for handled_event in handled:
             self.events.remove(handled_event)
@@ -131,7 +137,8 @@ class Game:
             return
         if turn == self.turn and (self.night or not night):
             return
-        self.events.append((turn, night, skill_pin, source.name, [target.name for target in targets]))
+        self.events.append((turn, night, skill_pin, source.name, [
+                           target.name for target in targets]))
 
     def register(self, player: 'Player'):
         name_list = list(self.players.keys()) + list(self.automata.keys())

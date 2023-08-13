@@ -2,7 +2,6 @@ import os
 from queue import PriorityQueue
 from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type, Union
 
-import roman as roman
 import random
 
 from ability import Ability, get_ability, get_ability_by_name
@@ -29,13 +28,21 @@ WORKBENCH = get_item_by_name("Workbench").pin
 AUTOMATA = get_item_by_name("Automata").pin
 
 
-QM_ABILITY_PINS = [get_ability_by_name("Divination").pin, get_ability_by_name("Danger Precognition").pin]
+QM_ABILITY_PINS = [get_ability_by_name(
+    "Divination").pin, get_ability_by_name("Danger Precognition").pin]
 
 # For conditional trading
 # Player action target
-ACTION_CONDITION = Tuple['Player', Type['Action'], Optional['Player'], bool]  # source, action, target, Positive
+# source, action, target, Positive
+ACTION_CONDITION = Tuple['Player', Type['Action'], Optional['Player'], bool]
 # Player, minimum credits, minimum items
 ITEM_CONDITION = Tuple['Player', int, Dict['Item', int]]
+
+# returns a roman representation of an integer
+
+
+def int_to_roman(i):
+    return ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"][i]
 
 
 def noncombat_damage(source: 'Player', victim: 'Player', modifiers: List[InjuryModifier] = None, petrify=False):
@@ -43,7 +50,8 @@ def noncombat_damage(source: 'Player', victim: 'Player', modifiers: List[InjuryM
         modifiers = []
 
     if source.has_condition(Condition.PETRIFY) or petrify:
-        victim.petrify(long=source.has_condition(Condition.LONG_PETRIFY), mini=InjuryModifier.MINI in modifiers)
+        victim.petrify(long=source.has_condition(
+            Condition.LONG_PETRIFY), mini=InjuryModifier.MINI in modifiers)
 
     else:
         if source.has_condition(Condition.INFLICT_CAUTERIZE):
@@ -53,7 +61,8 @@ def noncombat_damage(source: 'Player', victim: 'Player', modifiers: List[InjuryM
 
         if victim.has_condition(Condition.GRIEVOUS_IMMUNE):
             if InjuryModifier.GRIEVOUS in modifiers and InjuryModifier.PERMANENT not in modifiers:
-                modifiers = [modifier for modifier in modifiers if modifier != InjuryModifier.GRIEVOUS]
+                modifiers = [
+                    modifier for modifier in modifiers if modifier != InjuryModifier.GRIEVOUS]
 
         if victim.has_condition(Condition.NONLETHAL_IMMUNE) and InjuryModifier.NONLETHAL in modifiers:
             return
@@ -125,7 +134,8 @@ class Action:
                 not self.player.has_condition(Condition.FRESH_HIDING):
             if self.game and self.game.is_day() and not self.maintains_hiding:
                 self.player.report += "You came out of hiding." + os.linesep
-                get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                get_main_report().broadcast(
+                    f"{self.player.name} revealed they were not actually dead.")
                 self.player.conditions.remove(Condition.HIDING)
                 get_main_report().mark_revealed(self.player)
 
@@ -137,7 +147,8 @@ class Action:
                                              hidden=self.player in Illusion.handled)
                 self.player.report += self.public_description + os.linesep
         if interrupted and self.fragile:
-            get_main_report().add_action(self.player, self.on_interrupt, hidden=self.player in Illusion.handled)
+            get_main_report().add_action(self.player, self.on_interrupt,
+                                         hidden=self.player in Illusion.handled)
             self.player.report += self.on_interrupt + os.linesep
         if not interrupted or not self.fragile:
             self._act()
@@ -226,7 +237,8 @@ class Action:
 
     @classmethod
     def create_automata(cls, game: 'Game', owner: 'Player', name: 'str'):
-        get_main_report().broadcast(f"The Automata {name} was brought into being.")
+        get_main_report().broadcast(
+            f"The Automata {name} was brought into being.")
         if owner.is_automata:
             owner = owner.owner
         import automata
@@ -243,7 +255,8 @@ class Action:
                 if not player.is_dead():
                     for skill in player.get_skills():
                         if skill.trigger == Trigger.PLAYER_DIED:
-                            HandleSkill(game, player, skill, targets=[dead_player])
+                            HandleSkill(game, player, skill,
+                                        targets=[dead_player])
 
 
 class HandleSkill(Action):
@@ -333,7 +346,8 @@ class HandleSkill(Action):
                                           f"with {self.player.name}'s Aeromancy ({self.player.concept}).",
                                           override=True)
                 elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
-                    get_main_report().add_action(self.player, text, aero=self.skill.info == InfoScope.WIDE)
+                    get_main_report().add_action(self.player, text,
+                                                 aero=self.skill.info == InfoScope.WIDE)
                 elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
                     if add_to_broadcast(text, force_once=self.skill.info_once_override):
                         if self.skill.info == InfoScope.BLATANT:
@@ -354,39 +368,58 @@ class HandleSkill(Action):
 
             if self.skill.self_override:
                 target = self.player
-
             if self.skill.effect == Effect.CONDITION:
                 if not self.fake:
                     if Condition[self.skill.value] not in CONDITION_IMMUNITY \
                             or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
                         for _ in range(times):
-                            target.turn_conditions.append(Condition[self.skill.value])
+                            target.turn_conditions.append(
+                                Condition[self.skill.value])
             elif self.skill.effect == Effect.PERMANENT_CONDITION:
                 if not self.fake:
                     if Condition[self.skill.value] not in CONDITION_IMMUNITY \
                             or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
                         for _ in range(times):
-                            target.conditions.append(Condition[self.skill.value])
+                            target.conditions.append(
+                                Condition[self.skill.value])
             elif self.skill.effect == Effect.TENTATIVE_CONDITION:
                 if not self.fake:
                     if Condition[self.skill.value] not in CONDITION_IMMUNITY \
                             or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
                         for _ in range(times):
-                            target.tentative_conditions.append(Condition[self.skill.value])
+                            target.tentative_conditions.append(
+                                Condition[self.skill.value])
             elif self.skill.effect == Effect.REL_CONDITION:
                 # To be refactored if I ever need to give arbitrary players relative_conditions
                 if target == self.player:
                     raise Exception("No target for relative condition?")
                 if not self.fake:
                     for _ in range(times):
-                        self.player.add_relative_condition(target, Condition[self.skill.value])
+                        self.player.add_relative_condition(
+                            target, Condition[self.skill.value])
             elif self.skill.effect == Effect.REMOVE_CONDITION:
                 if not self.fake:
                     for _ in range(times):
                         if Condition[self.skill.value] in target.turn_conditions:
-                            target.turn_conditions.remove(Condition[self.skill.value])
+                            target.turn_conditions.remove(
+                                Condition[self.skill.value])
                         elif Condition[self.skill.value] in target.conditions:
-                            target.conditions.remove(Condition[self.skill.value])
+                            target.conditions.remove(
+                                Condition[self.skill.value])
+            elif self.skill.effect == Effect.CONSUME:
+                if not self.fake:
+                    for _ in range(times):
+                        if Condition[self.skill.value] in target.turn_conditions:
+                            target.turn_conditions.remove(
+                                Condition[self.skill.value])
+                            for condition in self.skill.condition_list:
+                                target.turn_conditions.append(condition)
+                        if Condition[self.skill.value] in target.conditions:
+                            target.conditions.remove(
+                                Condition[self.skill.value])
+                            for condition in self.skill.condition_list:
+                                target.conditions.append(condition)
+
             elif self.skill.effect == Effect.DEV_SABOTAGE:
                 if target == self.player:
                     raise Exception("No target for dev sabotage?")
@@ -408,10 +441,12 @@ class HandleSkill(Action):
                     noncombat_damage(self.player, target)
             elif self.skill.effect == Effect.GRIEVOUS:
                 if not self.fake:
-                    noncombat_damage(self.player, target, [InjuryModifier.GRIEVOUS])
+                    noncombat_damage(self.player, target, [
+                                     InjuryModifier.GRIEVOUS])
             elif self.skill.effect == Effect.NONLETHAL:
                 if not self.fake:
-                    noncombat_damage(self.player, target, [InjuryModifier.NONLETHAL])
+                    noncombat_damage(self.player, target, [
+                                     InjuryModifier.NONLETHAL])
             elif self.skill.effect == Effect.KILL:
                 if not self.fake:
                     target.kill()
@@ -420,14 +455,16 @@ class HandleSkill(Action):
                     noncombat_damage(self.player, target, petrify=True)
             elif self.skill.effect == Effect.MINI_PETRIFY:
                 if not self.fake:
-                    noncombat_damage(self.player, target, [InjuryModifier.MINI], petrify=True)
+                    noncombat_damage(self.player, target, [
+                                     InjuryModifier.MINI], petrify=True)
             elif self.skill.effect == Effect.HEAL:
                 if not self.fake:
                     target.heal()
             elif self.skill.effect == Effect.ITEM:
                 if not self.fake:
                     if self.skill.value_b:
-                        target.gain_item(get_item(self.skill.value), self.skill.value_b)
+                        target.gain_item(
+                            get_item(self.skill.value), self.skill.value_b)
                     else:
                         target.gain_item(get_item(self.skill.value))
             elif self.skill.effect == Effect.CREDITS:
@@ -453,7 +490,8 @@ class HandleSkill(Action):
                         schedule_targets.append(target)
                     else:
                         from skill import get_skill
-                        HandleSkill.handle_noncombat_skill(self.game, self.player, get_skill(self.skill.value))
+                        HandleSkill.handle_noncombat_skill(
+                            self.game, self.player, get_skill(self.skill.value))
             elif self.skill.effect == Effect.GAIN_ABILITY_OR_PROGRESS:
                 if not self.fake:
                     ability = get_ability(self.skill.value)
@@ -469,7 +507,8 @@ class HandleSkill(Action):
                         target.gain_ability(ability)
 
             else:
-                raise Exception(f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
+                raise Exception(
+                    f"Unhandled effect type in noncombat! {self.skill.effect.name} {self.skill.text}")
 
         if self.skill.effect == Effect.SCHEDULE:
             if schedule_targets:
@@ -486,12 +525,14 @@ class HandleSkill(Action):
         elif skill.trigger == Trigger.ALL:
             HandleSkill(game, player, skill, targets=list(Action.players))
         elif skill.trigger == Trigger.RANDOM:
-            HandleSkill(game, player, skill, targets=[random.choice([p for p in Action.players if not p.is_dead()])])
+            HandleSkill(game, player, skill, targets=[random.choice(
+                [p for p in Action.players if not p.is_dead()])])
         elif skill.trigger == Trigger.RANDOM_OTHER:
             HandleSkill(game, player, skill, targets=[random.choice([p for p in Action.players if not p.is_dead()
                                                                      and p != player])])
         elif skill.trigger == Trigger.OTHERS:
-            HandleSkill(game, player, skill, targets=[p for p in Action.players if p != player])
+            HandleSkill(game, player, skill, targets=[
+                        p for p in Action.players if p != player])
 
 
 class Wander(Action):
@@ -538,7 +579,8 @@ class Attack(Action):
                     not self.player.has_condition(Condition.FRESH_HIDING):
                 if self.game and self.game.is_day():
                     self.player.report += "You came out of hiding." + os.linesep
-                    get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                    get_main_report().broadcast(
+                        f"{self.player.name} revealed they were not actually dead.")
                     self.player.conditions.remove(Condition.HIDING)
                     get_main_report().mark_revealed(self.player)
             if self.target in Illusion.handled:
@@ -556,11 +598,13 @@ class Attack(Action):
 
             if self.target.has_condition(Condition.HIDING):
                 if self.game and self.game.is_day():
-                    get_main_report().broadcast(f"{self.target.name} was discovered to be alive.")
+                    get_main_report().broadcast(
+                        f"{self.target.name} was discovered to be alive.")
                     self.target.conditions.remove(Condition.HIDING)
 
             # The combat handler will ensure it gets added to the players regular report
-            get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
+            get_main_report().add_action(self.player, self.public_description,
+                                         hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
             Action.add_action_record(self.player, Attack, self.target)
             self.player.turn_conditions.append(Condition.ATTACKED)
@@ -603,7 +647,8 @@ class Learn(Action):
         if not Action.can_act(self.target) or self.target not in Action.teacher_student \
                 or Action.teacher_student[self.target] != self.player:
             self.player.report += f"{self.player.name} failed to learn from {self.target.name}, " \
-                                  f"so {self.player.name} trained instead." + os.linesep
+                                  f"so {self.player.name} trained instead." + \
+                os.linesep
             Train(self.game, self.player)
         else:
             Action.student_teacher[self.player] = self.target
@@ -629,7 +674,8 @@ class Teach(Action):
                 (self.ability.get_prerequisite() and
                  self.ability.get_prerequisite() not in self.target.get_abilities()):
             self.player.report += f"{self.player.name} failed to teach {self.target.name}, " \
-                                  f"so {self.player.name} trained instead." + os.linesep
+                                  f"so {self.player.name} trained instead." + \
+                os.linesep
             Train(self.game, self.player)
         else:
             Action.teacher_student[self.player] = self.target
@@ -677,7 +723,8 @@ class Train(Action):
                 train_ability = get_ability(self.player.dev_plan[0])
                 train_name = train_ability.name
                 if train_ability.pin >= 700:
-                    train_name = 'Concept ' + roman.toRoman((train_ability.pin % 100))
+                    train_name = 'Concept ' + \
+                        int_to_roman((train_ability.pin % 100))
                 get_main_report().set_training(self.player, train_name)
         self.player.turn_conditions.append(Condition.TRAINED)
 
@@ -700,7 +747,9 @@ class Class(Action):
             super().act()
 
     def _act(self):
-        self.player.academics += 1 + (self.player.conditions + self.player.turn_conditions).count(Condition.STUDIOUS)
+        self.player.academics += 1 + \
+            (self.player.conditions +
+             self.player.turn_conditions).count(Condition.STUDIOUS)
         self.player.report += f"Academics ({self.player.academics})"+os.linesep
         if self.player.temperament == Temperament.SCHOLASTIC:
             Action.progress(self.player, 5)
@@ -752,17 +801,21 @@ class Shop(Action):
         total_cost = Shop.get_total_cost(self.items)
         self.player.lose_credits(total_cost)
         self.player.report += f"{self.player.name} spent {total_cost} credits " \
-                              f"({self.player.get_credits()} remaining)." + os.linesep
+                              f"({self.player.get_credits()} remaining)." + \
+            os.linesep
         for item, amount in self.items.items():
             if item.pin == AUTOMATA:
                 assert len(self.automata_names) >= amount
                 for i in range(amount):
-                    Action.create_automata(self.game, self.player, self.automata_names[i])
+                    Action.create_automata(
+                        self.game, self.player, self.automata_names[i])
             else:
                 self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Shop)
-        pruned_items = {k: v for k, v in self.items.items() if k.pin != AUTOMATA}
-        get_main_report().add_shop(self.player, total_cost, pruned_items, self.automata_names)
+        pruned_items = {k: v for k, v in self.items.items()
+                        if k.pin != AUTOMATA}
+        get_main_report().add_shop(self.player, total_cost,
+                                   pruned_items, self.automata_names)
         self.player.turn_conditions.append(Condition.SHOPPED)
 
     @staticmethod
@@ -855,7 +908,8 @@ class Heal(Action):
                         if was_injured or self.target in Action.was_healed:
                             Action.progress(self.player, 7)
                         else:
-                            add_to_player_report(f"{self.target.name} did not require treatment." + os.linesep)
+                            add_to_player_report(
+                                f"{self.target.name} did not require treatment." + os.linesep)
                 Action.add_action_record(self.player, Heal, self.target)
 
 
@@ -921,8 +975,10 @@ class StealFollow(Action):
 
         if self.trap:
             self.player.report += "A booby trap exploded in your face!" + os.linesep
-            noncombat_damage(self.target, self.player, [InjuryModifier.NONLETHAL])
-            get_main_report().broadcast(f"A booby trap exploded in {self.player.name}'s face!")
+            noncombat_damage(self.target, self.player, [
+                             InjuryModifier.NONLETHAL])
+            get_main_report().broadcast(
+                f"A booby trap exploded in {self.player.name}'s face!")
 
         if self.target not in StealFollow.handled:
             StealFollow.handled.add(self.target)
@@ -952,7 +1008,8 @@ class Craft(Action):
             return
 
         amt = sum(self.items.values())
-        price = sum([abs(item.cost) * amount for (item, amount) in self.items.items()])
+        price = sum(
+            [abs(item.cost) * amount for (item, amount) in self.items.items()])
         only_shop_items = True
         for item in self.items:
             if item.cost < 0:
@@ -971,7 +1028,8 @@ class Craft(Action):
 
                 if not self.player.has_ability(item.get_ability_name(), strict=True):
                     self.player.report += f"You don't have the ability to make a rune " \
-                                          f"for {item.get_ability_name()}." + os.linesep
+                                          f"for {item.get_ability_name()}." + \
+                        os.linesep
                     return
 
         if rune_crafting and amt > 1:
@@ -1013,7 +1071,8 @@ class Craft(Action):
             if item.pin == AUTOMATA:
                 assert len(self.automata_names) >= amount
                 for i in range(amount):
-                    Action.create_automata(self.game, self.player, self.automata_names[i])
+                    Action.create_automata(
+                        self.game, self.player, self.automata_names[i])
             else:
                 self.player.gain_item(item, amount)
             if item.pin not in self.player.crafted_before:
@@ -1043,7 +1102,8 @@ class AutomataCraft(Action):
             return
 
         amt = sum(self.items.values())
-        price = sum([abs(item.cost) * amount for (item, amount) in self.items.items()])
+        price = sum(
+            [abs(item.cost) * amount for (item, amount) in self.items.items()])
         only_shop_items = True
         for item in self.items:
             if item.cost < 0:
@@ -1062,7 +1122,8 @@ class AutomataCraft(Action):
 
                 if not self.owner.has_ability(item.get_ability_name(), strict=True):
                     self.owner.report += f"Your automata does not have the ability to make a rune " \
-                                         f"for {item.get_ability_name()}." + os.linesep
+                                         f"for {item.get_ability_name()}." + \
+                        os.linesep
                     return
 
         if rune_crafting and amt > 1:
@@ -1100,7 +1161,8 @@ class AutomataCraft(Action):
             if item.pin == AUTOMATA:
                 assert len(self.automata_names) >= amount
                 for i in range(amount):
-                    Action.create_automata(self.game, self.player, self.automata_names[i])
+                    Action.create_automata(
+                        self.game, self.player, self.automata_names[i])
             else:
                 self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Craft)
@@ -1120,7 +1182,8 @@ class Canvas(Action):
             if self.player.tattoo:
                 self.player.report += "You already have a tattoo." + os.linesep
             self.player.report += f"{self.player.name} failed to get a tattoo from {self.target.name}, " \
-                                  f"so {self.player.name} trained instead." + os.linesep
+                                  f"so {self.player.name} trained instead." + \
+                os.linesep
             Train(self.game, self.player)
         else:
             Action.canvas_artist[self.player] = self.target
@@ -1128,7 +1191,8 @@ class Canvas(Action):
             get_main_report().add_action(self.player, f"{self.player.name} got tattooed by {self.target.name}.",
                                          hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} got tattooed by {self.target.name} " \
-                                  f"with {rune.get_ability_name()}." + os.linesep
+                                  f"with {rune.get_ability_name()}." + \
+                os.linesep
             self.player.tattoo = rune.pin
             Action.add_action_record(self.player, Canvas, self.target)
 
@@ -1177,12 +1241,14 @@ class Tattoo(Action):
             self.player.report += f"You were incapable of making the {self.rune.name} Tattoo." + os.linesep
             if self.player.is_automata:
                 self.ability_source.report += f"Your automata was incapable " \
-                                              f"of making the {self.rune.name} Tattoo." + os.linesep
+                                              f"of making the {self.rune.name} Tattoo." + \
+                    os.linesep
 
         if self.self_target:
             if able_to_tattoo:
                 self.player.report += f"You tattooed yourself " \
-                                      f"with {self.rune.get_ability_name()}." + os.linesep
+                                      f"with {self.rune.get_ability_name()}." + \
+                    os.linesep
                 self.player.tattoo = self.rune.pin
                 Action.add_action_record(self.player, Tattoo, self.player)
         else:
@@ -1190,7 +1256,8 @@ class Tattoo(Action):
                 if self.target.tattoo:
                     self.player.report += f"{self.target.name} already has a tattoo." + os.linesep
                 self.player.report += f"{self.player.name} failed to tattoo {self.target.name}, " \
-                                      f"so {self.player.name} trained instead." + os.linesep
+                                      f"so {self.player.name} trained instead." + \
+                    os.linesep
                 Train(self.game, self.player)
             else:
                 Action.artist_canvas[self.player] = self.target
@@ -1243,7 +1310,8 @@ class MultiAttack(Action):
                 not self.player.has_condition(Condition.FRESH_HIDING):
             if self.game and self.game.is_day() and not isinstance(self, Wander):
                 self.player.report += "You came out of hiding." + os.linesep
-                get_main_report().broadcast(f"{self.player.name} revealed they were not actually dead.")
+                get_main_report().broadcast(
+                    f"{self.player.name} revealed they were not actually dead.")
                 self.player.conditions.remove(Condition.HIDING)
                 get_main_report().mark_revealed(self.player)
 
@@ -1251,7 +1319,8 @@ class MultiAttack(Action):
         attacked_someone = False
 
         if self.player in MasterIllusion.redirect:
-            self.targets = [MasterIllusion.redirect[self.player].get(target, target) for target in self.targets]
+            self.targets = [MasterIllusion.redirect[self.player].get(
+                target, target) for target in self.targets]
             self.targets = list(set(self.targets))
 
         for target in self.targets:
@@ -1260,7 +1329,8 @@ class MultiAttack(Action):
             else:
                 attacked_someone = True
                 if target.action.combat_on_interrupt:
-                    interruption_strings.append(f"{target.name} ({target.action.combat_on_interrupt}),")
+                    interruption_strings.append(
+                        f"{target.name} ({target.action.combat_on_interrupt}),")
                 else:
                     interruption_strings.append(f"{target.name},")
                 Action.interrupted_players.add(target)
@@ -1270,15 +1340,18 @@ class MultiAttack(Action):
 
                 if target.has_condition(Condition.HIDING):
                     if self.game and self.game.is_day():
-                        get_main_report().broadcast(f"{target.name} was discovered to be alive.")
+                        get_main_report().broadcast(
+                            f"{target.name} was discovered to be alive.")
                         target.conditions.remove(Condition.HIDING)
 
                 Action.add_action_record(self.player, Attack, target)
         if attacked_someone:
-            self.public_description += (" and ".join(interruption_strings))[:-1]
+            self.public_description += (
+                " and ".join(interruption_strings))[:-1]
             self.public_description += "."
 
-            get_main_report().add_action(self.player, self.public_description, hidden=self.player in Illusion.handled)
+            get_main_report().add_action(self.player, self.public_description,
+                                         hidden=self.player in Illusion.handled)
             Action.not_wandering.add(self.player)
             self.player.turn_conditions.append(Condition.ATTACKED)
 
@@ -1312,14 +1385,16 @@ class Spy(Action):
                     if skill.trigger == Trigger.SPIED_ON:
                         HandleSkill(self.game, self.target, skill, self.player)
                 return
-        self.player.report += get_main_report().get_spy_report(self.player, self.target, counter_int) + os.linesep
+        self.player.report += get_main_report().get_spy_report(self.player,
+                                                               self.target, counter_int) + os.linesep
         if self.player not in Action.spied:
             Action.spied[self.player] = set()
         Action.spied[self.player].add(self.target)
 
         if counter_int:
             Action.add_action_record(player=self.target, action=type(self.target.fake_action),
-                                     target=getattr(self.target.fake_action, 'target', None),
+                                     target=getattr(
+                                         self.target.fake_action, 'target', None),
                                      fake=True)
             if self.player not in Action.fake_spied:
                 Action.fake_spied[self.player] = set()
@@ -1327,7 +1402,8 @@ class Spy(Action):
 
         for skill in self.player.get_skills():
             if skill.trigger == Trigger.SPY:
-                HandleSkill(self.game, self.player, skill, [self.target], fake=counter_int)
+                HandleSkill(self.game, self.player, skill, [
+                            self.target], fake=counter_int)
 
         for skill in self.target.get_skills():
             if skill.trigger == Trigger.SPIED_ON:
@@ -1341,7 +1417,8 @@ class ConsumeItem(Action):
 
     def __init__(self, game: Optional['Game'], player: "Player", item: "Item"):
         if (player, item) in ConsumeItem.unique_pair:
-            raise Exception(f"{player.name} is trying to consume multiple copies of the same item ({item.name}).")
+            raise Exception(
+                f"{player.name} is trying to consume multiple copies of the same item ({item.name}).")
         super().__init__(priority=10, game=game, player=player, fragile=False,
                          public_description=f"{player.name} used {item.name}")
         self.item = item
@@ -1356,7 +1433,8 @@ class ConsumeItem(Action):
             self.player.report += f"{self.player.name} used {self.item.name} " \
                                   f"({self.player.items.count(self.item.pin)} remaining)." + os.linesep
             for skill in self.item.get_skills(targets=self.player.item_targets.get(self.item.pin, None)):
-                HandleSkill.handle_noncombat_skill(self.game, self.player, skill)
+                HandleSkill.handle_noncombat_skill(
+                    self.game, self.player, skill)
             if self.item.pin == POISON_GAS:
                 Action.no_class.add(self.player)
                 get_combat_handler().add_solitary_combat(self.player)
@@ -1364,13 +1442,15 @@ class ConsumeItem(Action):
                 Action.progress(self.player, 3)
             elif self.item.pin == LIQUID_MEMORIES:
                 self.player.academics += 1
-                self.player.report += f"Academics ({self.player.academics})" + os.linesep
+                self.player.report += f"Academics ({self.player.academics})" + \
+                    os.linesep
 
             if isinstance(self.item, Rune):
                 if self.item.is_disruptive():
                     if not self.player.has_ability("Quiet Attune"):
                         Action.no_class.add(self.player)
-                self.player.temporary_abilities.append(self.item.get_ability_pin())
+                self.player.temporary_abilities.append(
+                    self.item.get_ability_pin())
 
             if self.player.has_condition(Condition.EFFICIENT_HEALER):
                 if self.item.pin == MEDKIT:
@@ -1384,7 +1464,8 @@ class Trade(Action):
     unique_pair: Set[Tuple['Player', 'Player']] = set()
 
     # {(Sender, Recipient): (Credits, {Item: Amount})}
-    item_conditions: Dict[Tuple['Player', 'Player'], Tuple[int, Dict['Item', int]]] = {}
+    item_conditions: Dict[Tuple['Player', 'Player'],
+                          Tuple[int, Dict['Item', int]]] = {}
 
     # Used to prevent a player from promising the same items/credits to multiple players
     reserved: Dict['Player', Tuple[int, Dict['Item', int], List[str]]] = {}
@@ -1395,22 +1476,27 @@ class Trade(Action):
                  action_condition: Optional[ACTION_CONDITION] = None,
                  item_condition: Optional[ITEM_CONDITION] = None):
         if (player, target) in Trade.unique_pair:
-            raise Exception(f"{player.name} is trying to trade with {target.name} multiple times")
+            raise Exception(
+                f"{player.name} is trying to trade with {target.name} multiple times")
         if money < 0:
-            raise Exception(f"{player.name} is trying to give away negative money.")
+            raise Exception(
+                f"{player.name} is trying to give away negative money.")
         if not money and not items and not automata:
-            raise Exception(f"{player.name} is trying to place an empty trade.")
+            raise Exception(
+                f"{player.name} is trying to place an empty trade.")
         if items is None:
             items = {}
         if automata is None:
             automata = []
 
         if automata and target.is_automata:
-            raise Exception(f"{player.name} is trying to give and automata to an automata.")
+            raise Exception(
+                f"{player.name} is trying to give and automata to an automata.")
 
         for automaton in automata:
             if not isinstance(automaton, str) and automaton.owner != player:
-                raise Exception(f"{player.name} is trying to trade an automata they don't own {automaton.name}.")
+                raise Exception(
+                    f"{player.name} is trying to trade an automata they don't own {automaton.name}.")
 
         super().__init__(100, game=game, player=player, fragile=False)
         self.target = target
@@ -1436,7 +1522,8 @@ class Trade(Action):
                                           f"because the forbidden action occurred." + os.linesep
                 return
         failed_trade = False
-        reserved_credits, reserved_items, reserved_automata_names = Trade.reserved.get(self.player, (0, {}, []))
+        reserved_credits, reserved_items, reserved_automata_names = Trade.reserved.get(
+            self.player, (0, {}, []))
         if self.credits:
             reserved_credits += self.credits
             if self.player.get_credits() < reserved_credits:
@@ -1461,7 +1548,8 @@ class Trade(Action):
                                               + os.linesep
                         failed_trade = True
                     else:
-                        parsed_automata.append(self.player.automata_registry[automaton])
+                        parsed_automata.append(
+                            self.player.automata_registry[automaton])
                 else:
                     parsed_automata.append(automaton)
             self.automata = parsed_automata
@@ -1472,13 +1560,16 @@ class Trade(Action):
                                           + os.linesep
                     failed_trade = True
                 reserved_automata_names.append(automaton.name)
-        Trade.reserved[self.player] = (reserved_credits, reserved_items, reserved_automata_names)
+        Trade.reserved[self.player] = (
+            reserved_credits, reserved_items, reserved_automata_names)
         if failed_trade:
             return
         items_and_automata = self.items.copy()
         if self.automata:
-            items_and_automata[get_item_by_name("Automata")] = len(self.automata)
-        Trade.item_conditions[(self.player, self.target)] = (self.credits, items_and_automata)
+            items_and_automata[get_item_by_name(
+                "Automata")] = len(self.automata)
+        Trade.item_conditions[(self.player, self.target)] = (
+            self.credits, items_and_automata)
         TradeFollow(self.game, self.player, self.target,
                     self.items, self.credits, self.automata,
                     self.item_condition)
@@ -1499,7 +1590,8 @@ class TradeFollow(Action):
 
     def _act(self):
         if self.item_condition:
-            pending_credits, pending_items = Trade.item_conditions.get((self.item_condition[0], self.player), (0, {}))
+            pending_credits, pending_items = Trade.item_conditions.get(
+                (self.item_condition[0], self.player), (0, {}))
             if pending_credits < self.item_condition[1]:
                 self.player.report += f"You did not trade with {self.target.name} because " \
                                       f"{self.item_condition[0].name} did not send you enough credits." + os.linesep
@@ -1512,7 +1604,8 @@ class TradeFollow(Action):
                                           + os.linesep
                     Trade.item_conditions[(self.player, self.target)] = (0, {})
                     return
-        TradeFinal(self.game, self.player, self.target, self.items, self.credits, self.automata, self.item_condition)
+        TradeFinal(self.game, self.player, self.target, self.items,
+                   self.credits, self.automata, self.item_condition)
 
 
 # Used only by Trade
@@ -1530,7 +1623,8 @@ class TradeFinal(Action):
 
     def _act(self):
         if self.item_condition:
-            pending_credits, pending_items = Trade.item_conditions.get((self.item_condition[0], self.player), (0, {}))
+            pending_credits, pending_items = Trade.item_conditions.get(
+                (self.item_condition[0], self.player), (0, {}))
             if pending_credits < self.item_condition[1]:
                 self.player.report += f"You did not trade with {self.target.name} because " \
                                       f"{self.item_condition[0].name} did not send you enough credits." + os.linesep
@@ -1562,7 +1656,8 @@ class TradeFinal(Action):
             self.player.report += f"You transferred control of {automaton.name} to {self.target.name}." + os.linesep
             self.target.report += f"{self.player.name} gave you control over {automaton.name}." + os.linesep
             automaton.owner = self.target
-        get_main_report().add_trade(self.player, self.target, self.credits, self.items, self.automata)
+        get_main_report().add_trade(self.player, self.target,
+                                    self.credits, self.items, self.automata)
 
 
 class PlaceBounty(Action):
@@ -1587,7 +1682,8 @@ class PlaceBounty(Action):
         self.player.lose_credits(self.amount)
         self.target.bounty += self.amount
         self.player.report += f"You placed a {self.amount} credit bounty on {self.target.name} " \
-                              f"({self.player.get_credits()} credits remain)" + os.linesep + os.linesep
+                              f"({self.player.get_credits()} credits remain)" + \
+            os.linesep + os.linesep
         get_main_report().add_bounty(self.player, self.target, self.amount)
 
 
@@ -1611,9 +1707,11 @@ class Blackmail(Action):
     def _act(self):
         if not self.target.is_dead() and self.player.check_relative_condition(self.target, Condition.HOOK):
             self.player.report += f"You have blackmailed {self.target.name}." + os.linesep
-            self.player.relative_conditions[self.target.name].remove(Condition.HOOK)
+            self.player.relative_conditions[self.target.name].remove(
+                Condition.HOOK)
             if self.target.has_condition(Condition.HOOK_IGNORE):
-                self.target.report += os.linesep + f"Somebody is trying to blackmail you ineffectually." + os.linesep
+                self.target.report += os.linesep + \
+                    f"Somebody is trying to blackmail you ineffectually." + os.linesep
                 self.target.report += "They want you to: INSERT BLACKMAIL" + os.linesep
                 self.target.report += "You are free to ignore it." + os.linesep
             else:
@@ -1709,16 +1807,19 @@ class Illusion(Action):
 
         if self.target not in Illusion.handled:
             self.target.fake_action = self.fake_action
-            get_main_report().add_action(self.target, self.fake_action.public_description, fake=True)
+            get_main_report().add_action(
+                self.target, self.fake_action.public_description, fake=True)
             Action.add_action_record(self.target, type(self.fake_action),
-                                     target=getattr(self.target.fake_action, 'target', None),
+                                     target=getattr(
+                                         self.target.fake_action, 'target', None),
                                      fake=True)
             if isinstance(self.fake_action, Train):
                 self.target.fake_ability = self.fake_training
                 if self.fake_training:
                     train_name = self.fake_training.name
                     if self.fake_training.pin >= 700:
-                        train_name = 'Concept ' + roman.toRoman((self.fake_training.pin % 100))
+                        train_name = 'Concept ' + \
+                            int_to_roman((self.fake_training.pin % 100))
                     get_main_report().set_training(self.target, train_name)
                 else:
                     get_main_report().set_training(self.target, "nothing")
@@ -1745,7 +1846,8 @@ class MasterIllusion(Action):
             return
 
         self.player.report += f"{self.player.name} befuddled {self.target.name} to confuse {self.defended.name} " \
-                              f"with {self.redirected.name}." + os.linesep + os.linesep
+                              f"with {self.redirected.name}." + \
+            os.linesep + os.linesep
 
         if self.defended not in MasterIllusion.redirect.get(self.target, {}):
             if self.target not in MasterIllusion.redirect:
@@ -1760,7 +1862,8 @@ class MasterIllusion(Action):
                     modified_targets = [self.redirected if target == self.defended else target
                                         for target in self.target.action.targets]
                     modified_targets = list(set(modified_targets))
-                    target_names = " and ".join([target.name for target in modified_targets])
+                    target_names = " and ".join(
+                        [target.name for target in modified_targets])
                     self.target.action.combat_on_interrupt = f"while they were attacking {target_names}"
 
 
@@ -1780,7 +1883,8 @@ class NoncombatSkillStep(Action):
                     if isinstance(player.action, Craft):
                         player.turn_conditions.append(Condition.BONUS_BUNKER)
                 for skill in player.get_skills():
-                    HandleSkill.handle_noncombat_skill(self.game, player, skill)
+                    HandleSkill.handle_noncombat_skill(
+                        self.game, player, skill)
 
 
 class TattooStep(Action):
@@ -1793,13 +1897,15 @@ class TattooStep(Action):
                 if player.tattoo is not None:
                     rune = get_item(player.tattoo)
                     assert isinstance(rune, Rune)
-                    player.report += f"You were empowered by your {rune.get_ability_name()} Tattoo." + os.linesep
+                    player.report += f"You were empowered by your {rune.get_ability_name()} Tattoo." + \
+                        os.linesep
                     for skill in rune.get_skills(choice=player.tattoo_choice):
                         skill.targets = player.tattoo_targets
                         if skill.trigger == Trigger.NONCOMBAT:
                             HandleSkill(self.game, player, skill)
                         elif skill.targets and skill.trigger == Trigger.TARGET:
-                            HandleSkill(self.game, player, skill, skill.targets)
+                            HandleSkill(self.game, player,
+                                        skill, skill.targets)
 
                     if rune.is_disruptive():
                         if not player.has_ability("Quiet Attune"):
@@ -1819,7 +1925,8 @@ class ContingencyBlockSimStep(Action):
 class CombatSimStep(Action):
     def __init__(self, game: Optional['Game']):
         super().__init__(34, game=game, player=None)
-        ContingencyBlockSimStep(game)  # Needs to happen before simulation and contingency hydro
+        # Needs to happen before simulation and contingency hydro
+        ContingencyBlockSimStep(game)
 
     def act(self):
         handler = get_combat_handler()
@@ -1839,17 +1946,20 @@ class CombatSimStep(Action):
                 circuit_possibilities = reacting_player.get_possible_attunement()
             elif reacting_player.has_ability("Fast Attune I"):
                 circuit_possibilities = reacting_player.get_one_swap_attunement()
-            best_score_so_far = (-999999999999999999, 0, 0)  # Personal score, negative score of others, size attuned
+            # Personal score, negative score of others, size attuned
+            best_score_so_far = (-999999999999999999, 0, 0)
             best_so_far = None
             for possibility in circuit_possibilities:
-                sim_results = handler.simulate_combat({reacting_player: possibility})
+                sim_results = handler.simulate_combat(
+                    {reacting_player: possibility})
                 secondary = 0
                 for sim_player, score in sim_results.items():
                     if sim_player.is_automata and sim_player.owner == reacting_player.name:
                         secondary += score
                     elif reacting_player.name != sim_player.name:
                         secondary -= score
-                score = (sim_results[reacting_player], secondary, len(possibility))
+                score = (sim_results[reacting_player],
+                         secondary, len(possibility))
                 if score > best_score_so_far:
                     best_score_so_far = score
                     best_so_far = possibility
@@ -1908,7 +2018,8 @@ class CombatStep(Action):
                 player.destroy_fragile_items(include_loot=True)
                 player.report += os.linesep
         for player in get_combat_handler().full_escape:
-            get_main_report().add_action(player, f"{player.name} escaped combat.")
+            get_main_report().add_action(
+                player, f"{player.name} escaped combat.")
             self.interrupted_players.discard(player)
 
 
@@ -1968,8 +2079,11 @@ class WillpowerStep(Action):
                             if player.has_ability("Rapid Regen I", ignore_this_turn=False):
                                 regen = player.max_willpower
                             else:
-                                regen = player.max_willpower // 2 + (player.max_willpower % 2)  # Divide by 2 round up
-                            regen = min(regen, player.max_willpower-player.willpower)
+                                regen = player.max_willpower // 2 + \
+                                    (player.max_willpower %
+                                     2)  # Divide by 2 round up
+                            regen = min(
+                                regen, player.max_willpower-player.willpower)
                             if regen:
                                 player.report += f"You regained {regen} willpower." + os.linesep
                                 player.willpower += regen
@@ -1988,7 +2102,8 @@ class StatusChangeStep(Action):
                     player.conditions.remove(Condition.SANITARY)
                 if Condition.PETRIFIED in player.conditions:
                     if player not in Action.not_wandering:
-                        get_main_report().add_action(player, f"{player.name} was stuck as a Statue.")
+                        get_main_report().add_action(
+                            player, f"{player.name} was stuck as a Statue.")
                     player.conditions.remove(Condition.PETRIFIED)
                     count = player.conditions.count(Condition.PETRIFIED)
                     if count:
@@ -1998,19 +2113,22 @@ class StatusChangeStep(Action):
                         player.report += f"You are Petrified. You will be free after {count} {turn}." + os.linesep
                     else:
                         player.report += f"You have broken free from your Petrification." + os.linesep
-                        get_main_report().broadcast(f"{player.name} has escaped Petrification.")
+                        get_main_report().broadcast(
+                            f"{player.name} has escaped Petrification.")
                 elif Condition.GRIEVOUS in player.conditions:
                     # Just using the count of Grievous to mark lethality
                     player.conditions.append(Condition.GRIEVOUS)
                     count = player.conditions.count(Condition.GRIEVOUS)
                     if count >= 4:
-                        player.die(f"{player.name} succumbed to their wounds and died.")
+                        player.die(
+                            f"{player.name} succumbed to their wounds and died.")
                     else:
                         turn = "turn"
                         if count != 3:
                             turn += 's'
                         player.report += f"You are grievously wounded you must heal " \
-                                         f"within {4-count} {turn} or you will die." + os.linesep
+                                         f"within {4-count} {turn} or you will die." + \
+                            os.linesep
 
                 if self.game.is_night():
                     if not player.is_automata:
@@ -2036,12 +2154,14 @@ class Resurrect(Action):
         if not self.player.is_dead():
             return
         if not self.stealth:
-            get_main_report().add_action(self.player, f"{self.player.name} died.")
+            get_main_report().add_action(
+                self.player, f"{self.player.name} died.")
         super().act()
 
     def _act(self):
         # Delete stealable items and fragile items
-        self.player.conditions = [condition for condition in self.player.conditions if condition not in AFFLICTIONS]
+        self.player.conditions = [
+            condition for condition in self.player.conditions if condition not in AFFLICTIONS]
         self.player.conditions.append(Condition.INJURED)
         if self.stealth:
             self.player.report += "You came back from the dead." + os.linesep

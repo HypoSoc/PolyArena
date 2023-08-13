@@ -25,7 +25,8 @@ class GeoQualifiedSkill:
 
     def _count_times(self, attuned: Iterable[Element]) -> int:
         if self.each:
-            assert len(self.circuits) == 1, f"Qualified Skill {self.pin} with 'Each' can't have multiple options."
+            assert len(
+                self.circuits) == 1, f"Qualified Skill {self.pin} with 'Each' can't have multiple options."
             assert len(self.circuits[0]) == 1, f"Qualified Skill {self.pin} with 'Each' can't have multiple circuits " \
                                                f"required. "
             return list(attuned).count(self.circuits[0][0])
@@ -143,7 +144,8 @@ class Ability:
         self.max_targets = max_targets
         self.must_choose = must_choose  # must_choose: number of options
         self.target_other = target_other
-        self.explanation = explanation   # Adds an on acquisition skill to explain what a concept level does
+        # Adds an on acquisition skill to explain what a concept level does
+        self.explanation = explanation
         self.prerequisite_pin = prerequisite_pin
 
     def get_prerequisite(self) -> Optional[Ability]:
@@ -174,7 +176,8 @@ class Ability:
             skills.extend(self._get_aeromancy_explanation_skill())
             return skills
         except Exception as e:
-            raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
+            raise Exception(
+                f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
 
     def get_skills_for_rune(self, choice=-1) -> List[Skill]:
         try:
@@ -186,7 +189,8 @@ class Ability:
             skills.extend(self._get_aero_skills(choice, for_rune=True))
             return [skill for skill in skills if skill.trigger not in [Trigger.ACQUISITION, Trigger.START_OF_GAME]]
         except Exception as e:
-            raise Exception(f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
+            raise Exception(
+                f"Failed to parse skills for Ability {self.name} ({self.pin})") from e
 
     def get_skills_for_hydro_contingency(self, will: List[int]) -> List[Skill]:
         while len(will) < len(self.hydro_qualified_skills):
@@ -257,12 +261,14 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
     aero_qualified_skills = []
     for entry_pin, entry_value in dictionary.get('geo', {}).items():
         for key in entry_value.keys():
-            assert key in ['circuits', 'each', 'fragile'], f"Ability {pin}, illegal key geo {key}"
+            assert key in ['circuits', 'each',
+                           'fragile'], f"Ability {pin}, illegal key geo {key}"
 
         circuits = []
         element_options: List[List[Element]] = []
         for element_string in entry_value['circuits']:
-            element_options.append([Element[component] for component in element_string.split("/")])
+            element_options.append([Element[component]
+                                   for component in element_string.split("/")])
         for option in itertools.product(*element_options):
             circuits.append(list(option))
         fragile = None
@@ -273,7 +279,8 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
 
     for entry_pin, entry_value in dictionary.get('hydro', {}).items():
         for key in entry_value.keys():
-            assert key in ['cost', 'each', 'fragile'], f"Ability {pin}, illegal key hydro {key}"
+            assert key in ['cost', 'each',
+                           'fragile'], f"Ability {pin}, illegal key hydro {key}"
 
         fragile = None
         if entry_value.get('fragile', None):
@@ -283,7 +290,8 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
 
     for entry_pin, entry_value in dictionary.get('aero', {}).items():
         for key in entry_value.keys():
-            assert key in ['fragile', 'option'], f"Ability {pin}, illegal key aero {key}"
+            assert key in ['fragile',
+                           'option'], f"Ability {pin}, illegal key aero {key}"
 
         fragile = None
         if entry_value.get('fragile', None):
@@ -305,7 +313,8 @@ def __parse_ability(pin: int, dictionary: Dict) -> Ability:
                    hydro_qualified_skills=hydro_qualified_skills,
                    aero_qualified_skills=aero_qualified_skills,
                    max_will=dictionary.get('max_will', 1000000),
-                   contingency_forbidden=dictionary.get('not_contingency', False),
+                   contingency_forbidden=dictionary.get(
+                       'not_contingency', False),
                    linked=dictionary.get('linked', False),
                    concept=dictionary.get('concept'),
                    max_targets=dictionary.get('max_targets', 1),

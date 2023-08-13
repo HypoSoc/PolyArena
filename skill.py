@@ -13,7 +13,8 @@ class Skill:
                  trigger: Trigger, self_override: bool = False, value_b: Optional[Any] = None,
                  works_when_petrified: bool = False, info_once_override: bool = False,
                  self_has_condition: Optional[Condition] = None, self_not_condition: Optional[Condition] = None,
-                 target_has_condition: Optional[Condition] = None, target_not_condition: Optional[Condition] = None):
+                 target_has_condition: Optional[Condition] = None, target_not_condition: Optional[Condition] = None,
+                 condition_list: Optional[list[Condition]] = None):
         self.pin = pin
         self.text = text
         self.effect = effect
@@ -29,6 +30,7 @@ class Skill:
         self.self_not_condition = self_not_condition
         self.target_has_condition = target_has_condition
         self.target_not_condition = target_not_condition
+        self.condition_list = condition_list
 
         self.source = None  # Helps to debug
         self.fragile: Optional[Condition] = None
@@ -41,7 +43,7 @@ class Skill:
                        info=self.info, trigger=self.trigger, self_override=self.self_override, value_b=self.value_b,
                        works_when_petrified=self.works_when_petrified, info_once_override=self.info_once_override,
                        self_has_condition=self.self_has_condition, self_not_condition=self.self_not_condition,
-                       target_has_condition=self.target_has_condition, target_not_condition=self.target_not_condition)
+                       target_has_condition=self.target_has_condition, target_not_condition=self.target_not_condition, condition_list=self.condition_list)
         copied.source = self.source
         copied.fragile = self.fragile
         copied.read_only = False
@@ -73,12 +75,15 @@ def __parse_skill(pin: int, dictionary: Dict) -> Skill:
     if 'target_not_condition' in dictionary:
         tnc = Condition[dictionary['target_not_condition']]
 
+    clist = None
+    if 'condition_list' in dictionary:
+        clist = list(map(lambda c: Condition[c], dictionary['condition_list']))
+
     for key in dictionary.keys():
         assert key in ['text', 'effect', 'value', 'value_b', 'priority', 'info', 'trigger', 'self_override',
                        'works_when_petrified',
                        'self_has_condition', 'self_not_condition',
-                       'target_has_condition', 'target_not_condition', 'info_once'], f"Skill {pin}: illegal key {key}"
-
+                       'target_has_condition', 'target_not_condition', 'info_once', 'condition_list'], f"Skill {pin}: illegal key {key}"
     return Skill(pin=pin, text=dictionary['text'], effect=Effect[dictionary['effect']],
                  value=dictionary.get('value', 0), priority=dictionary.get('priority', 0),
                  info=InfoScope[dictionary.get('info', "HIDDEN")],
@@ -90,7 +95,8 @@ def __parse_skill(pin: int, dictionary: Dict) -> Skill:
                  self_has_condition=sc,
                  self_not_condition=snc,
                  target_has_condition=tc,
-                 target_not_condition=tnc)
+                 target_not_condition=tnc,
+                 condition_list=clist)
 
 
 if not __skill_dict:
@@ -103,5 +109,6 @@ if not __skill_dict:
             skill_list = safe_load(file)
             for (k, v) in skill_list.items():
                 if k in __skill_dict:
-                    raise Exception(f"ID collision in skills.yaml {k}")
+                    raise Exception(
+                        f"ID collision in skills.yaml {k} {v} {__skill_dict[k].text}")
                 __skill_dict[k] = __parse_skill(k, v)

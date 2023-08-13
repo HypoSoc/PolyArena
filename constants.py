@@ -66,7 +66,8 @@ class Condition(IntEnum):
     GRIEVOUS_IMMUNE = 49
     COMBAT_REGEN = 50
     MULTI_ATTACK = 51  # Can attack 3 players
-    FRAGILE_BUNKERING = 52  # Special case that allows bunker bonuses to disappear with antimagic for earth 3
+    # Special case that allows bunker bonuses to disappear with antimagic for earth 3
+    FRAGILE_BUNKERING = 52
     BONUS_BUNKER = 53
     FRAGILE_BUNKER = 54  # Bonus bunker susceptible to antimagic
     LONG_PETRIFY = 55  # Petrify lasts an additional turn
@@ -136,6 +137,12 @@ class Condition(IntEnum):
     NO_COMBAT = 118
     WARP_CIRCUIT = 119
     USING_WARP = 120
+    DEPLETED_CHARGE = 121  # For counting charges
+    ONCE_AGAIN = 122  # For when a single ONCE isn't suficient.
+    BALANCE = 123  # the status equivalent of the balance skills, only acts during the combat phase
+    # the status equivalent of the imbalance skills, only acts during the combat phase
+    IMBALANCE = 124
+    INCREASED_SPEED = 125
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -158,7 +165,8 @@ class InfoScope(Enum):
     NARROW = 7  # Like Private, but for Aero. Players with AI will learn concept names and aeromancer name
     SUBTLE = 8  # Like Narrow, but AI is necessary to SEE the message
     BLATANT = 9  # Like Broadcast, but for Aero. Players with AI will learn concept names but not aeromancer names
-    UNMISTAKABLE = 10  # Like Broadcast, but also reveals the aeromancer name and concept to EVERYONE, no AI needed
+    # Like Broadcast, but also reveals the aeromancer name and concept to EVERYONE, no AI needed
+    UNMISTAKABLE = 10
     SUBTLE_IMPERSONAL = 11  # Subtle, but the aeromancer does not get to see it
 
 
@@ -195,12 +203,15 @@ class Effect(Enum):
     DAMAGE = 29  # Directly damage a foe
     INTERRUPT = 30  # Prevent interruptable actions
     SCHEDULE = 31  # Schedule skill value in value_b turns
-    GAIN_ABILITY_OR_PROGRESS = 32  # Grant the ability, or grant equivalent progress if ability cannot be gained
+    # Grant the ability, or grant equivalent progress if ability cannot be gained
+    GAIN_ABILITY_OR_PROGRESS = 32
     GRIEVOUS = 33  # Deal grievous damage
     MINI_PETRIFY = 34  # Petrify for this turn only
     KILL = 35  # Instantly kill (unless lizard tail)
     ACADEMIC = 36  # Gain academic points
     HEAL = 37
+    IMBALANCE = 38  # Buff the larger of Combat and Surv, prioritizing combat
+    CONSUME = 39  # turns a condition into a list of conditions.
 
 
 class Trigger(Enum):
@@ -216,7 +227,8 @@ class Trigger(Enum):
     SPIED_ON = 12
     NONCOMBAT_POST_ATTUNE = 13  # Usually does not need to be set in the yaml
     POST_COMBAT = 14
-    RANGE_IGNORE_SPEED = 15  # Used for speed affecting in range abilities to avoid edge cases
+    # Used for speed affecting in range abilities to avoid edge cases
+    RANGE_IGNORE_SPEED = 15
     TARGET = 16  # Manually selected target
     ACQUISITION = 17
     START_OF_GAME = 18  # Only happens at start of Game

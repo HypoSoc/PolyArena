@@ -43,10 +43,13 @@ class CombatHandler:
         self.report_dict = {}
         self.attacker_to_defenders: Dict["Player", Set["Player"]] = {}
         self.combat_group_to_events = {}
-        self.verb_dict: Dict['Player', str] = {}  # Used if 'attacked' isn't appropriate
-        self.range_edges: List[Tuple['Player', 'Player']] = []  # One directional edges used to calculate range
+        # Used if 'attacked' isn't appropriate
+        self.verb_dict: Dict['Player', str] = {}
+        # One directional edges used to calculate range
+        self.range_edges: List[Tuple['Player', 'Player']] = []
 
-        self.ambushes: Dict['Player', Set['Player']] = {}  # First populated when attempting to ambush, then pruned
+        # First populated when attempting to ambush, then pruned
+        self.ambushes: Dict['Player', Set['Player']] = {}
 
         self.drained_by: Dict['Player', Set['Player']] = {}
         self.drainers: Set['Player'] = set()
@@ -90,7 +93,8 @@ class CombatHandler:
                     make_and_modify_clone(attacker)
                 if defender not in player_to_clone:
                     make_and_modify_clone(defender)
-                sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
+                sim.add_attack(
+                    player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
             if clone_game is None:
@@ -123,7 +127,8 @@ class CombatHandler:
                     make_and_modify_clone(attacker)
                 if defender not in player_to_clone:
                     make_and_modify_clone(defender)
-                sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
+                sim.add_attack(
+                    player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
             if clone_game is None:
@@ -159,7 +164,8 @@ class CombatHandler:
                     make_and_modify_clone(attacker)
                 if defender not in player_to_clone:
                     make_and_modify_clone(defender)
-                sim.add_attack(player_to_clone[attacker], player_to_clone[defender])
+                sim.add_attack(
+                    player_to_clone[attacker], player_to_clone[defender])
 
         for self_attacker in self.solitary_combat:
             if clone_game is None:
@@ -196,7 +202,8 @@ class CombatHandler:
     def update_verb_dict(self, player: "Player", verb: str):
         if player not in self.verb_dict:
             self.verb_dict[player] = verb
-            player.action.public_description = player.action.public_description.replace("attacked", verb)
+            player.action.public_description = player.action.public_description.replace(
+                "attacked", verb)
 
         else:
             if verb not in self.verb_dict[player]:
@@ -251,7 +258,8 @@ class CombatHandler:
 
             combat = {}
             survivability = {}
-            conditions: Dict['Player', List[Condition]] = {p: [] for p in group}
+            conditions: Dict['Player', List[Condition]] = {
+                p: [] for p in group}
 
             queue: PriorityQueue[Tic] = PriorityQueue()
 
@@ -283,6 +291,7 @@ class CombatHandler:
                     speed -= 1
                 if Condition.SNIPED in conditions.get(a, []):
                     speed -= 2
+                speed += conditions[a].count(Condition.INCREASED_SPEED)
                 if Condition.TARGET_LOCKED in conditions.get(a, []):
                     speed = 0
                 return max(speed, 0)
@@ -417,7 +426,8 @@ class CombatHandler:
                                                            list(self.drained_by[will_bag]), InfoScope.PRIVATE)
                             else:
                                 drainer.willpower += will_bag.willpower
-                                drainer.willpower = min(drainer.willpower, drainer.max_willpower)
+                                drainer.willpower = min(
+                                    drainer.willpower, drainer.max_willpower)
                                 self._append_to_event_list(self.combat_group_to_events[group],
                                                            f"You stole {will_bag.willpower} Willpower. "
                                                            f"({drainer.willpower}/{drainer.max_willpower})",
@@ -436,7 +446,6 @@ class CombatHandler:
 
                     if skill.fragile and skill.fragile in conditions[p]:
                         return
-
                     if skill.self_has_condition and skill.self_has_condition not in conditions[p]:
                         return
                     if skill.self_not_condition and skill.self_not_condition in conditions[p]:
@@ -474,11 +483,14 @@ class CombatHandler:
                                     if o not in targets:
                                         targets.append(o)
                         elif skill.trigger == Trigger.RANGE:
-                            targets = [o for o in group if self.check_range(p, o)]
+                            targets = [
+                                o for o in group if self.check_range(p, o)]
                         elif skill.trigger == Trigger.RANGE_IGNORE_SPEED:
-                            targets = [o for o in group if self.check_range(p, o, ignore_escape=True)]
+                            targets = [o for o in group if self.check_range(
+                                p, o, ignore_escape=True)]
                         elif skill.trigger == Trigger.RANGE_EX_SELF:
-                            targets = [o for o in group if self.check_range(p, o) and o.name != p.name]
+                            targets = [o for o in group if self.check_range(
+                                p, o) and o.name != p.name]
                         elif skill.trigger == Trigger.COMBAT_INJURY:
                             targets = [p]
 
@@ -493,10 +505,12 @@ class CombatHandler:
                     if not targets:
                         return
 
-                    targets = [target for target in targets if not target.is_dead()]
+                    targets = [
+                        target for target in targets if not target.is_dead()]
 
                     if skill.effect == Effect.INTUITION:
-                        random.shuffle(targets)  # Ensure there is no way to tell WHICH player is which Aeromancer
+                        # Ensure there is no way to tell WHICH player is which Aeromancer
+                        random.shuffle(targets)
 
                     times = 1  # For repeated CONDITION type effects
                     if skill.value_b and isinstance(skill.value_b, int):
@@ -528,8 +542,14 @@ class CombatHandler:
                                     survivability[target] = 0
                         elif skill.effect == Effect.NO_SURVIVABILITY:
                             survivability[target] = -1
+                        elif skill.effect == Effect.IMBALANCE:
+                            for _ in range(skill.value):
+                                if combat[target] >= survivability[target]:
+                                    combat[target] += 1
+                                else:
+                                    survivability[target] += 1
                         elif skill.effect == Effect.BALANCE:
-                            for i in range(skill.value):
+                            for _ in range(skill.value):
                                 if combat[target] < survivability[target]:
                                     combat[target] += 1
                                 else:
@@ -544,7 +564,8 @@ class CombatHandler:
                                     conditions[target].append(condition)
                         elif skill.effect == Effect.REMOVE_CONDITION:
                             for _ in range(times):
-                                queue.put(condition_remove_tic(skill.priority, target, Condition[skill.value]))
+                                queue.put(condition_remove_tic(
+                                    skill.priority, target, Condition[skill.value]))
                         elif skill.effect == Effect.REL_CONDITION:
                             condition = Condition[skill.value]
                             for _ in range(times):
@@ -555,22 +576,28 @@ class CombatHandler:
                                 conditions[target].append(condition)
                                 target.conditions.append(condition)
                         elif skill.effect == Effect.DISARM:
-                            queue.put(condition_remove_tic(skill.priority, target, Condition.ARMED))
+                            queue.put(condition_remove_tic(
+                                skill.priority, target, Condition.ARMED))
                             if target.get_held_weapon():
                                 disarm_thief[target].append(p)
                         elif skill.effect == Effect.ARMOR_BREAK:
-                            queue.put(condition_remove_tic(skill.priority, target, Condition.ARMORED))
+                            queue.put(condition_remove_tic(
+                                skill.priority, target, Condition.ARMORED))
                             # Don't want to destroy redundant copies
-                            tag = ("Armor Break", target.name, target.get_worn_armor().pin)
+                            tag = ("Armor Break", target.name,
+                                   target.get_worn_armor().pin)
                             if tag not in only_once:
                                 only_once.add(tag)
-                                queue.put(item_remove_tic(skill.priority, target, target.get_worn_armor().pin))
+                                queue.put(item_remove_tic(
+                                    skill.priority, target, target.get_worn_armor().pin))
                         elif skill.effect == Effect.WEAPON:
                             combat[target] += skill.value
-                            conditions[target].append(Condition.ARMED_SET)  # Only one weapon can apply its bonus
+                            # Only one weapon can apply its bonus
+                            conditions[target].append(Condition.ARMED_SET)
                         elif skill.effect == Effect.ARMOR:
                             survivability[target] += skill.value
-                            conditions[target].append(Condition.ARMOR_SET)  # Only one weapon can apply its bonus
+                            # Only one weapon can apply its bonus
+                            conditions[target].append(Condition.ARMOR_SET)
                         elif skill.effect == Effect.SNIPING:
                             self.update_verb_dict(target, skill.text)
                             # Modify description of action in place to make the report read cleaner
@@ -581,27 +608,35 @@ class CombatHandler:
                         elif skill.effect == Effect.DAMAGE:
                             queue.put(damage_tic(skill.priority + 1, source=p, target=target,
                                                  dmg_type=get_damage_type(p),
-                                                 injury_modifiers=get_injury_modifiers(p),
+                                                 injury_modifiers=get_injury_modifiers(
+                                                     p),
                                                  target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.GRIEVOUS:
                             queue.put(damage_tic(skill.priority + 1, source=p, target=target,
                                                  dmg_type=get_damage_type(p),
-                                                 injury_modifiers=get_injury_modifiers(p) + [InjuryModifier.GRIEVOUS],
+                                                 injury_modifiers=get_injury_modifiers(
+                                                     p) + [InjuryModifier.GRIEVOUS],
                                                  target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.NONLETHAL:
                             queue.put(damage_tic(skill.priority+1, source=p, target=target,
-                                                 dmg_type=get_damage_type(p, DamageType.NONLETHAL),
-                                                 injury_modifiers=get_injury_modifiers(p),
+                                                 dmg_type=get_damage_type(
+                                                     p, DamageType.NONLETHAL),
+                                                 injury_modifiers=get_injury_modifiers(
+                                                     p),
                                                  target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.PETRIFY:
                             queue.put(damage_tic(skill.priority+1, source=p, target=target,
-                                                 dmg_type=get_damage_type(p, DamageType.PETRIFY),
-                                                 injury_modifiers=get_injury_modifiers(p),
+                                                 dmg_type=get_damage_type(
+                                                     p, DamageType.PETRIFY),
+                                                 injury_modifiers=get_injury_modifiers(
+                                                     p),
                                                  target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.MINI_PETRIFY:
                             queue.put(damage_tic(skill.priority+1, source=p, target=target,
-                                                 dmg_type=get_damage_type(p, DamageType.PETRIFY),
-                                                 injury_modifiers=get_injury_modifiers(p) + [InjuryModifier.MINI],
+                                                 dmg_type=get_damage_type(
+                                                     p, DamageType.PETRIFY),
+                                                 injury_modifiers=get_injury_modifiers(
+                                                     p) + [InjuryModifier.MINI],
                                                  target_not_condition=skill.target_not_condition))
                         elif skill.effect == Effect.KILL:
                             queue.put(kill_tic(skill.priority+1, target))
@@ -624,21 +659,32 @@ class CombatHandler:
                         elif skill.effect == Effect.INTUITION:
                             if target.concept:
                                 self._append_to_event_list(self.combat_group_to_events[group],
-                                                           skill.text.replace(SELF_PLACEHOLDER, p.name)
+                                                           skill.text.replace(
+                                                               SELF_PLACEHOLDER, p.name)
                                                            .replace(TARGET_PLACEHOLDER, target.name)
                                                            .replace("%REPLACE_WITH_CONCEPT%", target.concept),
                                                            [p],
                                                            InfoScope.PERSONAL)
+                        elif skill.effect == Effect.CONSUME:
+                            for _ in range(times):
+                                if Condition[skill.value] in conditions[target]:
+                                    conditions[target].remove(
+                                        Condition[skill.value])
+                                    for condition in skill.condition_list:
+                                        conditions[target].append(condition)
                         else:
-                            raise Exception(f"Unhandled effect type in combat! {skill.effect.name}")
+                            raise Exception(
+                                f"Unhandled effect type in combat! {skill.effect.name}")
 
                     if skill.info != InfoScope.HIDDEN:
                         for target in targets:
 
-                            msg = skill.text.replace(SELF_PLACEHOLDER, p.name).replace(TARGET_PLACEHOLDER, target.name)
+                            msg = skill.text.replace(SELF_PLACEHOLDER, p.name).replace(
+                                TARGET_PLACEHOLDER, target.name)
                             if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
-                                                           [p, target] if skill.info != InfoScope.PERSONAL else [p],
+                                                           [p, target] if skill.info != InfoScope.PERSONAL else [
+                                                               p],
                                                            skill.info, p)
                             if skill.effect == Effect.INFO_ONCE:
                                 self.info_once.add(msg)
@@ -739,10 +785,12 @@ class CombatHandler:
                         if InjuryModifier.NONLETHAL in injury_modifiers:
                             if Condition.NONLETHAL_IMMUNE in conditions[target]:
                                 return
-                        queue.put(wound_tic(priority+1, target, injury_modifiers))
+                        queue.put(
+                            wound_tic(priority+1, target, injury_modifiers))
                         for damaged_skill in target.get_skills():
                             if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
-                                queue.put(skill_tic(target, damaged_skill, [source]))
+                                queue.put(
+                                    skill_tic(target, damaged_skill, [source]))
 
                 def petrify():
                     if not target_not_condition or target_not_condition not in conditions[target]:
@@ -750,17 +798,20 @@ class CombatHandler:
                                               mini=InjuryModifier.MINI in injury_modifiers))
                         for damaged_skill in target.get_skills():
                             if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
-                                queue.put(skill_tic(target, damaged_skill, [source]))
+                                queue.put(
+                                    skill_tic(target, damaged_skill, [source]))
 
                 def nonlethal():
                     if not target_not_condition or target_not_condition not in conditions[target]:
                         if Condition.NONLETHAL_IMMUNE in conditions[target]:
                             return
                         if Condition.INJURED not in target.conditions:
-                            queue.put(wound_tic(priority+1, target, injury_modifiers+[InjuryModifier.NONLETHAL]))
+                            queue.put(
+                                wound_tic(priority+1, target, injury_modifiers+[InjuryModifier.NONLETHAL]))
                             for damaged_skill in target.get_skills():
                                 if damaged_skill.trigger == Trigger.COMBAT_DAMAGED:
-                                    queue.put(skill_tic(target, damaged_skill, [source]))
+                                    queue.put(
+                                        skill_tic(target, damaged_skill, [source]))
 
                 if dmg_type == DamageType.DEFAULT:
                     return priority, self.tic_index, wound
@@ -854,14 +905,17 @@ class CombatHandler:
                         if self._one_on_one(offense, defense, get_combat, get_survivability,
                                             self.combat_group_to_events[group]):
                             queue.put(damage_tic(DAMAGE_PRIORITY, source=offense, target=defense,
-                                                 dmg_type=get_damage_type(offense),
+                                                 dmg_type=get_damage_type(
+                                                     offense),
                                                  injury_modifiers=get_injury_modifiers(offense)))
                             # Damaged by is handled inside the damage_tic CONSTRUCTOR
                             if defense in disarm_thief[offense]:
-                                disarm_thief[offense].remove(defense)  # Injured attacker, so not disarm stolen
+                                # Injured attacker, so not disarm stolen
+                                disarm_thief[offense].remove(defense)
                         else:
                             if offense in disarm_thief[defense]:
-                                disarm_thief[defense].remove(offense)  # Failed to injure defender, so not disarm stolen
+                                # Failed to injure defender, so not disarm stolen
+                                disarm_thief[defense].remove(offense)
                     else:
                         if get_speed(defense) - get_speed(offense) >= 2:
                             if defense not in self.no_escape:
@@ -905,7 +959,8 @@ class CombatHandler:
             for player in group:
                 combat[player] = 0
                 survivability[player] = 0
-                conditions[player] = player.conditions[:] + player.turn_conditions[:]
+                conditions[player] = player.conditions[:] + \
+                    player.turn_conditions[:]
 
                 if player.willpower:
                     conditions[player].append(Condition.HAS_WILLPOWER)
@@ -923,20 +978,38 @@ class CombatHandler:
                 queue.put(skill_tic(player, bunker_survive_skill))
 
                 combat[player] += conditions[player].count(Condition.HONED)
-                survivability[player] += conditions[player].count(Condition.FORGED)
+                survivability[player] += conditions[player].count(
+                    Condition.FORGED)
 
                 if Condition.COMBAT_DOWN in conditions[player]:
                     combat_down_skill = Skill(-1, text="Combat -X", effect=Effect.COMBAT,
-                                              value=-1*conditions[player].count(Condition.COMBAT_DOWN),
+                                              value=-1 *
+                                              conditions[player].count(
+                                                  Condition.COMBAT_DOWN),
                                               priority=69, info=InfoScope.HIDDEN, trigger=Trigger.SELF)
                     queue.put(skill_tic(player, combat_down_skill))
 
                 if Condition.SURVIVABILITY_DOWN in conditions[player]:
                     survivability_down_skill = Skill(-1, text="Survivability -X", effect=Effect.SURVIVABILITY,
-                                                     value=-1*conditions[player].count(Condition.SURVIVABILITY_DOWN),
+                                                     value=-1 *
+                                                     conditions[player].count(
+                                                         Condition.SURVIVABILITY_DOWN),
                                                      priority=69, info=InfoScope.HIDDEN, trigger=Trigger.SELF)
                     queue.put(skill_tic(player, survivability_down_skill))
 
+                if survivability[player] > combat[player]:
+                    survivability[player] += conditions[player].count(
+                        Condition.IMBALANCE)
+                else:
+                    combat[player] += conditions[player].count(
+                        Condition.IMBALANCE)
+                bal = conditions[player].count(Condition.BALANCE)
+                while (bal):
+                    bal -= 1
+                    if combat[player] < survivability[player]:
+                        combat[player] += 1
+                    else:
+                        survivability[player] += 1
                 if Condition.PETRIFIED in conditions[player]:
                     conditions[player].append(Condition.GAS_IMMUNE)
 
@@ -996,7 +1069,8 @@ class CombatHandler:
                 if thieves:
                     stolen = victim.get_held_weapon()
                     victim.items.remove(stolen.pin)
-                    living_thieves = [thief for thief in thieves if thief not in dead_list]
+                    living_thieves = [
+                        thief for thief in thieves if thief not in dead_list]
                     if len(living_thieves) == 1:
                         thief = living_thieves[0]
                         thief.items.append(stolen.pin)
@@ -1118,23 +1192,28 @@ class CombatHandler:
             event_list.append((message, affected, InfoScope.PRIVATE))
             event_list.append((f"Your intuition tells you "
                                f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
-                               [p for p in affected if p.has_condition(Condition.INTUITION)],
+                               [p for p in affected if p.has_condition(
+                                   Condition.INTUITION)],
                                InfoScope.PRIVATE))
         elif info == InfoScope.SUBTLE:
             event_list.append((message,
-                               [p for p in affected if p.has_condition(Condition.INTUITION) or p == aero],
+                               [p for p in affected if p.has_condition(
+                                   Condition.INTUITION) or p == aero],
                                InfoScope.PRIVATE))
             event_list.append((f"Your intuition tells you "
                                f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
-                               [p for p in affected if p.has_condition(Condition.INTUITION)],
+                               [p for p in affected if p.has_condition(
+                                   Condition.INTUITION)],
                                InfoScope.PRIVATE))
         elif info == InfoScope.SUBTLE_IMPERSONAL:
             event_list.append((message,
-                               [p for p in affected if p.has_condition(Condition.INTUITION)],
+                               [p for p in affected if p.has_condition(
+                                   Condition.INTUITION)],
                                InfoScope.PRIVATE))
             event_list.append((f"Your intuition tells you "
                                f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
-                               [p for p in affected if p.has_condition(Condition.INTUITION)],
+                               [p for p in affected if p.has_condition(
+                                   Condition.INTUITION)],
                                InfoScope.PRIVATE))
 
         elif info == InfoScope.BLATANT:
@@ -1169,7 +1248,7 @@ class CombatHandler:
                 for other in group:
                     if other in self.attacker_to_defenders:
                         report += other.action.public_description\
-                                      .replace("attacked", self.verb_dict.get(other, 'attacked')) + os.linesep
+                            .replace("attacked", self.verb_dict.get(other, 'attacked')) + os.linesep
                 for event in events:
                     if event[2] == InfoScope.WIDE:
                         if player.has_condition(Condition.INTUITION):
