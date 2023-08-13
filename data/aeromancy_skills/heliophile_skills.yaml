@@ -1,0 +1,75 @@
+3901:
+  text: "A Total Solar Eclipse is set to occur all of Day 6 and Night 6."
+  info: "BLATANT"
+  effect: "SCHEDULE"
+  value: 3903
+  value_b: 10
+  trigger: "ACQUISITION"
+
+3902:
+  text: "Night 6 Eclipse"
+  effect: "SCHEDULE"
+  value: 3903
+  value_b: 11
+  trigger: "ACQUISITION"
+
+3903:
+  text: "Eclipse for all."
+  effect: "CONDITION"
+  value: "ECLIPSE"
+  trigger: "ALL"
+  works_when_petrified: True
+
+3904: 
+  text: "The air crackles with energy!"
+  effect: "COMBAT"
+  value: 2
+  info: "WIDE"
+  self_not_condition: "ECLIPSE"
+  priority: 20
+
+3905: 
+  text: "+2 surv"
+  effect: "SURVIVABILITY"
+  value: 2
+  self_not_condition: "ECLIPSE"
+  priority: 20
+
+3906:
+  text: "You cannot flourish in an absence of light."
+  info: "PRIVATE"
+  effect: "COMBAT"
+  value: -10
+  self_has_condition: "ECLIPSE"
+
+3907:
+  text: "-10 Survivability"
+  effect: "SURVIVABILITY"
+  value: -10
+  self_has_condition: "ECLIPSE"
+
+3908:
+  text: "The SUN calls to you."
+  info: "PRIVATE"
+  effect: "PROGRESS"
+  value: 1
+  trigger: "NONCOMBAT"
+  self_not_condition: "ECLIPSE"
+  priority: 10
+
+3909:
+  text: "You cannot be harmed while under the SUN's aegis."
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "COMBAT_REGEN"
+  self_not_condition: "ECLIPSE"
+  priority: 20
+
+3910:
+  text: "You cannot die while under the SUN's aegis!"
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "RESURRECT"
+  trigger: "NONCOMBAT"
+  self_not_condition: "ECLIPSE"
+

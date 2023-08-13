@@ -1,0 +1,23 @@
+3801: 
+  text: "Add a Lizard Tail"
+  effect: "ITEM"
+  value: 15
+  trigger: "ACQUISITION"
+
+3802: 
+  text: "Add 3 credits"
+  effect: "CREDITS"
+  value: 3
+  trigger: "ACQUISITION"
+
+3803: 
+  text: "Add a Chronobomb"
+  effect: "ITEM"
+  value: 26
+  trigger: "ACQUISITION"
+
+3804: 
+  text: "Add academics"
+  effect: "ACADEMIC"
+  value: 1
+  trigger: "ACQUISITION"

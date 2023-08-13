@@ -1,0 +1,11 @@
+3401: 
+  text: "Your Decoy becomes alive. Their name is [INSERT DECOY NAME HERE]."
+  effect: "INFO"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+
+3402:
+  text: "Your Decoy is ready! Give the order!"
+  effect: "INFO"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"

@@ -1,0 +1,37 @@
+3601: 
+  text: "%TARGET%'s strength is diminished."
+  info: "SUBTLE"
+  effect: "PERMANENT_CONDITION"
+  value: "COMBAT_DOWN"
+  trigger: "TARGET"
+  priority: 1
+
+3602: 
+  text: "%TARGET%'s defenses are lowered."
+  info: "SUBTLE"
+  effect: "PERMANENT_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  trigger: "TARGET"
+  priority: 1
+
+3603: 
+  text: "%TARGET%'s progress is stalled."
+  info: "NARROW"
+  effect: "CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "TARGET"
+  priority: 1
+
+3604: 
+  text: "%TARGET%'s mind shall not grow."
+  info: "NARROW"
+  effect: "CONDITION"
+  value: "NO_CLASS"
+  trigger: "TARGET"
+  priority: 1
+
+3605: 
+  text: "An unpleasant aura twists the campus grounds!"
+  info: "BROADCAST"
+  effect: "INFO"
+  trigger: "ACQUISITION"

@@ -1,0 +1,144 @@
+2901:
+  text: "Charge Gain"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  value_b: 2
+  trigger: "ACQUISITION"
+
+2902:
+  text: "Charge bonuses to lowest value"
+  effect: "BALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.01
+
+2903:
+  text: "Charge removal"
+  effect: "CONSUME"
+  value: "CHARGE"
+  condition_list: 
+    - "DEPLETED_CHARGE"
+  priority: 69.1 
+
+2904:
+  text: "Charge bonuses to lowest value"
+  effect: "BALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.11
+
+2905:
+  text: "Charge removal"
+  effect: "CONSUME"
+  value: "CHARGE"
+  condition_list: 
+    - "DEPLETED_CHARGE"
+  priority: 69.2
+
+2906:
+  text: "Charge bonuses to lowest value"
+  effect: "BALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.21
+
+2907:
+  text: "Charge removal"
+  effect: "CONSUME"
+  value: "CHARGE"
+  condition_list: 
+    - "DEPLETED_CHARGE"
+  priority: 69.3
+
+2908:
+  text: "Charge bonuses to lowest value"
+  effect: "BALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.31
+
+2909:
+  text: "Charge removal"
+  effect: "CONSUME"
+  value: "CHARGE"
+  condition_list: 
+    - "DEPLETED_CHARGE"
+  priority: 69.4
+
+2910:
+  text: "Charge bonuses to lowest value"
+  effect: "BALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.41
+
+2911:
+  text: "Charge regain"
+  effect: "CONSUME"
+  value: "DEPLETED_CHARGE"
+  condition_list: 
+    - "CHARGE"
+  value_b: 4
+  priority: 69.5
+
+2912: 
+  text: "The air crackles with energy!"
+  effect: "INFO"
+  value: 1
+  info: "WIDE"
+  self_has_condition: "CHARGE"
+  priority: 69.001
+
+2913:
+  text: "The air is filled with static... %TARGET% has gained two charges!"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  value_b: 2
+  info: "NARROW"
+  self_has_condition: "CHARGE"
+  trigger: "TARGET"
+  priority: 1
+
+2914:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 11
+  self_has_condition: "CHARGE"
+  self_override: true
+
+2915:
+  text: "Charge bonuses to highest value"
+  effect: "IMBALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.001
+
+2916:
+  text: "Charge bonuses to highest value"
+  effect: "IMBALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.101
+
+2917:
+  text: "Charge bonuses to highest value"
+  effect: "IMBALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.201
+
+2918:
+  text: "Charge bonuses to highest value"
+  effect: "IMBALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.301
+
+2919:
+  text: "Charge bonuses to highest value"
+  effect: "IMBALANCE"
+  value: 1
+  self_has_condition: "CHARGE"
+  priority: 69.401

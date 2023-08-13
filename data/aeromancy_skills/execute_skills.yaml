@@ -1,0 +1,39 @@
+3501: 
+  text: "%TARGET%'s soul is probed for weaknesses."
+  info: "SUBTLE"
+  effect: "SCHEDULE"
+  value: 3502
+  value_b: 3
+  trigger: "TARGET"
+  works_when_petrified: True
+  priority: 1
+
+3502: 
+  text: "%TARGET%'s fragile soul shatters!"
+  info: "NARROW"
+  effect: "DAMAGE"
+  trigger: "TARGET"
+  target_has_condition: "INJURED"
+  priority: 89.4
+
+3503: 
+  text: "An unpleasant aura twists the campus grounds!"
+  info: "BROADCAST"
+  effect: "INFO"
+  trigger: "ACQUISITION"
+
+3504:
+  text: "Make all wounds Grievous."
+  effect: "CONDITION"
+  trigger: "ALL"
+  value: "INFLICT_GRIEVOUS"
+  priority: 1
+
+3504:
+  text: "Make all wounds Permanent."
+  effect: "CONDITION"
+  trigger: "ALL"
+  value: "INFLICT_CAUTERIZE"
+  priority: 1
+  
+    

@@ -1,0 +1,52 @@
+3701: 
+  text: "You are cursed to produce-\n-the gifts you cannot use"
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  value: "NO_SHOP"
+  trigger: "ACQUISITION"
+
+3702: 
+  text: "Add 1 credit each turn"
+  effect: "CREDITS"
+  value: 15
+  trigger: "NONCOMBAT"
+  priority: 103
+
+3703: 
+  text: "Despair as you gain-\n-strength you cannot direct!"
+  info: "PRIVATE"
+  effect: "INFO"
+  trigger: "ACQUISITION"
+
+3704:
+  text: "Gain +3 combat when you don't attack"
+  effect: "COMBAT"
+  value: 3
+  self_not_condition: "ATTACKED"
+  priority: 20
+
+3705: 
+  text: "You gained bounded endurance-\n-will you feel safer for it?"
+  info: "PRIVATE"
+  effect: "INFO"
+  trigger: "ACQUISITION"
+
+3706:
+  text: "Gain +3 survivabily when you don't bunker"
+  effect: "SURVIVABILITY"
+  value: 3
+  self_not_condition: "BUNKERING"
+  priority: 20
+
+3707: 
+  text: "Cursed with stagnant knowledge-\n-or blessed with it?"
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  value: "NO_CLASS"
+  trigger: "ACQUISITION"
+
+3708:
+  text: "+2 academics"
+  effect: "ACADEMIC"
+  value: 2
+  trigger: "ACQUISITION"

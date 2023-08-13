@@ -1,0 +1,47 @@
+3301:
+  text: "You managed to smuggle some items into the Academy!"
+  effect: "INFO"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  
+3302:
+  text: "Item acquisition"
+  effect: "ITEM"
+  value: 3301
+  value_b: 3
+  trigger: "ACQUISITION"
+
+3303:
+  text: "Item acquisition"
+  effect: "ITEM"
+  value: 3302
+  value_b: 3
+  trigger: "ACQUISITION"
+
+3304:
+  text: "Item acquisition"
+  effect: "ITEM"
+  value: 3303
+  value_b: 3
+  trigger: "ACQUISITION"
+
+3305:
+  text: "Item acquisition"
+  effect: "ITEM"
+  value: 8
+  value_b: 3
+  trigger: "ACQUISITION"
+
+3306:
+  text: "A Lizard Tail has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 3304
+  info: "NARROW"
+  trigger: "TARGET"
+  priority: 10
+
+3307:
+  text: "Progress gain"
+  effect: "PROGRESS"
+  trigger: "ACQUISITION"
+  value: 20

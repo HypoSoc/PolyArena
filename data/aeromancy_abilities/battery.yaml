@@ -1,0 +1,74 @@
+# Battery I (10): You gain 2 Charges.
+#                 You have +1 to your lowest attribute per Charge (max: 5) (wide) (fragile).
+# Battery II (10): Whenever you Bunker, choose a player. Consume a Charge to grant them 2 Charges. (Narrow)
+# Battery III (10): You have +1 to your highest attribute per Charge (max: 5) (fragile).
+
+2901:
+  name: "Battery I"
+  concept: "BATTERY"
+  cost: 10
+  skills:
+    - 2901
+  aero:
+    2902:
+      fragile: true
+    2903:
+      fragile: true
+    2904:
+      fragile: true
+    2905:
+      fragile: true
+    2906:
+      fragile: true
+    2907:
+      fragile: true
+    2908:
+      fragile: true
+    2909:
+      fragile: true
+    2910:
+      fragile: true
+    2911:
+      fragile: true
+    2912: 
+      fragile: true
+    
+  explanation: |-
+    You gain 2 Charges.
+    You have +1 to your lowest attribute per Charge. (max: 5) (wide) (fragile)
+
+    Battery II costs 10
+
+2902:
+  name: "Battery II"
+  concept: "BATTERY"
+  cost: 10
+  max_targets: 1
+  skills:
+    - 2913
+    - 2914
+  explanation: |-
+    Whenever you Bunker, choose a player. Consume a Charge to grant them 2 Charges. 
+
+    Battery III costs 10
+  prerequisite: 2901
+
+2903:
+  name: "Battery III"
+  concept: "BATTERY"
+  cost: 10
+  aero:
+    2915:
+      fragile: true
+    2916:
+      fragile: true
+    2917:
+      fragile: true
+    2918:
+      fragile: true
+    2919:
+      fragile: true
+  explanation: |-
+    You have +1 to your highest attribute per Charge. (max: 5) (fragile)
+
+  prerequisite: 2902

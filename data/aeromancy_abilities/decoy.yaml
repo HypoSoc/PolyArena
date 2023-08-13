@@ -1,0 +1,48 @@
+# Decoy I (10): You own a decoy. It cannot graduate. It cannot gain progress. It goes to Class every day, and bunkers every night. 
+#               The decoy has 10 combat and 10 survivability. 
+#               Your decoy keeps acting after your death. 
+# Decoy II (5): Your Decoy attacks a target of your choice next action.
+#               If you would have gotten Decoy II during character creation, refund Decoy II.
+# Decoy III (5): Your Decoy attacks a target of your choice next action.
+#                If you would have gotten Decoy III during character creation, refund Decoy III.
+
+
+3401:
+  name: "Decoy I"
+  concept: "DECOY"
+  cost: 10
+  skills: 
+  - 3401
+  explanation: |-
+    You own a decoy. It cannot graduate. It cannot gain progress. It goes to Class every day, and bunkers every night. 
+    The decoy has 10 combat and 10 survivability. 
+    Your decoy keeps acting after your death. 
+
+    Decoy II costs 5
+
+3402:
+  name: "Decoy II"
+  concept: "DECOY"
+  cost: 5
+  max_targets: 1
+  skills: 
+  - 3402
+  explanation: |-
+    Your Decoy attacks a target of your choice next action.
+    If you would have gotten Decoy II during character creation, refund Decoy II.
+
+    Decoy III costs 5
+  prerequisite: 3401
+
+3403:
+  name: "Decoy III"
+  concept: "DECOY"
+  cost: 5
+  max_targets: 1
+  skills: 
+  - 3402
+  explanation: |-
+    Your Decoy attacks a target of your choice next action.
+    If you would have gotten Decoy III during character creation, refund Decoy III.
+
+  prerequisite: 3402

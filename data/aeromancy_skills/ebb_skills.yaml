@@ -1,0 +1,102 @@
+3201: 
+  text: "Initial Charge Gain."
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 2
+
+3202: 
+  text: "Removes BALANCE"
+  effect: "REMOVE_CONDITION"
+  trigger: "NONCOMBAT"
+  value: "BALANCE"
+  value_b: 10
+  self_not_condition: "CHARGE"
+  priority: 89
+
+3203: 
+  text: "Removes IMBALANCE"
+  effect: "REMOVE_CONDITION"
+  trigger: "NONCOMBAT"
+  value: "IMBALANCE"
+  value_b: 10
+  self_not_condition: "CHARGE"
+  priority: 89
+
+3204: 
+  text: "The tide has reached its nadir."
+  effect: "PERMANENT_CONDITION"
+  info: "BLATANT"
+  trigger: "NONCOMBAT"
+  value: "CHARGE"
+  value_b: 4
+  self_not_condition: "CHARGE"
+  priority: 89.1
+
+3205: 
+  text: "You trade away some of your potential, reinforcing your weakest attribute!"
+  effect: "PERMANENT_CONDITION"
+  value: "BALANCE"
+  info: "PRIVATE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 11.1
+
+3206:
+  text: "You inch closer to your true form... you have lost a Charge!"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 11.2
+
+3207: 
+  text: "You trade away some of your potential, reinforcing your strongest attribute!"
+  effect: "PERMANENT_CONDITION"
+  value: "IMBALANCE"
+  info: "PRIVATE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 11.1
+
+3208: 
+  text: "You have staved off your inexorable return to normal... for a time."
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 1
+
+3209: 
+  text: "You have staved off your inexorable return to normal... for a time.."
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 3
+
+3210: 
+  text: "You have staved off your inexorable return to normal... for a time..."
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 2
+
+3211: 
+  text: "Delayed, delayed. You've squeezed everything out. No more."
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+
+3212:
+  text: "Progress gain"
+  effect: "PROGRESS"
+  trigger: "NONCOMBAT"
+  value: 5
+  self_not_condition: "CHARGE"
+  priority: 89

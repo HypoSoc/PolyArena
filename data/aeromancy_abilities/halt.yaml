@@ -1,0 +1,72 @@
+# Halt I (10):   You gain 1 Academic Point
+#                You gain a Lizard Tail. 
+# Halt II (10):  You gain 3 Credits. 
+#                You gain a Lizard Tail. 
+# Halt III (10): You gain a Chronoshift Bomb. 
+# Halt IV (15):  You gain a Chronoshift Bomb.
+#                You gain 1 Academic Point
+# Halt V (20):   You gain a Chronoshift Bomb.
+#                You gain 1 Academic Point
+
+3801:
+  name: "Halt I"
+  concept: "HALT"
+  cost: 10
+  skills: 
+  - 3801
+  - 3804
+  explanation: |-
+    You gain 1 Academic Point
+    You gain a Lizard Tail. 
+
+    Halt II costs 10
+
+3802:
+  name: "Halt II"
+  concept: "HALT"
+  cost: 10
+  skills: 
+  - 3801
+  - 3802
+  explanation: |-
+    You gain 3 Credits. 
+    You gain a Lizard Tail. 
+
+    Halt III costs 10
+
+3803:
+  name: "Halt III"
+  concept: "HALT"
+  cost: 10
+  skills: 
+  - 3803
+  explanation: |-
+    You gain a Chronoshift Bomb.  
+
+    Halt IV costs 15
+
+3804:
+  name: "Halt IV"
+  concept: "HALT"
+  cost: 15
+  skills: 
+  - 3803
+  - 3804
+  explanation: |-
+    You gain a Chronoshift Bomb.  
+    You gain 1 Academic Point
+
+    Halt IV costs 20
+
+3805:
+  name: "Halt V"
+  concept: "HALT"
+  cost: 20
+  skills: 
+  - 3803
+  - 3804
+  explanation: |-
+    You gain a Chronoshift Bomb.  
+    You gain 1 Academic Point
+
+

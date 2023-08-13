@@ -1,0 +1,49 @@
+#Fraud I (10):    You gain access to some counterfeit items. They are marked as [item] (FAKE) to you and anyone possessing Aeromancy Intuition I/II, but appear perfectly normal to other players. 
+#                 They do not have any effect whatsoever. 
+#                 Receive 3 Sword (FAKE). 
+#                 Receive 3 Oxygen Masks (FAKE).
+#                 Receive 3 Synthetic Weave (FAKE).
+#                 Receive 3 Poison Gas (REAL!).
+# Fraud II (5):   Each turn, you may choose another player. They gain a Lizard Tail (FAKE). (Narrow)
+# Fraud III (5):  Gain 20 progress.
+
+3301:
+  name: "Fraud I"
+  concept: "FRAUD"
+  cost: 10
+  skills: 
+  - 3301
+  - 3302
+  - 3303
+  - 3304
+  - 3305
+  explanation: |-
+    You gain access to some counterfeit items. They are marked as [item] (FAKE) to you and anyone possessing Aeromancy Intuition I/II, but appear perfectly normal to other players. 
+    They do not have any effect whatsoever. 
+    Receive 3 Sword (FAKE). 
+    Receive 3 Oxygen Masks (FAKE).
+    Receive 3 Synthetic Weave (FAKE).
+    Receive 3 Poison Gas (REAL!).
+   
+    Fraud II costs 5
+
+3302:
+  name: "Fraud II"
+  concept: "FRAUD"
+  cost: 5
+  max_targets: 1
+  skills: 
+  - 3306
+  explanation: |-
+    Each turn, you may choose another player. They gain a Lizard Tail (FAKE). (Narrow)
+    Fraud III costs 5
+
+3303:
+  name: "Fraud III"
+  concept: "FRAUD"
+  cost: 5
+  skills: 
+  - 3307
+  explanation: |-
+    Gain 20 progress.
+

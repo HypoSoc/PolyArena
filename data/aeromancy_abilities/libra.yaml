@@ -1,0 +1,93 @@
+# Libra I (10):  At the end of every turn, if you do not have a Charge, gain a Charge. If you have a Charge, lose a Charge instead.
+#                While you have Charges, you have +2/+2. (fragile)
+#                While you do not have Charges, you have -2/-2. (fragile)
+# Libra II (5):  Gain 2 Scales. A Scale is a Consumable item that gives you a charge if you don't have one.
+# Libra III (5): Each turn you have a charge, gain 2 progress. 
+#                While you do not have Charges, you cannot go to class.
+# Libra IV (10): While you have Charges, you have +2/+2. (fragile)
+# Libra V (5):   While you have a Charge, injuries you inflict are permanent and grievous. (fragile)
+#                While you don't have a Charge, you cannot gain progress. 
+
+3001:
+  name: "Libra I"
+  concept: "LIBRA"
+  cost: 10
+  skills:
+    - 3001
+    - 3002
+    - 3003
+  aero: 
+    3004:
+      fragile: True
+    3005:
+      fragile: True
+    3006:
+      fragile: True
+    3007:
+      fragile: True
+  explanation: |-
+    At the end of every turn, if you do not have a Charge, gain a Charge. If you have a Charge, lose a Charge instead.
+    While you have Charges, you have +2/+2. (fragile)
+    While you do not have Charges, you have -2/-2. (fragile)
+
+    Libra II costs 5
+
+3002: 
+  name: "Libra II"
+  concept: "LIBRA"
+  cost: 5
+  skills:
+    - 3008
+  explanation: |-
+    Gain 2 Scales. A Scale is a Consumable item that gives you a charge if you don't have one.
+
+    Libra III costs 5
+  prerequisite: 3001
+
+3003: 
+  name: "Libra III"
+  concept: "LIBRA"
+  cost: 5
+  aero:
+    3009:
+      fragile: True
+    3010:
+      fragile: True
+  explanation: |-
+    Each turn you have a charge, gain 2 progress. (fragile)
+    While you do not have Charges, you cannot go to class. (fragile)
+
+    Libra IV costs 10
+  prerequisite: 3002
+
+3004:
+  name: "Libra IV"
+  concept: "LIBRA"
+  cost: 10
+  aero:
+    3006:
+      fragile: True
+    3007:
+      fragile: True
+  explanation: |-
+    While you have Charges, you have +2/+2. (fragile)
+
+    Libra V costs 5
+  prerequisite: 3003
+
+3005: 
+  name: "Libra V"
+  concept: "LIBRA"
+  cost: 5
+  aero: 
+    3011:
+      fragile: True
+    3012:
+      fragile: True
+    3013:
+      fragile: True
+  explanation: |-
+    While you have a Charge, injuries you inflict are permanent and grievous. (fragile)
+    While you don't have a Charge, you cannot gain progress. (fragile)
+
+  prerequisite: 3004

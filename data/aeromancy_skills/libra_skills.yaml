@@ -1,0 +1,112 @@
+3001:
+  text: "Mark Charge for removal"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 140.01
+
+3002: 
+  text: "Your essence has shifted... you have gained a Charge!"
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+  value: "CHARGE"
+  self_not_condition: "CHARGE"
+  priority: 140.02
+
+3003:
+  text: "Your essence has shifted... you have lost a Charge!"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  info: "PRIVATE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "ONCE"
+  priority: 140.03
+
+3004:
+  text: "-2 Power"
+  effect: "COMBAT"
+  value: -2
+  self_not_condition: "CHARGE"
+  priority: 68
+
+3005:
+  text: "-2 Survivability"
+  effect: "SURVIVABILITY"
+  value: -2
+  self_not_condition: "CHARGE"
+  priority: 68
+
+3006:
+  text: "+2 Power"
+  effect: "COMBAT"
+  value: 2
+  self_has_condition: "CHARGE"
+  priority: 68
+
+3007:
+  text: "+2 Survivability"
+  effect: "SURVIVABILITY"
+  value: 2
+  self_has_condition: "CHARGE"
+  priority: 68
+
+3008:
+  text: "You turn some of your potential into two Scales!"
+  effect: "ITEM"
+  value: 3001
+  info: "PRIVATE"
+  value_b: 2
+  trigger: "ACQUISITION"
+  priority: 1
+
+3009:
+  text: "You've made progress thanks to your charged state!"
+  effect: "PROGRESS"
+  value: 2
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  info: "PRIVATE"
+  priority: 1
+
+3010: 
+  text: "Prevents from going to class"
+  effect: "CONDITION"
+  value: "NO_CLASS"
+  trigger: "NONCOMBAT"
+  self_not_condition: "CHARGE"
+  priority: 11
+
+3011: 
+  text: "Adds permanent"
+  effect: "CONDITION"
+  value: "INFLICT_CAUTERIZE"
+  self_has_condition: "CHARGE"
+  priority: 20
+
+3012: 
+  text: "Adds grievous"
+  effect: "CONDITION"
+  value: "INFLICT_GRIEVOUS"
+  self_has_condition: "CHARGE"
+  priority: 20
+
+3013: 
+  text: "Left without charges, you make no progress at all..."
+  effect: "CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "NONCOMBAT"
+  self_not_condition: "CHARGE"
+  info: "PRIVATE"
+  priority: 89
+
+3014:
+  text: "The scales have shifted ... you have gained a Charge!"
+  effect: "PERMANENT_CONDITION"
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+  value: "CHARGE"
+  self_not_condition: "CHARGE"
+  priority: 0

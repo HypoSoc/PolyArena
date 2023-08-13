@@ -1,0 +1,40 @@
+# Execute I (10): Each turn, target a player (SUBTLE). 3 turns later, at the end of the turn, if they are injured, they are wounded. (NARROW)
+# Execute II (10): For the rest of the game, Wounds inflicted by players are Grievous. (BLATANT)
+# Execute IV (10): For the rest of the game, Wounds inflicted by players are Permanent. (BLATANT)
+
+
+3501:
+  name: "Execute I"
+  concept: "EXECUTE"
+  cost: 10
+  max_targets: 1
+  skills: 
+  - 3501
+  explanation: |-
+    Each turn, target a player (SUBTLE). 3 turns later, at the end of the turn, if they are injured, they are wounded. (NARROW)
+
+    Execute II costs 10
+
+3502:
+  name: "Execute II"
+  concept: "EXECUTE"
+  cost: 10
+  max_targets: 1
+  skills: 
+  - 3503
+  - 3504
+  explanation: |-
+    For the rest of the game, Wounds inflicted by players are Grievous. (BLATANT)
+
+    Execute III costs 10
+
+3503:
+  name: "Execute III"
+  concept: "EXECUTE"
+  cost: 10
+  max_targets: 1
+  skills: 
+  - 3503
+  - 3505
+  explanation: |-
+    For the rest of the game, Wounds inflicted by players are Permanent. (BLATANT)

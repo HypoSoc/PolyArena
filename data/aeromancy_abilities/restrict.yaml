@@ -1,0 +1,57 @@
+# Restrict I (10):   At the end of each turn gain 1 credit. 
+#                    You cannot Shop. 
+# Restrict II (10):  Gain +3 combat when you don't attack.
+# Restrict III (10): Gain +3 survivability when you don't bunker.
+# Restrict IV (10):  Gain 2 Academics.
+#                    You cannot go to class. 
+
+3701:
+  name: "Restrict I"
+  concept: "RESTRICT"
+  cost: 10
+  skills: 
+  - 3701
+  - 3702
+  explanation: |-
+    At the end of each turn gain 1 credit. 
+    You cannot Shop. 
+
+    Restrict II costs 10
+
+3702:
+  name: "Restrict II"
+  concept: "RESTRICT"
+  cost: 10
+  skills: 
+  - 3703
+  - 3704
+  explanation: |-
+    Gain +3 combat when you don't attack.
+
+    Restrict III costs 10
+  prerequisite: 3701
+
+3703:
+  name: "Restrict III"
+  concept: "RESTRICT"
+  cost: 10
+  skills: 
+  - 3705
+  - 3706
+  explanation: |-
+    Gain +3 survivability when you don't bunker.
+
+    Restrict IV costs 10
+  prerequisite: 3702
+
+3704:
+  name: "Restrict IV"
+  concept: "RESTRICT"
+  cost: 10
+  skills: 
+  - 3707
+  - 3708
+  explanation: |-
+    Gain 2 Academics.
+    You cannot go to class. 
+  prerequisite: 3703

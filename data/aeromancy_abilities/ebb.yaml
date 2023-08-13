@@ -1,0 +1,73 @@
+# Ebb I (10):   Gain 2 Charges.
+#               At the start of the turn, lose a Charge to gain +1 to your lowest stat.
+#               At the end of the turn, if you have no Charges, gain 4 Charges to lose all of your combat and survivability bonuses, and gain 5 progress (Blatant).
+# Ebb II (10):  Gain a Charge. Losing a Charge also grants you +1 to your highest stat. 
+# Ebb III (10): Gain 3 Charges. 
+# Ebb IV (5):   Gain 2 Charges. 
+# Ebb V (5):    Gain a Charge.
+
+3201:
+  name: "Ebb I"
+  concept: "EBB"
+  cost: 10
+  skills:
+    - 3201
+    - 3202
+    - 3203
+    - 3204
+    - 3205
+    - 3206
+    - 3212
+  explanation: |-
+    Gain 2 Charges.
+    At the start of the turn, if you have no Charges, gain 5 Charges to lose all of your combat and survivability bonuses, and gain 5 progress. (Blatant)
+    At the end of the turn, lose a Charge to gain +1 to your lowest stat.
+    
+    Ebb II costs 10
+
+3202:
+  name: "Ebb II"
+  concept: "EBB"
+  cost: 10
+  skills:
+    - 3207
+    - 3208
+  explanation: |-
+    Gain a Charge. Losing a Charge also grants you +1 to your highest stat. 
+    
+    Ebb III costs 10
+  prerequisite: 3201
+
+3203:
+  name: "Ebb III"
+  concept: "EBB"
+  cost: 10
+  skills:
+    - 3209
+  explanation: |-
+    Gain 3 Charges. 
+    
+    Ebb IV costs 5
+  prerequisite: 3202
+
+3204:
+  name: "Ebb IV"
+  concept: "EBB"
+  cost: 5
+  skills:
+    - 3210
+  explanation: |-
+    Gain 2 Charges. 
+    
+    Ebb V costs 5
+  prerequisite: 3203
+
+3205:
+  name: "Ebb V"
+  concept: "EBB"
+  cost: 5
+  skills:
+    - 3211
+  explanation: |-
+    Gain 1 Charge. 
+  prerequisite: 3204
