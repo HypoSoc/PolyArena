@@ -371,3 +371,13 @@
     121:
       cost: 5
   prerequisite: 204
+
+240:
+  name: "Reinforced Will"
+  cost: 5
+  skills:
+    - 131
+    - 132
+    - 133
+    - 134
+  prerequisite: 203

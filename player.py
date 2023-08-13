@@ -800,6 +800,10 @@ class Player:
         for item in self.get_consumed_items():
             skills += item.get_skills(choice=self.item_choices.get(item.pin, -1),
                                       targets=self.item_targets.get(item.pin, []))
+        if self.has_ability("Reinforced Will"):
+            for skill in skills:
+                if skill.fragile:
+                    skill.set_fragile(False)
         return skills
 
     def has_prerequisite(self, ability: Ability) -> bool:

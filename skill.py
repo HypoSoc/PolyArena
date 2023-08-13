@@ -1,5 +1,5 @@
 import glob
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, List
 
 from yaml import safe_load
 
@@ -14,7 +14,7 @@ class Skill:
                  works_when_petrified: bool = False, info_once_override: bool = False,
                  self_has_condition: Optional[Condition] = None, self_not_condition: Optional[Condition] = None,
                  target_has_condition: Optional[Condition] = None, target_not_condition: Optional[Condition] = None,
-                 condition_list: Optional[list[Condition]] = None):
+                 condition_list: Optional[List[Condition]] = None):
         self.pin = pin
         self.text = text
         self.effect = effect
@@ -50,7 +50,7 @@ class Skill:
         return copied
 
     def set_fragile(self, fragile: Condition):
-        assert not self.read_only, "Trying to modify a read only skill."
+        assert not self.read_only, f"Trying to modify a read only skill: {self.pin}"
         self.fragile = fragile
 
 

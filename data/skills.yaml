@@ -862,3 +862,32 @@
   effect: "IMBALANCE"
   value: 1
   priority: 68.99  # Just before BALANCE, so that BALANCE + IMBALANCE is a +1/+1
+
+131:
+  text: "But your Reinforced Will returned your magic."
+  effect: "INFO_ONCE"
+  info: "PRIVATE"
+  priority: 19.001
+  self_has_condition: "GEO_LOCKED"
+
+132:
+  text: "But your Reinforced Will returned your magic."
+  effect: "INFO_ONCE"
+  info: "PRIVATE"
+  priority: 19.001
+  self_has_condition: "HYDRO_LOCKED"
+
+133:
+  text: "But your Reinforced Will returned your magic."
+  effect: "INFO_ONCE"
+  info: "PRIVATE"
+  priority: 19.001
+  self_has_condition: "AERO_LOCKED"
+
+134:
+  text: "But your Reinforced Will returned your magic."
+  effect: "INFO_ONCE"
+  trigger: "NONCOMBAT"
+  info: "PRIVATE"
+  priority: -13.999
+  self_has_condition: "AERO_LOCKED"
