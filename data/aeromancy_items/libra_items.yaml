@@ -1,5 +1,5 @@
 3001:
   name: Scale"
-  cost: 0
+  cost: -1
   type: "CONSUMABLE"
   skills: [3014]
