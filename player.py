@@ -269,6 +269,9 @@ class Player:
             .replace(". you", ". You") \
             .replace("? you", "? You")
 
+        if not self.has_ability("Fraud I") and not self.has_ability("Aeromancy Intuition I"):
+            cleaned = cleaned.replace(" (FAKE)", "")
+
         gather = []
         line_break = False
         for i in cleaned.split(os.linesep):
