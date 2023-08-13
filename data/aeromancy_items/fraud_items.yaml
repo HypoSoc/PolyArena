@@ -1,24 +1,24 @@
 3301:
   name: "Sword (FAKE)"
   alt_name: "Pistol (FAKE)"
-  cost: 3
+  cost: -3
   type: "PERMANENT"
   skills: []
 
 3302:
   name: "Oxygen Mask (FAKE)"
-  cost: 2
+  cost: -2
   type: "PERMANENT"
   skills: []
 
 3303:
   name: "Synthetic Weave (FAKE)"
-  cost: 4
+  cost: -4
   type: "PERMANENT"
   skills: []
 
 3304:
   name: "Lizard Tail (FAKE)"
-  cost: 3
+  cost: -3
   type: "PERMANENT"
   skills: []
