@@ -179,7 +179,10 @@ class Report(object):
                 else:
                     report += os.linesep
                     if target.dev_plan:
-                        report += f"{target.name} seems to be working on {get_ability(target.dev_plan[0]).name}."
+                        ability_name = get_ability(target.dev_plan[0]).name
+                        if target.dev_plan[0] >= 700:
+                            ability_name = 'Concept ' + int_to_roman((target.dev_plan[0] % 100))
+                        report += f"{target.name} seems to be working on {ability_name}."
                     else:
                         report += f"{target.name} is not working on anything."
 
