@@ -320,7 +320,7 @@ class HandleSkill(Action):
             if self.skill.target_not_condition and target.has_condition(self.skill.target_not_condition):
                 continue
 
-            if self.skill.text:
+            if self.skill.text and self.skill.info != InfoScope.HIDDEN:
                 text = self.skill.text.replace(SELF_PLACEHOLDER, self.player.name)\
                     .replace(TARGET_PLACEHOLDER, target.name)
 
@@ -330,12 +330,14 @@ class HandleSkill(Action):
                         add_to_report(target, text)
                 elif self.skill.info == InfoScope.IMPERSONAL:
                     add_to_report(target, text)
-                elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE, InfoScope.SUBTLE_IMPERSONAL]:
+                elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE,
+                                         InfoScope.SUBTLE_IMPERSONAL, InfoScope.NARROW_IMPERSONAL]:
                     was_printed = False
-                    if target != self.player and self.skill.info != InfoScope.SUBTLE_IMPERSONAL:
+                    if target != self.player and self.skill.info not in [InfoScope.SUBTLE_IMPERSONAL,
+                                                                         InfoScope.NARROW_IMPERSONAL]:
                         add_to_report(self.player, text)
                     if target.has_condition(Condition.INTUITION) \
-                            or self.skill.info == InfoScope.NARROW \
+                            or self.skill.info in [InfoScope.NARROW, InfoScope.NARROW_IMPERSONAL] \
                             or target == self.player:
                         was_printed = add_to_report(target, text)
                     if target.has_condition(Condition.INTUITION) and target != self.player:

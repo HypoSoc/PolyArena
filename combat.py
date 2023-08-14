@@ -1195,6 +1195,13 @@ class CombatHandler:
                                [p for p in affected if p.has_condition(
                                    Condition.INTUITION)],
                                InfoScope.PRIVATE))
+        elif info == InfoScope.NARROW_IMPERSONAL:
+            event_list.append((message, [p for p in affected if p != aero], InfoScope.PRIVATE))
+            event_list.append((f"Your intuition tells you "
+                               f"this has to do with {aero.name}'s Aeromancy ({aero.concept}).",
+                               [p for p in affected if p.has_condition(
+                                   Condition.INTUITION)],
+                               InfoScope.PRIVATE))
         elif info == InfoScope.SUBTLE:
             event_list.append((message,
                                [p for p in affected if p.has_condition(

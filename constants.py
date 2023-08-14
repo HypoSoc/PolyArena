@@ -168,6 +168,7 @@ class InfoScope(Enum):
     # Like Broadcast, but also reveals the aeromancer name and concept to EVERYONE, no AI needed
     UNMISTAKABLE = 10
     SUBTLE_IMPERSONAL = 11  # Subtle, but the aeromancer does not get to see it
+    NARROW_IMPERSONAL = 12  # Narrow, but the aeromancer does not get to see it
 
 
 class Effect(Enum):
