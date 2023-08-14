@@ -682,10 +682,13 @@ class CombatHandler:
                             msg = skill.text.replace(SELF_PLACEHOLDER, p.name).replace(
                                 TARGET_PLACEHOLDER, target.name)
                             if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
+                                message_origin = p
+                                if skill.player_of_origin:
+                                    message_origin = skill.player_of_origin
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
                                                            [p, target] if skill.info != InfoScope.PERSONAL else [
                                                                p],
-                                                           skill.info, p)
+                                                           skill.info, message_origin)
                             if skill.effect == Effect.INFO_ONCE:
                                 self.info_once.add(msg)
 

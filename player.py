@@ -11,7 +11,7 @@ from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScop
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
 from report import ReportCallable, get_main_report
-from skill import Skill
+from skill import Skill, get_skill
 
 if TYPE_CHECKING:
     from automata import Automata
@@ -107,7 +107,8 @@ class Player:
         self.turn_conditions = []
         self.circuits: Iterable[Element] = []
         self.tentative_conditions = []
-        self.temporary_abilities: List[int] = []
+        self.temporary_abilities: List[int] = []  # Used for non skill based abilities from runes
+        self.temporary_skills: List[Skill] = []  # Used for skills granted toa  player for a turn
 
         self.max_willpower = 0  # Comes from abilities
         self.hydro_spells: Dict[int, List[int]] = {}
@@ -145,6 +146,7 @@ class Player:
         clone.turn_conditions = self.turn_conditions.copy()
         clone.tentative_conditions = self.tentative_conditions.copy()
         clone.temporary_abilities = self.temporary_abilities.copy()
+        clone.temporary_skills = self.temporary_skills
         clone.ability_choices = self.ability_choices.copy()
         clone.item_choices = self.item_choices.copy()
         clone.circuits = self.circuits[:]
@@ -804,6 +806,7 @@ class Player:
         for item in self.get_consumed_items():
             skills += item.get_skills(choice=self.item_choices.get(item.pin, -1),
                                       targets=self.item_targets.get(item.pin, []))
+        skills += self.temporary_skills
         if self.has_ability("Reinforced Will"):
             for skill in skills:
                 if skill.fragile:

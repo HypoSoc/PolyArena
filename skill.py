@@ -1,11 +1,14 @@
 import glob
-from typing import Dict, Optional, Any, List
+from typing import TYPE_CHECKING, Dict, Optional, Any, List
 
 from yaml import safe_load
 
 from constants import Condition, Effect, InfoScope, Trigger
 
 __skill_dict = {}
+
+if TYPE_CHECKING:
+    from player import Player
 
 
 class Skill:
@@ -34,6 +37,7 @@ class Skill:
 
         self.source = None  # Helps to debug
         self.fragile: Optional[Condition] = None
+        self.player_of_origin: Optional['Player'] = None
         self.read_only = True
 
         self.targets = []  # Used for Trigger.TARGET skills
@@ -43,9 +47,11 @@ class Skill:
                        info=self.info, trigger=self.trigger, self_override=self.self_override, value_b=self.value_b,
                        works_when_petrified=self.works_when_petrified, info_once_override=self.info_once_override,
                        self_has_condition=self.self_has_condition, self_not_condition=self.self_not_condition,
-                       target_has_condition=self.target_has_condition, target_not_condition=self.target_not_condition, condition_list=self.condition_list)
+                       target_has_condition=self.target_has_condition, target_not_condition=self.target_not_condition,
+                       condition_list=self.condition_list)
         copied.source = self.source
         copied.fragile = self.fragile
+        copied.player_of_origin = self.player_of_origin
         copied.read_only = False
         return copied
 

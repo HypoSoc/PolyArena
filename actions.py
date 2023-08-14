@@ -320,6 +320,10 @@ class HandleSkill(Action):
             if self.skill.target_not_condition and target.has_condition(self.skill.target_not_condition):
                 continue
 
+            aero_player = self.player
+            if self.skill.player_of_origin:
+                aero_player = self.skill.player_of_origin
+
             if self.skill.text and self.skill.info != InfoScope.HIDDEN:
                 text = self.skill.text.replace(SELF_PLACEHOLDER, self.player.name)\
                     .replace(TARGET_PLACEHOLDER, target.name)
@@ -345,20 +349,22 @@ class HandleSkill(Action):
                         if was_printed:
                             add_to_report(target,
                                           f"Your intuition tells you this has to do "
-                                          f"with {self.player.name}'s Aeromancy ({self.player.concept}).",
+                                          f"with {aero_player.name}'s Aeromancy ({aero_player.concept}).",
                                           override=True)
-                elif self.skill.info in [InfoScope.PUBLIC, InfoScope.WIDE]:
+                elif self.skill.info == InfoScope.PUBLIC:
+                    get_main_report().add_action(self.player, text)
+                elif self.skill.info == InfoScope.WIDE:
                     get_main_report().add_action(self.player, text,
-                                                 aero=self.skill.info == InfoScope.WIDE)
+                                                 aero=aero_player)
                 elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
                     if add_to_broadcast(text, force_once=self.skill.info_once_override):
                         if self.skill.info == InfoScope.BLATANT:
                             get_main_report().broadcast(f"Your intuition tells you this has to do "
-                                                        f"with the concept {self.player.concept}.",
+                                                        f"with the concept {aero_player.concept}.",
                                                         intuition_required=True)
                         elif self.skill.info == InfoScope.UNMISTAKABLE:
                             get_main_report().broadcast(f"This unmistakably has to do with "
-                                                        f"{self.player.name}'s Aeromancy ({self.player.concept}).",
+                                                        f"{aero_player.name}'s Aeromancy ({aero_player.concept}).",
                                                         intuition_required=False)
 
             if self.skill.effect in [Effect.INFO, Effect.INFO_ONCE]:
@@ -507,6 +513,12 @@ class HandleSkill(Action):
                         Action.progress(target, ability.cost)
                     else:
                         target.gain_ability(ability)
+            elif self.skill.effect == Effect.TEMP_SKILL:
+                if not self.fake:
+                    from skill import get_skill
+                    temp_skill = get_skill(self.skill.value)
+                    temp_skill.player_of_origin = self.player
+                    target.temporary_skills.append(temp_skill)
 
             else:
                 raise Exception(
@@ -672,9 +684,9 @@ class Teach(Action):
         self.ability = ability
 
     def _act(self):
-        if not Action.can_act(self.target) or self.ability in self.target.get_abilities() or \
+        if not Action.can_act(self.target) or self.target.has_ability(self.ability.name, strict=True) or \
                 (self.ability.get_prerequisite() and
-                 self.ability.get_prerequisite() not in self.target.get_abilities()):
+                 not self.target.has_ability(self.ability.get_prerequisite().name, strict=True)):
             self.player.report += f"{self.player.name} failed to teach {self.target.name}, " \
                                   f"so {self.player.name} trained instead." + \
                 os.linesep

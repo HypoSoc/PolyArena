@@ -18,7 +18,7 @@ class Report(object):
     MAIN_REPORT: 'Report' = None
 
     def __init__(self):
-        self.actions: List[Tuple['Player', str, bool, bool, bool]] = []
+        self.actions: List[Tuple['Player', str, bool, bool, Optional['Player']]] = []
         self.broadcast_events: List[Tuple[str, bool]] = []
         self.aero_broadcast: bool = False
         self.dead: Set['Player'] = set()
@@ -49,7 +49,7 @@ class Report(object):
 
     def add_action(self, player: "Player", content: str,
                    fake: bool = False, hidden: bool = False,
-                   aero: bool = False) -> NoReturn:
+                   aero: Optional['Player'] = None) -> NoReturn:
         if player not in self.hiding:
             self.actions.append((player, content, fake, hidden, aero))
         else:
@@ -277,9 +277,9 @@ class Report(object):
                         if not aero_only or aero:
                             report += content + os.linesep
                             if aero and intuition:
-                                assert player.concept
+                                assert aero.concept
                                 report += f"Your intuition tells you " \
-                                          f"this has to do with the concept {player.concept}." + os.linesep
+                                          f"this has to do with the concept {aero.concept}." + os.linesep
         return report
 
     def get_broadcasts(self, intuition: bool, skip_combat: bool = False):
