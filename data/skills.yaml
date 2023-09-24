@@ -891,3 +891,15 @@
   info: "PRIVATE"
   priority: -13.999
   self_has_condition: "AERO_LOCKED"
+
+135:
+  text: "Immune to Spying"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "SPY_IMMUNE"
+
+136:
+  text: "%SELF% mystified %TARGET%'s mind."
+  effect: "DEV_SABOTAGE"
+  trigger: "SPIED_ON"
+  info: "PERSONAL"

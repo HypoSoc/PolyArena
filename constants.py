@@ -138,12 +138,13 @@ class Condition(IntEnum):
     WARP_CIRCUIT = 119
     USING_WARP = 120
     DEPLETED_CHARGE = 121  # For counting charges
-    ONCE_AGAIN = 122  # For when a single ONCE isn't suficient.
+    ONCE_AGAIN = 122  # For when a single ONCE isn't sufficient.
     BALANCE = 123  # the status equivalent of the balance skills, only acts during the combat phase
     # the status equivalent of the imbalance skills, only acts during the combat phase
     IMBALANCE = 124
     INCREASED_SPEED = 125
     SUPPRESSED = 126
+    SPY_IMMUNE = 127
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

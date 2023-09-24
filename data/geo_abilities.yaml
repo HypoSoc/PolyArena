@@ -467,6 +467,21 @@
   prerequisite: 102
 
 140:
+  name: "Mist"
+  cost: 10
+  geo:
+    135:
+      circuits:
+        - "AIR"
+        - "WATER"
+    136:
+      circuits:
+        - "AIR"
+        - "WATER"
+  prerequisite: 102
+
+
+141:
   name: "Warp"
   cost: 10
   skills:

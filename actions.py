@@ -1386,6 +1386,13 @@ class Spy(Action):
         super().act()
 
     def _act(self):
+        if self.target.has_condition(Condition.SPY_IMMUNE):
+            self.player.report += f"You failed to spy on {self.target.name}." + os.linesep
+            for skill in self.target.get_skills():
+                if skill.trigger == Trigger.SPIED_ON:
+                    HandleSkill(self.game, self.target, skill, [self.player])
+            return
+
         counter_int = self.target.has_condition(Condition.COUNTER_INT)
         if counter_int:
             if self.player.has_condition(Condition.PIERCE_COUNTER_INT)\
