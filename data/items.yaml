@@ -192,3 +192,11 @@
   type: "CONSUMABLE"
   skills:
     - 126
+
+27:
+  name: "Network Spike"
+  cost: 2
+  type: "PERMANENT"
+  skills:
+    - 122
+    - 137

@@ -903,3 +903,10 @@
   effect: "DEV_SABOTAGE"
   trigger: "SPIED_ON"
   info: "PERSONAL"
+  priority: 95
+
+137:
+  text: "Can Day Spy"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "DAY_SPY"

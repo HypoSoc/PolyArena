@@ -3,12 +3,12 @@
   cost: 5
   skills:
     - 32
+    - 33
 
 502:
   name: "Awareness II"
   cost: 5
   skills:
-    - 33
     - 34
     - 122
   prerequisite: 501
