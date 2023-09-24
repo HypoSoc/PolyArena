@@ -12,6 +12,7 @@ class Temperament(IntEnum):
     SCHOLASTIC = 7
     LUCRATIVE = 8
     PRIVILEGED = 9
+    INNOVATIVE = 10
 
 
 class Condition(IntEnum):
