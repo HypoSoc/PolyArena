@@ -146,14 +146,17 @@ class Condition(IntEnum):
     INCREASED_SPEED = 125
     SUPPRESSED = 126
     SPY_IMMUNE = 127
+    CURSED = 128
+    CURSE_IMMUNE = 129
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
-               Condition.PORTENT]
+               Condition.PORTENT, Condition.CURSED]
 
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,
-    Condition.POLLUTED: Condition.SANITARY
+    Condition.POLLUTED: Condition.SANITARY,
+    Condition.CURSED: Condition.CURSE_IMMUNE
 }
 
 

@@ -765,9 +765,9 @@ class Player:
         cost = -100
         for item in self.get_items(False):
             if item.item_type == ItemType.WEAPON:
-                if item.cost > cost:
+                if abs(item.cost) > cost:
                     best = item
-                    cost = item.cost
+                    cost = abs(item.cost)
         return best
 
     def get_worn_armor(self) -> Optional[Item]:
