@@ -481,6 +481,22 @@
   prerequisite: 102
 
 141:
+  name: "Ash"
+  cost: 10
+  geo:
+    138:
+      circuits:
+        - "FIRE"
+        - "AIR"
+      fragile: true
+    139:
+      circuits:
+        - "FIRE"
+        - "AIR"
+      fragile: true
+  prerequisite: 102
+
+142:
   name: "Warp"
   cost: 10
   skills:

@@ -910,3 +910,18 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "DAY_SPY"
+
+138:
+  text: "%SELF% unleashed a cloud of burning ash!"
+  effect: "INFO_ONCE"
+  info: "PUBLIC"
+  priority: 175
+
+139:
+  text: "%SELF% burned %TARGET%'s lungs."
+  effect: "PERMANENT_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  info: "PRIVATE"
+  trigger: "RANGE"
+  target_not_condition: "GAS_IMMUNE"
+  priority: 175
