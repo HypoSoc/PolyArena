@@ -376,7 +376,7 @@ class HandleSkill(Action):
 
             if self.skill.self_override:
                 target = self.player
-            if self.skill.effect == Effect.CONDITION:
+            if self.skill.effect in [Effect.CONDITION, Effect.TURN_CONDITION]:
                 if not self.fake:
                     if Condition[self.skill.value] not in CONDITION_IMMUNITY \
                             or not target.has_condition(CONDITION_IMMUNITY[Condition[self.skill.value]]):
@@ -488,7 +488,7 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.ACADEMIC:
                 if not self.fake:
                     target.academics += self.skill.value
-                    target.report += f"Academics ({target.academics})."
+                    target.report += f"You gained {self.skill.value} Academics ({target.academics}){os.linesep}"
             elif self.skill.effect == Effect.INTERRUPT:
                 if not self.fake:
                     Action.interrupted_players.add(target)
@@ -753,6 +753,9 @@ class Class(Action):
                          combat_on_interrupt="while they were trying to go to class")
 
     def act(self):
+        # Edge case with fast attune
+        if self.player in Action.interrupted_players:
+            super().act()
         if self.player.has_condition(Condition.NO_CLASS):
             self.player.report += f"{self.player.name} was kicked out of class." + os.linesep
         elif self.player in Action.no_class:
@@ -1659,12 +1662,13 @@ class TradeFinal(Action):
                     Trade.item_conditions[(self.player, self.target)] = (0, {})
                     return
         if self.credits:
+            plural = '' if self.credits == 1 else 's'
             self.player.lose_credits(self.credits)
-            self.player.report += f"You sent {self.target.name} {self.credits} credits " \
+            self.player.report += f"You sent {self.target.name} {self.credits} credit{plural} " \
                                   f"({self.player.get_credits()} remaining)." \
                                   + os.linesep
             self.target.gain_credits(self.credits)
-            self.target.report += f"{self.player.name} sent you {self.credits} credits " \
+            self.target.report += f"{self.player.name} sent you {self.credits} credit{plural} " \
                                   f"({self.target.get_credits()} total)." \
                                   + os.linesep
         if self.items:
@@ -1720,24 +1724,25 @@ class Disguise(Action):
 
 
 class Blackmail(Action):
-    def __init__(self, game: Optional['Game'], player: "Player", target: "Player"):
+    def __init__(self, game: Optional['Game'], player: "Player", target: "Player", message: str):
         super().__init__(priority=105, game=game, player=player, fragile=False)
         self.target = target
         self.maintains_hiding = True
+        self.message = message
 
     def _act(self):
         if not self.target.is_dead() and self.player.check_relative_condition(self.target, Condition.HOOK):
-            self.player.report += f"You have blackmailed {self.target.name}." + os.linesep
+            self.player.report += f"You have blackmailed {self.target.name} to {self.message}" + os.linesep
             self.player.relative_conditions[self.target.name].remove(
                 Condition.HOOK)
             if self.target.has_condition(Condition.HOOK_IGNORE):
                 self.target.report += os.linesep + \
                     f"Somebody is trying to blackmail you ineffectually." + os.linesep
-                self.target.report += "They want you to: INSERT BLACKMAIL" + os.linesep
+                self.target.report += f"They want you to: {self.message}" + os.linesep
                 self.target.report += "You are free to ignore it." + os.linesep
             else:
                 self.target.report += os.linesep + f"You have been blackmailed." + os.linesep
-                self.target.report += "You must: INSERT BLACKMAIL" + os.linesep
+                self.target.report += f"You must: {self.message}" + os.linesep
 
 
 class Attune(Action):
@@ -2021,6 +2026,8 @@ class CombatStep(Action):
                     player.report += os.linesep
 
             if not player.is_dead():
+                if player.has_condition(Condition.FRAGILE_BUNKERING):
+                    player.turn_conditions.append(Condition.BUNKERING)
                 for skill in player.get_skills():
                     if skill.trigger == Trigger.POST_COMBAT:
                         HandleSkill(self.game, player, skill)
@@ -2175,7 +2182,7 @@ class Resurrect(Action):
         if not self.player.is_dead():
             return
         if not self.stealth:
-            get_main_report().add_action(
+            get_main_report().add_action_if_not_duplicate(
                 self.player, f"{self.player.name} died.")
         super().act()
 

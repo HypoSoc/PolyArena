@@ -17,7 +17,7 @@ RUNE_INDEX = 10000
 
 class Item:
     def __init__(self, pin: int, name: str, alt_name: str, cost: int, skill_pins: List[int],
-                 item_type: ItemType, loot: bool, fragile: bool, stacking: bool):
+                 item_type: ItemType, loot: bool, fragile: bool, stacking: bool, stuck: bool):
         self.pin = pin
         self.name = name
         self.alt_name = alt_name
@@ -27,6 +27,7 @@ class Item:
         self.loot = loot
         self.fragile = fragile  # Destroy if would be stolen
         self.stacking = stacking
+        self.stuck = stuck  # Can't be traded
         self.destruction_message = "destroyed"
         if self.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE]:
             self.destruction_message = "consumed"
@@ -57,7 +58,7 @@ class Rune(Item):
         ability = get_ability(pin - RUNE_INDEX)
         name = f"{ability.name} Rune"
         super().__init__(pin, name=name, alt_name=name, cost=-2, skill_pins=[], item_type=ItemType.CONSUMABLE,
-                         loot=True, fragile=False, stacking=False)
+                         loot=True, fragile=False, stacking=False, stuck=False)
 
     def get_skills(self, choice=-1, targets=None) -> List[Skill]:
         skills = get_ability(self.pin - RUNE_INDEX).get_skills_for_rune(choice=choice)
@@ -105,7 +106,7 @@ def get_item_by_name(name: str) -> Item:
 
 def __parse_item(pin: int, dictionary: Dict) -> Item:
     for key in dictionary.keys():
-        assert key in ['name', 'alt_name', 'cost',
+        assert key in ['name', 'alt_name', 'cost', 'stuck',
                        'skills', 'type', 'loot', 'fragile', 'stacking'], f"Item {pin}: illegal key {key}"
     return Item(pin=pin, name=dictionary['name'], alt_name=dictionary.get('alt_name', dictionary['name']),
                 cost=dictionary['cost'],
@@ -113,7 +114,8 @@ def __parse_item(pin: int, dictionary: Dict) -> Item:
                 item_type=ItemType[dictionary.get('type', "PERMANENT")],
                 loot=dictionary.get('loot', True),
                 fragile=dictionary.get('fragile', False),
-                stacking=dictionary.get('stacking', False))
+                stacking=dictionary.get('stacking', False),
+                stuck=dictionary.get('stuck', False))
 
 
 if not __item_dict:

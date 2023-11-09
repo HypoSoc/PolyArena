@@ -1,0 +1,67 @@
+4101:
+  text: "%SELF% is suppressing %TARGET%."
+  effect: "CONDITION"
+  info: "SUBTLE"
+  value: "SUPPRESSED"
+  trigger: "TARGET"
+
+4102:
+  text: "Grant -2 to suppressed target"
+  effect: "TEMP_SKILL"
+  value: 4103
+  trigger: "TARGET"
+
+4103:
+  text: "%SELF%'s power is being suppressed."
+  effect: "COMBAT"
+  value: -2
+  info: "WIDE"
+  priority: 68
+
+4104:
+  text: "Your Suppression of %TARGET% was complete."
+  info: "PERSONAL"
+  effect: "PROGRESS"
+  value: 4
+  trigger: "PLAYER_DIED"
+  self_override: true
+  target_has_condition: "SUPPRESSED"
+
+4105:
+  text: "Suppress Geomancy"
+  effect: "TEMP_SKILL"
+  value: 4106
+  trigger: "ALL"
+  target_has_condition: "SUPPRESSED"
+  priority: 5
+
+4106:
+  text: "Geo suppressed"
+  effect: "CONDITION"
+  value: "GEO_LOCKED"
+
+4107:
+  text: "Suppress Hydromancy"
+  effect: "TEMP_SKILL"
+  value: 4108
+  trigger: "ALL"
+  target_has_condition: "SUPPRESSED"
+  priority: 5
+
+4108:
+  text: "Hydro suppressed"
+  effect: "CONDITION"
+  value: "HYDRO_LOCKED"
+
+4109:
+  text: "Suppress Aeromancy"
+  effect: "TEMP_SKILL"
+  value: 4110
+  trigger: "ALL"
+  target_has_condition: "SUPPRESSED"
+  priority: 5
+
+4110:
+  text: "Aero suppressed"
+  effect: "CONDITION"
+  value: "AERO_LOCKED"

@@ -148,6 +148,7 @@ class Condition(IntEnum):
     SPY_IMMUNE = 127
     CURSED = 128
     CURSE_IMMUNE = 129
+    CRUMBLING_IMMUNE = 130
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -156,7 +157,8 @@ AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,
     Condition.POLLUTED: Condition.SANITARY,
-    Condition.CURSED: Condition.CURSE_IMMUNE
+    Condition.CURSED: Condition.CURSE_IMMUNE,
+    Condition.CRUMBLING: Condition.CRUMBLING_IMMUNE
 }
 
 
@@ -182,6 +184,7 @@ class Effect(Enum):
     COMBAT = 1
     SURVIVABILITY = 2
     CONDITION = 3
+    TURN_CONDITION = 3.5
     PERMANENT_CONDITION = 4
     WEAPON = 5
     DISARM = 6

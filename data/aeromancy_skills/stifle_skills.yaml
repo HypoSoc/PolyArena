@@ -16,7 +16,7 @@
 
 3603: 
   text: "%TARGET%'s progress is stalled."
-  info: "NARROW"
+  info: "SUBTLE"
   effect: "CONDITION"
   value: "NO_PROGRESS"
   trigger: "TARGET"
@@ -24,7 +24,7 @@
 
 3604: 
   text: "%TARGET%'s mind shall not grow."
-  info: "NARROW"
+  info: "SUBTLE"
   effect: "CONDITION"
   value: "NO_CLASS"
   trigger: "TARGET"

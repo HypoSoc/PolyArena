@@ -1,0 +1,87 @@
+4601:
+  text: "Visiting the doctor clears Slime"
+  effect: "REMOVE_CONDITION"
+  value: "SLIMED"
+  value_b: 10
+  trigger: "ALL"
+  target_has_condition: "DOCTOR"
+  priority: 55
+
+4602:
+  text: "%TARGET% was covered in slime."
+  info: "NARROW"
+  effect: "PERMANENT_CONDITION"
+  value: "SLIMED"
+  trigger: "ATTACKED"
+  target_not_condition: "SANITARY"
+  priority: 25
+
+4603:
+  text: "Checking if anyone else is Slimed"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "OTHERS"
+  self_not_condition: "ONCE"
+  target_has_condition: "SLIMED"
+  self_override: true
+
+4604:
+  text: "Your body is safely distributed."
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "RESURRECT"
+  trigger: "NONCOMBAT"
+  self_has_condition: "ONCE"
+  priority: 10
+
+4605:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: -5
+
+4606:
+  text: "Slime oozed onto %TARGET%."
+  effect: "PERMANENT_CONDITION"
+  value: "SLIMED"
+  info: "SUBTLE"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  target_not_condition: "SANITARY"
+  priority: 85
+
+4607:
+  text: "%TARGET% was too clean to latch onto."
+  effect: "INFO"
+  info: "PERSONAL"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  target_has_condition: "SANITARY"
+  priority: 85
+
+4608:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 85.5
+  self_has_condition: "CHARGE"
+  self_override: true
+
+4609:
+  text: "Schedule progress gain"
+  effect: "SCHEDULE"
+  value: 4610
+  value_b: 1
+  trigger: "ACQUISITION"
+
+4610:
+  text: "%TARGET%'s Slime calls to you."
+  info: "PERSONAL"
+  effect: "PROGRESS"
+  value: 5
+  trigger: "ALL"
+  target_has_condition: "SLIMED"
+  self_override: true
+  works_when_petrified: true

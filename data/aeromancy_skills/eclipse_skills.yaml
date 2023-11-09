@@ -4,14 +4,14 @@
   effect: "SCHEDULE"
   value: 1603
   value_b: 10
-  trigger: "ACQUISITION"
+  trigger: "START_OF_GAME"
 
 1602:
   text: "Night 6 Eclipse"
   effect: "SCHEDULE"
   value: 1603
   value_b: 11
-  trigger: "ACQUISITION"
+  trigger: "START_OF_GAME"
 
 1603:
   text: "Eclipse for all."

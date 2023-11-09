@@ -1,0 +1,13 @@
+4201:
+  name: "Cursed Sword"
+  cost: -10 # Needs to be more valuable than other weapons
+  type: "WEAPON"
+  stuck: True
+  skills:
+    - 3
+    - 4203
+    - 4204
+    - 4205
+    - 4206
+    - 4207
+    - 4208

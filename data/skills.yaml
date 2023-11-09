@@ -396,7 +396,7 @@
   value: "FIRE_BODY"
 
 60:
-  text: "Inflict Permanent in Combat"
+  text: "Inflict Permanent"
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "INFLICT_CAUTERIZE"

@@ -11,7 +11,7 @@ from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScop
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
 from report import ReportCallable, get_main_report
-from skill import Skill, get_skill
+from skill import Skill
 
 if TYPE_CHECKING:
     from automata import Automata
@@ -122,6 +122,7 @@ class Player:
 
         self.used_illusion = False
         self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
+        self.blackmail_placed: Set['Player'] = set()  # bookkeeping to prevent multiple blackmail placements
 
         self.is_automata = False
         self.owner = None
@@ -146,7 +147,7 @@ class Player:
         clone.turn_conditions = self.turn_conditions.copy()
         clone.tentative_conditions = self.tentative_conditions.copy()
         clone.temporary_abilities = self.temporary_abilities.copy()
-        clone.temporary_skills = self.temporary_skills
+        clone.temporary_skills = self.temporary_skills.copy()
         clone.ability_choices = self.ability_choices.copy()
         clone.item_choices = self.item_choices.copy()
         clone.circuits = self.circuits[:]
@@ -263,6 +264,8 @@ class Player:
                      "you animated your bunker") \
             .replace("your bunker collapsed around them",
                      "your bunker collapsed around you") \
+            .replace("you held their sword",
+                     "your held your sword") \
             .replace(f"Your intuition tells you this has to do with the concept {self.concept}.{os.linesep}", "") \
             .replace(f"Your intuition tells you this has to do with "
                      f"your Aeromancy ({self.concept}).{os.linesep}", "") \
@@ -454,12 +457,13 @@ class Player:
             # It doesn't matter this overwrites. We just need at least one set to the Class
             self.bonus_action = Spy(self.game, self, target)
 
-    def plan_blackmail(self, *targets: 'Player'):
-        targets = set(targets)
-        for target in targets:
-            if not self.check_relative_condition(target, Condition.HOOK):
-                raise Exception(f"Player {self.name} is trying to blackmail {target.name} when they don't have a hook.")
-            Blackmail(self.game, self, target)
+    def plan_blackmail(self, target: 'Player', message: str):
+        if target in self.blackmail_placed:
+            raise Exception(f"Player {self.name} is trying to blackmail {target.name} multiple times.")
+        self.blackmail_placed.add(target)
+        if not self.check_relative_condition(target, Condition.HOOK):
+            raise Exception(f"Player {self.name} is trying to blackmail {target.name} when they don't have a hook.")
+        Blackmail(self.game, self, target, message)
 
     def plan_consume_item(self, *item_names: 'str', ignore_possession_check=False):
         if self.consuming:
@@ -496,6 +500,9 @@ class Player:
                 item_names_to_amount[item_name] += 1
 
             items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
+            for item in items.keys():
+                if item.stuck:
+                    raise Exception(f"Player {self.name} is trying to ditch an untradeable item {item.name}.")
 
         if automata and not isinstance(automata, list):
             automata = [automata]
@@ -1000,6 +1007,9 @@ class Player:
         return False
 
     def petrify(self, reporting_func: Optional[ReportCallable] = None, mini=False, long=False):
+        if Condition.DEAD in self.conditions:
+            return
+
         if reporting_func is None:
             reporting_func = self._non_combat_report_callable()
 

@@ -4,14 +4,14 @@
   effect: "SCHEDULE"
   value: 3903
   value_b: 10
-  trigger: "ACQUISITION"
+  trigger: "START_OF_GAME"
 
 3902:
   text: "Night 6 Eclipse"
   effect: "SCHEDULE"
   value: 3903
   value_b: 11
-  trigger: "ACQUISITION"
+  trigger: "START_OF_GAME"
 
 3903:
   text: "Eclipse for all."
@@ -21,7 +21,7 @@
   works_when_petrified: True
 
 3904: 
-  text: "The air crackles with energy!"
+  text: "The air crackled with energy!"
   effect: "COMBAT"
   value: 2
   info: "WIDE"
@@ -72,4 +72,14 @@
   value: "RESURRECT"
   trigger: "NONCOMBAT"
   self_not_condition: "ECLIPSE"
+  works_when_petrified: True
+
+3911:
+  text: "Campus is bathed under the light of an Eclipse."
+  info: "BLATANT"
+  effect: "INFO_ONCE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "ECLIPSE"
+  priority: 1
+  works_when_petrified: True
 

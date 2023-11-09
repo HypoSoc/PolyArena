@@ -1,0 +1,48 @@
+# Migraine I (10): At the start of each turn, if no player has a Singing Stone, a random player other than you will be given one. (Narrow)
+#                  You will not learn who it is.
+#                  Each turn, choose a player.
+#                  If they had a Singing Stone at the start of their turn, copy one of their abilities and destroy their progress. (Subtle) (Fragile)
+# Migraine II (10): Gain a Singing Stone.
+# Migraine III (10): At the start of each turn, learn the names of all other players with a Singing Stone. (Subtle)
+
+4001:
+  name: "Migraine I"
+  concept: "MIGRAINE"
+  cost: 10
+  skills:
+    - 4001
+    - 4002
+  aero:
+    4003:
+      fragile: true
+    4004:
+      fragile: true
+  explanation: |-
+    At the start of each turn, if no player has a Singing Stone, a random player other than you will be given one. (Narrow)
+    You will not learn who it is.
+    Each turn, choose a player.
+    If they had a Singing Stone at the start of their turn, copy one of their abilities and destroy their progress. (Narrow) (Fragile)
+
+    Migraine II costs 10
+
+4002:
+  name: "Migraine II"
+  concept: "MIGRAINE"
+  cost: 10
+  skills:
+    - 4005
+  explanation: |-
+    Gain a Singing Stone
+
+    Migraine III costs 10
+  prerequisite: 4001
+
+4003:
+  name: "Migraine III"
+  concept: "MIGRAINE"
+  cost: 10
+  skills:
+    - 4006
+  explanation: |-
+     At the start of each turn, learn the names of all other players with a Singing Stone. (Subtle)
+  prerequisite: 4002

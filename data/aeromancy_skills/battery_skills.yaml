@@ -82,7 +82,7 @@
   priority: 69.5
 
 2912: 
-  text: "The air crackles with energy!"
+  text: "The air crackled with energy!"
   effect: "INFO"
   value: 1
   info: "WIDE"
@@ -90,7 +90,7 @@
   priority: 69.001
 
 2913:
-  text: "The air is filled with static... %TARGET% has gained two charges!"
+  text: "The air filled with static... %TARGET% has gained two charges!"
   effect: "PERMANENT_CONDITION"
   value: "CHARGE"
   value_b: 2

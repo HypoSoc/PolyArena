@@ -1,0 +1,112 @@
+4201:
+  text: "+1 Cursed Sword"
+  effect: "ITEM"
+  value: 4201
+  trigger: "ACQUISITION"
+  priority: 1
+
+4202:
+  text: "Curse Immune"
+  effect: "CONDITION"
+  value: "CURSE_IMMUNE"
+  trigger: "NONCOMBAT"
+
+4203:
+  text: "Cursed Sword"
+  effect: "CONDITION"
+  value: "CURSED"
+
+4204:
+  text: "The Cursed Sword drains your strength."
+  effect: "COMBAT"
+  value: -2
+  info: "PERSONAL"
+  self_has_condition: "CURSED"
+  priority: 68
+
+4205:
+  text: "-2 Survivability"
+  effect: "SURVIVABILITY"
+  value: -2
+  self_has_condition: "CURSED"
+  priority: 68
+
+4206:
+  text: "Armed 0"
+  effect: "WEAPON"
+  value: 0
+  priority: 21.1
+  self_has_condition: "ARMED"
+  self_not_condition: "ARMED_SET"
+
+4207:
+  text: "Cursed Sword in the hands of their Owner"
+  effect: "CONDITION"
+  value: "ONCE"
+  self_has_condition: "CURSE_IMMUNE"
+  trigger: "NONCOMBAT"
+
+4208:
+  text: "Cursed Sword in the hands of their Owner during combat"
+  effect: "CONDITION"
+  value: "ONCE"
+  self_has_condition: "CURSE_IMMUNE"
+
+4209:
+  text: "%SELF% disarmed %TARGET%."
+  effect: "DISARM"
+  priority: 5
+  info: "PUBLIC"
+  trigger: "ATTACK"
+  self_has_condition: "ONCE"
+  target_has_condition: "ARMED"
+  target_not_condition: "GRIP"
+
+4210:
+  text: "%SELF% disarmed %TARGET%."
+  effect: "DISARM"
+  priority: 8
+  info: "PUBLIC"
+  trigger: "ATTACKED"
+  self_has_condition: "ONCE"
+  target_has_condition: "ARMED"
+  target_not_condition: "GRIP"
+
+4211:
+  text: "Schedule a new sword"
+  effect: "SCHEDULE"
+  value: 4212
+  value_b: 1
+  trigger: "ACQUISITION"
+  self_not_condition: ONCE
+  priority: 5
+
+4212:
+  text: "%SELF%'s Cursed Sword reformed."
+  effect: "ITEM"
+  value: 4201
+  trigger: "NONCOMBAT"
+  self_not_condition: ONCE
+  info: "PERSONAL"
+  priority: 5
+
+4213:
+  text: "%SELF% held their sword en-garde."
+  effect: "COMBAT"
+  value: 3
+  info: "WIDE"
+  self_has_condition: "ONCE"
+  priority: 32
+
+4214:
+  text: "Grievous wounds"
+  effect: "CONDITION"
+  value: "INFLICT_GRIEVOUS"
+  self_has_condition: "ONCE"
+
+4215:
+  text: "+1 Combat when holding a cursed sword"
+  effect: "COMBAT"
+  value: 1
+  self_has_condition: "ONCE"
+  priority: 32

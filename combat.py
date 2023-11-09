@@ -556,16 +556,20 @@ class CombatHandler:
                                     combat[target] += 1
                                 else:
                                     survivability[target] += 1
-                        elif skill.effect in [Effect.CONDITION, Effect.TENTATIVE_CONDITION]:
+                        elif skill.effect in [Effect.CONDITION, Effect.TENTATIVE_CONDITION, Effect.TURN_CONDITION]:
                             condition = Condition[skill.value]
                             if condition not in CONDITION_IMMUNITY \
                                     or not CONDITION_IMMUNITY[condition] in conditions[target]:
                                 if skill.value_b is None:
                                     if condition not in conditions[target]:
                                         conditions[target].append(condition)
+                                        if skill.effect == Effect.TURN_CONDITION:
+                                            target.turn_conditions.append(condition)
                                 else:
                                     for _ in range(times):
                                         conditions[target].append(condition)
+                                        if skill.effect == Effect.TURN_CONDITION:
+                                            target.turn_conditions.append(condition)
                         elif skill.effect == Effect.REMOVE_CONDITION:
                             for _ in range(times):
                                 queue.put(condition_remove_tic(
@@ -576,9 +580,11 @@ class CombatHandler:
                                 p.add_relative_condition(target, condition)
                         elif skill.effect == Effect.PERMANENT_CONDITION:
                             condition = Condition[skill.value]
-                            for _ in range(times):
-                                conditions[target].append(condition)
-                                target.conditions.append(condition)
+                            if condition not in CONDITION_IMMUNITY \
+                                    or not CONDITION_IMMUNITY[condition] in conditions[target]:
+                                for _ in range(times):
+                                    conditions[target].append(condition)
+                                    target.conditions.append(condition)
                         elif skill.effect == Effect.DISARM:
                             queue.put(condition_remove_tic(
                                 skill.priority, target, Condition.ARMED))
@@ -676,6 +682,15 @@ class CombatHandler:
                                         Condition[skill.value])
                                     for condition in skill.condition_list:
                                         conditions[target].append(condition)
+                        elif skill.effect == Effect.TEMP_SKILL:
+                            from skill import get_skill
+                            temp_skill = get_skill(skill.value)
+                            if temp_skill.trigger != Trigger.POST_COMBAT:
+                                raise Exception(
+                                    f"Trying to apply a temp skill that won't activate! {skill.value}")
+                            temp_skill.player_of_origin = p
+                            target.temporary_skills.append(temp_skill)
+
                         else:
                             raise Exception(
                                 f"Unhandled effect type in combat! {skill.effect.name}")

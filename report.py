@@ -14,6 +14,10 @@ if TYPE_CHECKING:
 ReportCallable = Callable[[str, InfoScope], Any]
 
 
+def int_to_roman(i):
+    return ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"][i]
+
+
 class Report(object):
     MAIN_REPORT: 'Report' = None
 
@@ -54,6 +58,12 @@ class Report(object):
             self.actions.append((player, content, fake, hidden, aero))
         else:
             self.actions.append((player, content, fake, True, aero))
+
+    def add_action_if_not_duplicate(self, player: "Player", content: str,
+                   fake: bool = False, hidden: bool = False,
+                   aero: Optional['Player'] = None) -> NoReturn:
+        if (player, content, fake, hidden, aero) not in self.actions:
+            self.add_action(player, content, fake, hidden, aero)
 
     def add_petrification(self, player: "Player"):
         if player not in self.petrified:
@@ -223,8 +233,9 @@ class Report(object):
         if perspective_player:
             perspective_name = perspective_player.name
 
-        for player, money, items, automata_names in self.shop:
-            report += f"{player.name} spent {money} credits at Shop Club." + os.linesep
+        for player, money, items, automata_names in sorted(self.shop, key=lambda x: x[0].name):
+            plural = '' if money == 1 else 's'
+            report += f"{player.name} spent {money} credit{plural} at Shop Club." + os.linesep
             if full:
                 for item, amount in items.items():
                     report += f"-- {item.name} x{amount}" + os.linesep
@@ -270,7 +281,7 @@ class Report(object):
     def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None,
                           intuition: bool = False, aero_only: bool = False) -> str:
         report = ""
-        for (player, content, fake, hidden, aero) in sorted(self.actions, key=lambda x: (x[4], x[0].name.upper())):
+        for (player, content, fake, hidden, aero) in sorted(self.actions, key=lambda x: (x[4] is None, x[0].name.upper())):
             if not ignore_player or ignore_player.name != player.name:
                 if not hidden or pierce_illusions:
                     if not pierce_illusions or not fake:

@@ -4,7 +4,6 @@
   effect: "PERMANENT_CONDITION"
   value: "SLIMED"
   trigger: "ATTACKED"
-  target_not_condition: "SLIMED"
   priority: 25
 
 2502:
@@ -19,6 +18,7 @@
   text: "Consume SLIMED"
   effect: "REMOVE_CONDITION"
   value: "SLIMED"
+  value_b: 10
   trigger: "ATTACK"
   target_has_condition: "SLIMED"
   priority: 22

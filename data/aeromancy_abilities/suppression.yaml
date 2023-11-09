@@ -1,0 +1,44 @@
+# Suppression I (10): Each turn, choose a player to Suppress until the end of the turn. (Subtle) (Fragile)
+#                     Suppressed players get -2 Combat (Wide).
+# Suppression II (5): Whenever a Suppressed player dies, gain 4 Progress.
+# Suppression III (20): Suppressed players lose access to fragile abilities during combat.
+
+4101:
+  name: "Suppression I"
+  concept: "SUPPRESSION"
+  cost: 10
+  skills: []
+  aero:
+    4101:
+      fragile: true
+    4102:
+      fragile: true
+  explanation: |-
+    Each turn, choose a player to Suppress until the end of the turn. (Subtle) (Fragile)
+    Suppressed players get -2 Combat (Wide).
+
+    Suppression II costs 5
+
+4102:
+  name: "Suppression II"
+  concept: "SUPPRESSION"
+  cost: 5
+  skills:
+    - 4104
+  explanation: |-
+    Whenever a Suppressed player dies, gain 4 Progress.
+
+    Suppression III costs 20
+  prerequisite: 4101
+
+4103:
+  name: "Suppression III"
+  concept: "SUPPRESSION"
+  cost: 20
+  skills:
+    - 4105
+    - 4107
+    - 4109
+  explanation: |-
+    Suppressed players lose access to fragile abilities during combat.
+  prerequisite: 4102

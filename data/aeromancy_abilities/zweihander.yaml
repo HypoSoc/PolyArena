@@ -1,0 +1,121 @@
+# Zweihander I (10): Gain a Cursed Sword.
+#                    The Cursed Sword grants -2 Combat and Survivability (even when Disarmed), prevents the use of other weapons, and cannot be traded.
+#                    You are immune to the stat penalty from your Cursed Sword.
+#                    As long as you have your Cursed Sword, you will Disarm anyone who attacks you or is attacked by you.
+# Zweihander II (10): At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+#                     As long as you have your Cursed Sword, +3 Combat and injuries you inflict in Combat are Grievous (even if disarmed). (Wide) (Fragile)
+# Zweihander III-VII (5): At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+#                         As long as you have your Cursed Sword, +1 Combat (even if disarmed) (Fragile)
+
+4201:
+  name: "Zweihander I"
+  concept: "ZWEIHANDER"
+  cost: 10
+  skills:
+    - 4201
+    - 4202
+    - 4209
+    - 4210
+  explanation: |-
+    Gain a Cursed Sword.
+    The Cursed Sword grants -2 Combat and Survivability (even when Disarmed), prevents the use of other weapons, and cannot be traded.
+    You are immune to the stat penalty from your Cursed Sword.
+    As long as you have your Cursed Sword, you will Disarm anyone who attacks you or is attacked by you. (Fragile)
+
+    Zweihander II costs 10
+
+4202:
+  name: "Zweihander II"
+  concept: "ZWEIHANDER"
+  cost: 10
+  skills:
+    - 4211
+  aero:
+    4213:
+      fragile: true
+    4214:
+      fragile: true
+  explanation: |-
+    At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+    As long as you have your Cursed Sword, +3 Combat and injuries you inflict in Combat are Grievous (even if disarmed). (Wide) (Fragile)
+
+    Zweihander III costs 5
+  prerequisite: 4201
+
+4203:
+  name: "Zweihander III"
+  concept: "ZWEIHANDER"
+  cost: 5
+  skills:
+    - 4211
+  aero:
+    4215:
+      fragile: true
+  explanation: |-
+    At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+    As long as you have your Cursed Sword, +1 Combat (even if disarmed) (Fragile)
+
+    Zweihander IV costs 5
+  prerequisite: 4202
+
+4204:
+  name: "Zweihander IV"
+  concept: "ZWEIHANDER"
+  cost: 5
+  skills:
+    - 4211
+  aero:
+    4215:
+      fragile: true
+  explanation: |-
+    At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+    As long as you have your Cursed Sword, +1 Combat (even if disarmed) (Fragile)
+
+    Zweihander V costs 5
+  prerequisite: 4203
+
+4205:
+  name: "Zweihander V"
+  concept: "ZWEIHANDER"
+  cost: 5
+  skills:
+    - 4211
+  aero:
+    4215:
+      fragile: true
+  explanation: |-
+    At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+    As long as you have your Cursed Sword, +1 Combat (even if disarmed) (Fragile)
+
+    Zweihander VI costs 5
+  prerequisite: 4204
+
+4206:
+  name: "Zweihander VI"
+  concept: "ZWEIHANDER"
+  cost: 5
+  skills:
+    - 4211
+  aero:
+    4215:
+      fragile: true
+  explanation: |-
+    At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+    As long as you have your Cursed Sword, +1 Combat (even if disarmed) (Fragile)
+
+    Zweihander VII costs 5
+  prerequisite: 4205
+
+4207:
+  name: "Zweihander VII"
+  concept: "ZWEIHANDER"
+  cost: 5
+  skills:
+    - 4211
+  aero:
+    4215:
+      fragile: true
+  explanation: |-
+    At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
+    As long as you have your Cursed Sword, +1 Combat (even if disarmed) (Fragile)
+  prerequisite: 4206

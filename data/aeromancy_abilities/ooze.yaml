@@ -1,0 +1,82 @@
+# Ooze I (10): Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile)
+#              Players that visit the Doctor are cleaned of Slime and are immune to your Slime for 4 turns.
+#              If any other player is Slimed at the start of the turn, you will resurrect when you die. (Fragile)
+# Ooze II (10): Gain a Charge.
+#               Every turn, you may spend a charge to Slime another player at the end of the turn. (Subtle) (Fragile)
+# Ooze III-IV (10): Gain a Charge.
+# Ooze V (10): Next turn, gain 5 Progress for every Slimed player.
+
+4601:
+  name: "Ooze I"
+  concept: "OOZE"
+  cost: 10
+  skills:
+    - 4601
+    - 4603
+  aero:
+    4602:
+      fragile: true
+    4604:
+      fragile: true
+  explanation: |-
+    Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile)
+    Players that visit the Doctor are cleaned of Slime and are immune to your Slime for 4 turns.
+    If any other player is Slimed at the start of the turn, you will resurrect when you die. (Fragile)
+
+    Ooze II costs 10
+
+4602:
+  name: "Ooze II"
+  concept: "OOZE"
+  cost: 10
+  max_targets: 1
+  target_other: true
+  skills:
+    - 4605
+  aero:
+    4606:
+      fragile: true
+    4607:
+      fragile: true
+    4608:
+      fragile: true
+  explanation: |-
+    Gain a Charge.
+    Every turn, you may spend a charge to Slime another player at the end of the turn. (Subtle) (Fragile)
+
+    Oooze III costs 10
+  prerequisite: 4601
+
+4603:
+  name: "Ooze III"
+  concept: "OOZE"
+  cost: 10
+  skills:
+    - 4605
+  explanation: |-
+    Gain a Charge.
+
+    Oooze IV costs 10
+  prerequisite: 4602
+
+4604:
+  name: "Ooze IV"
+  concept: "OOZE"
+  cost: 10
+  skills:
+    - 4605
+  explanation: |-
+    Gain a Charge.
+
+    Oooze V costs 10
+  prerequisite: 4603
+
+4605:
+  name: "Ooze V"
+  concept: "OOZE"
+  cost: 10
+  skills:
+    - 4609
+  explanation: |-
+    Next turn, gain 5 Progress for every Slimed player.
+  prerequisite: 4604

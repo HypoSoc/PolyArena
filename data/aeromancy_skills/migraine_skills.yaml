@@ -1,0 +1,49 @@
+4001:
+  text: "Checking if anyone has a Singing Stone"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "ALL"
+  self_override: true
+  self_not_condition: "ONCE"
+  target_has_condition: "RINGING"
+  priority: 15
+
+4002:
+  text: "A Singing Stone has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 2401
+  info: "NARROW_IMPERSONAL"
+  trigger: "RANDOM_OTHER"
+  self_not_condition: "ONCE"
+  priority: 20
+
+4003:
+  text: "%TARGET%'s head pounded in agony."
+  effect: "COPYCAT"
+  trigger: "TARGET"
+  info: "SUBTLE"
+  target_has_condition: "RINGING"
+  priority: 89
+
+4004:
+  text: "%SELF% destroyed %TARGET%'s notes."
+  effect: "DEV_SABOTAGE"
+  trigger: "TARGET"
+  info: "HIDDEN"  # DEV_SABOTAGE Weirdness
+  target_has_condition: "RINGING"
+  priority: 95
+
+4005:
+  text: "A Singing Stone has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 2401
+  trigger: "ACQUISITION"
+  priority: 20
+
+4006:
+  text: "%SELF% can hear the Ringing from %TARGET%'s head."
+  effect: "INFO"
+  info: "SUBTLE"
+  trigger: "OTHERS"
+  target_has_condition: "RINGING"
+  priority: 15
