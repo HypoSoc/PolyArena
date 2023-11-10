@@ -294,7 +294,8 @@ class Player:
         return os.linesep.join(gather).replace("you while they", "you while you") \
             .replace("you (while they", "you (while you") \
             .replace("you were trying to heal themself", "you were trying to heal yourself") \
-            .replace("you were trying to tattoo themself", "you were trying to tattoo yourself")
+            .replace("you were trying to tattoo themself", "you were trying to tattoo yourself") \
+            .replace("You expanded their mind", "You expanded your mind")
 
     def is_dead(self):
         return Condition.DEAD in self.conditions

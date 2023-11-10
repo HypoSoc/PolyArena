@@ -1454,7 +1454,7 @@ class ConsumeItem(Action):
         if self.item.pin in self.player.items:
             self.player.consumed_items.add(self.item.pin)
             self.player.items.remove(self.item.pin)
-            self.player.report += f"{self.player.name} used {self.item.name} " \
+            self.player.report += f"{self.player.name} used your {self.item.name} " \
                                   f"({self.player.items.count(self.item.pin)} remaining)." + os.linesep
             for skill in self.item.get_skills(targets=self.player.item_targets.get(self.item.pin, None)):
                 HandleSkill.handle_noncombat_skill(
@@ -1462,12 +1462,6 @@ class ConsumeItem(Action):
             if self.item.pin == POISON_GAS:
                 Action.no_class.add(self.player)
                 get_combat_handler().add_solitary_combat(self.player)
-            elif self.item.pin == SHROOMS:
-                Action.progress(self.player, 3)
-            elif self.item.pin == LIQUID_MEMORIES:
-                self.player.academics += 1
-                self.player.report += f"Academics ({self.player.academics})" + \
-                    os.linesep
 
             if isinstance(self.item, Rune):
                 if self.item.is_disruptive():

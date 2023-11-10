@@ -925,3 +925,24 @@
   trigger: "RANGE"
   target_not_condition: "GAS_IMMUNE"
   priority: 175
+
+140:
+  text: "%SELF% prepared for the exam."
+  effect: "ACADEMIC"
+  value: 0.1
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+
+141:
+  text: "%SELF% immersed in the memories of a previous student."
+  effect: "ACADEMIC"
+  value: 1
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+
+142:
+  text: "%SELF% expanded their mind."
+  effect: "PROGRESS"
+  value: 3
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"

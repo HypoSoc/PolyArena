@@ -92,13 +92,15 @@
   name: "Shrooms"
   cost: 2
   type: "CONSUMABLE"
-  skills: []
+  skills:
+    - 142
 
 13:
   name: "Liquid Memories"
   cost: 5
   type: "CONSUMABLE"
-  skills: []
+  skills:
+    - 141
 
 14:
   name: "Soft"
@@ -200,3 +202,10 @@
   skills:
     - 122
     - 137
+
+28:
+  name: "Cheat Sheet"
+  cost: 2
+  type: "CONSUMABLE"
+  skills:
+    - 140
