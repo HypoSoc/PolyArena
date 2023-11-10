@@ -756,7 +756,7 @@ class Class(Action):
         # Edge case with fast attune
         if self.player in Action.interrupted_players:
             super().act()
-        if self.player.has_condition(Condition.NO_CLASS):
+        elif self.player.has_condition(Condition.NO_CLASS):
             self.player.report += f"{self.player.name} was kicked out of class." + os.linesep
         elif self.player in Action.no_class:
             self.player.report += f"{self.player.name} was kicked out of class for being disruptive." + os.linesep
