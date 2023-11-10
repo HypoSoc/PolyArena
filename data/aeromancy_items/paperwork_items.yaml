@@ -1,6 +1,6 @@
 1201:
   name: "Paperwork"
-  cost: 2
+  cost: 1
   type: "CONSUMABLE"
   skills:
     - 1201
