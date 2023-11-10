@@ -704,9 +704,13 @@ class CombatHandler:
                                 message_origin = p
                                 if skill.player_of_origin:
                                     message_origin = skill.player_of_origin
+                                msg_grp = [p, target]
+                                if skill.info == InfoScope.PERSONAL:
+                                    msg_grp = [p]
+                                elif skill.info == InfoScope.IMPERSONAL:
+                                    msg_grp = [target]
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
-                                                           [p, target] if skill.info != InfoScope.PERSONAL else [
-                                                               p],
+                                                           msg_grp,
                                                            skill.info, message_origin)
                             if skill.effect == Effect.INFO_ONCE:
                                 self.info_once.add(msg)

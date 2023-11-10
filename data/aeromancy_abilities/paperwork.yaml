@@ -1,8 +1,6 @@
-# Paperwork I (10): There is a new 2 credit consumable secretly added to the shop: Paperwork.
-#                   When used, the player will be ORDERLY until end of turn.
-#                   You start the game with 5 stacks of Paperwork.
+# Paperwork I (10): You start the game with 5 stacks of Paperwork.
 #                   At the end of each turn, all ORDERLY players will gain 2 Progress. (Narrow)
-# Paperwork II (5): Whenever you are attacked by one or more players, if you are ORDERLY and any of them are not, you gain 1 Speed. (Wide) (Fragile)
+# Paperwork II (5): Whenever you are attacked by one or more players, if you are ORDERLY and any of them are not, you gain 1 Speed. (Subtle) (Fragile)
 # Paperwork III (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 # Paperwork IV (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 # Paperwork V (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
@@ -17,8 +15,6 @@
     - 1202
     - 1203
   explanation: |-
-    There is a new 2 credit consumable secretly added to the shop: Paperwork.
-    When used, the player will be ORDERLY until end of turn.
     You start the game with 5 stacks of Paperwork.
     At the end of each turn, all ORDERLY players will gain 2 Progress. (Narrow)
 
@@ -32,7 +28,7 @@
     - 1204
     - 1205
   explanation: |-
-    Whenever you are attacked by one or more players, if you are ORDERLY and any of them are not, you gain 1 Speed. (Wide) (Fragile)
+    Whenever you are attacked by one or more players, if you are ORDERLY and any of them are not, you gain 1 Speed. (Subtle) (Fragile)
 
     Paperwork III costs 15
   prerequisite: 1201

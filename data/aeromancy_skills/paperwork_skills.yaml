@@ -27,7 +27,7 @@
   effect: "CONDITION"
   trigger: "ATTACKED_IGNORE_RANGE"
   value: "ONCE"
-  info: "WIDE"
+  info: "SUBTLE"
   self_has_condition: "ORDERLY"
   target_not_condition: "ORDERLY"
   self_override: true

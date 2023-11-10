@@ -167,8 +167,8 @@ class InfoScope(Enum):
     PUBLIC = 1
     PRIVATE = 2
     BROADCAST = 3
-    PERSONAL = 4  # Like Private for Noncombat, but targets don't get to see, only the originator
-    IMPERSONAL = 5  # Like Private for Noncombat, but ONLY the targets see, not the originator
+    PERSONAL = 4  # Like Private, but targets don't get to see, only the originator
+    IMPERSONAL = 5  # Like Private, but ONLY the targets see, not the originator
     WIDE = 6  # Like Public, but for Aero. Players with AI will learn concept names but not aeromancer names
     NARROW = 7  # Like Private, but for Aero. Players with AI will learn concept names and aeromancer name
     SUBTLE = 8  # Like Narrow, but AI is necessary to SEE the message
