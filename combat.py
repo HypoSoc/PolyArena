@@ -452,6 +452,8 @@ class CombatHandler:
                         return
                     if skill.self_not_condition and skill.self_not_condition in conditions[p]:
                         return
+                    if Condition.PETRIFIED in conditions[p] and not skill.works_when_petrified:
+                        return
 
                     targets: List['Player'] = []
                     if _targets is not None:

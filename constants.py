@@ -85,7 +85,7 @@ class Condition(IntEnum):
     FRAGILE_ARMED = 65  # Armed that disappears from antimagic
     TARGET_LOCKED = 66  # Speed 0 and can't be immune to sniping
     AMBUSH_IMMUNE = 67
-    UNNATURAL_INTUITION = 68  # Bonus vs Aero AND Reveals are Aero in range
+    UNNATURAL_INTUITION = 68  # Bonus vs Aero AND Reveals any Aero in range
     STUDIOUS = 69  # +1 Academics from Classes
     LOW_CRAFTING = 70  # Single item worth 2 or less
     CRAFTING = 71  # Combination of items adding up to less than 3
@@ -141,8 +141,7 @@ class Condition(IntEnum):
     DEPLETED_CHARGE = 121  # For counting charges
     ONCE_AGAIN = 122  # For when a single ONCE isn't sufficient.
     BALANCE = 123  # the status equivalent of the balance skills, only acts during the combat phase
-    # the status equivalent of the imbalance skills, only acts during the combat phase
-    IMBALANCE = 124
+    IMBALANCE = 124 # the status equivalent of the imbalance skills, only acts during the combat phase
     INCREASED_SPEED = 125
     SUPPRESSED = 126
     SPY_IMMUNE = 127

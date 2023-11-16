@@ -1,5 +1,6 @@
 # Migraine I (10): At the start of each turn, if no player has a Singing Stone, a random player other than you will be given one. (Narrow)
 #                  You will not learn who it is.
+#                  Singing Stones are permanent items that grant 1 progress each turn. Singing Stones stack.
 #                  Each turn, choose a player.
 #                  If they had a Singing Stone at the start of their turn, copy one of their abilities and destroy their progress. (Subtle) (Fragile)
 # Migraine II (10): Gain a Singing Stone.
@@ -20,6 +21,7 @@
   explanation: |-
     At the start of each turn, if no player has a Singing Stone, a random player other than you will be given one. (Narrow)
     You will not learn who it is.
+    Singing Stones are permanent items that grant 1 progress each turn. Singing Stones stack.
     Each turn, choose a player.
     If they had a Singing Stone at the start of their turn, copy one of their abilities and destroy their progress. (Narrow) (Fragile)
 
