@@ -326,7 +326,8 @@ class HandleSkill(Action):
             if self.fake:
                 if self.skill.info in [InfoScope.NARROW, InfoScope.PRIVATE, InfoScope.SUBTLE]:
                     info = InfoScope.PERSONAL
-                elif self.skill.info in [InfoScope.IMPERSONAL, InfoScope.NARROW_IMPERSONAL, InfoScope.SUBTLE_IMPERSONAL]:
+                elif self.skill.info in [InfoScope.IMPERSONAL, InfoScope.NARROW_IMPERSONAL,
+                                         InfoScope.SUBTLE_IMPERSONAL]:
                     info = InfoScope.HIDDEN
 
             aero_player = self.player
@@ -347,7 +348,7 @@ class HandleSkill(Action):
                               InfoScope.SUBTLE_IMPERSONAL, InfoScope.NARROW_IMPERSONAL]:
                     was_printed = False
                     if target != self.player and info not in [InfoScope.SUBTLE_IMPERSONAL,
-                                                                         InfoScope.NARROW_IMPERSONAL]:
+                                                              InfoScope.NARROW_IMPERSONAL]:
                         add_to_report(self.player, text)
                     if target.has_condition(Condition.INTUITION) \
                             or info in [InfoScope.NARROW, InfoScope.NARROW_IMPERSONAL] \
@@ -366,7 +367,7 @@ class HandleSkill(Action):
                     get_main_report().add_action(self.player, text,
                                                  aero=aero_player)
                 elif info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
-                    if add_to_broadcast(text, force_once=info_once_override):
+                    if add_to_broadcast(text, force_once=self.skill.info_once_override):
                         if info == InfoScope.BLATANT:
                             get_main_report().broadcast(f"Your intuition tells you this has to do "
                                                         f"with the concept {aero_player.concept}.",
