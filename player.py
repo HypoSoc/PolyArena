@@ -1069,8 +1069,6 @@ class Player:
 
     def lose_credits(self, amount):
         self.credits -= amount
-        if self.credits < 0:
-            self.credits = 0
 
     def gain_item(self, item: Item, amount=1):
         if item.pin == AUTOMATA:
