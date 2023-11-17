@@ -150,6 +150,7 @@ class Condition(IntEnum):
     CRUMBLING_IMMUNE = 130
     NIGHT_LIGHT = 131
     PIERCE_ILLUSIONS = 132
+    BLACKMAILING = 133
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -197,6 +198,7 @@ class Effect(Enum):
     NO_SURVIVABILITY = 12
     AMBUSH = 13
     REL_CONDITION = 14
+    REMOVE_REL_CONDITION = 14.5
     DEV_SABOTAGE = 15  # Trade Secrets
     COPYCAT = 16
     TENTATIVE_CONDITION = 17  # Usually does not need to be set in the yaml

@@ -958,3 +958,20 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "PIERCE_ILLUSIONS"
+
+145:
+  text: "%SELF% used up all Hooks on %TARGET%."
+  info: "PERSONAL"
+  effect: "REMOVE_REL_CONDITION"
+  value: "HOOK"
+  trigger: "TARGET"
+  priority: 200
+  works_when_petrified: true
+
+146:
+  text: "Permit Blackmailing Again"
+  effect: "REMOVE_REL_CONDITION"
+  value: "BLACKMAILING"
+  trigger: "TARGET"
+  priority: 200
+  works_when_petrified: true

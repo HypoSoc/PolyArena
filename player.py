@@ -853,6 +853,10 @@ class Player:
             return True
         return False
 
+    def remove_relative_condition(self, player: 'Player', condition: Condition):
+        if player.name in self.relative_conditions and condition in self.relative_conditions[player.name]:
+            self.relative_conditions[player.name].remove(condition)
+
     def relative_condition_debug(self) -> List[str]:
         results = []
         for k, v in self.relative_conditions.items():

@@ -313,7 +313,8 @@ class HandleSkill(Action):
         for original_target in self.targets:
             target = original_target
 
-            if target.is_dead() and not self.skill.trigger == Trigger.PLAYER_DIED:
+            if target.is_dead() and not self.skill.trigger == Trigger.PLAYER_DIED \
+                    and not self.skill.effect == Effect.REMOVE_REL_CONDITION:
                 continue
             if self.skill.target_has_condition and not target.has_condition(self.skill.target_has_condition):
                 continue
@@ -343,7 +344,7 @@ class HandleSkill(Action):
                 elif info == InfoScope.IMPERSONAL:
                     add_to_report(target, text)
                 elif info in [InfoScope.NARROW, InfoScope.SUBTLE,
-                                         InfoScope.SUBTLE_IMPERSONAL, InfoScope.NARROW_IMPERSONAL]:
+                              InfoScope.SUBTLE_IMPERSONAL, InfoScope.NARROW_IMPERSONAL]:
                     was_printed = False
                     if target != self.player and info not in [InfoScope.SUBTLE_IMPERSONAL,
                                                                          InfoScope.NARROW_IMPERSONAL]:
@@ -406,13 +407,18 @@ class HandleSkill(Action):
                             target.tentative_conditions.append(
                                 Condition[self.skill.value])
             elif self.skill.effect == Effect.REL_CONDITION:
-                # To be refactored if I ever need to give arbitrary players relative_conditions
+                # To be refactored if I ever need to give arbitrary players relative_conditions or if needs to stack
                 if target == self.player:
                     raise Exception("No target for relative condition?")
                 if not self.fake:
-                    for _ in range(times):
-                        self.player.add_relative_condition(
-                            target, Condition[self.skill.value])
+                    self.player.add_relative_condition(
+                        target, Condition[self.skill.value])
+            elif self.skill.effect == Effect.REMOVE_REL_CONDITION:
+                # To be refactored if I ever need to remove from arbitrary players or if needs to stack
+                if target == self.player:
+                    raise Exception("No target for relative condition?")
+                if not self.fake:
+                    self.player.remove_relative_condition(target, Condition[self.skill.value])
             elif self.skill.effect == Effect.REMOVE_CONDITION:
                 if not self.fake:
                     for _ in range(times):
@@ -1736,18 +1742,26 @@ class Blackmail(Action):
         self.message = message
 
     def _act(self):
-        if not self.target.is_dead() and self.player.check_relative_condition(self.target, Condition.HOOK):
-            self.player.report += f"You have blackmailed {self.target.name} to {self.message}" + os.linesep
-            self.player.relative_conditions[self.target.name].remove(
-                Condition.HOOK)
-            if self.target.has_condition(Condition.HOOK_IGNORE):
-                self.target.report += os.linesep + \
-                    f"Somebody is trying to blackmail you ineffectually." + os.linesep
-                self.target.report += f"They want you to: {self.message}" + os.linesep
-                self.target.report += "You are free to ignore it." + os.linesep
+        if not self.target.is_dead():
+            if self.player.check_relative_condition(self.target, Condition.BLACKMAILING):
+                self.player.report += f"You are already blackmailing {self.target.name}." + os.linesep
+            elif not self.player.check_relative_condition(self.target, Condition.HOOK):
+                self.player.report += f"You don't have any blackmail on {self.target.name}." + os.linesep
             else:
-                self.target.report += os.linesep + f"You have been blackmailed." + os.linesep
-                self.target.report += f"You must: {self.message}" + os.linesep
+                self.player.report += f"You have blackmailed {self.target.name} to {self.message}" + os.linesep
+                self.player.add_relative_condition(self.target, Condition.BLACKMAILING)
+                if self.game:
+                    # Consume Hooks and blackmailing status at the end of the next turn
+                    self.game.add_event_in_x_turns(1, 145, self.player, [self.target])
+                    self.game.add_event_in_x_turns(1, 146, self.player, [self.target])
+                if self.target.has_condition(Condition.HOOK_IGNORE):
+                    self.target.report += os.linesep + \
+                        f"Somebody is trying to blackmail you ineffectually." + os.linesep
+                    self.target.report += f"They want you to: {self.message}" + os.linesep
+                    self.target.report += "You are free to ignore it." + os.linesep
+                else:
+                    self.target.report += os.linesep + f"You have been blackmailed." + os.linesep
+                    self.target.report += f"You must: {self.message}" + os.linesep
 
 
 class Attune(Action):
