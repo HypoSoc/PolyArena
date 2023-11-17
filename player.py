@@ -60,7 +60,6 @@ class Player:
         self.attuning = False
 
         aeromancer = None
-        aero_index = 3
 
         complete_ability_pins = [None]
         for (ability_pin, progress) in progress_dict.items():
@@ -72,7 +71,6 @@ class Player:
                 complete_ability_pins.append(ability_pin)
                 if ability.concept:
                     aeromancer = ability.concept.upper()
-                    aero_index = ability_pin // 100
                 if self.game.turn <= 0:
                     for skill in ability.get_skills([], [], choice=0):
                         if skill.trigger in [Trigger.ACQUISITION, Trigger.START_OF_GAME]:
@@ -82,18 +80,23 @@ class Player:
             ability = get_ability(ability_pin)
             if progress > 0:
                 if ability_pin == LEGACY_MAGIC:
-                    ability.prerequisite_pin = aero_index * 100 + 1
-                if ability_pin == REALITY_IMPOSITION:
-                    ability.prerequisite_pin = aero_index * 100 + 3
-
-                if ability.prerequisite_pin not in complete_ability_pins:
+                    legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(601, 10001, 100)]
+                    if not len(legacy_prereqs):
+                        raise Exception(f"Player {name} is missing prerequisite "
+                                        f"for ability {ability.name}")
+                elif ability_pin == REALITY_IMPOSITION:
+                    legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(603, 10003, 100)]
+                    if not len(legacy_prereqs):
+                        raise Exception(f"Player {name} is missing prerequisite "
+                                        f"for ability {ability.name}")
+                elif ability.prerequisite_pin not in complete_ability_pins:
                     raise Exception(f"Player {name} is missing prerequisite "
                                     f"for ability {ability.name} ({ability.get_prerequisite().name})")
 
         assert self.concept == aeromancer
 
         self.dev_plan = dev_plan
-        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name, aero_index)
+        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
 
         self.report = ""
         self.action = Wander(self.game, self)
@@ -313,35 +316,36 @@ class Player:
         return Condition.DEAD in self.conditions
 
     @staticmethod
-    def _validate_dev_plan(dev_plan, complete_ability_pins, name, aero_index):
+    def _validate_dev_plan(dev_plan, complete_ability_pins, name):
         for ability_pin in dev_plan:
             if (ability_pin % 100 + 300 if ability_pin > 700 else ability_pin) == CONCEPT_I:
                 raise Exception(f"Player {name} is trying to learn Concept I without starting with it.")
             if ability_pin == LEGACY_MAGIC:
                 raise Exception(f"Player {name} is trying to learn Legacy Magic without starting with it.")
             ability = get_ability(ability_pin)
-            if ability_pin == LEGACY_MAGIC:
-                ability.prerequisite_pin = aero_index * 100 + 1
-            if ability_pin == REALITY_IMPOSITION:
-                ability.prerequisite_pin = aero_index * 100 + 3
 
             if ability_pin in complete_ability_pins:
                 raise Exception(f"Player {name} already has dev plan ability {ability.name}")
-            if ability.prerequisite_pin and ability.prerequisite_pin not in complete_ability_pins:
+
+            if ability_pin == LEGACY_MAGIC:
+                legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(601, 10001, 100)]
+                if not len(legacy_prereqs):
+                    raise Exception(f"Player {name} is missing prerequisite "
+                                    f"for ability {ability.name}")
+            elif ability_pin == REALITY_IMPOSITION:
+                legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(603, 10003, 100)]
+                if not len(legacy_prereqs):
+                    raise Exception(f"Player {name} is missing prerequisite "
+                                    f"for ability {ability.name}")
+            elif ability.prerequisite_pin and ability.prerequisite_pin not in complete_ability_pins:
                 raise Exception(f"Player {name} is missing prerequisite "
                                 f"for dev plan ability {ability.name} ({ability.get_prerequisite().name})")
             complete_ability_pins.append(ability_pin)
 
     def set_dev_plan(self, *ability_names: str):
         self.dev_plan = [get_ability_by_name(ability).pin for ability in ability_names]
-
-        aero_index = 3
-        for ability in self.get_abilities():
-            if ability.concept:
-                aero_index = ability.pin // 100
-
         complete_ability_pins = [ability.pin for ability in self.get_abilities()]
-        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name, aero_index)
+        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
 
     def _generic_action_check(self, bonus=False, day_only=False) -> NoReturn:
         if self.is_dead():
