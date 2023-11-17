@@ -320,28 +320,36 @@ class HandleSkill(Action):
             if self.skill.target_not_condition and target.has_condition(self.skill.target_not_condition):
                 continue
 
+            info = self.skill.info
+            
+            if self.fake:
+                if self.skill.info in [InfoScope.NARROW, InfoScope.PRIVATE, InfoScope.SUBTLE]:
+                    info = InfoScope.PERSONAL
+                elif self.skill.info in [InfoScope.IMPERSONAL, InfoScope.NARROW_IMPERSONAL, InfoScope.SUBTLE_IMPERSONAL]:
+                    info = InfoScope.HIDDEN
+
             aero_player = self.player
             if self.skill.player_of_origin:
                 aero_player = self.skill.player_of_origin
 
-            if self.skill.text and self.skill.info != InfoScope.HIDDEN:
+            if self.skill.text and info != InfoScope.HIDDEN:
                 text = self.skill.text.replace(SELF_PLACEHOLDER, self.player.name)\
                     .replace(TARGET_PLACEHOLDER, target.name)
 
-                if self.skill.info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
+                if info in [InfoScope.PRIVATE, InfoScope.PERSONAL]:
                     add_to_report(self.player, text)
-                    if target != self.player and self.skill.info != InfoScope.PERSONAL:
+                    if target != self.player and info != InfoScope.PERSONAL:
                         add_to_report(target, text)
-                elif self.skill.info == InfoScope.IMPERSONAL:
+                elif info == InfoScope.IMPERSONAL:
                     add_to_report(target, text)
-                elif self.skill.info in [InfoScope.NARROW, InfoScope.SUBTLE,
+                elif info in [InfoScope.NARROW, InfoScope.SUBTLE,
                                          InfoScope.SUBTLE_IMPERSONAL, InfoScope.NARROW_IMPERSONAL]:
                     was_printed = False
-                    if target != self.player and self.skill.info not in [InfoScope.SUBTLE_IMPERSONAL,
+                    if target != self.player and info not in [InfoScope.SUBTLE_IMPERSONAL,
                                                                          InfoScope.NARROW_IMPERSONAL]:
                         add_to_report(self.player, text)
                     if target.has_condition(Condition.INTUITION) \
-                            or self.skill.info in [InfoScope.NARROW, InfoScope.NARROW_IMPERSONAL] \
+                            or info in [InfoScope.NARROW, InfoScope.NARROW_IMPERSONAL] \
                             or target == self.player:
                         was_printed = add_to_report(target, text)
                     if target.has_condition(Condition.INTUITION) and target != self.player:
@@ -351,18 +359,18 @@ class HandleSkill(Action):
                                           f"Your intuition tells you this has to do "
                                           f"with {aero_player.name}'s Aeromancy ({aero_player.concept}).",
                                           override=True)
-                elif self.skill.info == InfoScope.PUBLIC:
+                elif info == InfoScope.PUBLIC:
                     get_main_report().add_action(self.player, text)
-                elif self.skill.info == InfoScope.WIDE:
+                elif info == InfoScope.WIDE:
                     get_main_report().add_action(self.player, text,
                                                  aero=aero_player)
-                elif self.skill.info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
-                    if add_to_broadcast(text, force_once=self.skill.info_once_override):
-                        if self.skill.info == InfoScope.BLATANT:
+                elif info in [InfoScope.BROADCAST, InfoScope.BLATANT, InfoScope.UNMISTAKABLE]:
+                    if add_to_broadcast(text, force_once=info_once_override):
+                        if info == InfoScope.BLATANT:
                             get_main_report().broadcast(f"Your intuition tells you this has to do "
                                                         f"with the concept {aero_player.concept}.",
                                                         intuition_required=True)
-                        elif self.skill.info == InfoScope.UNMISTAKABLE:
+                        elif info == InfoScope.UNMISTAKABLE:
                             get_main_report().broadcast(f"This unmistakably has to do with "
                                                         f"{aero_player.name}'s Aeromancy ({aero_player.concept}).",
                                                         intuition_required=False)
