@@ -222,19 +222,21 @@ class Player:
 
         if self.has_condition(Condition.NIGHT_LIGHT):
             self.report += os.linesep
-            self.report += get_main_report().get_action_report(pierce_illusions=self.has_ability("Panopticon"),
-                                                               ignore_player=self,
-                                                               intuition=self.has_condition(Condition.INTUITION))
+            self.report += get_main_report().get_personal_action_report(pierce_illusions=self.has_ability("Panopticon"),
+                                                                        ignore_player=self,
+                                                                        intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
-            if self.has_ability("Panopticon"):
-                self.report += "INSERT PANOPTICON COMMENTARY HERE"
-                self.report += os.linesep
         elif self.game.is_day() and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
             self.report += get_main_report().get_action_report(pierce_illusions=self.has_ability("Panopticon"),
                                                                ignore_player=self,
                                                                intuition=self.has_condition(Condition.INTUITION),
                                                                aero_only=True)
+            self.report += os.linesep
+
+        if self.has_ability("Panopticon"):
+            self.report += os.linesep
+            self.report += "INSERT PANOPTICON COMMENTARY HERE"
             self.report += os.linesep
 
         if self.has_ability("Attunement Detection"):

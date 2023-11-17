@@ -156,7 +156,7 @@ class Report(object):
                 report += f"You discovered that {target.name} is actually alive." + os.linesep + os.linesep
 
             if counter_int:
-                report += target.fake_action.public_description
+                report += target.fake_action.public_description + os.linesep
             else:
                 for (player, content, fake, hidden, aero) in self.actions:
                     if player.name == target.name and not hidden:
@@ -281,7 +281,8 @@ class Report(object):
     def get_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None,
                           intuition: bool = False, aero_only: bool = False) -> str:
         report = ""
-        for (player, content, fake, hidden, aero) in sorted(self.actions, key=lambda x: (x[4] is None, x[0].name.upper())):
+        for (player, content, fake, hidden, aero) in sorted(self.actions,
+                                                            key=lambda x: (x[4] is None, x[0].name.upper())):
             if not ignore_player or ignore_player.name != player.name:
                 if not hidden or pierce_illusions:
                     if not pierce_illusions or not fake:
@@ -291,6 +292,26 @@ class Report(object):
                                 assert aero.concept
                                 report += f"Your intuition tells you " \
                                           f"this has to do with the concept {aero.concept}." + os.linesep
+        return report
+
+    def get_personal_action_report(self, pierce_illusions=False, ignore_player: Optional['Player'] = None,
+                                   intuition: bool = False) -> str:
+        report = ""
+        player_set = set()
+        for (player, content, fake, hidden, aero) in sorted(self.actions,
+                                                            key=lambda x: (x[4] is None, x[0].name.upper())):
+            if not ignore_player or ignore_player.name != player.name:
+                if not pierce_illusions and player.has_ability("Counter Intelligence I"):
+                    if player not in player_set:
+                        player_set.add(player)
+                        report += player.fake_action.public_description + os.linesep
+                elif not hidden or pierce_illusions:
+                    if not pierce_illusions or not fake:
+                        report += content + os.linesep
+                        if aero and intuition:
+                            assert aero.concept
+                            report += f"Your intuition tells you " \
+                                      f"this has to do with the concept {aero.concept}." + os.linesep
         return report
 
     def get_broadcasts(self, intuition: bool, skip_combat: bool = False):
