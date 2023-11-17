@@ -1,0 +1,66 @@
+4901:
+  text: "Bureaucracy"
+  effect: "ITEM"
+  trigger: "NONCOMBAT"
+  value: 1201
+  value_b: 1
+  priority: 55
+
+4902:
+  text: "%TARGET% progressed in good order."
+  effect: "PROGRESS"
+  trigger: "ALL"
+  value: 2
+  target_has_condition: "ORDERLY"
+  info: "NARROW"
+  priority: 89
+
+4903:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: -5
+
+4904:
+  text: "Activate Ability"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "TARGET"
+  priority: 0
+  self_has_condition: "CHARGE"
+  self_override: true
+
+4905:
+  text: "The paperwork has driven %TARGET% mad!"
+  info: "NARROW"
+  effect: "INTERRUPT"
+  trigger: "OTHERS"
+  priority: 15
+  self_has_condition: "ONCE"
+  target_has_condition: "ORDERLY"
+
+4906:
+  text: "Paper cut"
+  effect: "NONLETHAL"
+  trigger: "OTHERS"
+  priority: 15
+  self_has_condition: "ONCE"
+  target_has_condition: "ORDERLY"
+
+4907:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 15
+  self_has_condition: "CHARGE"
+  self_override: true
+
+4908:
+  text: "5 Charges"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 5
+  priority: -5

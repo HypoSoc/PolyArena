@@ -1,0 +1,52 @@
+# Bureaucracy I (10): Each turn, gain a stack of Paperwork. (Fragile)
+#                     At the end of each turn, all ORDERLY players will gain 2 Progress. (Narrow)
+# Bureaucracy II (10): Gain a Charge.
+#                      Each turn you may spend a Charge to Interrupt and deal Nonlethal Damage to all other ORDERLY players. (Narrow) (Fragile)
+# Bureaucracy III (10): Gain 5 Charges.
+
+4901:
+  name: "Bureaucracy I"
+  concept: "BUREAUCRACY"
+  cost: 10
+  skills:
+    - 4902
+  aero:
+    4901:
+      fragile: true
+  explanation: |-
+    Each turn, gain a stack of Paperwork. (Fragile)
+    At the end of each turn, all ORDERLY players will gain 2 Progress. (Narrow)
+
+    Bureaucracy II costs 10
+
+4902:
+  name: "Bureaucracy II"
+  concept: "BUREAUCRACY"
+  cost: 10
+  skills:
+    - 4903
+  aero:
+    4904:
+      fragile: true
+    4905:
+      fragile: true
+    4906:
+      fragile: true
+    4907:
+      fragile: true
+  explanation: |-
+    Gain a Charge.
+    Each turn you may spend a Charge to Interrupt and deal Nonlethal Damage to all ORDERLY players. (Narrow) (Fragile)
+
+    Bureaucracy III costs 10
+  prerequisite: 4901
+
+4903:
+  name: "Bureaucracy III"
+  concept: "BUREAUCRACY"
+  cost: 10
+  skills:
+    - 4908
+  explanation: |-
+    Gain 5 Charges.
+  prerequisite: 4902
