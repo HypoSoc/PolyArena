@@ -20,8 +20,8 @@
     - 3212
   explanation: |-
     Gain 2 Charges.
-    At the start of the turn, if you have no Charges, gain 5 Charges to lose all of your combat and survivability bonuses, and gain 5 progress. (Blatant)
-    At the end of the turn, lose a Charge to gain +1 to your lowest stat.
+    At the start of the turn, lose a Charge to gain +1 to your lowest stat.
+    At the end of the turn, if you have no Charges, gain 4 Charges to lose all of your combat and survivability bonuses, and gain 5 progress (Blatant).
     
     Ebb II costs 10
 
