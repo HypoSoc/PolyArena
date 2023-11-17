@@ -952,3 +952,9 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "NIGHT_LIGHT"
+
+144:
+  text: "Can See Real Actions"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "PIERCE_ILLUSIONS"

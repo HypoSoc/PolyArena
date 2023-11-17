@@ -205,33 +205,40 @@ class Player:
                                                                      intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
 
-        if (self.game.is_day() or self.has_ability("Panopticon")) and self.has_ability("Awareness II"):
-            if len(get_main_report().training) > 1 or (len(get_main_report().training) == 1
-                                                       and self not in get_main_report().training):
+        if (self.game.is_day() or self.has_condition(Condition.NIGHT_LIGHT)) and self.has_ability("Awareness II"):
+            training_count = 0
+            training_report = "You are Aware:" + os.linesep
+            for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
+                hidden = False
+                if trainer != self:
+                    trained = get_main_report().training[trainer]
+                    if trainer.has_condition(Condition.COUNTER_INT):
+                        if trainer.has_condition(Condition.SUPER_COUNTER_INT) \
+                                or not self.has_condition(Condition.PIERCE_COUNTER_INT):
+                            trained = trainer.fake_ability.name
+                            if not isinstance(trainer.fake_action, Train):
+                                hidden = True
+                    if not hidden:
+                        training_report += f"{trainer.name} was training {trained}." + os.linesep
+                        training_count += 1
+            if training_count:
                 self.report += os.linesep
-                self.report += "You are Aware:" + os.linesep
-                for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
-                    if trainer != self:
-                        trained = get_main_report().training[trainer]
-                        if trainer.has_condition(Condition.COUNTER_INT):
-                            if trainer.has_condition(Condition.SUPER_COUNTER_INT) \
-                                    or not self.has_condition(Condition.PIERCE_COUNTER_INT):
-                                trained = trainer.fake_ability.name
-                        self.report += f"{trainer.name} was training {trained}." \
-                                       + os.linesep
+                self.report += training_report
 
         if self.has_condition(Condition.NIGHT_LIGHT):
             self.report += os.linesep
-            self.report += get_main_report().get_personal_action_report(pierce_illusions=self.has_ability("Panopticon"),
-                                                                        ignore_player=self,
-                                                                        intuition=self.has_condition(Condition.INTUITION))
+            self.report += get_main_report() \
+                .get_personal_action_report(pierce_illusions=self.has_condition(Condition.PIERCE_ILLUSIONS),
+                                            ignore_player=self,
+                                            intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
         elif self.game.is_day() and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
-            self.report += get_main_report().get_action_report(pierce_illusions=self.has_ability("Panopticon"),
-                                                               ignore_player=self,
-                                                               intuition=self.has_condition(Condition.INTUITION),
-                                                               aero_only=True)
+            self.report += get_main_report() \
+                .get_action_report(pierce_illusions=self.has_condition(Condition.PIERCE_ILLUSIONS),
+                                   ignore_player=self,
+                                   intuition=self.has_condition(Condition.INTUITION),
+                                   aero_only=True)
             self.report += os.linesep
 
         if self.has_ability("Panopticon"):
@@ -599,7 +606,7 @@ class Player:
         item = get_item_by_name(item_name)
         self.item_targets[item.pin] = list(targets)
 
-    def plan_tattoo_target(self,  *targets: "Player"):
+    def plan_tattoo_target(self, *targets: "Player"):
         self.tattoo_targets = list(targets)
 
     def plan_ability_choose(self, ability_name: str, choice: int, for_rune=False, for_tattoo=False):

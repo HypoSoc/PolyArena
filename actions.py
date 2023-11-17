@@ -608,6 +608,9 @@ class Attack(Action):
             if self.target in Illusion.handled:
                 if self.target.fake_action.combat_on_interrupt:
                     self.public_description += " " + self.target.fake_action.combat_on_interrupt
+            elif self.target.has_ability("Counter Intelligence I") and self.game and not self.game.is_day():
+                if self.target.fake_action.combat_on_interrupt:
+                    self.public_description += " " + self.target.fake_action.combat_on_interrupt
             else:
                 if self.target.action.combat_on_interrupt:
                     self.public_description += " " + self.target.action.combat_on_interrupt

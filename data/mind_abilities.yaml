@@ -24,6 +24,7 @@
   cost: 10
   skills:
     - 143
+    - 144
   prerequisite: 503
 
 505:
