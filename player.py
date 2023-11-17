@@ -197,7 +197,7 @@ class Player:
                 night_combat_report = "The night was peaceful."
             if not night_combat_report.isspace():
                 self.report += "You are Aware:" + os.linesep
-            self.report += night_combat_report
+            self.report += night_combat_report + os.linesep
 
         elif self.game.is_day() and get_combat_handler().wide_check and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
@@ -220,16 +220,19 @@ class Player:
                         self.report += f"{trainer.name} was training {trained}." \
                                        + os.linesep
 
-        if self.has_ability("Panopticon"):
+        if self.has_condition(Condition.NIGHT_LIGHT):
             self.report += os.linesep
-            self.report += get_main_report().get_action_report(pierce_illusions=True, ignore_player=self,
+            self.report += get_main_report().get_action_report(pierce_illusions=self.has_ability("Panopticon"),
+                                                               ignore_player=self,
                                                                intuition=self.has_condition(Condition.INTUITION))
             self.report += os.linesep
-            self.report += "INSERT PANOPTICON COMMENTARY HERE"
-            self.report += os.linesep
+            if self.has_ability("Panopticon"):
+                self.report += "INSERT PANOPTICON COMMENTARY HERE"
+                self.report += os.linesep
         elif self.game.is_day() and self.has_condition(Condition.INTUITION):
             self.report += os.linesep
-            self.report += get_main_report().get_action_report(pierce_illusions=True, ignore_player=self,
+            self.report += get_main_report().get_action_report(pierce_illusions=self.has_ability("Panopticon"),
+                                                               ignore_player=self,
                                                                intuition=self.has_condition(Condition.INTUITION),
                                                                aero_only=True)
             self.report += os.linesep

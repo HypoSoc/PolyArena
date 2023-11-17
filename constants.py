@@ -148,6 +148,7 @@ class Condition(IntEnum):
     CURSED = 128
     CURSE_IMMUNE = 129
     CRUMBLING_IMMUNE = 130
+    NIGHT_LIGHT = 131
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

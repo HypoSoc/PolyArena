@@ -946,3 +946,9 @@
   value: 3
   info: "PRIVATE"
   trigger: "NONCOMBAT"
+
+143:
+  text: "Can See Night Actions"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "NIGHT_LIGHT"

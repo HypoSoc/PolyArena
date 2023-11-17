@@ -22,7 +22,8 @@
 504:
   name: "Panopticon"
   cost: 10
-  skills: []
+  skills:
+    - 143
   prerequisite: 503
 
 505:
