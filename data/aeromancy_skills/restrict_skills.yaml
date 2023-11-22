@@ -8,7 +8,7 @@
 3702: 
   text: "Add 1 credit each turn"
   effect: "CREDITS"
-  value: 15
+  value: 1
   trigger: "NONCOMBAT"
   priority: 103
 

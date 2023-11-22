@@ -59,7 +59,7 @@ class Player:
         self.masking = False
         self.attuning = False
 
-        aeromancer = None
+        aeromancer = set()
 
         complete_ability_pins = [None]
         for (ability_pin, progress) in progress_dict.items():
@@ -70,7 +70,7 @@ class Player:
             if progress == ability.cost:
                 complete_ability_pins.append(ability_pin)
                 if ability.concept:
-                    aeromancer = ability.concept.upper()
+                    aeromancer.add(ability.concept.upper())
                 if self.game.turn <= 0:
                     for skill in ability.get_skills([], [], choice=0):
                         if skill.trigger in [Trigger.ACQUISITION, Trigger.START_OF_GAME]:
@@ -93,7 +93,15 @@ class Player:
                     raise Exception(f"Player {name} is missing prerequisite "
                                     f"for ability {ability.name} ({ability.get_prerequisite().name})")
 
-        assert self.concept == aeromancer
+        assert len(aeromancer) <= 1 or 'X' in aeromancer
+        if not self.concept and len(aeromancer):
+            if 'X' in aeromancer:
+                assert len(aeromancer) == 3
+                aeromancer.remove('X')
+                aeromancer_list = sorted(list(aeromancer))
+                self.concept = f"{aeromancer_list[0]} X {aeromancer_list[1]}"
+            else:
+                self.concept = list(aeromancer)[0]
 
         self.dev_plan = dev_plan
         self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
@@ -228,7 +236,8 @@ class Player:
                 self.report += os.linesep
                 self.report += training_report
 
-        if self.has_condition(Condition.NIGHT_LIGHT):
+        if (not self.game.is_day() or self.has_condition(Condition.PIERCE_ILLUSIONS)) \
+                and self.has_condition(Condition.NIGHT_LIGHT):
             self.report += os.linesep
             self.report += get_main_report() \
                 .get_personal_action_report(pierce_illusions=self.has_condition(Condition.PIERCE_ILLUSIONS),

@@ -10,7 +10,7 @@
   effect: "REMOVE_CONDITION"
   trigger: "NONCOMBAT"
   value: "BALANCE"
-  value_b: 10
+  value_b: 100
   self_not_condition: "CHARGE"
   priority: 89
 
@@ -19,7 +19,7 @@
   effect: "REMOVE_CONDITION"
   trigger: "NONCOMBAT"
   value: "IMBALANCE"
-  value_b: 10
+  value_b: 100
   self_not_condition: "CHARGE"
   priority: 89
 
@@ -69,6 +69,7 @@
   trigger: "ACQUISITION"
   value: "CHARGE"
   value_b: 1
+  priority: 0.1
 
 3209: 
   text: "You have staved off your inexorable return to normal... for a time.."
@@ -77,6 +78,7 @@
   trigger: "ACQUISITION"
   value: "CHARGE"
   value_b: 3
+  priority: 0.1
 
 3210: 
   text: "You have staved off your inexorable return to normal... for a time..."
@@ -85,6 +87,7 @@
   trigger: "ACQUISITION"
   value: "CHARGE"
   value_b: 2
+  priority: 0.1
 
 3211: 
   text: "Delayed, delayed. You've squeezed everything out. No more."
@@ -92,6 +95,7 @@
   info: "PRIVATE"
   trigger: "ACQUISITION"
   value: "CHARGE"
+  priority: 0.1
 
 3212:
   text: "Progress gain"

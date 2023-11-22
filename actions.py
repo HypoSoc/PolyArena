@@ -493,12 +493,18 @@ class HandleSkill(Action):
             elif self.skill.effect == Effect.CREDITS:
                 if not self.fake:
                     if self.skill.value > 0:
+                        s = ''
+                        if self.skill.value != 1:
+                            s = 's'
                         target.gain_credits(self.skill.value)
-                        target.report += f"You gained {self.skill.value} credits. ({target.credits} total)." \
+                        target.report += f"You gained {self.skill.value} credit{s}. ({target.credits} total)." \
                                          + os.linesep
                     elif self.skill.value < 0:
+                        s = ''
+                        if self.skill.value != -1:
+                            s = 's'
                         target.lose_credits(self.skill.value * -1)
-                        target.report += f"You lost {self.skill.value * -1} credits. ({target.credits} remaining)." \
+                        target.report += f"You lost {self.skill.value * -1} credit{s}. ({target.credits} remaining)." \
                                          + os.linesep
             elif self.skill.effect == Effect.ACADEMIC:
                 if not self.fake:
