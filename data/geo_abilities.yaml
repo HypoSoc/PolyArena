@@ -144,7 +144,7 @@
 
 119:
   name: "Fire III"
-  cost: 20
+  cost: 15
   skills:
     - 48
   geo:
@@ -222,7 +222,7 @@
 
 124:
   name: "Water III"
-  cost: 20
+  cost: 15
   skills:
     - 49
   geo:
@@ -294,7 +294,7 @@
 
 129:
   name: "Earth III"
-  cost: 20
+  cost: 15
   skills:
     - 50
   geo:
@@ -384,7 +384,7 @@
 
 134:
   name: "Air III"
-  cost: 20
+  cost: 15
   skills:
     - 51
   geo:

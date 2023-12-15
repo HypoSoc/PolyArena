@@ -1,4 +1,4 @@
-# Scapegoat I (10): Your existence (but not your name/concept) will be announced at the start of the game.
+# Scapegoat I (10): Your existence (but not your name/concept) will be announced Day 1.
 #                   Each turn, choose a player to be a Portent until end of turn. (Subtle)
 #                   Everyone that attacks that player will be Marked until end of turn.
 #                   At the end of each turn, if a Portent died, Grievously Damage all Marked players. (Narrow) (Fragile)
@@ -19,7 +19,7 @@
     4506:
       fragile: true
   explanation: |-
-    Your existence (but not your name/concept) will be announced at the start of the game.
+    Your existence (but not your name/concept) will be announced will be announced Day 1.
     Each turn, choose a player to be a Portent until end of turn. (Subtle)
     Everyone that attacks that player will be Marked until end of turn.
     At the end of each turn, if a Portent died, Grievously Damage all Marked players. (Narrow) (Fragile)

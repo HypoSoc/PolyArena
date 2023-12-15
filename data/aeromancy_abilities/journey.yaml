@@ -5,6 +5,7 @@
 # Journey II (10): +1 Speed
 #                  +2 Survivability
 # Journey III (20): Whenever you Wander Aimlessly, remove a Seal.
+#                   If you don't have a Seal, instead gain 20 Progress.
 
 5101:
   name: "Journey I"
@@ -45,7 +46,8 @@
   skills:
     - 5103
     - 5104
-
+    - 5105
   explanation: |-
     Whenever you Wander Aimlessly, remove a Seal.
+    If you don't have a Seal, instead gain 20 Progress.
   prerequisite: 5102

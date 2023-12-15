@@ -12,7 +12,7 @@
   priority: 5
 
 2603:
-  text: "Shrooms grew from %TARGET%'s corpse."
+  text: "Mushrooms grew from %TARGET%'s corpse."
   info: "NARROW"
   effect: "ITEM"
   value: 12

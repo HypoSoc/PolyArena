@@ -28,7 +28,7 @@
   trigger: "NONCOMBAT"
 
 1505:
-  text: "%SELF%'s gaze paralyzed %TARGET%."
+  text: "A stunning gaze paralyzed %TARGET%."
   effect: "PETRIFY"
   target_has_condition: "MARKED"
   info: "NARROW"

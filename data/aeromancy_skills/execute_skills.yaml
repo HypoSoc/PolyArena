@@ -29,7 +29,7 @@
   value: "INFLICT_GRIEVOUS"
   priority: 1
 
-3504:
+3505:
   text: "Make all wounds Permanent."
   effect: "CONDITION"
   trigger: "ALL"

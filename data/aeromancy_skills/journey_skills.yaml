@@ -35,3 +35,12 @@
   trigger: "NONCOMBAT"
   self_not_condition: "LOCKED"
   priority: 5
+
+5105:
+  text: "You revel in your freedom."
+  info: "PRIVATE"
+  effect: "PROGRESS"
+  value: 20
+  trigger: "ACQUISITION"
+  self_not_condition: "LOCKED"
+  priority: 1
