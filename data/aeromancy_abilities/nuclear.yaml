@@ -1,0 +1,67 @@
+# Nuclear I (10): As long as you have four circuits attuned to Light, you will kill everyone in range at the end of combat (including yourself). (Fragile as if Geomancy) (Unmistakable)
+#                 You can attune an additional circuit to Light.
+#                 You gain a circuit.
+# Nuclear II (10): Gain 3 Lizard's Tails.
+# Nuclear III (10): As long as you have two circuits attuned to Light, you can attack up to three players at once.
+#                   You can attune an additional circuit to Light.
+#                   You gain a circuit.
+
+5201:
+  name: "Nuclear I"
+  concept: "NUCLEAR"
+  cost: 10
+  skills:
+    - 47
+    - 52
+    - 5203
+  geo:
+    5201:
+      circuits:
+        - "LIGHT"
+        - "LIGHT"
+        - "LIGHT"
+        - "LIGHT"
+      fragile: true
+    5202:
+      circuits:
+        - "LIGHT"
+        - "LIGHT"
+        - "LIGHT"
+        - "LIGHT"
+      fragile: true
+  explanation: |-
+    As long as you have four circuits attuned to Light, you will kill everyone in range at the end of combat (including yourself). (Fragile as if Geomancy) (Unmistakable)
+    You can attune an additional circuit to Light.
+    You gain a circuit.
+
+    NUCLEAR II costs 10
+
+5202:
+  name: "Nuclear II"
+  concept: "NUCLEAR"
+  cost: 10
+  skills:
+    - 5204
+  explanation: |-
+    Gain 3 Lizard's Tails.
+
+    NUCLEAR III costs 10
+  prerequisite: 5201
+
+5203:
+  name: "Nuclear III"
+  concept: "NUCLEAR"
+  cost: 10
+  skills:
+    - 47
+    - 52
+  geo:
+    67:
+      circuits:
+        - "LIGHT"
+        - "LIGHT"
+  explanation: |-
+    As long as you have two circuits attuned to Light, you can attack up to three players at once.
+    You can attune an additional circuit to Light.
+    You gain a circuit.
+  prerequisite: 5202

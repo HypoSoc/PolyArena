@@ -1,0 +1,110 @@
+4801:
+  text: "The air crackled with energy!"
+  effect: "INFO"
+  info: "WIDE"
+  priority: 69.001
+
+4802:
+  text: "Apply bunker electrification"
+  effect: "TEMP_SKILL"
+  value: 4803
+  trigger: "RANGE_EX_SELF"
+  priority: 69.001
+
+4803:
+  text: "Schedule bunker check"
+  effect: "SCHEDULE"
+  value: 4804
+  value_b: 1
+  trigger: "POST_COMBAT"
+
+4804:
+  text: "You were zapped!"
+  info: "PRIVATE"
+  effect: "DAMAGE"
+  self_has_condition: "BUNKERING"
+  trigger: "NONCOMBAT"
+  priority: 36
+
+4805:
+  text: "Apply training electrification"
+  effect: "TEMP_SKILL"
+  value: 4806
+  trigger: "RANGE_EX_SELF"
+  priority: 69.001
+
+4806:
+  text: "Schedule training check"
+  effect: "SCHEDULE"
+  value: 4807
+  value_b: 1
+  trigger: "POST_COMBAT"
+
+4807:
+  text: "You were zapped!"
+  info: "PRIVATE"
+  effect: "DAMAGE"
+  self_has_condition: "TRAINED"
+  trigger: "NONCOMBAT"
+  priority: 55
+
+4808:
+  text: "Apply class electrification"
+  effect: "TEMP_SKILL"
+  value: 4809
+  trigger: "RANGE_EX_SELF"
+  priority: 69.001
+
+4809:
+  text: "Schedule class check"
+  effect: "SCHEDULE"
+  value: 4810
+  value_b: 1
+  trigger: "POST_COMBAT"
+
+4810:
+  text: "You were zapped!"
+  info: "PRIVATE"
+  effect: "KILL"
+  self_has_condition: "SCHOOLED"
+  trigger: "NONCOMBAT"
+  priority: 55
+
+4811:
+  text: "Gain a Charge"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  trigger: "ACQUISITION"
+
+4812:
+  text: "All of campus crackled with energy!"
+  info: "BLATANT"
+  effect: "TEMP_SKILL"
+  value: 4803
+  trigger: "OTHERS"
+  self_has_condition: "CHARGE"
+  priority: 10
+
+4813:
+  text: "Apply training check for all"
+  effect: "TEMP_SKILL"
+  value: 4806
+  trigger: "OTHERS"
+  self_has_condition: "CHARGE"
+  priority: 10
+
+4814:
+  text: "Apply class check for all"
+  effect: "TEMP_SKILL"
+  value: 4809
+  trigger: "OTHERS"
+  self_has_condition: "CHARGE"
+  priority: 10
+
+4815:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 11

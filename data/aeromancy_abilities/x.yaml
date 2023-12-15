@@ -1,0 +1,22 @@
+# X (10): You cannot pick this with Legacy Magic.
+#         Upon getting this concept in character creation, choose two other concepts to gain. You will start with both of them at level 1.
+#         Your concept will appear to be the combination of the two.
+#         You will be able to train further levels of both of them as normal.
+#         Any progress assigned to further levels of X at character creation will be randomly distributed between those concepts.
+#         You cannot gain progress for the first 5 turns.
+
+
+5701:
+  name: "X"
+  concept: "X"
+  cost: 10
+  skills:
+    - 5701
+    - 5702
+  explanation: |-
+    You cannot pick this with Legacy Magic.
+    Upon getting this concept in character creation, choose two other concepts to gain. You will start with both of them at level 1.
+    Your concept will appear to be the combination of the two.
+    You will be able to train further levels of both of them as normal.
+    Any progress assigned to further levels of X at character creation will be randomly distributed between those concepts.
+    You cannot gain progress for the first 5 turns.

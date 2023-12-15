@@ -1,0 +1,44 @@
+# Pinata I (10): At the end of each turn, gain a Credit.
+#                At the end of each combat, if you were injured, every other player in range gains a permanent +1 Combat and +1 Survivability. (Wide)
+#                You will not be wounded by nonlethal damage during combat.
+# Pinata II (5): +1 Survivability
+# Pinata III (5): +1 Survivability
+
+5001:
+  name: "Pinata I"
+  concept: "PINATA"
+  cost: 10
+  skills:
+    - 5001
+    - 5002
+    - 5003
+    - 5004
+    - 5005
+  explanation: |-
+    At the end of each turn, gain a Credit.
+    At the end of each combat, if you were injured, every other player in range gains a permanent +1 Combat and +1 Survivability. (Wide)
+    You will not be wounded by nonlethal damage during combat.
+
+    Pinata II costs 5
+
+5002:
+  name: "Pinata II"
+  concept: "PINATA"
+  cost: 5
+  skills:
+    - 2
+  explanation: |-
+    +1 Survivability
+
+    Pinata III costs 5
+  prerequisite: 5001
+
+5003:
+  name: "Pinata III"
+  concept: "PINATA"
+  cost: 5
+  skills:
+    - 2
+  explanation: |-
+    +1 Survivability
+  prerequisite: 5002

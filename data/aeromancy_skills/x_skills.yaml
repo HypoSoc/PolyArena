@@ -1,0 +1,22 @@
+5701:
+  text: "No progress penalty"
+  effect: "PERMANENT_CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "ACQUISITION"
+  priority: -100
+
+5702:
+  text: "Schedule progress gain"
+  effect: "SCHEDULE"
+  value: 5703
+  value_b: 5
+  trigger: "ACQUISITION"
+
+5703:
+  text: "You have synthesized your magic! You can gain progress again!"
+  info: "PERSONAL"
+  effect: "REMOVE_CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "NONCOMBAT"
+  works_when_petrified: true
+  priority: -100

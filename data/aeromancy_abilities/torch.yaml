@@ -1,0 +1,47 @@
+# Torch I (10): You see Night Actions.
+# Torch II (5): As long as you are attuned to Fire, you deal nonlethal damage when you spy. (Narrow)
+#               You can attune an additional circuit to Fire.
+#               You gain a circuit.
+# Torch III (10): Gain Awareness I, Awareness II, and Ambush Tactics I or equivalent progress.
+
+5501:
+  name: "Torch I"
+  concept: "TORCH"
+  cost: 10
+  skills:
+    - 143
+  explanation: |-
+    You see Night Actions.
+
+    Torch II costs 5
+
+5502:
+  name: "Torch II"
+  concept: "TORCH"
+  cost: 5
+  skills:
+    - 47
+    - 48
+  geo:
+    5501:
+      circuits:
+        - "FIRE"
+  explanation: |-
+    As long as you are attuned to Fire, you deal nonlethal damage when you spy. (Narrow)
+    You can attune an additional circuit to Fire.
+    You gain a circuit.
+
+    Torch III costs 10
+  prerequisite: 5501
+
+5503:
+  name: "Torch III"
+  concept: "TORCH"
+  cost: 10
+  skills:
+    - 5502
+    - 5503
+    - 5504
+  explanation: |-
+    Gain Awareness I, Awareness II, and Ambush Tactics I or equivalent progress.
+  prerequisite: 5502

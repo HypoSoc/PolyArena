@@ -1,0 +1,37 @@
+5101:
+  text: "A Seal of Dark Wanderings Binds you."
+  info: "PRIVATE"
+  effect: "PERMANENT_CONDITION"
+  trigger: "START_OF_GAME"
+  value: "LOCKED"
+  value_b: 7
+  priority: 1
+
+5102:
+  text: "%TARGET%'s travels soothed your travails."
+  info: "PERSONAL"
+  effect: "REMOVE_CONDITION"
+  value: "LOCKED"
+  trigger: "OTHERS"
+  self_has_condition: "LOCKED"
+  target_has_condition: "WANDERED"
+  self_override: true
+  priority: 81
+
+5103:
+  text: "Your wanderings are purposeful."
+  info: "PERSONAL"
+  effect: "REMOVE_CONDITION"
+  value: "LOCKED"
+  trigger: "NONCOMBAT"
+  self_has_condition: "WANDERED"
+  self_not_condition: "ONCE"
+  priority: 81
+
+5104:
+  text: "Book keeping skill to make 5103 not appear when free"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "NONCOMBAT"
+  self_not_condition: "LOCKED"
+  priority: 5

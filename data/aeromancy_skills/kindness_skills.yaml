@@ -1,0 +1,15 @@
+4301:
+  text: "A Lizard Tail has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 15
+  info: "NARROW"
+  trigger: "RANDOM_OTHER"
+  priority: 10
+
+4302:
+  text: "A Lizard Tail has appeared in %TARGET%'s apartment!"
+  effect: "ITEM"
+  value: 15
+  info: "NARROW"
+  trigger: "RANDOM"
+  priority: 10

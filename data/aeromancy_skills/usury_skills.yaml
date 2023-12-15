@@ -1,0 +1,38 @@
+5601:
+  text: "%TARGET% was compelled to enter into a contract."
+  effect: "CREDITS"
+  value: 3
+  info: "NARROW"
+  trigger: "TARGET"
+  priority: 80
+
+5602:
+  text: "Paying Money"
+  effect: "CREDITS"
+  value: -3
+  trigger: "TARGET"
+  priority: 80
+  self_override: true
+
+5603:
+  text: "%SELF% gained a Hook on %TARGET%."
+  info: "PERSONAL"
+  effect: "REL_CONDITION"
+  value: "HOOK"
+  trigger: "TARGET"
+  priority: 80.1
+
+5604:
+  text: "You earn interest on your investments."
+  info: "PRIVATE"
+  effect: "CREDITS"
+  trigger: "NONCOMBAT"
+  value: 1
+  priority: 120
+
+5605:
+  text: "Your line of credit has increased by an additional 15 Credits."
+  info: "PRIVATE"
+  effect: "INFO"
+  trigger: "ACQUISITION"
+  priority: 1

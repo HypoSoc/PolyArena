@@ -416,8 +416,8 @@ class Player:
             if item.cost < 0:
                 raise Exception(f"Player {self.name} is trying to buy an item that is not for sale {item.name}.")
 
-        if Shop.get_total_cost(items) > self.get_credits():
-            raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
+        # if Shop.get_total_cost(items) > self.get_credits():
+        #     raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
         self.action = Shop(self.game, self, items, automata_names=automata_name)
 
     def plan_train(self):

@@ -1,0 +1,63 @@
+# Scapegoat I (10): Your existence (but not your name/concept) will be announced at the start of the game.
+#                   Each turn, choose a player to be a Portent until end of turn. (Subtle)
+#                   Everyone that attacks that player will be Marked until end of turn.
+#                   At the end of each turn, if a Portent died, Grievously Damage all Marked players. (Narrow) (Fragile)
+# Scapegoat II (10): Each turn, a random player other than you will be Marked until end of turn. (Subtle)
+# Scapegoat III (10): Portents have -3 Survivability. (Subtle) (Fragile)
+# Scapegoat IV (10): Damage you deal is Permanent.
+
+4501:
+  name: "Scapegoat I"
+  concept: "SCAPEGOAT"
+  cost: 10
+  skills:
+    - 4501
+    - 4502
+    - 4503
+    - 4505
+  aero:
+    4506:
+      fragile: true
+  explanation: |-
+    Your existence (but not your name/concept) will be announced at the start of the game.
+    Each turn, choose a player to be a Portent until end of turn. (Subtle)
+    Everyone that attacks that player will be Marked until end of turn.
+    At the end of each turn, if a Portent died, Grievously Damage all Marked players. (Narrow) (Fragile)
+
+    Scapegoat II costs 10
+
+4502:
+  name: "Scapegoat II"
+  concept: "SCAPEGOAT"
+  cost: 10
+  skills:
+    - 4507
+  explanation: |-
+    Each turn, a random player other than you will be Marked until end of turn. (Subtle)
+
+    Scapegoat III costs 10
+  prerequisite: 4501
+
+4503:
+  name: "Scapegoat III"
+  concept: "SCAPEGOAT"
+  cost: 10
+  skills: []
+  aero:
+    4508:
+      fragile: true
+  explanation: |-
+    Portents have -3 Survivability. (Subtle) (Fragile)
+
+    Scapegoat IV costs 10
+  prerequisite: 4502
+
+4504:
+  name: "Scapegoat IV"
+  concept: "SCAPEGOAT"
+  cost: 10
+  skills:
+    - 60
+  explanation: |-
+    Damage you deal is Permanent.
+  prerequisite: 4503

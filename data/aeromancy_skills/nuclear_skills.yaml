@@ -1,0 +1,27 @@
+5201:
+  text: "Condition gain so that unmistakable text can happen"
+  effect: "CONDITION"
+  value: "ONCE"
+  priority: 200
+
+5202:
+  text: "%TARGET% was evaporated."
+  info: "PUBLIC"
+  effect: "KILL"
+  trigger: "RANGE"
+  priority: 202
+
+5203:
+  text: "%SELF% detonated."
+  info: "UNMISTAKABLE"
+  effect: "INFO"
+  self_has_condition: "ONCE"
+  priority: 201
+
+5204:
+  text: "+3 Lizard Tails"
+  effect: "ITEM"
+  value: 15
+  value_b: 3
+  trigger: "ACQUISITION"
+  priority: 5

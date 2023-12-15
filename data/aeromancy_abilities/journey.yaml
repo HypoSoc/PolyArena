@@ -1,0 +1,51 @@
+# Journey I (10): You start the game with seven Seals.
+#                 Whenever a player other than you Wanders Aimlessly, a Seal will be removed.
+#                 You cannot win the game if you have any Seals.
+#                 +1 Speed
+# Journey II (10): +1 Speed
+#                  +2 Survivability
+# Journey III (20): Whenever you Wander Aimlessly, remove a Seal.
+
+5101:
+  name: "Journey I"
+  concept: "JOURNEY"
+  cost: 10
+  skills:
+    - 80
+    - 5101
+    - 5102
+
+  explanation: |-
+    You start the game with seven Seals.
+    Whenever a player other than you Wanders Aimlessly, a Seal will be removed.
+    You cannot win the game if you have any Seals.
+    +1 Speed
+
+    Journey II costs 10
+
+5102:
+  name: "Journey II"
+  concept: "JOURNEY"
+  cost: 10
+  skills:
+    - 65
+    - 80
+
+  explanation: |-
+    +1 Speed
+    +2 Survivability
+
+    Journey III costs 20
+  prerequisite: 5101
+
+5103:
+  name: "Journey III"
+  concept: "JOURNEY"
+  cost: 20
+  skills:
+    - 5103
+    - 5104
+
+  explanation: |-
+    Whenever you Wander Aimlessly, remove a Seal.
+  prerequisite: 5102

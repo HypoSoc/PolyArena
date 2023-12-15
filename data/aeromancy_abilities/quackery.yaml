@@ -1,0 +1,44 @@
+# Quackery I (10): Each turn, you can choose a player to 'Heal'.
+#                  They will be permanently Marked and they will receive a message that you healed them fully. (Narrow) (Fragile)
+#                  This does nothing and will not be reflected in your actions.
+# Quackery II (10): You can spend an action to ACTUALLY heal any player's injuries. Self-heals are uninterruptible.
+# Quackery III (10): At the start of the next turn all other Marked players permanently lose 2 Survivability. (Subtle)
+
+5401:
+  name: "Quackery I"
+  concept: "QUACKERY"
+  cost: 10
+  target_other: true
+  aero:
+    5401:
+      fragile: true
+    5402:
+      fragile: true
+  explanation: |-
+    Each turn, you can choose a player to 'Heal'.
+    They will be permanently Marked and they will receive a message that you healed them fully. (Narrow) (Fragile)
+    This does nothing and will not be reflected in your actions.
+
+    Quackery II costs 10
+
+5402:
+  name: "Quackery II"
+  concept: "QUACKERY"
+  cost: 10
+  skills:
+    - 24
+  explanation: |-
+    You can spend an action to ACTUALLY heal any player's injuries. Self-heals are uninterruptible.
+
+    Quackery III costs 10
+  prerequisite: 5401
+
+5403:
+  name: "Quackery III"
+  concept: "QUACKERY"
+  cost: 10
+  skills:
+    - 5403
+  explanation: |-
+    At the start of the next turn all other Marked players permanently lose 2 Survivability.
+  prerequisite: 5402

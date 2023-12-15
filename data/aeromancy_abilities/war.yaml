@@ -1,0 +1,49 @@
+# War I (10): You get +1/+1 for every other player in range. (Wide) (Fragile)
+# War II (10): Gain a Charge.
+#              Each turn, you may spend a Charge to force ALL players to attack next turn. (Unmistakable) (Fragile)
+# War III (20): At the end of each combat, if you were attacked, gain a Charge.
+
+5301:
+  name: "War I"
+  concept: "WAR"
+  cost: 10
+  aero:
+    5301:
+      fragile: true
+    5302:
+      fragile: true
+    5303:
+      fragile: true
+  explanation: |-
+    You get +1/+1 for every other player in range. (Wide) (Fragile)
+
+    War II costs 10
+
+5302:
+  name: "War II"
+  concept: "WAR"
+  cost: 10
+  skills:
+    - 5304
+  aero:
+    5305:
+      fragile: true
+    5306:
+      fragile: true
+  explanation: |-
+    Gain a Charge.
+    Each turn, you may spend a Charge to force ALL players to attack next turn. (Unmistakable) (Fragile)
+
+    War III costs 20
+  prerequisite: 5301
+
+5303:
+  name: "War III"
+  concept: "WAR"
+  cost: 20
+  skills:
+    - 5307
+    - 5308
+  explanation: |-
+    At the end of each combat, if you were attacked, gain a Charge.
+  prerequisite: 5302

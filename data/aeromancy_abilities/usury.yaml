@@ -1,0 +1,52 @@
+# Usury I (10): Each turn you may choose a player.
+#               You lose three credits, they gain three credits, and you gain a Hook on them. (Narrow) (Fragile)
+#               You may spend the Hook to force them to take a specific action in the next turn.
+#               They will be informed they are being blackmailed, but not by whom.
+#               You cannot gain a Hook against a player you already have a Hook on until the after the turn they have had the chance to complete the Hook action.
+#               This ability can cause you to have negative credits. If you end the game in debt, you lose.
+# Usury II (10): Gain 1 additional Credit each turn.
+# Usury III (10): At the end of the game, gain 15 credits.
+
+5601:
+  name: "Usury I"
+  concept: "USURY"
+  cost: 10
+  target_other: true
+  aero:
+    5601:
+      fragile: true
+    5602:
+      fragile: true
+    5603:
+      fragile: true
+  explanation: |-
+    Each turn you may choose a player.
+    You lose three credits, they gain three credits, and you gain a Hook on them. (Narrow) (Fragile)
+    You may spend the Hook to force them to take a specific action in the next turn.
+    They will be informed they are being blackmailed, but not by whom.
+    You cannot gain a Hook against a player you already have a Hook on until the after the turn they have had the chance to complete the Hook action.
+    This ability can cause you to have negative credits. If you end the game in debt, you lose.
+
+    Usury II costs 10
+
+5602:
+  name: "Usury II"
+  concept: "USURY"
+  cost: 10
+  skills:
+    - 5604
+  explanation: |-
+    Gain 1 additional Credit each turn.
+
+    Usury III costs 10
+  prerequisite: 5601
+
+5603:
+  name: "Usury III"
+  concept: "USURY"
+  cost: 10
+  skills:
+    - 5605
+  explanation: |-
+    At the end of the game, gain 15 credits.
+  prerequisite: 5602

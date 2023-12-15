@@ -1296,6 +1296,26 @@ class CombatHandler:
                         report = report.replace(other.name, "Someone")
         return report
 
+    def get_combat_report_for_player_as_observer(self, player: "Player", observer: "Player"):
+        report = ""
+        for (group, events) in self.combat_group_to_events.items():
+            if player in group:
+                for other in group:
+                    if other in self.attacker_to_defenders:
+                        report += other.action.public_description \
+                                      .replace("attacked", self.verb_dict.get(other, 'attacked')) + os.linesep
+                for event in events:
+                    if event[2] == InfoScope.WIDE:
+                        if observer.has_condition(Condition.INTUITION):
+                            report += event[0] + os.linesep
+                    elif event[2] in [InfoScope.PUBLIC, InfoScope.BROADCAST]:
+                        report += event[0] + os.linesep
+                for other in group:
+                    if not self.check_range(player, other, ignore_escape=True):
+                        report = report.replace(other.name, "Someone")
+        return report
+
+
     def get_public_combat_report(self, intuition=False, ignore_player: Optional['Player'] = None):
         report = ""
         for (group, events) in self.combat_group_to_events.items():

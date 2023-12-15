@@ -107,7 +107,8 @@ class Action:
     was_healed: Set["Player"] = set()
 
     def __init__(self, priority, game: Optional['Game'], player: Optional["Player"], fragile: bool = True,
-                 public_description: str = "", on_interrupt: str = "", combat_on_interrupt: str = ""):
+                 public_description: str = "", on_interrupt: str = "", combat_on_interrupt: str = "",
+                 prevents_wandering: bool = True):
         self.game = game
         self.player = player
         if self.player and game and not game.simulation:
@@ -121,6 +122,7 @@ class Action:
         self.idx = Action.tic_index
 
         self.maintains_hiding = False
+        self.prevents_wandering = prevents_wandering
 
         Action.tic_index += 1
 
@@ -152,7 +154,8 @@ class Action:
             self.player.report += self.on_interrupt + os.linesep
         if not interrupted or not self.fragile:
             self._act()
-        Action.not_wandering.add(self.player)
+        if self.prevents_wandering:
+            Action.not_wandering.add(self.player)
         self.player.report += os.linesep + os.linesep
 
     def _act(self):
@@ -1540,7 +1543,7 @@ class Trade(Action):
                 raise Exception(
                     f"{player.name} is trying to trade an automata they don't own {automaton.name}.")
 
-        super().__init__(100, game=game, player=player, fragile=False)
+        super().__init__(100, game=game, player=player, fragile=False, prevents_wandering=False)
         self.target = target
         self.items = items
         self.credits = money
@@ -1623,7 +1626,7 @@ class TradeFollow(Action):
                  items: Optional[Dict['Item', int]], money: int,
                  automata: List['Automata'],
                  item_condition: Optional[ITEM_CONDITION]):
-        super().__init__(101, game=game, player=player, fragile=False)
+        super().__init__(101, game=game, player=player, fragile=False, prevents_wandering=False)
         self.target = target
         self.items = items
         self.credits = money
@@ -1656,7 +1659,7 @@ class TradeFinal(Action):
                  items: Optional[Dict['Item', int]], money: int,
                  automata: List['Automata'],
                  item_condition: Optional[ITEM_CONDITION]):
-        super().__init__(102, game=game, player=player, fragile=False)
+        super().__init__(102, game=game, player=player, fragile=False, prevents_wandering=False)
         self.target = target
         self.items = items
         self.credits = money
@@ -1707,7 +1710,7 @@ class PlaceBounty(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player", amount: int):
         assert amount > 0
         super().__init__(priority=110, game=game, player=player, fragile=False,
-                         public_description="")
+                         public_description="", prevents_wandering=False)
         self.target = target
         self.amount = amount
         self.maintains_hiding = True
@@ -1733,7 +1736,8 @@ class PlaceBounty(Action):
 class Disguise(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player"):
         super().__init__(priority=10, game=game, player=player, fragile=False,
-                         public_description=f"{player.name} donned a mask of {target.name}.")
+                         public_description=f"{player.name} donned a mask of {target.name}.",
+                         prevents_wandering=False)
         self.target = target
         self.maintains_hiding = True
 
@@ -1743,7 +1747,7 @@ class Disguise(Action):
 
 class Blackmail(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player", message: str):
-        super().__init__(priority=105, game=game, player=player, fragile=False)
+        super().__init__(priority=105, game=game, player=player, fragile=False, prevents_wandering=False)
         self.target = target
         self.maintains_hiding = True
         self.message = message
@@ -1773,7 +1777,7 @@ class Blackmail(Action):
 
 class Attune(Action):
     def __init__(self, game: Optional['Game'], player: "Player", circuits: Tuple[Element, ...]):
-        super().__init__(priority=15, game=game, player=player, fragile=False)
+        super().__init__(priority=15, game=game, player=player, fragile=False, prevents_wandering=False)
         self.circuits = circuits
 
     def act(self):
@@ -1796,7 +1800,7 @@ class UseHydro(Action):
 
     def __init__(self, game: Optional['Game'], player: "Player", ability: "Ability",
                  will: List[int], contingency: bool):
-        super().__init__(33 if contingency else -5, game=game, player=player, fragile=False)
+        super().__init__(33 if contingency else -5, game=game, player=player, fragile=False, prevents_wandering=False)
         self.ability = ability
         self.will = will
         self.contingency = contingency
@@ -1848,7 +1852,7 @@ class Illusion(Action):
     def __init__(self, game: Optional['Game'], player: "Player", target: "Player",
                  fake_action: 'Action', fake_training: Optional['Ability'] = None):
         # Randomly sort multiple illusions on the same target
-        super().__init__(12+(random.random()/2.0), game=game, player=player, fragile=False)
+        super().__init__(12+(random.random()/2.0), game=game, player=player, fragile=False, prevents_wandering=False)
         self.target = target
         self.fake_action = fake_action
         self.fake_training = fake_training
@@ -1885,7 +1889,7 @@ class MasterIllusion(Action):
     def __init__(self, game: Optional['Game'], player: "Player",
                  target: "Player", defended: "Player", redirected: "Player"):
         # Randomly sort multiple illusions on the same target
-        super().__init__(12+(random.random()/2.0), game=game, player=player, fragile=False)
+        super().__init__(12+(random.random()/2.0), game=game, player=player, fragile=False, prevents_wandering=False)
         self.target = target
         self.defended = defended
         self.redirected = redirected
@@ -2061,10 +2065,6 @@ class CombatStep(Action):
                     rune = get_item(player.tattoo)
                     assert isinstance(rune, Rune)
                     for skill in rune.get_skills():
-                        if skill.trigger == Trigger.POST_COMBAT:
-                            HandleSkill(self.game, player, skill)
-                for item in player.get_consumed_items():
-                    for skill in item.get_skills():
                         if skill.trigger == Trigger.POST_COMBAT:
                             HandleSkill(self.game, player, skill)
             elif was_alive[player]:

@@ -1,0 +1,134 @@
+# Yoga I (10): Each turn, you may choose to Petrify yourself for the turn (you will be freed at the end of the turn). (Wide).
+#              If you do, you gain 5 Progress.
+#              You have 6 less Survivability when Petrified.
+# Yoga II-IX (5): Gain 1 Credit.
+# Yoga X (5): +6 Combat and +6 Survivability (Wide) (Fragile)
+#            You no longer lose Survivability when Petrified.
+
+4401:
+  name: "Yoga I"
+  concept: "YOGA"
+  cost: 10
+  skills:
+    - 4401
+    - 4402
+    - 4403
+    - 4404
+  explanation: |-
+    Each turn, you may choose to Petrify yourself for the turn (you will be freed at the end of the turn). (Wide).
+    If you do, you gain 5 Progress.
+    You have 6 less Survivability when Petrified.
+
+    Yoga II costs 5
+
+4402:
+  name: "Yoga II"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga III costs 5
+  prerequisite: 4401
+
+4403:
+  name: "Yoga III"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga IV costs 5
+  prerequisite: 4402
+
+4404:
+  name: "Yoga IV"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga V costs 5
+  prerequisite: 4403
+
+4405:
+  name: "Yoga V"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga VI costs 5
+  prerequisite: 4404
+
+4406:
+  name: "Yoga VI"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga VII costs 5
+  prerequisite: 4405
+
+4407:
+  name: "Yoga VII"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga VIII costs 5
+  prerequisite: 4406
+
+4408:
+  name: "Yoga VIII"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga IX costs 5
+  prerequisite: 4407
+
+4409:
+  name: "Yoga IX"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4405
+  explanation: |-
+    Gain 1 Credit.
+
+    Yoga X costs 5
+  prerequisite: 4408
+
+4410:
+  name: "Yoga X"
+  concept: "YOGA"
+  cost: 5
+  skills:
+    - 4408
+  aero:
+    4406:
+      fragile: true
+    4407:
+      fragile: true
+  explanation: |-
+    +6 Combat and +6 Survivability (Wide) (Fragile)
+    You no longer lose Survivability when Petrified.
+  prerequisite: 4409

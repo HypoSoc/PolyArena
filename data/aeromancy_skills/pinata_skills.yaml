@@ -1,0 +1,36 @@
+5001:
+  text: "You give yourself a little treat."
+  info: "PRIVATE"
+  effect: "CREDITS"
+  trigger: "NONCOMBAT"
+  value: 1
+  priority: 120
+
+5002:
+  text: "Bits of %SELF% escaped the curse of mortal flesh."
+  info: "WIDE"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "COMBAT_INJURY"
+  priority: 195
+
+5003:
+  text: "Permanent +1 Combat in range"
+  effect: "PERMANENT_CONDITION"
+  value: "HONED"
+  trigger: "RANGE_EX_SELF"
+  self_has_condition: "ONCE"
+  priority: 200
+
+5004:
+  text: "Permanent +1 Survivability in range"
+  effect: "PERMANENT_CONDITION"
+  value: "FORGED"
+  trigger: "RANGE_EX_SELF"
+  self_has_condition: "ONCE"
+  priority: 200
+
+5005:
+  text: "Nonlethal immune"
+  effect: "CONDITION"
+  value: "NONLETHAL_IMMUNE"

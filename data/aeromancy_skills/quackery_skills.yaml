@@ -1,0 +1,30 @@
+5401:
+  text: "%SELF% treated %TARGET% and %TARGET% is now healthy."
+  effect: "PERMANENT_CONDITION"
+  value: "MARKED"
+  info: "NARROW_IMPERSONAL"
+  trigger: "TARGET"
+  priority: 50
+
+5402:
+  text: "%SELF% worked %SELF%'s magic on %TARGET%."
+  effect: "INFO"
+  info: "PERSONAL"
+  trigger: "TARGET"
+  priority: 50
+
+5403:
+  text: "Schedule pain"
+  effect: "SCHEDULE"
+  value: 5404
+  value_b: 1
+  trigger: "ACQUISITION"
+
+5404:
+  text: "%TARGET%'s body reacted badly to the fraudulent medicine."
+  info: "SUBTLE"
+  effect: "PERMANENT_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 2
+  trigger: "OTHERS"
+  target_has_condition: "MARKED"

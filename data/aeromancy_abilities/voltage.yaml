@@ -1,0 +1,78 @@
+# Voltage I (10): Each combat, you will electrify all other players in range, priming them for a potential injury the following turn. (Wide) (Fragile)
+#                 If a player Bunkers during the vulnerable turn, they will Damage themself.
+#                 If a player gets electrified multiple times, they can gets damaged multiple times.
+# Voltage II (10): If a players Trains during the vulnerable turn, they will Damage themself.
+# Voltage III (10): If a players Goes to Class during the vulnerable turn, they will Die.
+# Voltage IV (10): Gain a Charge.
+#                  Each turn, consume a Charge to electrify all other players. (Blatant)
+# Voltage V (10): Gain a Charge.
+
+
+4801:
+  name: "Voltage I"
+  concept: "VOLTAGE"
+  cost: 10
+  aero:
+    4801:
+      fragile: true
+    4802:
+      fragile: true
+  explanation: |-
+    Each combat, you will electrify all other players in range, priming them for a potential injury the following turn. (Wide) (Fragile)
+    If a player Bunkers during the vulnerable turn, they will Damage themself.
+
+    Voltage II costs 10
+
+4802:
+  name: "Voltage II"
+  concept: "VOLTAGE"
+  cost: 10
+  aero:
+    4805:
+      fragile: true
+  explanation: |-
+    If a players Trains during the vulnerable turn, they will Damage themself.
+
+    Voltage III costs 10
+  prerequisite: 4801
+
+4803:
+  name: "Voltage III"
+  concept: "VOLTAGE"
+  cost: 10
+  aero:
+    4808:
+      fragile: true
+  explanation: |-
+    If a players Goes to Class during the vulnerable turn, they will Die.
+
+    Voltage IV costs 10
+  prerequisite: 4802
+
+4804:
+  name: "Voltage IV"
+  concept: "VOLTAGE"
+  cost: 10
+  skills:
+    - 4811
+    - 4812
+    - 4813
+    - 4814
+    - 4815
+  explanation: |-
+    Gain a Charge.
+    Each turn, consume a Charge to electrify all other players. (Blatant)
+    Electrification stacks.
+
+    Voltage V costs 10
+  prerequisite: 4803
+
+4805:
+  name: "Voltage V"
+  concept: "VOLTAGE"
+  cost: 10
+  skills:
+    - 4811
+  explanation: |-
+    Gain a Charge.
+  prerequisite: 4804

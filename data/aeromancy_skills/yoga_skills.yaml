@@ -1,0 +1,58 @@
+4401:
+  text: "Self Inflicted Petrify"
+  effect: "CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  self_override: True
+
+4402:
+  text: "%SELF% hardened into a statue."
+  info: "WIDE"
+  effect: "MINI_PETRIFY"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 2
+
+4403:
+  text: "You meditated on your existence."
+  effect: "PROGRESS"
+  value: 5
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+  self_has_condition: "CHARGE"
+  priority: 2
+  works_when_petrified: true
+
+4404:
+  text: "-6 Survivability when Petrified"
+  effect: "CONDITION"
+  value: "CRUMBLING"
+  value_b: 6
+  self_has_condition: "PETRIFIED"
+  works_when_petrified: true
+
+4405:
+  text: "You have discovered beauty in this world."
+  effect: "CREDITS"
+  value: 1
+  info: "PRIVATE"
+  trigger: "ACQUISITION"
+  priority: 1
+
+4406:
+  text: "%SELF% is Enlightened."
+  info: "WIDE"
+  effect: "COMBAT"
+  value: 6
+
+4407:
+  text: "+6 Survivability"
+  effect: "SURVIVABILITY"
+  value: 6
+
+4408:
+  text: "Crumbling Immune"
+  effect: "CONDITION"
+  value: "CRUMBLING_IMMUNE"
+  trigger: "NONCOMBAT"
+  works_when_petrified: true

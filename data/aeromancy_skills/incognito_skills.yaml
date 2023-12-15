@@ -1,0 +1,127 @@
+4701:
+  text: "Schedule Charge gain for Day 3"
+  effect: "SCHEDULE"
+  value: 4702
+  value_b: 4
+  trigger: "START_OF_GAME"
+
+4702:
+  text: "You are ready to reveal yourself."
+  info: "PERSONAL"
+  effect: "PERMANENT_CONDITION"
+  trigger: "NONCOMBAT"
+  value: "CHARGE"
+  priority: -5
+  works_when_petrified: true
+
+4703:
+  text: "%SELF% has been unveiled as a Secret Ringer!"
+  info: "BLATANT"
+  effect: "PROGRESS"
+  value: 20
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  self_not_condition: "RINGER"
+  self_override: true
+  priority: 85.9 # RIGHT before Envy just in case both happen in the same turn.
+
+4704:
+  text: "Ringer Status"
+  effect: "PERMANENT_CONDITION"
+  value: "RINGER"
+  trigger: "TARGET"
+  self_has_condition: "CHARGE"
+  self_not_condition: "RINGER"
+  self_override: true
+  priority: 86
+
+4705:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 100
+  self_has_condition: "CHARGE"
+  self_override: true
+
+4706:
+  text: "-1 Power"
+  effect: "COMBAT"
+  value: -1
+  self_not_condition: "RINGER"
+  priority: 68
+
+4707:
+  text: "-1 Survivability"
+  effect: "SURVIVABILITY"
+  value: -1
+  self_not_condition: "RINGER"
+  priority: 68
+
+4708:
+  text: "Schedule Day 5 Check"
+  effect: "SCHEDULE"
+  value: 4709
+  value_b: 8
+  trigger: "START_OF_GAME"
+
+4709:
+  text: "Day 5 Check"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "OPTION_A"
+  priority: -5
+  works_when_petrified: true
+
+4710:
+  text: "Schedule Day 7 Check"
+  effect: "SCHEDULE"
+  value: 4711
+  value_b: 12
+  trigger: "START_OF_GAME"
+
+4711:
+  text: "Day 7 Check"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "OPTION_B"
+  priority: -5
+  works_when_petrified: true
+
+4712:
+  text: "You have maintained a superb disguise."
+  info: "PERSONAL"
+  effect: "ACADEMIC"
+  value: 1
+  trigger: "NONCOMBAT"
+  self_has_condition: "OPTION_A"
+  self_not_condition: "RINGER"
+  works_when_petrified: true
+
+4713:
+  text: "Progress Refund"
+  effect: "PROGRESS"
+  value: 10
+  trigger: "NONCOMBAT"
+  self_has_condition: "OPTION_A"
+  self_not_condition: "RINGER"
+  works_when_petrified: true
+
+4714:
+  text: "You have maintained a flawless disguise."
+  info: "PERSONAL"
+  effect: "ACADEMIC"
+  value: 2
+  trigger: "NONCOMBAT"
+  self_has_condition: "OPTION_B"
+  self_not_condition: "RINGER"
+  works_when_petrified: true
+
+4715:
+  text: "Progress Refund"
+  effect: "PROGRESS"
+  value: 10
+  trigger: "NONCOMBAT"
+  self_has_condition: "OPTION_B"
+  self_not_condition: "RINGER"
+  works_when_petrified: true

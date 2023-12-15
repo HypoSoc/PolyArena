@@ -68,6 +68,7 @@
 
 9:
   name: "Oxygen Mask"
+  alt_name: "Gas Mask"
   cost: 2
   type: "PERMANENT"
   skills:

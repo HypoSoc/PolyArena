@@ -1,0 +1,59 @@
+4501:
+  text: "An unpleasant aura twists the campus grounds!"
+  info: "BROADCAST"
+  effect: "INFO"
+  trigger: "START_OF_GAME"
+
+4502:
+  text: "%SELF% put a sin offering on %TARGET%."
+  effect: "CONDITION"
+  info: "SUBTLE"
+  value: "PORTENT"
+  trigger: "TARGET"
+
+4503:
+  text: "Grant marking skill target"
+  effect: "TEMP_SKILL"
+  value: 4504
+  trigger: "TARGET"
+
+4504:
+  text: "Marked for attacking scapegoat"
+  effect: "TURN_CONDITION"
+  trigger: "ATTACKED_IGNORE_RANGE"
+  value: "MARKED"
+
+4505:
+  text: "The Scapegoat (%TARGET%) has been slain."
+  effect: "CONDITION"
+  value: "ONCE"
+  info: "PERSONAL"
+  trigger: "PLAYER_DIED"
+  self_override: true
+  target_has_condition: "PORTENT"
+
+4506:
+  text: "%TARGET%'s sin-mark burned."
+  effect: "GRIEVOUS"
+  info: "NARROW"
+  trigger: "ALL"
+  self_has_condition: "ONCE"
+  target_has_condition: "MARKED"
+  priority: 135
+
+4507:
+  text: "%TARGET%'s sins manifested."
+  effect: "CONDITION"
+  value: "MARKED"
+  trigger: "RANDOM_OTHER"
+  info: "SUBTLE"
+
+4508:
+  text: "%TARGET%'s feeble nature is manifested."
+  effect: "CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 3
+  info: "SUBTLE"
+  trigger: "ALL"
+  target_has_condition: "PORTENT"
+  priority: 10

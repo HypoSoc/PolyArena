@@ -1,0 +1,61 @@
+5301:
+  text: "The air crackled with energy!"
+  effect: "INFO"
+  info: "WIDE"
+  priority: 69.001
+
+5302:
+  text: "+1 Combat per other player in range."
+  effect: "COMBAT"
+  value: 1
+  trigger: "RANGE_EX_SELF"
+  self_override: true
+  priority: 20
+
+5303:
+  text: "+1 Surv per other player in range."
+  effect: "SURVIVABILITY"
+  value: 1
+  trigger: "RANGE_EX_SELF"
+  self_override: true
+  priority: 20
+
+5304:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: -5
+
+5305:
+  text: "War has erupted! All players MUST attack next turn."
+  effect: "INFO"
+  info: "UNMISTAKABLE"
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true
+
+5306:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true
+
+5307:
+  text: "Gain Once on Attacked"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "ATTACKED_IGNORE_RANGE"
+  self_override: true
+
+5308:
+  text: "You have gained Causus Belli."
+  info: "PERSONAL"
+  effect: "PERMANENT_CONDITION"
+  value: "CHARGE"
+  self_has_condition: "ONCE"
+  priority: 200

@@ -1,0 +1,63 @@
+# Kindness I (10): At the end of the year, gain 1 Academic Point for every three other living players, rounded down.
+# Kindness II (10): You can spend an action to heal any player's injuries. Self-heals are uninterruptible.
+# Kindness III (10): Each turn, a random player other than you will gain a Lizard Tail. (Narrow) (Fragile)
+# Kindness IV-V (10): Each turn, a random player will gain a Lizard Tail. (Narrow) (Fragile)
+
+4301:
+  name: "Kindness I"
+  concept: "KINDNESS"
+  cost: 10
+  skills: []
+  explanation: |-
+    At the end of the year, gain 1 Academic Point for every three other living players, rounded down.
+
+    Kindness II costs 10
+
+4302:
+  name: "Kindness II"
+  concept: "KINDNESS"
+  cost: 10
+  skills:
+    - 24
+  explanation: |-
+    You can spend an action to heal any player's injuries. Self-heals are uninterruptible.
+
+    Kindness III costs 10
+  prerequisite: 4301
+
+4303:
+  name: "Kindness III"
+  concept: "KINDNESS"
+  cost: 10
+  aero:
+    4301:
+      fragile: true
+  explanation: |-
+    Each turn, a random player other than you will gain a Lizard Tail. (Narrow) (Fragile)
+
+    Kindness IV costs 10
+  prerequisite: 4302
+
+4304:
+  name: "Kindness IV"
+  concept: "KINDNESS"
+  cost: 10
+  aero:
+    4302:
+      fragile: true
+  explanation: |-
+    Each turn, a random player will gain a Lizard Tail. (Narrow) (Fragile)
+
+    Kindness V costs 10
+  prerequisite: 4303
+
+4305:
+  name: "Kindness V"
+  concept: "KINDNESS"
+  cost: 10
+  aero:
+    4302:
+      fragile: true
+  explanation: |-
+    Each turn, a random player will gain a Lizard Tail. (Narrow) (Fragile)
+  prerequisite: 4304

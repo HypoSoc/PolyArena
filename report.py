@@ -167,7 +167,8 @@ class Report(object):
             # But there are potential edge cases with Runes, and Network Spike
             if not spy.has_ability("Awareness I") and not counter_int:
                 report += os.linesep
-                report += self.face_mask_replacement(get_combat_handler().get_combat_report_for_player(target),
+                report += self.face_mask_replacement(get_combat_handler()
+                                                     .get_combat_report_for_player_as_observer(target, spy),
                                                      player_name=spy.name)
 
             if spy.has_ability("Awareness II"):

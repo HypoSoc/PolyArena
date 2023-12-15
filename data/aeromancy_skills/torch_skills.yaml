@@ -1,0 +1,26 @@
+5501:
+  text: "%TARGET% caught fire."
+  effect: "NONLETHAL"
+  info: "NARROW"
+  trigger: "SPY"
+
+5502:
+  text: "Gain Awareness I"
+  effect: "GAIN_ABILITY_OR_PROGRESS"
+  value: 501
+  trigger: "ACQUISITION"
+  priority: 5
+
+5503:
+  text: "Gain Awareness II"
+  effect: "GAIN_ABILITY_OR_PROGRESS"
+  value: 502
+  trigger: "ACQUISITION"
+  priority: 6
+
+5504:
+  text: "Gain Ambush Tactics I"
+  effect: "GAIN_ABILITY_OR_PROGRESS"
+  value: 512
+  trigger: "ACQUISITION"
+  priority: 7
