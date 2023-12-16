@@ -113,18 +113,11 @@
   prerequisite: 501
 
 517:
-  name: "Aeromancy Intuition I"
+  name: "Aeromancy Intuition"
   cost: 5
   skills:
     - 117
   prerequisite: 501
-
-518:
-  name: "Aeromancy Intuition II"
-  cost: 20
-  skills:
-    - 116
-  prerequisite: 517
 
 519:
   name: "Market Connections I"

@@ -804,6 +804,7 @@
   trigger: "TARGET"
   priority: 89.5
   info: "PRIVATE"
+  self_not_condition: "INJURED"
 
 122:
   text: "Can Spy"

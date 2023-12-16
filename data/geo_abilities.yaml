@@ -427,16 +427,20 @@
   prerequisite: 135
 
 137:
-  name: "Light I"
+  name: "Light"
   cost: 5
   skills:
     - 52
   prerequisite: 101
 
 138:
-  name: "Light II"
+  name: "Kaleidoscope"
   cost: 5
   skills:
+    - 48
+    - 49
+    - 50
+    - 51
     - 52
   prerequisite: 137
 
