@@ -299,7 +299,7 @@ class Player:
             .replace(". you", ". You") \
             .replace("? you", "? You")
 
-        if not self.has_ability("Fraud I") and not self.has_ability("Aeromancy Intuition I"):
+        if not self.has_ability("Fraud I") and not self.has_ability("Aeromancy Intuition"):
             cleaned = cleaned.replace(" (FAKE)", "")
 
         gather = []

@@ -151,10 +151,11 @@ class Condition(IntEnum):
     NIGHT_LIGHT = 131
     PIERCE_ILLUSIONS = 132
     BLACKMAILING = 133
+    NO_PROGRESS_NEXT_TURN = 134
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
-               Condition.PORTENT, Condition.CURSED]
+               Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN]
 
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,

@@ -976,3 +976,22 @@
   trigger: "TARGET"
   priority: 200
   works_when_petrified: true
+
+147:
+  text: "%SELF% unleashed a flood of mud!"
+  effect: "INFO_ONCE"
+  info: "PUBLIC"
+
+148:
+  text: "Afflict No Progress Next Turn"
+  effect: "TURN_CONDITION"
+  value: "NO_PROGRESS_NEXT_TURN"
+  trigger: "RANGE_EX_SELF"
+
+149:
+  text: "You cannot progress this turn."
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "NONCOMBAT"
+  priority: -10

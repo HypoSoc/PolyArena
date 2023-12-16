@@ -2154,6 +2154,8 @@ class StatusChangeStep(Action):
                 player.report += os.linesep
                 if Condition.SANITARY in player.conditions:
                     player.conditions.remove(Condition.SANITARY)
+                if player.has_condition(Condition.NO_PROGRESS_NEXT_TURN):
+                    self.game.add_event_in_x_turns(1, 149, player)
                 if Condition.PETRIFIED in player.conditions:
                     if player not in Action.not_wandering:
                         get_main_report().add_action(
