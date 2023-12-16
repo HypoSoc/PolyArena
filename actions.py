@@ -1122,7 +1122,7 @@ class Craft(Action):
             if item.pin not in self.player.crafted_before:
                 self.player.crafted_before.append(item.pin)
                 if self.player.temperament == Temperament.INNOVATIVE:
-                    Action.progress(self.player, 2)
+                    Action.progress(self.player, 3)
         Action.add_action_record(self.player, Craft)
 
 
