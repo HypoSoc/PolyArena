@@ -1,7 +1,7 @@
 # Erode I (10): Whenever you attack a player, permanently reduce their Survivability by 1. (Subtle) (Fragile)
 #               This affects even the Petrified forms of players.
 # Erode II (10): +1 to your lowest Stat for every circuit attuned to Earth. (Fragile as if Geomancy)
-#                You can attune an additional circuit to Earth
+#                You can attune an additional circuit to Earth.
 #                You gain a circuit.
 # Erode III (5): Every turn, choose up to three players.
 #                If, at the end of the turn, you have at least three circuits attuned to Earth,
@@ -39,7 +39,7 @@
       each: true
   explanation: |-
     +1 to your lowest Stat for every circuit attuned to Earth. (Fragile as if Geomancy)
-    You can attune an additional circuit to Earth
+    You can attune an additional circuit to Earth.
     You gain a circuit.
 
     Erode III costs 5

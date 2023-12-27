@@ -12,7 +12,6 @@ if TYPE_CHECKING:
 class Game:
     def __init__(self, turn=1, night=False):
         self.seed = int(random.random() * 100000)
-        self.seed = 39587
         # Sets turn to one before provided, with the expectation that advance happens first
         self.turn = turn
         if not night:

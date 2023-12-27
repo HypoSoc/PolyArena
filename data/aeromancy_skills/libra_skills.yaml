@@ -69,7 +69,7 @@
   trigger: "NONCOMBAT"
   self_has_condition: "CHARGE"
   info: "PRIVATE"
-  priority: 1
+  priority: 11
 
 3010: 
   text: "Prevents from going to class"

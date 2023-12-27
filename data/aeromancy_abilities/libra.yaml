@@ -6,7 +6,6 @@
 #                While you do not have Charges, you cannot go to class.
 # Libra IV (10): While you have Charges, you have +2/+2. (fragile)
 # Libra V (5):   While you have a Charge, injuries you inflict are permanent and grievous. (fragile)
-#                While you don't have a Charge, you cannot gain progress. 
 
 3001:
   name: "Libra I"
@@ -84,10 +83,7 @@
       fragile: True
     3012:
       fragile: True
-    3013:
-      fragile: True
   explanation: |-
     While you have a Charge, injuries you inflict are permanent and grievous. (fragile)
-    While you don't have a Charge, you cannot gain progress. (fragile)
 
   prerequisite: 3004
