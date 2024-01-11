@@ -37,6 +37,7 @@ class Automata(Player):
         clone.tentative_conditions = self.tentative_conditions
         clone.temporary_abilities = self.temporary_abilities
         clone.temporary_skills = self.temporary_skills
+        clone.distracted = self.distracted
         return clone
 
     def serialize(self) -> Dict:

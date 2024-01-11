@@ -35,6 +35,7 @@ class Report(object):
         self.trades: List[Tuple['Player', 'Player', int, Dict['Item', int], List['Automata']]] = []
         self.bounties: List[Tuple['Player', 'Player', int]] = []
         self.hiding: Set['Player'] = set()
+        self.messages: List[Tuple['Player', List['Player'], str]] = []
 
     def reset(self):
         self.actions.clear()
@@ -50,6 +51,7 @@ class Report(object):
         self.trades.clear()
         self.bounties.clear()
         self.hiding.clear()
+        self.messages.clear()
 
     def add_action(self, player: "Player", content: str,
                    fake: bool = False, hidden: bool = False,
@@ -109,6 +111,9 @@ class Report(object):
 
     def apply_face_mask(self, user_name: str, target_name: str):
         self.face_mask[user_name] = target_name
+
+    def add_message(self, origin: 'Player', destination: List['Player'], msg: str):
+        self.messages.append((origin, destination, msg))
 
     def face_mask_replacement(self, message: str, player_name=""):
         # Make sure to use this line by line so the mask donning doesn't interfere
@@ -342,6 +347,41 @@ class Report(object):
         for player in sorted(set([target.name for (_, target, _) in self.bounties])):
             report += f"A bounty was placed on {player}." + os.linesep
         return report
+
+    @staticmethod
+    def player_list_to_string(players: List['Player']) -> str:
+        assert len(players)
+        temp = sorted([p.name for p in players])
+        if len(temp) == 1:
+            return temp[0]
+        if len(temp) == 2:
+            return f'{temp[0]} and {temp[1]}'
+        return f'{", ".join(temp[:-1])}, and {temp[-1]}'
+
+    def get_messages_for_player(self, player: 'Player'):
+        outbox: List[Tuple[str, str]] = []
+        inbox: List[Tuple[str, str, str]] = []
+        for origin, destination, msg in self.messages:
+            if origin.name == player.name:
+                outbox.append((Report.player_list_to_string(destination), msg))
+            elif player.has_ability("Panopticon"):
+                inbox.append((origin.name, Report.player_list_to_string(destination), msg))
+            elif player.name in [d.name for d in destination]:
+                inbox.append((self.face_mask_replacement(origin.name), Report.player_list_to_string(destination), msg))
+        box = ""
+        if outbox:
+            box += "Outbox:" + os.linesep
+            for destination, msg in outbox:
+                box += f'FROM {self.face_mask_replacement(player.name)}'
+                box += f' TO {destination}:' + os.linesep
+                box += msg + os.linesep + os.linesep
+        if inbox:
+            box += "Inbox:" + os.linesep
+            for origin, destination, msg in inbox:
+                box += f'FROM {origin}'
+                box += f' TO {destination}:' + os.linesep
+                box += msg + os.linesep + os.linesep
+        return box
 
 
 def get_main_report():

@@ -20,6 +20,7 @@ class Game:
         # Turn, Night, Skill Pin, Source player name, target names
         self.events: List[Tuple[int, bool, int, str, List[str]]] = []
         self.simulation = False
+        self.turn_seed = 0
 
         self.players: Dict[str, 'Player'] = {}
         self.automata: Dict[str, 'Player'] = {}
@@ -43,6 +44,7 @@ class Game:
         clone.night = self.night
         clone.events = []  # Todo if serializing
         clone.simulation = True
+        clone.turn_seed = 0
 
         if complete:
             clone.players = {c.name: c for c in [
@@ -80,6 +82,22 @@ class Game:
         if name in self.automata:
             return self.automata[name]
         raise Exception(f"Unknown player {name}.")
+
+    def random(self):
+        seed = self.turn * 2
+        if self.night:
+            seed += 1
+        random.seed(seed*10+self.turn_seed+self.seed)
+        self.turn_seed += 1
+        return random.random()
+
+    def choice(self, options):
+        seed = self.turn * 2
+        if self.night:
+            seed += 1
+        random.seed(seed*10+self.turn_seed+self.seed)
+        self.turn_seed += 1
+        return random.choice(options)
 
     def advance(self):
         if self.night:

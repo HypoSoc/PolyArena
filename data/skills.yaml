@@ -995,3 +995,18 @@
   value: "NO_PROGRESS"
   trigger: "NONCOMBAT"
   priority: -10
+
+150:
+  text: "Brewing Condition"
+  effect: "CONDITION"
+  value: "BREWING"
+  trigger: "NONCOMBAT"
+
+151:
+  text: "You distilled some of your poison."
+  info: "PRIVATE"
+  effect: "ITEM"
+  value: 10
+  trigger: "NONCOMBAT"
+  self_has_condition: "BREWING"
+  priority: 55

@@ -152,6 +152,7 @@ class Condition(IntEnum):
     PIERCE_ILLUSIONS = 132
     BLACKMAILING = 133
     NO_PROGRESS_NEXT_TURN = 134
+    BREWING = 135  # To make Toxin work with Fast Attune
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

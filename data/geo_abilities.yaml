@@ -445,6 +445,29 @@
   prerequisite: 137
 
 139:
+  name: "Toxin"
+  cost: 10
+  geo:
+    1:
+      circuits:
+        - "FIRE"
+        - "WATER"
+      fragile: true
+    2:
+      circuits:
+        - "FIRE"
+        - "WATER"
+      fragile: true
+    150:
+      circuits:
+        - "FIRE"
+        - "WATER"
+      fragile: true
+  skills:
+    - 151
+  prerequisite: 102
+
+140:
   name: "Lava"
   cost: 10
   geo:
@@ -468,20 +491,6 @@
         - "FIRE"
         - "EARTH"
       fragile: true
-  prerequisite: 102
-
-140:
-  name: "Mist"
-  cost: 10
-  geo:
-    135:
-      circuits:
-        - "AIR"
-        - "WATER"
-    136:
-      circuits:
-        - "AIR"
-        - "WATER"
   prerequisite: 102
 
 141:
@@ -522,6 +531,22 @@
   prerequisite: 102
 
 143:
+  name: "Mist"
+  cost: 10
+  geo:
+    135:
+      circuits:
+        - "WATER"
+        - "AIR"
+    136:
+      circuits:
+        - "WATER"
+        - "AIR"
+  prerequisite: 102
+
+# 144: Earth/Air
+
+145:
   name: "Warp"
   cost: 10
   skills:

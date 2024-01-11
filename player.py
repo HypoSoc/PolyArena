@@ -5,7 +5,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill
+    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill, SendMessage
 from combat import get_combat_handler
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
@@ -59,6 +59,8 @@ class Player:
         self.masking = False
         self.attuning = False
 
+        self.message_count = 0
+
         aeromancer = set()
 
         complete_ability_pins = [None]
@@ -109,6 +111,7 @@ class Player:
         self.report = ""
         self.action = Wander(self.game, self)
         self.bonus_action = None
+        self.distracted = False
 
         self.fake_action = Wander(None, self)
         self.fake_ability: Optional['Ability'] = None
@@ -165,6 +168,7 @@ class Player:
         clone.max_willpower = self.max_willpower
         clone.hydro_spells = self.hydro_spells
         clone.abilities_gained_this_turn = self.abilities_gained_this_turn
+        clone.distracted = self.distracted
         return clone
 
     def serialize(self) -> Dict:
@@ -226,8 +230,12 @@ class Player:
                     if trainer.has_condition(Condition.COUNTER_INT):
                         if trainer.has_condition(Condition.SUPER_COUNTER_INT) \
                                 or not self.has_condition(Condition.PIERCE_COUNTER_INT):
-                            trained = trainer.fake_ability.name
-                            if not isinstance(trainer.fake_action, Train):
+                            if trainer.fake_ability:
+                                trained = trainer.fake_ability.name
+                            else:
+                                trained = "nothing in particular"
+                            if not isinstance(trainer.fake_action, Train) \
+                                    and not (self.game.is_day() and isinstance(trainer.fake_action, Wander)):
                                 hidden = True
                     if not hidden:
                         training_report += f"{trainer.name} was training {trained}." + os.linesep
@@ -315,11 +323,16 @@ class Player:
                 gather.append("")
                 line_break = False
 
-        return os.linesep.join(gather).replace("you while they", "you while you") \
+        final = os.linesep.join(gather).replace("you while they", "you while you") \
             .replace("you (while they", "you (while you") \
             .replace("you were trying to heal themself", "you were trying to heal yourself") \
             .replace("you were trying to tattoo themself", "you were trying to tattoo yourself") \
             .replace("You expanded their mind", "You expanded your mind")
+
+        if get_main_report().get_messages_for_player(self):
+            final += os.linesep + get_main_report().get_messages_for_player(self)
+
+        return final
 
     def is_dead(self):
         return Condition.DEAD in self.conditions
@@ -362,6 +375,7 @@ class Player:
         if bonus:
             if self.bonus_action:
                 raise Exception(f"Player {self.name} is already taking a bonus.")
+            self.distracted = True
         else:
             if not isinstance(self.action, Wander):
                 raise Exception(f"Player {self.name} is already taking an action.")
@@ -677,6 +691,13 @@ class Player:
 
     def plan_get_tattoo(self, target: 'Player'):
         self.action = Canvas(self.game, self, target)
+
+    def plan_send_message(self, targets: List['Player'], message: str):
+        self.message_count += 1
+        assert self.message_count <= 3
+        assert len(message) < 350
+        assert len(targets) <= 5
+        SendMessage(self.game, self, targets, message)
 
     def get_awareness(self):
         awareness = 0
