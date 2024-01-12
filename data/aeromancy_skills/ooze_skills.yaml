@@ -6,6 +6,7 @@
   trigger: "ALL"
   target_has_condition: "DOCTOR"
   priority: 55
+  works_when_petrified: true
 
 4602:
   text: "%TARGET% was covered in slime."

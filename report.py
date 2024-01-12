@@ -371,13 +371,13 @@ class Report(object):
         box = ""
         if outbox:
             box += "Outbox:" + os.linesep
-            for destination, msg in outbox:
+            for destination, msg in sorted(outbox):
                 box += f'FROM {self.face_mask_replacement(player.name)}'
                 box += f' TO {destination}:' + os.linesep
                 box += msg + os.linesep + os.linesep
         if inbox:
             box += "Inbox:" + os.linesep
-            for origin, destination, msg in inbox:
+            for origin, destination, msg in sorted(inbox):
                 box += f'FROM {origin}'
                 box += f' TO {destination}:' + os.linesep
                 box += msg + os.linesep + os.linesep
