@@ -820,6 +820,9 @@ class Doctor(Action):
             self.player.report += f"{self.player.name} is now healthy." + os.linesep
         Action.add_action_record(self.player, Doctor)
         self.player.turn_conditions.append(Condition.DOCTOR)
+        # Reset Sanitary counter to 5
+        while Condition.SANITARY in self.player.conditions:
+            self.player.conditions.remove(Condition.SANITARY)
         self.player.conditions += [Condition.SANITARY] * 5
 
 
@@ -2220,13 +2223,13 @@ class Resurrect(Action):
         super().act()
 
     def _act(self):
-        # Delete stealable items and fragile items
         self.player.conditions = [
             condition for condition in self.player.conditions if condition not in AFFLICTIONS]
-        self.player.conditions.append(Condition.INJURED)
         if self.stealth:
             self.player.report += "You came back from the dead." + os.linesep
-        self.player.report += "You came back with an injury." + os.linesep
+        if not self.player.has_ability("Perfect Resurrection"):
+            self.player.conditions.append(Condition.INJURED)
+            self.player.report += "You came back with an injury." + os.linesep
         if self.stealth:
             self.player.conditions.append(Condition.HIDING)
             self.player.turn_conditions.append(Condition.FRESH_HIDING)

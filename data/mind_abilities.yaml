@@ -137,3 +137,11 @@
   skills:
     - 123
   prerequisite: 502
+
+522:
+  name: "Sabotage"
+  cost: 10
+  skills:
+    - 152
+    - 153
+  prerequisite: 502

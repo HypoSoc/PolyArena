@@ -42,7 +42,7 @@
 
 207:
   name: "Stealth Resurrection"
-  cost: 10
+  cost: 5
   skills:
     - 86
   prerequisite: 206
@@ -381,3 +381,9 @@
     - 133
     - 134
   prerequisite: 203
+
+241:
+  name: "Perfect Resurrection"
+  cost: 5
+  skills: []
+  prerequisite: 206

@@ -39,9 +39,9 @@
   self_not_condition: "ARMED_SET"
 
 7:
-  text: "Armed 4"
+  text: "Armed 5"
   effect: "WEAPON"
-  value: 4
+  value: 5
   priority: 22
   self_has_condition: "ARMED"
   self_not_condition: "ARMED_SET"
@@ -1010,3 +1010,19 @@
   trigger: "NONCOMBAT"
   self_has_condition: "BREWING"
   priority: 55
+
+152:
+  text: "You Sabotaged your rivals."
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "SABOTAGE"
+  trigger: "NONCOMBAT"
+  priority: 0
+
+153:
+  text: "-1 Combat to all players without Sabotage"
+  effect: "CONDITION"
+  value: "COMBAT_DOWN"
+  target_not_condition: "SABOTAGE"
+  trigger: "ALL"
+  priority: 5

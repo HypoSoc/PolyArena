@@ -8,7 +8,8 @@
   priority: 10
 
 2402:
-  text: "Mark as having a singing stone"
+  text: "The Singing Stone Rings"
+  info: "PRIVATE"
   effect: "CONDITION"
   value: "RINGING"
   trigger: "NONCOMBAT"

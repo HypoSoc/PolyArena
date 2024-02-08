@@ -1,6 +1,6 @@
 # War I (10): You get +1/+1 for every other player in range. (Wide) (Fragile)
 # War II (10): Gain a Charge.
-#              Each turn, you may spend a Charge to force ALL players to attack next turn. (Unmistakable) (Fragile)
+#              Each turn, you may spend a Charge to force ALL players to attack a living player next turn. (Unmistakable) (Fragile)
 # War III (20): At the end of each combat, if you were attacked, gain a Charge.
 
 5301:
@@ -32,7 +32,7 @@
       fragile: true
   explanation: |-
     Gain a Charge.
-    Each turn, you may spend a Charge to force ALL players to attack next turn. (Unmistakable) (Fragile)
+    Each turn, you may spend a Charge to force ALL players to attack a living player next turn. (Unmistakable) (Fragile)
 
     War III costs 20
   prerequisite: 5301

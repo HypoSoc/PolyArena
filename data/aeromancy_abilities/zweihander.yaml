@@ -1,7 +1,7 @@
 # Zweihander I (10): Gain a Cursed Sword.
 #                    The Cursed Sword grants -2 Combat and Survivability (even when Disarmed), prevents the use of other weapons, and cannot be traded.
 #                    You are immune to the stat penalty from your Cursed Sword.
-#                    As long as you have your Cursed Sword, you will Disarm anyone who attacks you or is attacked by you.
+#                    As long as you have your Cursed Sword, you will Disarm anyone in range who attacks you or is attacked by you.
 # Zweihander II (10): At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
 #                     As long as you have your Cursed Sword, +3 Combat and injuries you inflict in Combat are Grievous (even if disarmed). (Wide) (Fragile)
 # Zweihander III-VII (5): At the start of the next turn, if you don't have your Cursed Sword, gain a new one.
@@ -20,7 +20,7 @@
     Gain a Cursed Sword.
     The Cursed Sword grants -2 Combat and Survivability (even when Disarmed), prevents the use of other weapons, and cannot be traded.
     You are immune to the stat penalty from your Cursed Sword.
-    As long as you have your Cursed Sword, you will Disarm anyone who attacks you or is attacked by you. (Fragile)
+    As long as you have your Cursed Sword, you will Disarm anyone in range who attacks you or is attacked by you. (Fragile)
 
     Zweihander II costs 10
 

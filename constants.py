@@ -153,6 +153,7 @@ class Condition(IntEnum):
     BLACKMAILING = 133
     NO_PROGRESS_NEXT_TURN = 134
     BREWING = 135  # To make Toxin work with Fast Attune
+    SABOTAGE = 136  # Immune to Sabotage
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

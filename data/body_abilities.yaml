@@ -59,7 +59,7 @@
 
 409:
   name: "Combat Medicine"
-  cost: 10
+  cost: 5
   skills:
     - 29
   prerequisite: 401

@@ -1,5 +1,5 @@
-# Ooze I (10): Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile)
-#              Players that visit the Doctor are cleaned of Slime and are immune to your Slime for 4 turns.
+# Ooze I (10): Whenever a player attacks you, they will become Slimed if they are in range. (Narrow) (Fragile)
+#              Players that visit the Doctor are cleaned of Slime and are immune to your Slime for the next four turns.
 #              If any other player is Slimed at the start of the turn, you will resurrect when you die. (Fragile)
 # Ooze II (10): Gain a Charge.
 #               Every turn, you may spend a charge to Slime another player at the end of the turn. (Subtle) (Fragile)
@@ -19,8 +19,8 @@
     4604:
       fragile: true
   explanation: |-
-    Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile)
-    Players that visit the Doctor are cleaned of Slime and are immune to your Slime for 4 turns.
+    Whenever a player attacks you, they will become Slimed if they are in range. (Narrow) (Fragile)
+    Players that visit the Doctor are cleaned of Slime and are immune to your Slime for the next four turns.
     If any other player is Slimed at the start of the turn, you will resurrect when you die. (Fragile)
 
     Ooze II costs 10

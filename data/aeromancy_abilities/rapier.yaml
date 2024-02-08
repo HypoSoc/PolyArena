@@ -1,5 +1,5 @@
 # Rapier I (10): Gain a Sword.
-#                As long as you are armed, you will Disarm anyone who attacks you or is attacked by you.
+#                As long as you are armed, you will Disarm anyone in range who attacks you or is attacked by you.
 # Rapier II (10): As long as you are armed, you gain 3 Survivability. (Wide)
 # Rapier III (10): As long as you are armed, you will deal Nonlethal damage to anyone that attacks you before clashing. (Wide)
 # Rapier IV (10): As long as you are armed, you cannot be Wounded in Combat. (Wide)
@@ -14,7 +14,7 @@
     - 2103
   explanation: |-
     Gain a Sword.
-    As long as you are armed, you will Disarm anyone who attacks you or is attacked by you.
+    As long as you are armed, you will Disarm anyone in range who attacks you or is attacked by you.
 
     Rapier II costs 10
 

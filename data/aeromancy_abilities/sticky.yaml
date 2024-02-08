@@ -1,4 +1,4 @@
-# Sticky I (10): Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile)
+# Sticky I (10): Whenever a player attacks you, they will become Slimed if they are in range. (Narrow) (Fragile)
 #                Whenever you attack a Slimed player, consume the Slime to Petrify them at the start of combat. (Wide) (Fragile)
 # Sticky II (10): Each turn, choose another player. They will become Slimed at the end of the turn. (Subtle) (Fragile)
 # Sticky III (10): At the start of each turn, gain 1 progress for every Slimed player, to a maximum of 3.
@@ -17,7 +17,7 @@
     2503:
       fragile: true
   explanation: |-
-    Whenever a player attacks you, they will become Slimed. (Narrow) (Fragile)
+    Whenever a player attacks you, they will become Slimed if they are in range. (Narrow) (Fragile)
     Whenever you attack a Slimed player, consume the Slime to Petrify them at the start of combat. (Wide) (Fragile)
 
     Sticky II costs 10
@@ -74,6 +74,8 @@
   cost: 10
   aero:
     2513:
+      fragile: true
+    2514:
       fragile: true
   explanation: |-
     At the end of each turn, heal yourself. (Wide) (Fragile)

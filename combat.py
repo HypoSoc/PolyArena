@@ -892,7 +892,7 @@ class CombatHandler:
                     if a and a.check_relative_condition(p, Condition.SABOTAGED_KNOWLEDGE):
                         s -= 2
                     elif a and p.check_relative_condition(a, Condition.KNOW):
-                        s += 1
+                        s += 2
 
                     if s < 0:
                         s = 0
@@ -1169,10 +1169,9 @@ class CombatHandler:
             return True
 
         if not ignore_escape:
-            if (player, target) in self.escape:
-                return False
-            if (target, player) in self.escape:
-                return False
+            for (escapee, _ignored) in self.escape:
+                if escapee == player or escapee == target:
+                    return False
 
         if (player, target) in self.range_edges:
             return True

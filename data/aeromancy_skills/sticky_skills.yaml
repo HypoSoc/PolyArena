@@ -109,3 +109,10 @@
   info: "WIDE"
   trigger: "NONCOMBAT"
   priority: 80
+
+2514:
+  text: "%SELF% congealed into a healthier state."
+  effect: "INFO"
+  info: "PERSONAL"
+  trigger: "NONCOMBAT"
+  priority: 80

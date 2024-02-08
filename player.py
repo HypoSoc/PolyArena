@@ -385,7 +385,8 @@ class Player:
 
     # For turning off Petrify and the like
     def disable_ability(self, ability_name: str):
-        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION", "REALITY IMPOSITION", "ARMOR BREAK"):
+        if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION", "REALITY IMPOSITION",
+                                        "ARMOR BREAK", "SABOTAGE"):
             raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
         self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 
@@ -900,8 +901,14 @@ class Player:
 
     def condition_debug(self) -> List[str]:
         results = [condition.name for condition in self.conditions]
+        results = sorted(results)
         results.extend(self.relative_condition_debug())
-        return results
+        results_map = {}
+        for result in results:
+            if result not in results_map:
+                results_map[result] = 0
+            results_map[result] += 1
+        return results_map
 
     def total_progress(self) -> int:
         total = 0

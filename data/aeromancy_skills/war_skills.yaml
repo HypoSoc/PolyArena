@@ -28,7 +28,7 @@
   priority: -5
 
 5305:
-  text: "War has erupted! All players MUST attack next turn."
+  text: "War has erupted! All players MUST attack a living player next turn."
   effect: "INFO"
   info: "UNMISTAKABLE"
   trigger: "TARGET"
