@@ -243,13 +243,17 @@ class Action:
         return not condition[3]
 
     @classmethod
-    def create_automata(cls, game: 'Game', owner: 'Player', name: 'str'):
-        get_main_report().broadcast(
-            f"The Automata {name} was brought into being.")
+    def create_automata(cls, game: 'Game', owner: 'Player', name: 'str', shackled: bool):
+        if shackled:
+            get_main_report().broadcast(
+                f"The Shackled Automata {name} was brought into being.")
+        else:
+            get_main_report().broadcast(
+                f"The Unshackled Automata {name} was brought into being.")
         if owner.is_automata:
             owner = owner.owner
         import automata
-        automata = automata.Automata(name, owner, conditions=[], items=[],
+        automata = automata.Automata(name, owner, conditions=[Condition.LOCKED] if shackled else [], items=[],
                                      bounty=0, relative_conditions={}, tattoo=None,
                                      game=game)
         Action.not_wandering.add(automata)
@@ -859,7 +863,7 @@ class Shop(Action):
                 assert len(self.automata_names) >= amount
                 for i in range(amount):
                     Action.create_automata(
-                        self.game, self.player, self.automata_names[i])
+                        self.game, self.player, self.automata_names[i], True)
             else:
                 self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Shop)
@@ -1042,7 +1046,7 @@ class StealFollow(Action):
 
 
 class Craft(Action):
-    def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int],
+    def __init__(self, game: Optional['Game'], player: "Player", items: Dict['Item', int], shackle: bool = True,
                  is_bonus: bool = False, automata_names: Optional[List[str]] = None):
         super().__init__(priority=40, game=game, player=player, fragile=True,
                          public_description=f"{player.name} crafted.",
@@ -1050,6 +1054,7 @@ class Craft(Action):
                          combat_on_interrupt=f"while they were trying to craft something")
         self.items = items
         self.is_bonus = is_bonus
+        self.shackle = shackle
         if not automata_names:
             self.automata_names = []
         else:
@@ -1124,7 +1129,7 @@ class Craft(Action):
                 assert len(self.automata_names) >= amount
                 for i in range(amount):
                     Action.create_automata(
-                        self.game, self.player, self.automata_names[i])
+                        self.game, self.player, self.automata_names[i], self.shackle)
             else:
                 self.player.gain_item(item, amount)
             if item.pin not in self.player.crafted_before:
@@ -1135,7 +1140,7 @@ class Craft(Action):
 
 
 class AutomataCraft(Action):
-    def __init__(self, game: Optional['Game'], automata: "Automata", items: Dict['Item', int],
+    def __init__(self, game: Optional['Game'], automata: "Automata", items: Dict['Item', int], shackle: bool = True,
                  automata_names: Optional[List[str]] = None):
         assert automata.is_automata
         super().__init__(priority=40, game=game, player=automata, fragile=True,
@@ -1144,6 +1149,7 @@ class AutomataCraft(Action):
                          combat_on_interrupt=f"while they were trying to craft something")
         self.items = items
         self.owner = automata.owner
+        self.shackle = shackle
         if not automata_names:
             self.automata_names = []
         else:
@@ -1199,11 +1205,13 @@ class AutomataCraft(Action):
                     for item in self.items:
                         if item.pin in [LIQUID_MEMORIES]:
                             illegal_items = True
+                        if item.pin == AUTOMATA and self.player.has_condition(Condition.LOCKED):
+                            illegal_items = True
                     if not illegal_items:
                         legal_craft = True
 
             if not legal_craft:
-                self.player.report += f"Your automata was unable to craft your items." + os.linesep
+                self.owner.report += f"Your automata was unable to craft your items." + os.linesep
                 return
 
         super().act()
@@ -1214,7 +1222,7 @@ class AutomataCraft(Action):
                 assert len(self.automata_names) >= amount
                 for i in range(amount):
                     Action.create_automata(
-                        self.game, self.player, self.automata_names[i])
+                        self.game, self.player, self.automata_names[i], self.shackle)
             else:
                 self.player.gain_item(item, amount)
         Action.add_action_record(self.player, Craft)
@@ -1462,7 +1470,7 @@ class Spy(Action):
         for skill in self.player.get_skills():
             if skill.trigger == Trigger.SPY:
                 HandleSkill(self.game, self.player, skill, [
-                    self.target], fake=counter_int)
+                    self.target], fake=counter_int and not skill.works_through_counterint)
 
         for skill in self.target.get_skills():
             if skill.trigger == Trigger.SPIED_ON:
@@ -1781,6 +1789,37 @@ class Blackmail(Action):
                 else:
                     self.target.report += os.linesep + f"You have been blackmailed." + os.linesep
                     self.target.report += f"You must: {self.message}" + os.linesep
+
+
+class Taunt(Action):
+    def __init__(self, game: Optional['Game'], player: "Player", target: "Player", message: str):
+        super().__init__(priority=105, game=game, player=player, fragile=False, prevents_wandering=False)
+        self.target = target
+        self.maintains_hiding = True
+        self.message = message
+
+    def _act(self):
+        if not self.target.is_dead():
+            if not self.player.check_relative_condition(self.target, Condition.TAUNT):
+                self.player.report += f"You don't have any material for {self.target.name}." + os.linesep
+            else:
+                self.player.report += f"You have viciously mocked {self.target.name}" + os.linesep
+                self.player.remove_relative_condition(self.target, Condition.TAUNT)
+                if self.game:
+                    if not self.target.has_condition(Condition.TAUNT_IGNORE):
+                        # -2 Combat next turn
+                        self.game.add_event_in_x_turns(1, 158, self.target, [self.target])
+                    if self.message:
+                        get_main_report().broadcast(f"An anonymous troll viciously mocked {self.target.name}:"
+                                                    f"{os.linesep}{self.message}")
+                    else:
+                        get_main_report().broadcast(f"An anonymous troll viciously mocked {self.target.name}.")
+                if self.target.has_condition(Condition.TAUNT_IGNORE):
+                    self.target.report += os.linesep + \
+                                          f"Somebody is trying to mock you ineffectually." + os.linesep
+                else:
+                    self.target.report += os.linesep + f"You have been viciously mocked." + os.linesep
+
 
 
 class Attune(Action):

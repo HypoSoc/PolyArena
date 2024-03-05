@@ -68,6 +68,7 @@
   cost: 5
   skills:
     - 41
+    - 157
   prerequisite: 501
 
 511:
@@ -145,3 +146,10 @@
     - 152
     - 153
   prerequisite: 502
+
+523:
+  name: "Profiling"
+  cost: 10
+  skills:
+    - 156
+  prerequisite: 501

@@ -202,6 +202,12 @@ class Report(object):
                     else:
                         report += f"{target.name} is not working on anything."
 
+            if spy.has_ability("Profiling"):
+                temperament = target.temperament.name
+                if counter_int:
+                    temperament = target.get_fake_temperament().name
+                report += f"{target.name} appears to have a {temperament} temperament."
+
         return report
 
     def get_attunement_report(self, perspective_player: Optional['Player']) -> str:

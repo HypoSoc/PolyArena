@@ -805,6 +805,7 @@
   priority: 89.5
   info: "PRIVATE"
   self_not_condition: "INJURED"
+  target_not_condition: "PETRIFIED"
 
 122:
   text: "Can Spy"
@@ -1026,3 +1027,39 @@
   target_not_condition: "SABOTAGE"
   trigger: "ALL"
   priority: 5
+
+154:
+  text: "%SELF% summoned a cloud a Dust!"
+  effect: "INFO_ONCE"
+  info: "PUBLIC"
+  priority: 175
+
+155:
+  text: "%SELF% destroyed %TARGET%'s gear."
+  effect: "DUST"
+  info: "PRIVATE"
+  trigger: "RANGE_EX_SELF"
+  priority: 175
+
+156:
+  text: "%SELF% learned about a sore point for %TARGET%."
+  effect: "REL_CONDITION"
+  trigger: "SPY"
+  value: "TAUNT"
+  info: "PERSONAL"
+  priority: 85
+  works_through_counter_int: true
+
+157:
+  text: "Can Ignore Taunts"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "TAUNT_IGNORE"
+
+158:
+  text: "You are unsettled by your fresh humiliation."
+  effect: "CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 2
+  trigger: "NONCOMBAT"
+  info: "PERSONAL"

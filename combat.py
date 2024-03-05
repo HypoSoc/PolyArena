@@ -692,6 +692,8 @@ class CombatHandler:
                                     f"Trying to apply a temp skill that won't activate! {skill.value}")
                             temp_skill.player_of_origin = p
                             target.temporary_skills.append(temp_skill)
+                        elif skill.effect == Effect.DUST:
+                            target.destroy_consumables_and_reactives()
 
                         else:
                             raise Exception(
@@ -988,8 +990,7 @@ class CombatHandler:
             for player in group:
                 combat[player] = 0
                 survivability[player] = 0
-                conditions[player] = player.conditions[:] + \
-                                     player.turn_conditions[:]
+                conditions[player] = player.conditions[:] + player.turn_conditions[:]
 
                 if player.willpower:
                     conditions[player].append(Condition.HAS_WILLPOWER)
@@ -1015,17 +1016,13 @@ class CombatHandler:
 
                 if Condition.COMBAT_DOWN in conditions[player]:
                     combat_down_skill = Skill(-1, text="Combat -X", effect=Effect.COMBAT,
-                                              value=-1 *
-                                                    conditions[player].count(
-                                                        Condition.COMBAT_DOWN),
+                                              value=-1 * conditions[player].count(Condition.COMBAT_DOWN),
                                               priority=69, info=InfoScope.HIDDEN, trigger=Trigger.SELF)
                     queue.put(skill_tic(player, combat_down_skill))
 
                 if Condition.SURVIVABILITY_DOWN in conditions[player]:
                     survivability_down_skill = Skill(-1, text="Survivability -X", effect=Effect.SURVIVABILITY,
-                                                     value=-1 *
-                                                           conditions[player].count(
-                                                               Condition.SURVIVABILITY_DOWN),
+                                                     value=-1 * conditions[player].count(Condition.SURVIVABILITY_DOWN),
                                                      priority=69, info=InfoScope.HIDDEN, trigger=Trigger.SELF)
                     queue.put(skill_tic(player, survivability_down_skill))
 
@@ -1036,7 +1033,7 @@ class CombatHandler:
                     combat[player] += conditions[player].count(
                         Condition.IMBALANCE)
                 bal = conditions[player].count(Condition.BALANCE)
-                while (bal):
+                while bal:
                     bal -= 1
                     if combat[player] < survivability[player]:
                         combat[player] += 1
@@ -1316,7 +1313,6 @@ class CombatHandler:
                     if not self.check_range(player, other, ignore_escape=True):
                         report = report.replace(other.name, "Someone")
         return report
-
 
     def get_public_combat_report(self, intuition=False, ignore_player: Optional['Player'] = None):
         report = ""

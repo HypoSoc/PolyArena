@@ -4,7 +4,7 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
-    ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Steal, Attune, Craft, Tattoo, Canvas, \
+    ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Taunt, Steal, Attune, Craft, Tattoo, Canvas, \
     MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill, SendMessage
 from combat import get_combat_handler
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
@@ -137,6 +137,7 @@ class Player:
         self.used_illusion = False
         self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
         self.blackmail_placed: Set['Player'] = set()  # bookkeeping to prevent multiple blackmail placements
+        self.taunt_placed: Set['Player'] = set()  # bookkeeping to prevent multiple taunt placements
 
         self.is_automata = False
         self.owner = None
@@ -259,11 +260,6 @@ class Player:
                                    ignore_player=self,
                                    intuition=self.has_condition(Condition.INTUITION),
                                    aero_only=True)
-            self.report += os.linesep
-
-        if self.has_ability("Panopticon"):
-            self.report += os.linesep
-            self.report += "INSERT PANOPTICON COMMENTARY HERE"
             self.report += os.linesep
 
         if self.has_ability("Attunement Detection"):
@@ -506,6 +502,14 @@ class Player:
             raise Exception(f"Player {self.name} is trying to blackmail {target.name} when they don't have a hook.")
         Blackmail(self.game, self, target, message)
 
+    def plan_taunt(self, target: 'Player', message: str = ""):
+        if target in self.taunt_placed:
+            raise Exception(f"Player {self.name} is trying to taunt {target.name} multiple times.")
+        self.taunt_placed.add(target)
+        if not self.check_relative_condition(target, Condition.TAUNT):
+            raise Exception(f"Player {self.name} is trying to taunt {target.name} when they don't have a taunt.")
+        Taunt(self.game, self, target, message)
+
     def plan_consume_item(self, *item_names: 'str', ignore_possession_check=False):
         if self.consuming:
             raise Exception(f"Player {self.name} is trying to consume multiple times.")
@@ -659,7 +663,7 @@ class Player:
 
         self.used_illusion = True
 
-    def plan_craft(self, *item_names, automata_name: Union[Optional[List[str]], str] = None):
+    def plan_craft(self, *item_names, automata_name: Union[Optional[List[str]], str] = None, shackle: bool = True):
         if not automata_name:
             automata_name = []
         if not isinstance(automata_name, list):
@@ -674,7 +678,7 @@ class Player:
 
         items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
 
-        self.action = Craft(self.game, self, items, automata_names=automata_name)
+        self.action = Craft(self.game, self, items, automata_names=automata_name, shackle=shackle)
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)
@@ -707,6 +711,8 @@ class Player:
         if self.has_ability("Awareness II"):
             awareness += 1
         if self.has_ability("Awareness III"):
+            awareness += 1
+        if self.has_ability("Panopticon"):
             awareness += 1
         return awareness
 
@@ -867,6 +873,12 @@ class Player:
                 if skill.fragile:
                     skill.set_fragile(False)
         return skills
+
+    def get_fake_temperament(self):
+        seed = self.game.seed if self.game else 0
+        h = int(''.join(map(lambda x: '%.3d' % ord(x), self.name))) + seed
+        possible = [e for e in Temperament if e not in [Temperament.NONE, Temperament.PREPARED, self.temperament]]
+        return possible[h % len(possible)]
 
     def has_prerequisite(self, ability: Ability) -> bool:
         prerequisite = ability.get_prerequisite()
@@ -1127,6 +1139,16 @@ class Player:
         lost_items = {}
         for item in self.get_items(duplicates=True):
             if item.fragile or (include_loot and item.loot):
+                if item.pin not in lost_items:
+                    lost_items[item.pin] = 0
+                lost_items[item.pin] += 1
+        for item_pin, amount in lost_items.items():
+            self.lose_item(get_item(item_pin), amount)
+
+    def destroy_consumables_and_reactives(self):
+        lost_items = {}
+        for item in self.get_items(duplicates=True):
+            if item.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE]:
                 if item.pin not in lost_items:
                     lost_items[item.pin] = 0
                 lost_items[item.pin] += 1

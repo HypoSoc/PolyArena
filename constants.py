@@ -154,6 +154,8 @@ class Condition(IntEnum):
     NO_PROGRESS_NEXT_TURN = 134
     BREWING = 135  # To make Toxin work with Fast Attune
     SABOTAGE = 136  # Immune to Sabotage
+    TAUNT = 137
+    TAUNT_IGNORE = 138
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -229,6 +231,7 @@ class Effect(Enum):
     IMBALANCE = 38  # Buff the larger of Combat and Surv, prioritizing combat
     CONSUME = 39  # turns a condition into a list of conditions.
     TEMP_SKILL = 40  # Grant a skill for a turn
+    DUST = 41  # Destroy consumables and reactives
 
 
 class Trigger(Enum):

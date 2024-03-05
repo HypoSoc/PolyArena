@@ -497,6 +497,11 @@
   name: "Ash"
   cost: 10
   geo:
+    1:
+      circuits:
+        - "FIRE"
+        - "AIR"
+      fragile: true
     138:
       circuits:
         - "FIRE"
@@ -534,6 +539,16 @@
   name: "Mist"
   cost: 10
   geo:
+    1:
+      circuits:
+        - "WATER"
+        - "AIR"
+      fragile: true
+    2:
+      circuits:
+        - "WATER"
+        - "AIR"
+      fragile: true
     135:
       circuits:
         - "WATER"
@@ -544,7 +559,27 @@
         - "AIR"
   prerequisite: 102
 
-# 144: Earth/Air
+144:
+  name: "Dust"
+  cost: 10
+  geo:
+    2:
+      circuits:
+        - "EARTH"
+        - "AIR"
+      fragile: true
+    154:
+      circuits:
+        - "EARTH"
+        - "AIR"
+      fragile: true
+    155:
+      circuits:
+        - "EARTH"
+        - "AIR"
+      fragile: true
+  prerequisite: 102
+
 
 145:
   name: "Warp"
