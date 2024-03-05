@@ -28,7 +28,7 @@ class Skill:
         self.self_override = self_override
         self.value_b = value_b
         self.works_when_petrified = works_when_petrified
-        self.info_once_override = info_once_override,
+        self.info_once_override = info_once_override
         self.self_has_condition = self_has_condition
         self.self_not_condition = self_not_condition
         self.target_has_condition = target_has_condition
@@ -97,7 +97,7 @@ def __parse_skill(pin: int, dictionary: Dict) -> Skill:
                  self_override=dictionary.get('self_override', False),
                  value_b=dictionary.get('value_b'),
                  works_when_petrified=dictionary.get('works_when_petrified'),
-                 info_once_override=dictionary.get('info_once'),
+                 info_once_override=dictionary.get('info_once', False),
                  self_has_condition=sc,
                  self_not_condition=snc,
                  target_has_condition=tc,

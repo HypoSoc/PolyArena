@@ -41,12 +41,14 @@
   effect: "COMBAT"
   value: -10
   self_has_condition: "ECLIPSE"
+  works_when_petrified: True
 
 3907:
   text: "-10 Survivability"
   effect: "SURVIVABILITY"
   value: -10
   self_has_condition: "ECLIPSE"
+  works_when_petrified: True
 
 3908:
   text: "The SUN calls to you."
@@ -81,5 +83,13 @@
   trigger: "NONCOMBAT"
   self_has_condition: "ECLIPSE"
   priority: 1
+  works_when_petrified: True
+
+3912:
+  text: "-10 Survivability When Petrified"
+  effect: "TURN_CONDITION"
+  value: "CRUMBLING"
+  value_b: 10
+  self_has_condition: "ECLIPSE"
   works_when_petrified: True
 

@@ -1,9 +1,9 @@
 # Heliophile I (10):   On Day 6 and Night 6, there will be an Eclipse. This will be blatantly announced at the start the first day.
 #                      As long as it is not an Eclipse, you get +2/+2 (Wide) (Fragile)
-#                      During the Eclipse you get -10/-10
+#                      During the Eclipse you get -10/-10 (Even when petrified)
 # Heliophile II: (10): As long as it is not an Eclipse, you get 1 Progress a turn
 # Heliophile III (10): You have combat regen when not an Eclipse. (Fragile)
-# Heliophile IV (25):  Unless there is an Eclipse, you will resurrect when you die. (Fragile)
+# Heliophile IV (25):  Unless there is an Eclipse, you will resurrect when you die (even when petrified). (Fragile)
 
 3901:
   name: "Heliophile I"
@@ -15,6 +15,7 @@
     - 3906
     - 3907
     - 3911
+    - 3912
   aero:
     3904:
       fragile: true
@@ -23,7 +24,7 @@
   explanation: |-
     On Day 6 and Night 6, there will be an Eclipse. This will be blatantly announced at the start the first day.
     As long as it is not an Eclipse, you get +2/+2 (Wide) (Fragile)
-    During the Eclipse you get -10/-10
+    During the Eclipse you get -10/-10 (Even when petrified)
 
     Heliophile II costs 10
 
@@ -60,6 +61,6 @@
     3910:
       fragile: true
   explanation: |-
-    Unless there is an Eclipse, you will resurrect when you die. (Fragile)
+    Unless there is an Eclipse, you will resurrect when you die (even when petrified). (Fragile)
 
   prerequisite: 3903
