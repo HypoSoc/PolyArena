@@ -149,7 +149,7 @@
 
 523:
   name: "Profiling"
-  cost: 10
+  cost: 5
   skills:
     - 156
   prerequisite: 501
