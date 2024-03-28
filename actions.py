@@ -7,7 +7,7 @@ import random
 from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
-    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY
+    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY, NEGATIVE_CONDITIONS
 from items import get_item_by_name, get_item, Item, Rune
 from report import get_main_report
 

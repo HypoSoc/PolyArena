@@ -1,0 +1,30 @@
+{
+    "turn": 1,
+    "night": false,
+    "remaining": [
+        "Alpha",
+        "Beta"
+    ],
+    "events": [],
+    "players": {
+        "Alpha": {
+            "name": "Alpha",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "203": 5,
+                "204": 5,
+                "239": 10
+            },
+            "dev_plan": [],
+            "academics": 1,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 3,
+            "willpower": 4,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": 

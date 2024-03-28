@@ -141,7 +141,8 @@ class Condition(IntEnum):
     DEPLETED_CHARGE = 121  # For counting charges
     ONCE_AGAIN = 122  # For when a single ONCE isn't sufficient.
     BALANCE = 123  # the status equivalent of the balance skills, only acts during the combat phase
-    IMBALANCE = 124 # the status equivalent of the imbalance skills, only acts during the combat phase
+    # the status equivalent of the imbalance skills, only acts during the combat phase
+    IMBALANCE = 124
     INCREASED_SPEED = 125
     SUPPRESSED = 126
     SPY_IMMUNE = 127
@@ -160,6 +161,9 @@ class Condition(IntEnum):
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
                Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN]
+
+NEGATIVE_CONDITIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
+                       Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN, Condition.SICKENED, Condition.POLLUTED, Condition.CRUMBLING, Condition.SURVIVABILITY_DOWN, Condition.COMBAT_DOWN, Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED]
 
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,

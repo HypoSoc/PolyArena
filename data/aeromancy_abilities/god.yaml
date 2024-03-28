@@ -1,0 +1,11 @@
+9999:
+  name: "Environmental Regulator"
+  concept: "Environmental Regulator 1.6.23 - do not break"
+  cost: .inf
+  skills:
+    - 9999
+    - 9998
+    - 9997
+    - 9996
+  explanation: |-
+    Impetus for change. Controls the jar's condition.

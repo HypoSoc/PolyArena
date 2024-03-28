@@ -69,11 +69,13 @@ class Game:
 
         if not os.path.exists("save"):
             os.makedirs("save")
+        if not os.path.exists(f"save/{file_prefix}"):
+            os.makedirs(f"save/{file_prefix}")
 
-        with open(f"save/{file_prefix}_{self.to_file_suffix().replace(' ', '_').lower()}.json", 'w') as f:
+        with open(f"save/{file_prefix}/{self.to_file_suffix()}.json", 'w') as f:
             json.dump(serialized, f, indent=4)
 
-        with open(f"save/{file_prefix}.json", 'w') as f:
+        with open(f"save/{file_prefix}/current.json", 'w') as f:
             json.dump(serialized, f, indent=4)
 
     def get_player(self, name: str):

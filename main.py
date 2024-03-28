@@ -83,37 +83,41 @@ def create_automata(name: str, owner: 'Player', shackled: bool = True) -> Automa
                     game=GAME)
 
 
-def load(file_prefix: str):
-    with open(f"save/{file_prefix}.json", 'r') as f:
-        data = json.load(f)
-        global GAME
-        GAME = Game()
-        GAME.turn = data['turn']
-        GAME.night = data['night']
-        GAME.events = [tuple(event) for event in data['events']]
-        GAME.seed = data['seed']
+def load(file_prefix: str, turn: int = None, night: bool = None):
+    if turn is None or night is None:
+        f = open(f"save/{file_prefix}/current.json", 'r')
+    else:
+        f = open(
+            f"save/{file_prefix}/{turn}{'n' if night else 'd'}.json", 'r')
+    data = json.load(f)
+    global GAME
+    GAME = Game()
+    GAME.turn = data['turn']
+    GAME.night = data['night']
+    GAME.events = [tuple(event) for event in data['events']]
+    GAME.seed = data['seed']
 
-        for player_name, player_data in data['players'].items():
-            player_data['game'] = GAME
-            player_data['progress_dict'] = {
-                int(k): v for k, v in player_data['progress_dict'].items()}
-            player_data['temperament'] = Temperament(
-                player_data['temperament'])
-            player_data['conditions'] = [
-                Condition(_c) for _c in player_data['conditions']]
-            player_data['relative_conditions'] = {k: [Condition(_c) for _c in v]
-                                                  for k, v in player_data['relative_conditions'].items()}
-            Player(**player_data)
+    for player_name, player_data in data['players'].items():
+        player_data['game'] = GAME
+        player_data['progress_dict'] = {
+            int(k): v for k, v in player_data['progress_dict'].items()}
+        player_data['temperament'] = Temperament(
+            player_data['temperament'])
+        player_data['conditions'] = [
+            Condition(_c) for _c in player_data['conditions']]
+        player_data['relative_conditions'] = {k: [Condition(_c) for _c in v]
+                                              for k, v in player_data['relative_conditions'].items()}
+        Player(**player_data)
 
-        for automata_name, automata_data in data['automata'].items():
-            automata_data['owner'] = GAME.get_player(automata_data['owner'])
-            automata_data['game'] = GAME
-            automata_data['conditions'] = [
-                Condition(c) for c in automata_data['conditions']]
-            automata_data['relative_conditions'] = {k: [Condition(c) for c in v]
-                                                    for k, v in automata_data['relative_conditions'].items()}
+    for automata_name, automata_data in data['automata'].items():
+        automata_data['owner'] = GAME.get_player(automata_data['owner'])
+        automata_data['game'] = GAME
+        automata_data['conditions'] = [
+            Condition(c) for c in automata_data['conditions']]
+        automata_data['relative_conditions'] = {k: [Condition(c) for c in v]
+                                                for k, v in automata_data['relative_conditions'].items()}
 
-            Automata(**automata_data)
+        Automata(**automata_data)
 
 
 def horn_choice(horn: str):
@@ -187,7 +191,8 @@ def init():
     # Befoulment/Rapier/Zweihander
     # Silent but Deadly/Grand Heist
     create_player("Paradosi",
-                  ["Befoulment I", "Legacy Magic", "Armed Combat I", "Armored Combat"],
+                  ["Befoulment I", "Legacy Magic",
+                      "Armed Combat I", "Armored Combat"],
                   temperament=Temperament.HOT_BLOODED,
                   dev_goals=[])
     # Erode/Enfleshed/Rapier
@@ -216,7 +221,8 @@ def init():
                   dev_goals=["Body Reinforcement I", "Speed (Hydro) I", "Rapid Regen I", "Willpower II", "Rapid Regen II"])
     # Underdog/Contractor
     create_player("Teyao",
-                  ["Paperwork I", "Paperwork II", "Combat Medicine", "Circuit II", "Earth I", "Water I"],
+                  ["Paperwork I", "Paperwork II", "Combat Medicine",
+                      "Circuit II", "Earth I", "Water I"],
                   temperament=Temperament.ALTRUISTIC,
                   partial_dev={"Paperwork III": 5},
                   conditions=[Condition.RINGER],
@@ -234,37 +240,123 @@ def init():
                   dev_goals=["Combat Regeneration (Geo)", "Kaleidoscope", "Water I", "Water II"])
     # Hoarder/Money Bags
     create_player("Zeal Iskander",
-                  ["Awareness II", "Attunement Detection", "Willpower Detection", "Aeromancy Intuition", "Market Connections II"],
+                  ["Awareness II", "Attunement Detection", "Willpower Detection",
+                      "Aeromancy Intuition", "Market Connections II"],
                   temperament=Temperament.PRIVILEGED,
                   dev_goals=["Bolthole", "Profiling", "Awareness III"])
 
     summary()
 
 
-def summary():
+def summary(detailed=False, condensed=False):
     for player_name, player in GAME.players.items():
         if not player.is_dead():
-            out = f"{player_name} ({player.temperament.name})"
-            if player.academics:
-                out += f" [{player.academics} Academics]"
-            out += f": {[ability.name for ability in player.get_abilities(include_this_turn=True)]}" \
-                   f"({player.get_total_dev()}) "
-            if player.willpower:
-                out += f"({player.willpower} Willpower) "
-            if player.get_items(duplicates=True):
-                out += f"{[item.name for item in player.get_items(duplicates=True)]}"
-            out += f"({player.get_credits()} Credits) "
-            if player.condition_debug():
-                out += f"{player.condition_debug()}"
-            print(out)
-            print()
-    print()
+            if condensed:
+                out = f"{player_name} ({player.temperament.name})"
+                if player.academics:
+                    out += f" [{player.academics} Academics]"
+                out += f": {[ability.name for ability in player.get_abilities(include_this_turn=True)]}" \
+                    f"({player.get_total_dev()}) "
+                if player.willpower:
+                    out += f"({player.willpower} Willpower) "
+                if player.get_items(duplicates=True):
+                    out += f"{[item.name for item in player.get_items(duplicates=True)]}"
+                out += f"({player.get_credits()} Credits) "
+                if player.condition_debug():
+                    out += f"{player.condition_debug()}"
+                print(out)
+            else:
+                out = f"{player_name} ({player.temperament.name})"
+                if player.academics:
+                    out += f" [{player.academics} Academics]"
+                if player.max_willpower:
+                    out += f" ({player.willpower}/{player.max_willpower} Willpower)"
+                out += f'\n'
+                prerequisites = set(ability.get_prerequisite(
+                ).name for ability in player.get_abilities(include_this_turn=True) if ability.get_prerequisite())
+                if detailed:
+                    abilities = sorted([ability for ability in player.get_abilities(
+                        include_this_turn=True) if ability.name not in prerequisites], key=lambda x: x.pin)
+                    geo_abilities = [
+                        ability for ability in abilities if ability.pin < 200]
+                    hydro_abilities = [
+                        ability for ability in abilities if ability.pin >= 200 and ability.pin < 300]
+                    body_abilities = [
+                        ability for ability in abilities if ability.pin >= 400 and ability.pin < 500]
+                    mind_abilities = [
+                        ability for ability in abilities if ability.pin >= 500 and ability.pin < 600]
+                    aero_abilities = [
+                        ability for ability in abilities if ability.pin >= 600 or (ability.pin >= 300 and ability.pin < 400)]
+
+                    out += f"Abilities ({player.get_total_dev()} Total Progress):\n"
+                    if geo_abilities:
+                        out += f"  Geo: {', '.join([ability.name for ability in geo_abilities])}\n"
+                    if hydro_abilities:
+                        out += f"  Hydro: {', '.join([ability.name for ability in hydro_abilities])}\n"
+                    if aero_abilities:
+                        out += f"  Aero: {', '.join([ability.name for ability in aero_abilities])}\n"
+                    if body_abilities:
+                        out += f"  Body: {', '.join([ability.name for ability in body_abilities])}\n"
+                    if mind_abilities:
+                        out += f"  Mind: {', '.join([ability.name for ability in mind_abilities])}\n"
+
+                    partial = [f"{ability.name} ({progress}/{ability.cost})" for (ability, progress) in sorted(player.get_partial_abilities(
+                    ), key=lambda x: x[0].pin) if progress != 0]
+                    if partial:
+                        out += f"  Unfinished: {', '.join(partial)}\n"
+                else:
+                    out += f"Abilities: {', '.join([ability.name for ability in sorted(player.get_abilities(include_this_turn=True), key=lambda x: x.pin) if ability.name not in prerequisites])} ({player.get_total_dev()} Total Progress)\n"
+                out += "Items: "
+                if player.get_items_display():
+                    out += ', '.join([item + (' x' + str(amount) if amount > 1 or item == "Credits" else '')
+                                      for (item, amount) in player.get_items_display()]) + f" ({player.get_total_credit_value()} Total Credit Value)\n"
+                    if detailed:
+                        items = player.get_items()
+                        pins = [item.pin for item in items]
+                        if 4201 in pins:
+                            if (Condition.CURSE_IMMUNE in player.conditions):
+                                # Zweihander owner is immune to curse
+                                out += f"  Best Weapon: Zweihander (+0)\n"
+                            else:
+                                # else its kind of a -2/-2 weapon
+                                out += f"  Best Weapon: Zweihander (-2/-2)\n"
+                        else:
+                            weapons = [(item, skill) for item in items for skill in item.get_skills(
+                            ) if skill.effect == Effect.WEAPON]
+                            if weapons:
+                                best_weapon = max(
+                                    weapons, key=lambda x: x[1].value)
+                                out += f"  Best Weapon: {best_weapon[0].name} (+{best_weapon[1].value})\n"
+                        armors = [(item, skill) for item in items for skill in item.get_skills(
+                        ) if skill.effect == Effect.ARMOR]
+                        if armors:
+                            best_armor = max(armors, key=lambda x: x[1].value)
+                            out += f"  Best Armor: {best_armor[0].name} (+{best_armor[1].value})\n"
+                else:
+                    out += "None\n"
+                if player.condition_debug():
+                    if detailed:
+                        affliction_names = [
+                            condition.name for condition in NEGATIVE_CONDITIONS]
+                        afflictions = [(condition, amount) for (condition, amount) in player.condition_debug(
+                        ).items() if condition in affliction_names]
+                        not_afflictions = [(condition, amount) for (condition, amount) in player.condition_debug(
+                        ).items() if condition not in affliction_names]
+                        out += f"Conditions:\n"
+                        if not_afflictions:
+                            out += f"  Positive: {', '.join([condition + (' x' + str(amount) if amount > 1 else '') for (condition, amount) in not_afflictions])}\n"
+                        if afflictions:
+                            out += f"  Negative: {', '.join([condition + (' x' + str(amount) if amount > 1 else '') for (condition, amount) in afflictions])}\n"
+                    else:
+                        out += f"Conditions: {', '.join([condition + (' x' + str(amount) if amount > 1 else '') for (condition, amount) in  player.condition_debug().items()])}\n"
+
+                print(out)
 
 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     # init()
-    load("Y17")
+    load("Y17", turn=10, night=False)
 
     star = GAME.get_player("23Starman")
     arm = GAME.get_player("Armstrong")
@@ -288,6 +380,8 @@ if __name__ == '__main__':
     zeal = GAME.get_player("Zeal Iskander")
 
     GAME.advance()
+    # summary(detailed=True)
+    # exit(0)
 
     # # 23Starman: Golden Rule [Darkpiplumon, Paradosi, Touch Dom]
     # star.plan_hydro("Illusions I")
@@ -307,7 +401,7 @@ if __name__ == '__main__':
     # # # # # # # # # # # # # # # # # # # Darkpiplumon: No Escape 0/1
     dark.plan_consume_item("Paperwork")
     dark.plan_hydro("Enhanced Senses")
-    dark.plan_hydro("Body Reinforcement I", will=[1,0], contingency=False)
+    dark.plan_hydro("Body Reinforcement I", will=[1, 0], contingency=False)
     dark.plan_attune(Element.FIRE, Element.AIR, Element.ANTI, Element.WATER)
     dark.plan_attack(teyao)
     # # # # dark.plan_trade(drag, money=2, item_name_condition=(drag, 0, ['Leather Armor']))
@@ -387,7 +481,7 @@ if __name__ == '__main__':
 
     print(get_main_report().generate_report(GAME))
     # # # # # # #
-    summary()
+    summary(detailed=True)
 
     # GAME.save("Y17")
 
