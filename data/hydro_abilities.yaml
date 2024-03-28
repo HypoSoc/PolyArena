@@ -87,7 +87,7 @@
   cost: 10
   hydro:
     92:
-      cost: 5
+      cost: 1
   not_contingency: true
   prerequisite: 211
 

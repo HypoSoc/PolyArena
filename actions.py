@@ -793,8 +793,10 @@ class Class(Action):
             super().act()
         elif self.player.has_condition(Condition.NO_CLASS):
             self.player.report += f"{self.player.name} was kicked out of class." + os.linesep
+            get_main_report().broadcast(f"{self.player.name} was kicked out of class.")
         elif self.player in Action.no_class:
             self.player.report += f"{self.player.name} was kicked out of class for being disruptive." + os.linesep
+            get_main_report().broadcast(f"{self.player.name} was kicked out of class.")
         else:
             super().act()
 
@@ -845,10 +847,12 @@ class Shop(Action):
     def act(self):
         if self.player.has_condition(Condition.NO_SHOP):
             self.player.report += f"{self.player.name} was kicked out of shop club." + os.linesep
+            get_main_report().broadcast(f"{self.player.name} was kicked out of shop club.")
 
         elif Shop.get_total_cost(self.items) > self.player.get_credits():
             self.player.report += f"{self.player.name} was kicked out of shop club for not having enough credits." \
                                   + os.linesep
+            get_main_report().broadcast(f"{self.player.name} was kicked out of shop club.")
         else:
             super().act()
 
@@ -1592,10 +1596,10 @@ class Trade(Action):
                 failed_trade = True
         if self.items:
             for (item, amount) in self.items.items():
-                if item not in reserved_items:
-                    reserved_items[item] = 0
-                reserved_items[item] += amount
-                if self.player.items.count(item.pin) < reserved_items[item]:
+                if item.pin not in reserved_items:
+                    reserved_items[item.pin] = 0
+                reserved_items[item.pin] += amount
+                if self.player.items.count(item.pin) < reserved_items[item.pin]:
                     self.player.report += f"You do not have enough {item.name} to trade with {self.target.name}." \
                                           + os.linesep
                     failed_trade = True
@@ -1910,6 +1914,8 @@ class Illusion(Action):
 
         if self.target not in Illusion.handled:
             self.target.fake_action = self.fake_action
+            if isinstance(self.fake_action, Wander):
+                self.target.action.maintains_hiding = True
             get_main_report().add_action(
                 self.target, self.fake_action.public_description, fake=True)
             Action.add_action_record(self.target, type(self.fake_action),
