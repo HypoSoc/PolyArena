@@ -1,0 +1,648 @@
+{
+    "turn": 1,
+    "night": true,
+    "seed": 35659,
+    "remaining": [
+        "Aquinas",
+        "Aristotle",
+        "Bacon",
+        "Bentham",
+        "Camus",
+        "Carnap",
+        "Descartes",
+        "Diogenes",
+        "Hume",
+        "Kant",
+        "Mill",
+        "Plato",
+        "Popper",
+        "Pythagoras",
+        "Sartre",
+        "Singer",
+        "Socrates",
+        "Sun Tzu",
+        "Thales",
+        "Zeno"
+    ],
+    "events": [
+        [
+            5,
+            false,
+            120,
+            "Camus",
+            []
+        ],
+        [
+            5,
+            false,
+            120,
+            "Thales",
+            []
+        ],
+        [
+            2,
+            false,
+            149,
+            "Aristotle",
+            []
+        ]
+    ],
+    "players": {
+        "Aquinas": {
+            "name": "Aquinas",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "113": 10,
+                "127": 5,
+                "132": 5,
+                "128": 5
+            },
+            "dev_plan": [
+                128,
+                103
+            ],
+            "academics": 1,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [
+                2
+            ],
+            "items": [],
+            "money": 4,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Aristotle": {
+            "name": "Aristotle",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "203": 5,
+                "217": 5,
+                "218": 5,
+                "220": 10,
+                "229": 5,
+                "230": 10,
+                "232": 4
+            },
+            "dev_plan": [
+                232,
+                204,
+                240,
+                222,
+                205,
+                221,
+                223
+            ],
+            "academics": 0,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [
+                97,
+                112
+            ],
+            "items": [],
+            "money": 6,
+            "willpower": 7,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Bacon": {
+            "name": "Bacon",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "222": 5,
+                "223": 10,
+                "501": 5,
+                "203": 5,
+                "229": 1
+            },
+            "dev_plan": [
+                229,
+                231,
+                204
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 6,
+            "willpower": 5,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Bentham": {
+            "name": "Bentham",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "122": 5,
+                "127": 5,
+                "142": 10,
+                "103": 5,
+                "123": 2
+            },
+            "dev_plan": [
+                123,
+                104,
+                124
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                9
+            ],
+            "money": 1,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Camus": {
+            "name": "Camus",
+            "progress_dict": {
+                "306": 5,
+                "2501": 10,
+                "2502": 10,
+                "2503": 10,
+                "101": 5
+            },
+            "dev_plan": [
+                132
+            ],
+            "academics": 0,
+            "temperament": 5,
+            "concept": "STICKY",
+            "conditions": [],
+            "items": [
+                1
+            ],
+            "money": 1,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Carnap": {
+            "name": "Carnap",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "107": 5,
+                "127": 5,
+                "128": 10,
+                "132": 5,
+                "129": 4
+            },
+            "dev_plan": [
+                129,
+                103,
+                130
+            ],
+            "academics": 1,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 4,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Descartes": {
+            "name": "Descartes",
+            "progress_dict": {
+                "306": 5,
+                "801": 10,
+                "802": 15,
+                "101": 5,
+                "127": 5
+            },
+            "dev_plan": [
+                102
+            ],
+            "academics": 0,
+            "temperament": 3,
+            "concept": "CONDUCTOR",
+            "conditions": [],
+            "items": [
+                9
+            ],
+            "money": 2,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Diogenes": {
+            "name": "Diogenes",
+            "progress_dict": {
+                "306": 5,
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "5001": 10,
+                "5002": 5,
+                "408": 1
+            },
+            "dev_plan": [
+                408,
+                501
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": "PINATA",
+            "conditions": [],
+            "items": [],
+            "money": 6,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Hume": {
+            "name": "Hume",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "210": 10,
+                "220": 10,
+                "229": 5,
+                "203": 3
+            },
+            "dev_plan": [
+                203,
+                230,
+                204,
+                232
+            ],
+            "academics": 1,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 4,
+            "willpower": 5,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Kant": {
+            "name": "Kant",
+            "progress_dict": {
+                "101": 5,
+                "117": 5,
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "408": 5,
+                "501": 5,
+                "120": 2
+            },
+            "dev_plan": [
+                120,
+                102
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                5
+            ],
+            "money": 2,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Mill": {
+            "name": "Mill",
+            "progress_dict": {
+                "101": 5,
+                "132": 5,
+                "133": 10,
+                "4001": 10,
+                "102": 5,
+                "122": 3
+            },
+            "dev_plan": [
+                122,
+                114
+            ],
+            "academics": 0,
+            "temperament": 8,
+            "concept": "MIGRAINE",
+            "conditions": [
+                112,
+                18
+            ],
+            "items": [],
+            "money": 5,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Plato": {
+            "name": "Plato",
+            "progress_dict": {
+                "201": 5,
+                "235": 10,
+                "236": 10,
+                "237": 10,
+                "202": 2
+            },
+            "dev_plan": [
+                202,
+                203,
+                204,
+                222,
+                227,
+                228
+            ],
+            "academics": 0,
+            "temperament": 10,
+            "concept": null,
+            "conditions": [
+                2
+            ],
+            "items": [
+                2401,
+                8,
+                23
+            ],
+            "money": 4,
+            "willpower": 3,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": [
+                8,
+                23
+            ]
+        },
+        "Popper": {
+            "name": "Popper",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "132": 5,
+                "133": 10,
+                "135": 10,
+                "107": 5
+            },
+            "dev_plan": [
+                136,
+                137,
+                125
+            ],
+            "academics": 1,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 4,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Pythagoras": {
+            "name": "Pythagoras",
+            "progress_dict": {
+                "501": 5,
+                "502": 5,
+                "503": 5,
+                "504": 10,
+                "516": 5,
+                "515": 5,
+                "517": 4
+            },
+            "dev_plan": [
+                517,
+                519
+            ],
+            "academics": 0,
+            "temperament": 3,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                9
+            ],
+            "money": 2,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Sartre": {
+            "name": "Sartre",
+            "progress_dict": {
+                "201": 5,
+                "229": 5,
+                "230": 10,
+                "238": 10,
+                "202": 5,
+                "222": 2
+            },
+            "dev_plan": [
+                222,
+                203,
+                223
+            ],
+            "academics": 0,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                9,
+                8
+            ],
+            "money": 1,
+            "willpower": 7,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Singer": {
+            "name": "Singer",
+            "progress_dict": {
+                "101": 5,
+                "306": 5,
+                "2001": 10,
+                "2002": 10,
+                "2003": 10,
+                "127": 5
+            },
+            "dev_plan": [
+                2004
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": "PARADE",
+            "conditions": [
+                77,
+                77,
+                77
+            ],
+            "items": [
+                9,
+                8
+            ],
+            "money": 5,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Socrates": {
+            "name": "Socrates",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "117": 5,
+                "127": 5,
+                "128": 10,
+                "120": 7
+            },
+            "dev_plan": [
+                120,
+                118,
+                140,
+                103
+            ],
+            "academics": 0,
+            "temperament": 4,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                9
+            ],
+            "money": 2,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Sun Tzu": {
+            "name": "Sun Tzu",
+            "progress_dict": {
+                "101": 5,
+                "127": 5,
+                "128": 10,
+                "130": 10,
+                "201": 5,
+                "232": 5,
+                "5301": 10,
+                "102": 4
+            },
+            "dev_plan": [
+                102,
+                5302
+            ],
+            "academics": 0,
+            "temperament": 3,
+            "concept": "WAR",
+            "conditions": [
+                97
+            ],
+            "items": [],
+            "money": 4,
+            "willpower": 3,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Thales": {
+            "name": "Thales",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "210": 10,
+                "1501": 10,
+                "501": 5,
+                "502": 5,
+                "211": 3
+            },
+            "dev_plan": [
+                211,
+                203,
+                212,
+                204,
+                220,
+                503,
+                1502,
+                1503
+            ],
+            "academics": 0,
+            "temperament": 5,
+            "concept": "GAZE",
+            "conditions": [
+                2
+            ],
+            "items": [],
+            "money": 4,
+            "willpower": 5,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Zeno": {
+            "name": "Zeno",
+            "progress_dict": {
+                "4801": 10,
+                "4802": 10,
+                "4803": 10,
+                "101": 5,
+                "127": 3
+            },
+            "dev_plan": [
+                127,
+                128,
+                501,
+                102
+            ],
+            "academics": 0,
+            "temperament": 3,
+            "concept": "VOLTAGE",
+            "conditions": [],
+            "items": [],
+            "money": 4,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        }
+    },
+    "automata": {}
+}

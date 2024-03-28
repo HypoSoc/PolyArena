@@ -1,0 +1,23 @@
+9999: 
+  text: "Some measure of self-improvement, to protect and destroy."
+  effect: "PROGRESS"
+  value: 5
+  info: "NARROW"
+  trigger: "ALL"
+  priority: 89
+  works_when_petrified: true
+
+9998:
+  text: "Some coin, to buy yourself trinkets and baubles."
+  effect: "CREDITS"
+  value: 2
+  info: "NARROW"
+  trigger: "ALL"
+  priority: 89
+  works_when_petrified: true
+
+9996: 
+  text: "Some measure of self-repair, at least"
+  effect: "PERMANENT_CONDITION"
+  value: "RESURRECT"
+  trigger: "ACQUISITION"

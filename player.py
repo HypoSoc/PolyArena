@@ -50,7 +50,8 @@ class Player:
         self.credits = money
         self.willpower = willpower
         self.bounty = bounty
-        self.relative_conditions = relative_conditions  # Used for Hooks, Know thy enemy, and aeromancy_abilities
+        # Used for Hooks, Know thy enemy, and aeromancy_abilities
+        self.relative_conditions = relative_conditions
         self.tattoo = tattoo  # Rune item pin
         self.crafted_before = crafted_before
         self.game = game
@@ -82,12 +83,14 @@ class Player:
             ability = get_ability(ability_pin)
             if progress > 0:
                 if ability_pin == LEGACY_MAGIC:
-                    legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(601, 10001, 100)]
+                    legacy_prereqs = [
+                        pin for pin in complete_ability_pins if pin in range(601, 10001, 100)]
                     if not len(legacy_prereqs):
                         raise Exception(f"Player {name} is missing prerequisite "
                                         f"for ability {ability.name}")
                 elif ability_pin == REALITY_IMPOSITION:
-                    legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(603, 10003, 100)]
+                    legacy_prereqs = [
+                        pin for pin in complete_ability_pins if pin in range(603, 10003, 100)]
                     if not len(legacy_prereqs):
                         raise Exception(f"Player {name} is missing prerequisite "
                                         f"for ability {ability.name}")
@@ -106,7 +109,8 @@ class Player:
                 self.concept = list(aeromancer)[0]
 
         self.dev_plan = dev_plan
-        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
+        self._validate_dev_plan(
+            self.dev_plan, complete_ability_pins, self.name)
 
         self.report = ""
         self.action = Wander(self.game, self)
@@ -121,8 +125,10 @@ class Player:
         self.turn_conditions = []
         self.circuits: Iterable[Element] = []
         self.tentative_conditions = []
-        self.temporary_abilities: List[int] = []  # Used for non skill based abilities from runes
-        self.temporary_skills: List[Skill] = []  # Used for skills granted toa  player for a turn
+        # Used for non skill based abilities from runes
+        self.temporary_abilities: List[int] = []
+        # Used for skills granted toa  player for a turn
+        self.temporary_skills: List[Skill] = []
 
         self.max_willpower = 0  # Comes from abilities
         self.hydro_spells: Dict[int, List[int]] = {}
@@ -135,9 +141,12 @@ class Player:
         self.tattoo_choice: int = -1
 
         self.used_illusion = False
-        self.bounties_placed: Set['Player'] = set()  # bookkeeping to prevent multiple bounty placements
-        self.blackmail_placed: Set['Player'] = set()  # bookkeeping to prevent multiple blackmail placements
-        self.taunt_placed: Set['Player'] = set()  # bookkeeping to prevent multiple taunt placements
+        # bookkeeping to prevent multiple bounty placements
+        self.bounties_placed: Set['Player'] = set()
+        # bookkeeping to prevent multiple blackmail placements
+        self.blackmail_placed: Set['Player'] = set()
+        # bookkeeping to prevent multiple taunt placements
+        self.taunt_placed: Set['Player'] = set()
 
         self.is_automata = False
         self.owner = None
@@ -154,7 +163,8 @@ class Player:
                        academics=self.academics, temperament=self.temperament, concept=self.concept,
                        conditions=self.conditions.copy(),
                        items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
-                       relative_conditions={k: v[:] for k, v in self.relative_conditions.items()},
+                       relative_conditions={
+                           k: v[:] for k, v in self.relative_conditions.items()},
                        tattoo=self.tattoo, crafted_before=self.crafted_before,
                        game=game)
         clone.disabled_ability_pins = set()
@@ -258,7 +268,8 @@ class Player:
             self.report += get_main_report() \
                 .get_action_report(pierce_illusions=self.has_condition(Condition.PIERCE_ILLUSIONS),
                                    ignore_player=self,
-                                   intuition=self.has_condition(Condition.INTUITION),
+                                   intuition=self.has_condition(
+                                       Condition.INTUITION),
                                    aero_only=True)
             self.report += os.linesep
 
@@ -337,21 +348,26 @@ class Player:
     def _validate_dev_plan(dev_plan, complete_ability_pins, name):
         for ability_pin in dev_plan:
             if (ability_pin % 100 + 300 if ability_pin > 700 else ability_pin) == CONCEPT_I:
-                raise Exception(f"Player {name} is trying to learn Concept I without starting with it.")
+                raise Exception(
+                    f"Player {name} is trying to learn Concept I without starting with it.")
             if ability_pin == LEGACY_MAGIC:
-                raise Exception(f"Player {name} is trying to learn Legacy Magic without starting with it.")
+                raise Exception(
+                    f"Player {name} is trying to learn Legacy Magic without starting with it.")
             ability = get_ability(ability_pin)
 
             if ability_pin in complete_ability_pins:
-                raise Exception(f"Player {name} already has dev plan ability {ability.name}")
+                raise Exception(
+                    f"Player {name} already has dev plan ability {ability.name}")
 
             if ability_pin == LEGACY_MAGIC:
-                legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(601, 10001, 100)]
+                legacy_prereqs = [
+                    pin for pin in complete_ability_pins if pin in range(601, 10001, 100)]
                 if not len(legacy_prereqs):
                     raise Exception(f"Player {name} is missing prerequisite "
                                     f"for ability {ability.name}")
             elif ability_pin == REALITY_IMPOSITION:
-                legacy_prereqs = [pin for pin in complete_ability_pins if pin in range(603, 10003, 100)]
+                legacy_prereqs = [
+                    pin for pin in complete_ability_pins if pin in range(603, 10003, 100)]
                 if not len(legacy_prereqs):
                     raise Exception(f"Player {name} is missing prerequisite "
                                     f"for ability {ability.name}")
@@ -361,29 +377,36 @@ class Player:
             complete_ability_pins.append(ability_pin)
 
     def set_dev_plan(self, *ability_names: str):
-        self.dev_plan = [get_ability_by_name(ability).pin for ability in ability_names]
-        complete_ability_pins = [ability.pin for ability in self.get_abilities()]
-        self._validate_dev_plan(self.dev_plan, complete_ability_pins, self.name)
+        self.dev_plan = [get_ability_by_name(
+            ability).pin for ability in ability_names]
+        complete_ability_pins = [
+            ability.pin for ability in self.get_abilities()]
+        self._validate_dev_plan(
+            self.dev_plan, complete_ability_pins, self.name)
 
     def _generic_action_check(self, bonus=False, day_only=False) -> NoReturn:
         if self.is_dead():
             raise Exception(f"Player {self.name} is DEAD and cannot act.")
         if bonus:
             if self.bonus_action:
-                raise Exception(f"Player {self.name} is already taking a bonus.")
+                raise Exception(
+                    f"Player {self.name} is already taking a bonus.")
             self.distracted = True
         else:
             if not isinstance(self.action, Wander):
-                raise Exception(f"Player {self.name} is already taking an action.")
+                raise Exception(
+                    f"Player {self.name} is already taking an action.")
         if day_only:
             if not self.game.is_day():
-                raise Exception(f"Player {self.name} is trying to take a day only action at night.")
+                raise Exception(
+                    f"Player {self.name} is trying to take a day only action at night.")
 
     # For turning off Petrify and the like
     def disable_ability(self, ability_name: str):
         if ability_name.upper() not in ("PETRIFICATION I", "STEALTH RESURRECTION", "REALITY IMPOSITION",
                                         "ARMOR BREAK", "SABOTAGE"):
-            raise Exception(f"Not toggleable ability? {ability_name}")  # Case by case basis
+            # Case by case basis
+            raise Exception(f"Not toggleable ability? {ability_name}")
         self.disabled_ability_pins.add(get_ability_by_name(ability_name).pin)
 
     def plan_fake_ability(self, ability: Union[Ability, str]):
@@ -421,15 +444,18 @@ class Player:
                 item_names_to_amount[item_name] = 0
             item_names_to_amount[item_name] += 1
 
-        items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
+        items = {get_item_by_name(item_name): amount for (
+            item_name, amount) in item_names_to_amount.items()}
 
         for item in items:
             if item.cost < 0:
-                raise Exception(f"Player {self.name} is trying to buy an item that is not for sale {item.name}.")
+                raise Exception(
+                    f"Player {self.name} is trying to buy an item that is not for sale {item.name}.")
 
         # if Shop.get_total_cost(items) > self.get_credits():
         #     raise Exception(f"Player {self.name} is trying to buy more than they can afford.")
-        self.action = Shop(self.game, self, items, automata_names=automata_name)
+        self.action = Shop(self.game, self, items,
+                           automata_names=automata_name)
 
     def plan_train(self):
         self._generic_action_check()
@@ -445,13 +471,17 @@ class Player:
     def plan_attack(self, *targets: "Player"):
         self._generic_action_check()
         if len(targets) != len(set(targets)):
-            raise Exception(f"Player {self.name} is trying to attack the same enemy multiple times.")
+            raise Exception(
+                f"Player {self.name} is trying to attack the same enemy multiple times.")
         if len(targets) > 3:
-            raise Exception(f"Player {self.name} is trying to attack too many enemies.")
+            raise Exception(
+                f"Player {self.name} is trying to attack too many enemies.")
         for target in targets:
             if target.name == self.name:
-                raise Exception(f"Player {self.name} is trying to attack themselves.")
-        filtered_targets = [target for target in targets if not target.is_dead()]
+                raise Exception(
+                    f"Player {self.name} is trying to attack themselves.")
+        filtered_targets = [
+            target for target in targets if not target.is_dead()]
         if filtered_targets:
             if len(filtered_targets) == 1:
                 self.action = Attack(self.game, self, filtered_targets[0])
@@ -470,7 +500,8 @@ class Player:
         self._generic_action_check()
         ability = get_ability_by_name(ability_name)
         if ability not in self.get_abilities():
-            raise Exception(f"Player {self.name} is trying to teach an ability they don't have ({ability_name}).")
+            raise Exception(
+                f"Player {self.name} is trying to teach an ability they don't have ({ability_name}).")
         self.action = Teach(self.game, self, target, ability)
 
     def plan_learn(self, target: "Player"):
@@ -487,32 +518,39 @@ class Player:
         if self.has_ability("Awareness III"):
             max_targets += 1
         if len(targets) > max_targets:
-            raise Exception(f"Player {self.name} is trying to spy on too many targets.")
+            raise Exception(
+                f"Player {self.name} is trying to spy on too many targets.")
         for target in targets:
             if target == self:
-                raise Exception(f"Player {self.name} is trying to spy on themself.")
+                raise Exception(
+                    f"Player {self.name} is trying to spy on themself.")
             # It doesn't matter this overwrites. We just need at least one set to the Class
             self.bonus_action = Spy(self.game, self, target)
 
     def plan_blackmail(self, target: 'Player', message: str):
         if target in self.blackmail_placed:
-            raise Exception(f"Player {self.name} is trying to blackmail {target.name} multiple times.")
+            raise Exception(
+                f"Player {self.name} is trying to blackmail {target.name} multiple times.")
         self.blackmail_placed.add(target)
         if not self.check_relative_condition(target, Condition.HOOK):
-            raise Exception(f"Player {self.name} is trying to blackmail {target.name} when they don't have a hook.")
+            raise Exception(
+                f"Player {self.name} is trying to blackmail {target.name} when they don't have a hook.")
         Blackmail(self.game, self, target, message)
 
     def plan_taunt(self, target: 'Player', message: str = ""):
         if target in self.taunt_placed:
-            raise Exception(f"Player {self.name} is trying to taunt {target.name} multiple times.")
+            raise Exception(
+                f"Player {self.name} is trying to taunt {target.name} multiple times.")
         self.taunt_placed.add(target)
         if not self.check_relative_condition(target, Condition.TAUNT):
-            raise Exception(f"Player {self.name} is trying to taunt {target.name} when they don't have a taunt.")
+            raise Exception(
+                f"Player {self.name} is trying to taunt {target.name} when they don't have a taunt.")
         Taunt(self.game, self, target, message)
 
     def plan_consume_item(self, *item_names: 'str', ignore_possession_check=False):
         if self.consuming:
-            raise Exception(f"Player {self.name} is trying to consume multiple times.")
+            raise Exception(
+                f"Player {self.name} is trying to consume multiple times.")
         self.consuming = True
         for item_name in item_names:
             item = get_item_by_name(item_name)
@@ -520,22 +558,28 @@ class Player:
                 if CONSUME_PREFER[item.pin] in self.items:
                     item = get_item(CONSUME_PREFER[item.pin])
             if not ignore_possession_check and item.pin not in self.items:
-                raise Exception(f"Player {self.name} is trying to use an item they don't have ({item_name}).")
+                raise Exception(
+                    f"Player {self.name} is trying to use an item they don't have ({item_name}).")
             if item.item_type != ItemType.CONSUMABLE:
-                raise Exception(f"Player {self.name} is trying to use an item that isn't consumable ({item_name}).")
-            ConsumeItem(self.game, self, item)  # Constructor adds it to the action queue
+                raise Exception(
+                    f"Player {self.name} is trying to use an item that isn't consumable ({item_name}).")
+            # Constructor adds it to the action queue
+            ConsumeItem(self.game, self, item)
 
     def plan_trade(self, target: "Player", money: int = 0, item_names: Optional[List[str]] = None,
-                   automata: Union[Optional[List[Union['Automata', str]]], 'Automata', str] = None,
+                   automata: Union[Optional[List[Union['Automata', str]]],
+                                   'Automata', str] = None,
                    action_condition: Optional[Union[ACTION_CONDITION, Tuple['Player', Type['Action']],
                                                     Tuple['Player', Type['Action'], 'Player']]] = None,
                    item_name_condition: Optional[Tuple["Player", int, List[str]]] = None):
         assert target != self
         if action_condition:
             if len(action_condition) == 2:
-                action_condition = (action_condition[0], action_condition[1], None, True)
+                action_condition = (
+                    action_condition[0], action_condition[1], None, True)
             elif len(action_condition) == 3:
-                action_condition = (action_condition[0], action_condition[1], action_condition[2], True)
+                action_condition = (
+                    action_condition[0], action_condition[1], action_condition[2], True)
         items: Optional[Dict['Item', int]] = None
         if item_names is not None:
             item_names_to_amount = {}
@@ -544,10 +588,12 @@ class Player:
                     item_names_to_amount[item_name] = 0
                 item_names_to_amount[item_name] += 1
 
-            items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
+            items = {get_item_by_name(item_name): amount for (
+                item_name, amount) in item_names_to_amount.items()}
             for item in items.keys():
                 if item.stuck:
-                    raise Exception(f"Player {self.name} is trying to ditch an untradeable item {item.name}.")
+                    raise Exception(
+                        f"Player {self.name} is trying to ditch an untradeable item {item.name}.")
 
         if automata and not isinstance(automata, list):
             automata = [automata]
@@ -564,21 +610,26 @@ class Player:
                               {get_item_by_name(item_name): amount for (item_name, amount) in
                                item_names_to_amount.items()})
 
-        Trade(self.game, self, target, items, money, automata, action_condition, item_condition)
+        Trade(self.game, self, target, items, money,
+              automata, action_condition, item_condition)
 
     def plan_face_mask(self, player: 'Player'):
         if self.masking:
-            raise Exception(f"Player {self.name} is trying to mask multiple times.")
+            raise Exception(
+                f"Player {self.name} is trying to mask multiple times.")
         self.masking = True
         if self.game.is_day():
-            raise Exception(f"Player {self.name} is trying to use a Face Mask in broad daylight.")
+            raise Exception(
+                f"Player {self.name} is trying to use a Face Mask in broad daylight.")
         if FACE_MASK not in self.items:
-            raise Exception(f"Player {self.name} is trying to use a Face Mask without owning one.")
+            raise Exception(
+                f"Player {self.name} is trying to use a Face Mask without owning one.")
         Disguise(self.game, self, player)
 
     def plan_attune(self, *elements: Element):
         if self.attuning:
-            raise Exception(f"Player {self.name} is trying to attune multiple times.")
+            raise Exception(
+                f"Player {self.name} is trying to attune multiple times.")
         if len(elements):
             self.attuning = True
             Attune(self.game, self, tuple(elements))
@@ -608,14 +659,18 @@ class Player:
                 will = []
 
         if not ability.linked and len(will) != len(ability.hydro_qualified_skills):
-            raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
+            raise Exception(
+                f"Player {self.name} mismatch with {ability_name} ({will}).")
         if ability.linked and not will:
-            raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
+            raise Exception(
+                f"Player {self.name} mismatch with {ability_name} ({will}).")
         for i in range(len(will)):
             if will[i] < 0 or will[i] > ability.hydro_qualified_skills[i].cost:
-                raise Exception(f"Player {self.name} mismatch with {ability_name} ({will}).")
+                raise Exception(
+                    f"Player {self.name} mismatch with {ability_name} ({will}).")
         if sum(will) > ability.max_will:
-            raise Exception(f"Player {self.name} is trying to spend too much willpower on {ability_name} ({will}).")
+            raise Exception(
+                f"Player {self.name} is trying to spend too much willpower on {ability_name} ({will}).")
 
         if targets:
             assert len(targets) <= ability.max_targets
@@ -625,7 +680,8 @@ class Player:
 
         if ability.name == "Illusions III":
             assert len(targets) == 3 == len(set(targets))
-            MasterIllusion(self.game, self, target=targets[0], defended=targets[1], redirected=targets[2])
+            MasterIllusion(
+                self.game, self, target=targets[0], defended=targets[1], redirected=targets[2])
 
     def plan_target(self, ability_name: str, *targets: "Player"):
         ability = get_ability_by_name(ability_name)
@@ -647,7 +703,8 @@ class Player:
         if ability.must_choose:
             assert choice < ability.must_choose
         if for_rune:
-            self.item_choices[get_item_by_name(ability_name + " rune").pin] = choice
+            self.item_choices[get_item_by_name(
+                ability_name + " rune").pin] = choice
         if for_tattoo:
             self.tattoo_choice = choice
         else:
@@ -657,7 +714,8 @@ class Player:
         assert not self.used_illusion
 
         if ability:
-            Illusion(self.game, self, target=target, fake_action=action, fake_training=get_ability_by_name(ability))
+            Illusion(self.game, self, target=target, fake_action=action,
+                     fake_training=get_ability_by_name(ability))
         else:
             Illusion(self.game, self, target=target, fake_action=action)
 
@@ -676,9 +734,11 @@ class Player:
                 item_names_to_amount[item_name] = 0
             item_names_to_amount[item_name] += 1
 
-        items = {get_item_by_name(item_name): amount for (item_name, amount) in item_names_to_amount.items()}
+        items = {get_item_by_name(item_name): amount for (
+            item_name, amount) in item_names_to_amount.items()}
 
-        self.action = Craft(self.game, self, items, automata_names=automata_name, shackle=shackle)
+        self.action = Craft(self.game, self, items,
+                            automata_names=automata_name, shackle=shackle)
 
     def plan_craft_rune(self, ability_name: str, bonus=False):
         self._generic_action_check(bonus=bonus)
@@ -735,6 +795,14 @@ class Player:
                     abilities.append(ability)
         return abilities
 
+    def get_partial_abilities(self) -> List[Tuple[Ability, int]]:
+        abilities = []
+        for (ability_pin, progress) in self.progress_dict.items():
+            ability = get_ability(ability_pin)
+            if progress < ability.cost:
+                abilities.append((ability, progress))
+        return abilities
+
     def get_total_dev(self) -> int:
         total = 0
         for (ability_pin, progress) in self.progress_dict.items():
@@ -742,14 +810,22 @@ class Player:
         return total
 
     def _check_attunement(self, attunement: Tuple[Element, ...]) -> bool:
-        total_circuits = (self.conditions + self.turn_conditions).count(Condition.CIRCUIT)
-        max_anti = (self.conditions + self.turn_conditions).count(Condition.ANTI_CIRCUIT)
-        max_fire = (self.conditions + self.turn_conditions).count(Condition.FIRE_CIRCUIT)
-        max_water = (self.conditions + self.turn_conditions).count(Condition.WATER_CIRCUIT)
-        max_earth = (self.conditions + self.turn_conditions).count(Condition.EARTH_CIRCUIT)
-        max_air = (self.conditions + self.turn_conditions).count(Condition.AIR_CIRCUIT)
-        max_light = (self.conditions + self.turn_conditions).count(Condition.LIGHT_CIRCUIT)
-        max_warp = (self.conditions + self.turn_conditions).count(Condition.WARP_CIRCUIT)
+        total_circuits = (self.conditions +
+                          self.turn_conditions).count(Condition.CIRCUIT)
+        max_anti = (self.conditions +
+                    self.turn_conditions).count(Condition.ANTI_CIRCUIT)
+        max_fire = (self.conditions +
+                    self.turn_conditions).count(Condition.FIRE_CIRCUIT)
+        max_water = (self.conditions +
+                     self.turn_conditions).count(Condition.WATER_CIRCUIT)
+        max_earth = (self.conditions +
+                     self.turn_conditions).count(Condition.EARTH_CIRCUIT)
+        max_air = (self.conditions +
+                   self.turn_conditions).count(Condition.AIR_CIRCUIT)
+        max_light = (self.conditions +
+                     self.turn_conditions).count(Condition.LIGHT_CIRCUIT)
+        max_warp = (self.conditions +
+                    self.turn_conditions).count(Condition.WARP_CIRCUIT)
 
         if len(attunement) > total_circuits:
             return False
@@ -783,7 +859,8 @@ class Player:
         if self.circuits:
             for i in range(len(list(self.circuits))):
                 for element in Element:
-                    possibility = tuple(self.circuits[:i]) + (element,) + tuple(self.circuits[i + 1:])
+                    possibility = tuple(
+                        self.circuits[:i]) + (element,) + tuple(self.circuits[i + 1:])
                     possibilities.add(possibility)
         for element in Element:
             possibilities.add(tuple(self.circuits[:]) + (element,))
@@ -792,7 +869,8 @@ class Player:
 
     def get_possible_attunement(self) -> List[Tuple[Element, ...]]:
         all_possibilities: List[Tuple[Element, ...]] = []
-        total_circuits = (self.conditions + self.turn_conditions).count(Condition.CIRCUIT)
+        total_circuits = (self.conditions +
+                          self.turn_conditions).count(Condition.CIRCUIT)
 
         def legal_attunement(attunement: Tuple[Element, ...]):
             return self._check_attunement(attunement)
@@ -810,6 +888,10 @@ class Player:
             return [get_item(pin) for pin in self.items]
         item_set = set(self.items)
         return [get_item(pin) for pin in item_set]
+
+    def get_items_display(self) -> Dict[str, int]:
+        sorted_items = sorted(set(self.items), key=lambda x: get_item(x).cost)
+        return [(get_item(pin).name, self.items.count(pin)) for pin in sorted_items] + [("Credits", self.credits)]
 
     def get_total_credit_value(self) -> int:
         total = self.credits
@@ -877,7 +959,8 @@ class Player:
     def get_fake_temperament(self):
         seed = self.game.seed if self.game else 0
         h = int(''.join(map(lambda x: '%.3d' % ord(x), self.name))) + seed
-        possible = [e for e in Temperament if e not in [Temperament.NONE, Temperament.PREPARED, self.temperament]]
+        possible = [e for e in Temperament if e not in [
+            Temperament.NONE, Temperament.PREPARED, self.temperament]]
         return possible[h % len(possible)]
 
     def has_prerequisite(self, ability: Ability) -> bool:
@@ -911,7 +994,7 @@ class Player:
                 results.append(f"{k}_{c.name}")
         return results
 
-    def condition_debug(self) -> List[str]:
+    def condition_debug(self) -> Dict[str, int]:
         results = [condition.name for condition in self.conditions]
         results = sorted(results)
         results.extend(self.relative_condition_debug())
@@ -1016,7 +1099,8 @@ class Player:
         self.conditions.append(Condition.DEAD)
         Action.handle_death_triggers(self.game, self)
         if self.has_condition(Condition.RESURRECT):
-            Resurrect(self.game, self, self.has_condition(Condition.STEALTH_REZ))
+            Resurrect(self.game, self, self.has_condition(
+                Condition.STEALTH_REZ))
             if self.has_condition(Condition.STEALTH_REZ):
                 reporting_func(message, InfoScope.BROADCAST)
                 get_main_report().add_death(self)
@@ -1031,9 +1115,11 @@ class Player:
             reporting_func = self._non_combat_report_callable()
 
         if LIZARD_TAIL in self.items:
-            reporting_func(f"{self.name} used a Lizard Tail to avoid being wounded.", InfoScope.PUBLIC)
+            reporting_func(
+                f"{self.name} used a Lizard Tail to avoid being wounded.", InfoScope.PUBLIC)
             self.items.remove(LIZARD_TAIL)
-            reporting_func(f"Lizard Tail consumed ({self.items.count(LIZARD_TAIL)} remaining).", InfoScope.PRIVATE)
+            reporting_func(
+                f"Lizard Tail consumed ({self.items.count(LIZARD_TAIL)} remaining).", InfoScope.PRIVATE)
             return False
 
         self.die(f"{self.name} died.", reporting_func)
@@ -1048,9 +1134,11 @@ class Player:
 
         if LIZARD_TAIL in self.items:
             if InjuryModifier.NONLETHAL not in injury_modifiers or Condition.INJURED not in self.conditions:
-                reporting_func(f"{self.name} used a Lizard Tail to avoid being wounded.", InfoScope.PUBLIC)
+                reporting_func(
+                    f"{self.name} used a Lizard Tail to avoid being wounded.", InfoScope.PUBLIC)
                 self.items.remove(LIZARD_TAIL)
-                reporting_func(f"Lizard Tail consumed ({self.items.count(LIZARD_TAIL)} remaining).", InfoScope.PRIVATE)
+                reporting_func(
+                    f"Lizard Tail consumed ({self.items.count(LIZARD_TAIL)} remaining).", InfoScope.PRIVATE)
                 return False
 
         if Condition.DEAD not in self.conditions:
@@ -1063,15 +1151,19 @@ class Player:
                     self.conditions.append(Condition.GRIEVOUS)
                     if InjuryModifier.PERMANENT in injury_modifiers:
                         self.conditions.append(Condition.CAUTERIZED)
-                        reporting_func(f"{self.name} was permanently grievously injured.", InfoScope.PRIVATE)
+                        reporting_func(
+                            f"{self.name} was permanently grievously injured.", InfoScope.PRIVATE)
                     else:
-                        reporting_func(f"{self.name} was grievously injured.", InfoScope.PRIVATE)
+                        reporting_func(
+                            f"{self.name} was grievously injured.", InfoScope.PRIVATE)
                 else:
                     if InjuryModifier.PERMANENT in injury_modifiers:
                         self.conditions.append(Condition.CAUTERIZED)
-                        reporting_func(f"{self.name} was permanently injured.", InfoScope.PRIVATE)
+                        reporting_func(
+                            f"{self.name} was permanently injured.", InfoScope.PRIVATE)
                     else:
-                        reporting_func(f"{self.name} was injured.", InfoScope.PRIVATE)
+                        reporting_func(
+                            f"{self.name} was injured.", InfoScope.PRIVATE)
                 self.conditions.append(Condition.INJURED)
                 return True
         return False
@@ -1085,9 +1177,11 @@ class Player:
 
         if Condition.PETRIFIED not in self.conditions:
             if SOFT in self.items:
-                reporting_func(f"{self.name} used a Soft to avoid being petrified.", InfoScope.PUBLIC)
+                reporting_func(
+                    f"{self.name} used a Soft to avoid being petrified.", InfoScope.PUBLIC)
                 self.items.remove(SOFT)
-                reporting_func(f"Soft consumed ({self.items.count(SOFT)} remaining).", InfoScope.PRIVATE)
+                reporting_func(
+                    f"Soft consumed ({self.items.count(SOFT)} remaining).", InfoScope.PRIVATE)
                 return
 
             reporting_func(f"{self.name} was Petrified.", InfoScope.PUBLIC)
@@ -1128,12 +1222,14 @@ class Player:
             raise Exception("Something went wrong with Automata.")
         for i in range(amount):
             self.items.append(item.pin)
-        self.report += f"{item.name} x{amount} gained ({self.items.count(item.pin)} total)" + os.linesep
+        self.report += f"{item.name} x{amount} gained ({self.items.count(item.pin)} total)" + \
+            os.linesep
 
     def lose_item(self, item: Item, amount=1):
         for i in range(amount):
             self.items.remove(item.pin)
-        self.report += f"{item.name} x{amount} lost ({self.items.count(item.pin)} remaining)" + os.linesep
+        self.report += f"{item.name} x{amount} lost ({self.items.count(item.pin)} remaining)" + \
+            os.linesep
 
     def destroy_fragile_items(self, include_loot: bool = False):
         lost_items = {}

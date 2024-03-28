@@ -1,0 +1,975 @@
+{
+    "turn": 7,
+    "night": true,
+    "seed": 82092,
+    "remaining": [
+        "Irwin",
+        "Omniscience",
+        "Ricardian",
+        "Witherbrine26",
+        "Lord of Chromius",
+        "NTKV",
+        "Swift-Sama",
+        "Teyao",
+        "Zeal Iskander",
+        "Paradosi",
+        "Spice Girls",
+        "23Starman",
+        "M3mentoMori",
+        "Seventeen"
+    ],
+    "events": [
+        [
+            8,
+            false,
+            2204,
+            "Teyao",
+            [
+                "Teyao"
+            ]
+        ]
+    ],
+    "players": {
+        "Irwin": {
+            "name": "Irwin",
+            "progress_dict": {
+                "101": 5,
+                "201": 5,
+                "202": 5,
+                "229": 5,
+                "230": 10,
+                "127": 5,
+                "203": 5,
+                "128": 10,
+                "204": 1,
+                "102": 5,
+                "130": 10,
+                "129": 15,
+                "103": 5,
+                "131": 10,
+                "240": 3
+            },
+            "dev_plan": [
+                240,
+                113,
+                204
+            ],
+            "academics": 2,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                13
+            ],
+            "money": 1,
+            "willpower": 4,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Omniscience": {
+            "name": "Omniscience",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "127": 5,
+                "128": 10,
+                "130": 10,
+                "103": 5,
+                "129": 15,
+                "131": 10,
+                "114": 5,
+                "116": 10,
+                "145": 2
+            },
+            "dev_plan": [
+                145
+            ],
+            "academics": 0,
+            "temperament": 1,
+            "concept": null,
+            "conditions": [
+                114,
+                114,
+                114
+            ],
+            "items": [],
+            "money": 2,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Ricardian": {
+            "name": "Ricardian",
+            "progress_dict": {
+                "401": 5,
+                "404": 5,
+                "406": 10,
+                "501": 5,
+                "516": 5,
+                "502": 5,
+                "515": 5,
+                "402": 5,
+                "403": 5,
+                "408": 5,
+                "405": 10,
+                "407": 1
+            },
+            "dev_plan": [
+                407
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                1,
+                6,
+                9,
+                2,
+                15
+            ],
+            "money": 2,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Witherbrine26": {
+            "name": "Witherbrine26",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "213": 10,
+                "216": 10,
+                "401": 5,
+                "409": 5,
+                "404": 5
+            },
+            "dev_plan": [
+                214
+            ],
+            "academics": 0,
+            "temperament": 8,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                16,
+                6,
+                9,
+                14,
+                20
+            ],
+            "money": 4,
+            "willpower": 5,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Lord of Chromius": {
+            "name": "Lord of Chromius",
+            "progress_dict": {
+                "201": 5,
+                "235": 10,
+                "236": 10,
+                "237": 10,
+                "202": 5,
+                "203": 5,
+                "101": 5,
+                "127": 5,
+                "204": 5,
+                "220": 10,
+                "239": 10,
+                "238": 7
+            },
+            "dev_plan": [
+                238,
+                102,
+                128
+            ],
+            "academics": 0,
+            "temperament": 10,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                15,
+                23,
+                18,
+                22,
+                9,
+                1201,
+                21,
+                19,
+                17,
+                27,
+                15,
+                25
+            ],
+            "money": 5,
+            "willpower": 9,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": [
+                1,
+                5,
+                15,
+                23,
+                18,
+                22,
+                25,
+                10,
+                8,
+                12,
+                14,
+                2,
+                9,
+                1201,
+                21,
+                11,
+                17,
+                24,
+                27
+            ]
+        },
+        "NTKV": {
+            "name": "NTKV",
+            "progress_dict": {
+                "101": 5,
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "404": 5,
+                "408": 5,
+                "127": 5,
+                "406": 10,
+                "102": 5,
+                "405": 10
+            },
+            "dev_plan": [],
+            "academics": 0,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [
+                114
+            ],
+            "items": [
+                9,
+                1,
+                5,
+                8,
+                14,
+                2,
+                22,
+                8,
+                10
+            ],
+            "money": 4,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Papa Loa": {
+            "name": "Papa Loa",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "210": 10,
+                "211": 10,
+                "232": 5,
+                "203": 5
+            },
+            "dev_plan": [
+                204,
+                220,
+                217,
+                218
+            ],
+            "academics": 0,
+            "temperament": 3,
+            "concept": null,
+            "conditions": [
+                2,
+                1
+            ],
+            "items": [],
+            "money": 1,
+            "willpower": 2,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "PocketRikimaru": {
+            "name": "PocketRikimaru",
+            "progress_dict": {
+                "501": 5,
+                "502": 5,
+                "503": 5,
+                "504": 10,
+                "516": 5,
+                "505": 10,
+                "506": 10,
+                "521": 5
+            },
+            "dev_plan": [
+                512,
+                514,
+                513
+            ],
+            "academics": 0,
+            "temperament": 4,
+            "concept": null,
+            "conditions": [
+                2,
+                1
+            ],
+            "items": [
+                19
+            ],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 0,
+            "relative_conditions": {
+                "Omniscience": [
+                    25
+                ],
+                "Zeal Iskander": [
+                    25,
+                    27
+                ],
+                "Seventeen": [
+                    25,
+                    27
+                ]
+            },
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Mr. Whiskers": {
+            "name": "Mr. Whiskers",
+            "progress_dict": {
+                "501": 5,
+                "502": 5,
+                "503": 5,
+                "504": 10,
+                "519": 5,
+                "521": 3
+            },
+            "dev_plan": [
+                521,
+                520
+            ],
+            "academics": 0,
+            "temperament": 4,
+            "concept": null,
+            "conditions": [
+                2,
+                1
+            ],
+            "items": [],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Swift-Sama": {
+            "name": "Swift-Sama",
+            "progress_dict": {
+                "201": 5,
+                "235": 10,
+                "306": 5,
+                "2401": 10,
+                "236": 10,
+                "237": 10,
+                "202": 5,
+                "220": 10,
+                "203": 5,
+                "204": 5,
+                "239": 10,
+                "221": 7
+            },
+            "dev_plan": [
+                221
+            ],
+            "academics": 0,
+            "temperament": 10,
+            "concept": "RESONANCE",
+            "conditions": [],
+            "items": [
+                23,
+                9,
+                22,
+                18,
+                1201,
+                6,
+                15,
+                10,
+                12
+            ],
+            "money": 11,
+            "willpower": 9,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": [
+                23,
+                11,
+                9,
+                22,
+                10,
+                8,
+                15,
+                18,
+                1,
+                14,
+                1201,
+                24,
+                6,
+                12,
+                16,
+                28
+            ]
+        },
+        "Teyao": {
+            "name": "Teyao",
+            "progress_dict": {
+                "306": 5,
+                "501": 5,
+                "516": 5,
+                "517": 5,
+                "2201": 10,
+                "515": 5,
+                "502": 5
+            },
+            "dev_plan": [],
+            "academics": 0,
+            "temperament": 3,
+            "concept": "HORN",
+            "conditions": [],
+            "items": [
+                9,
+                6
+            ],
+            "money": 7,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Zeal Iskander": {
+            "name": "Zeal Iskander",
+            "progress_dict": {
+                "306": 5,
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "2101": 10,
+                "408": 5,
+                "2102": 10,
+                "404": 5,
+                "406": 2,
+                "201": 5,
+                "232": 5,
+                "233": 10,
+                "238": 10,
+                "234": 15,
+                "409": 5,
+                "202": 5,
+                "101": 5,
+                "405": 10,
+                "102": 5,
+                "111": 10,
+                "2103": 5
+            },
+            "dev_plan": [
+                2103,
+                2104,
+                203,
+                204,
+                206
+            ],
+            "academics": 7,
+            "temperament": 2,
+            "concept": "RAPIER",
+            "conditions": [],
+            "items": [
+                2,
+                2401,
+                2401,
+                2401,
+                22,
+                10,
+                8,
+                9,
+                2401,
+                2401,
+                2401,
+                2401,
+                2401,
+                2401,
+                6,
+                2401,
+                2401,
+                15,
+                15,
+                15,
+                11,
+                2401,
+                2401,
+                15,
+                14,
+                15,
+                2,
+                16,
+                28,
+                10,
+                2401,
+                15
+            ],
+            "money": 1,
+            "willpower": 5,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Bedna337": {
+            "name": "Bedna337",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "203": 5,
+                "208": 20,
+                "204": 5,
+                "501": 5,
+                "502": 5,
+                "521": 1,
+                "239": 3
+            },
+            "dev_plan": [
+                239,
+                220,
+                221
+            ],
+            "academics": 0,
+            "temperament": 1,
+            "concept": null,
+            "conditions": [
+                13,
+                2,
+                13,
+                1
+            ],
+            "items": [],
+            "money": 4,
+            "willpower": 5,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Drasky": {
+            "name": "Drasky",
+            "progress_dict": {
+                "201": 5,
+                "202": 5,
+                "217": 5,
+                "306": 5,
+                "4501": 10,
+                "218": 5,
+                "229": 5,
+                "231": 5,
+                "203": 5,
+                "222": 4
+            },
+            "dev_plan": [
+                222,
+                209
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": "SCAPEGOAT",
+            "conditions": [
+                2,
+                1
+            ],
+            "items": [],
+            "money": 2,
+            "willpower": 1,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Paradosi": {
+            "name": "Paradosi",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "145": 10,
+                "306": 5,
+                "1001": 10,
+                "1002": 9
+            },
+            "dev_plan": [
+                114
+            ],
+            "academics": 1,
+            "temperament": 7,
+            "concept": "CHALK",
+            "conditions": [
+                2,
+                18,
+                18
+            ],
+            "items": [],
+            "money": 4,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Spice Girls": {
+            "name": "Spice Girls",
+            "progress_dict": {
+                "201": 5,
+                "220": 10,
+                "306": 5,
+                "2301": 10,
+                "202": 5,
+                "203": 5,
+                "208": 20,
+                "2302": 3,
+                "204": 5,
+                "206": 10,
+                "221": 5
+            },
+            "dev_plan": [
+                221,
+                101
+            ],
+            "academics": 0,
+            "temperament": 5,
+            "concept": "SNAIL",
+            "conditions": [
+                2
+            ],
+            "items": [],
+            "money": 27,
+            "willpower": 9,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "BlackLemonAde": {
+            "name": "BlackLemonAde",
+            "progress_dict": {
+                "501": 5,
+                "502": 5,
+                "503": 5,
+                "504": 10,
+                "521": 5,
+                "101": 5,
+                "127": 5,
+                "510": 5,
+                "511": 5,
+                "102": 2
+            },
+            "dev_plan": [
+                102
+            ],
+            "academics": 0,
+            "temperament": 4,
+            "concept": null,
+            "conditions": [
+                2,
+                1
+            ],
+            "items": [
+                18
+            ],
+            "money": 9,
+            "willpower": 0,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "RyoAtemi": {
+            "name": "RyoAtemi",
+            "progress_dict": {
+                "306": 5,
+                "501": 5,
+                "502": 5,
+                "517": 5,
+                "3901": 10,
+                "3902": 10,
+                "3903": 10,
+                "101": 5,
+                "127": 5,
+                "117": 5,
+                "118": 10,
+                "102": 5,
+                "103": 1
+            },
+            "dev_plan": [
+                103,
+                119
+            ],
+            "academics": 1,
+            "temperament": 4,
+            "concept": "HELIOPHILE",
+            "conditions": [
+                97,
+                2,
+                1
+            ],
+            "items": [],
+            "money": 1,
+            "willpower": 0,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "23Starman": {
+            "name": "23Starman",
+            "progress_dict": {
+                "101": 5,
+                "122": 5,
+                "123": 10,
+                "125": 10,
+                "102": 5,
+                "126": 10,
+                "124": 15,
+                "103": 5,
+                "112": 10,
+                "111": 3
+            },
+            "dev_plan": [
+                111,
+                104
+            ],
+            "academics": 0,
+            "temperament": 1,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                9
+            ],
+            "money": 8,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "Dragonlord7": {
+            "name": "Dragonlord7",
+            "progress_dict": {
+                "501": 5,
+                "502": 5,
+                "515": 5,
+                "516": 5,
+                "517": 5,
+                "519": 5,
+                "520": 5,
+                "521": 5,
+                "503": 5,
+                "505": 6
+            },
+            "dev_plan": [
+                505,
+                504,
+                507
+            ],
+            "academics": 0,
+            "temperament": 4,
+            "concept": null,
+            "conditions": [
+                2,
+                1
+            ],
+            "items": [],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "M3mentoMori": {
+            "name": "M3mentoMori",
+            "progress_dict": {
+                "101": 5,
+                "201": 5,
+                "235": 10,
+                "236": 10,
+                "127": 5,
+                "237": 10,
+                "202": 5,
+                "203": 5,
+                "232": 5,
+                "220": 10,
+                "233": 10,
+                "222": 5,
+                "234": 15,
+                "225": 5
+            },
+            "dev_plan": [
+                225,
+                226,
+                221
+            ],
+            "academics": 3.1,
+            "temperament": 10,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                23,
+                1,
+                22,
+                19,
+                9,
+                10,
+                14,
+                21,
+                27,
+                8
+            ],
+            "money": 7,
+            "willpower": 7,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": [
+                23,
+                1201,
+                8,
+                1,
+                22,
+                9,
+                12,
+                10,
+                15,
+                16,
+                2,
+                14,
+                28,
+                3,
+                25,
+                24,
+                21,
+                27
+            ]
+        },
+        "Seventeen": {
+            "name": "Seventeen",
+            "progress_dict": {
+                "101": 5,
+                "102": 5,
+                "117": 5,
+                "122": 5,
+                "139": 10,
+                "401": 5,
+                "402": 5,
+                "103": 5,
+                "110": 10,
+                "404": 5,
+                "123": 10,
+                "124": 15
+            },
+            "dev_plan": [
+                111
+            ],
+            "academics": 0,
+            "temperament": 2,
+            "concept": null,
+            "conditions": [],
+            "items": [
+                9,
+                16,
+                8,
+                3,
+                1,
+                8,
+                10,
+                10,
+                14,
+                8,
+                10,
+                10
+            ],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        }
+    },
+    "automata": {
+        "Mr. Zombiskers": {
+            "name": "Mr. Zombiskers",
+            "owner": "Swift-Sama",
+            "conditions": [],
+            "items": [],
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null
+        },
+        "LeBron James, Antichrist": {
+            "name": "LeBron James, Antichrist",
+            "owner": "M3mentoMori",
+            "conditions": [],
+            "items": [
+                23,
+                25,
+                8
+            ],
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null
+        },
+        "GRU-1": {
+            "name": "GRU-1",
+            "owner": "Lord of Chromius",
+            "conditions": [],
+            "items": [],
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null
+        },
+        "GRU-2": {
+            "name": "GRU-2",
+            "owner": "Lord of Chromius",
+            "conditions": [],
+            "items": [],
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null
+        },
+        "GRU-3": {
+            "name": "GRU-3",
+            "owner": "Lord of Chromius",
+            "conditions": [],
+            "items": [],
+            "bounty": 0,
+            "relative_conditions": {},
+            "tattoo": null
+        }
+    }
+}
