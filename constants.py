@@ -158,6 +158,7 @@ class Condition(IntEnum):
     SABOTAGE = 136  # Immune to Sabotage
     TAUNT = 137
     TAUNT_IGNORE = 138
+    GOLD_CIRCUIT = 139
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -308,3 +309,4 @@ class Element(IntEnum):
     AIR = 4
     LIGHT = 5
     WARP = 6
+    GOLD = 7

@@ -2055,8 +2055,8 @@ class CombatSimStep(Action):
                 circuit_possibilities = reacting_player.get_possible_attunement()
             elif reacting_player.has_ability("Fast Attune I"):
                 circuit_possibilities = reacting_player.get_one_swap_attunement()
-            # Personal score, negative score of others, size attuned
-            best_score_so_far = (-999999999999999999, 0, 0)
+            # Personal score, negative score of others, contains gold, size attuned
+            best_score_so_far = (-999999999999999999, 0, False, 0)
             best_so_far = None
             for possibility in circuit_possibilities:
                 sim_results = handler.simulate_combat(
@@ -2068,7 +2068,9 @@ class CombatSimStep(Action):
                     elif reacting_player.name != sim_player.name:
                         secondary -= score
                 score = (sim_results[reacting_player],
-                         secondary, len(possibility))
+                         secondary,
+                         Element.GOLD in possibility,
+                         -1*len(possibility))
                 if score > best_score_so_far:
                     best_score_so_far = score
                     best_so_far = possibility

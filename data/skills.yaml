@@ -1083,3 +1083,16 @@
   effect: "MAX_WILLPOWER"
   value: 4
   trigger: "NONCOMBAT"
+
+162:
+  text: "Can Attune to Gold"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "GOLD_CIRCUIT"
+
+163:
+  text: "You have generated wealth!"
+  info: "PRIVATE"
+  effect: "CREDITS"
+  trigger: "POST_COMBAT"
+  value: 1

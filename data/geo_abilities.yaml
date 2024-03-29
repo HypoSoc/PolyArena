@@ -592,3 +592,14 @@
       circuits:
         - "WARP"
   prerequisite: 102
+
+146:
+  name: "Gold"
+  cost: 10
+  skills:
+    - 162
+  geo:
+    163:
+      circuits:
+        - "GOLD"
+  prerequisite: 102

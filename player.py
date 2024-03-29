@@ -826,6 +826,8 @@ class Player:
                      self.turn_conditions).count(Condition.LIGHT_CIRCUIT)
         max_warp = (self.conditions +
                     self.turn_conditions).count(Condition.WARP_CIRCUIT)
+        max_gold = (self.conditions +
+                    self.turn_conditions).count(Condition.GOLD_CIRCUIT)
 
         if len(attunement) > total_circuits:
             return False
@@ -842,6 +844,8 @@ class Player:
         if attunement.count(Element.LIGHT) > max_light:
             return False
         if attunement.count(Element.WARP) > max_warp:
+            return False
+        if attunement.count(Element.GOLD) > max_gold:
             return False
 
         return True
@@ -878,7 +882,7 @@ class Player:
         for i in range(total_circuits + 1):
             possibilities = itertools.combinations_with_replacement([Element.ANTI, Element.FIRE, Element.WATER,
                                                                      Element.EARTH, Element.AIR, Element.LIGHT,
-                                                                     Element.WARP], i)
+                                                                     Element.WARP, Element.GOLD], i)
             all_possibilities.extend(filter(legal_attunement, possibilities))
 
         return all_possibilities
