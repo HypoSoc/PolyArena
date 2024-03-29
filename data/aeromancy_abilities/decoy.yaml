@@ -1,10 +1,13 @@
-# Decoy I (10): You own a decoy. It cannot graduate. It cannot gain progress. It goes to Class every day, and bunkers every night. 
-#               The decoy has 10 combat and 10 survivability. 
-#               Your decoy keeps acting after your death. 
-# Decoy II (5): Your Decoy attacks a target of your choice next action.
-#               If you would have gotten Decoy II during character creation, refund Decoy II.
-# Decoy III (5): Your Decoy attacks a target of your choice next action.
-#                If you would have gotten Decoy III during character creation, refund Decoy III.
+# Decoy I (10): Gain 2 Charges.
+#               Each turn, you may spend a Charge to make another player into a Decoy until end of turn. (Subtle) (Fragile)
+#               Decoys get +5 Survivability.
+#               If a Decoy is attacked and lives, if neither of you attacked this turn, you gain +7 Progress.
+# Decoy II (5): Gain a Charge.
+#               +1 Survivability.
+# Decoy III (5): Gain a Charge.
+#                +1 Survivability.
+# Decoy IV (20): Gain three Charges.
+#                Whenever a Decoy is attacked and lives, if neither of you attacked this turn, you gain an Ablative Ossification.
 
 
 3401:
@@ -12,11 +15,22 @@
   concept: "DECOY"
   cost: 10
   skills: 
-  - 3401
+    - 3401
+    - 3407
+  aero:
+    3402:
+      fragile: true
+    3403:
+      fragile: true
+    3404:
+      fragile: true
+  max_targets: 1
+  target_other: true
   explanation: |-
-    You own a decoy. It cannot graduate. It cannot gain progress. It goes to Class every day, and bunkers every night. 
-    The decoy has 10 combat and 10 survivability. 
-    Your decoy keeps acting after your death. 
+    Gain 2 Charges.
+    Each turn, you may spend a Charge to make another player into a Decoy until end of turn. (Subtle) (Fragile)
+    Decoys get +5 Survivability.
+    If a Decoy is attacked and lives, if you didn't attack this turn, you gain +7 Progress.
 
     Decoy II costs 5
 
@@ -26,10 +40,11 @@
   cost: 5
   max_targets: 1
   skills: 
-  - 3402
+    - 2
+    - 3408
   explanation: |-
-    Your Decoy attacks a target of your choice next action.
-    If you would have gotten Decoy II during character creation, refund Decoy II.
+    Gain a Charge.
+    +1 Survivability.
 
     Decoy III costs 5
   prerequisite: 3401
@@ -39,10 +54,27 @@
   concept: "DECOY"
   cost: 5
   max_targets: 1
-  skills: 
-  - 3402
+  skills:
+    - 2
+    - 3408
   explanation: |-
-    Your Decoy attacks a target of your choice next action.
-    If you would have gotten Decoy III during character creation, refund Decoy III.
+    Gain a Charge.
+    +1 Survivability.
+
+    Decoy IV costs 20
 
   prerequisite: 3402
+
+3404:
+  name: "Decoy IV"
+  concept: "DECOY"
+  cost: 5
+  max_targets: 1
+  skills:
+    - 3409
+    - 3410
+  explanation: |-
+    Gain three Charges.
+    Whenever a Decoy is attacked and lives, if you didn't attack this turn, you gain an Ablative Ossification.
+
+  prerequisite: 3403

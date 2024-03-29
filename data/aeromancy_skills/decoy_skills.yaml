@@ -1,11 +1,84 @@
-3401: 
-  text: "Your Decoy becomes alive. Their name is [INSERT DECOY NAME HERE]."
-  effect: "INFO"
-  info: "PRIVATE"
+3401:
+  text: "2 Charges"
+  effect: "PERMANENT_CONDITION"
   trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 2
+  priority: -5
 
 3402:
-  text: "Your Decoy is ready! Give the order!"
-  effect: "INFO"
-  info: "PRIVATE"
+  text: "%TARGET% has been made into a Decoy."
+  info: "SUBTLE"
+  effect: "TEMP_SKILL"
+  value: 3405
+  self_has_condition: "CHARGE"
+  trigger: "TARGET"
+  priority: 0
+
+3403:
+  text: "Self marking when attacked"
+  effect: "TEMP_SKILL"
+  value: 3406
+  self_has_condition: "CHARGE"
+  trigger: "TARGET"
+  priority: 0
+
+3404:
+  text: "Lose a Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  self_override: True
+  priority: 1
+
+3405:
+  text: "Secret +5 Surv"
+  effect: "SURVIVABILITY"
+  value: 5
+
+3406:
+  text: "Marked as was attacked"
+  effect: "TURN_CONDITION"
+  trigger: "ATTACKED"
+  value: "DECOY_ATTACKED"
+  self_override: True
+
+3407:
+  text: "Your Decoy %TARGET% drew attention."
+  effect: "PROGRESS"
+  value: 7
+  trigger: "OTHERS"
+  info: "PERSONAL"
+  self_override: True
+  target_has_condition: "DECOY_ATTACKED"
+  self_not_condition: "ATTACKED"
+  target_not_condition: "ATTACKED"
+  priority: 70
+
+3408:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
   trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 1
+  priority: -5
+
+3409:
+  text: "Your made good use of the distraction."
+  effect: "ITEM"
+  value: 25
+  trigger: "OTHERS"
+  info: "PERSONAL"
+  self_override: True
+  target_has_condition: "DECOY_ATTACKED"
+  self_not_condition: "ATTACKED"
+  target_not_condition: "ATTACKED"
+  priority: 70.1
+
+3410:
+  text: "3 Charges"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 3
+  priority: -5

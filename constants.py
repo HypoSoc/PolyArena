@@ -159,6 +159,7 @@ class Condition(IntEnum):
     TAUNT = 137
     TAUNT_IGNORE = 138
     GOLD_CIRCUIT = 139
+    DECOY_ATTACKED = 140
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
