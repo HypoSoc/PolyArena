@@ -13,6 +13,7 @@ class Temperament(IntEnum):
     LUCRATIVE = 8
     PRIVILEGED = 9
     INNOVATIVE = 10
+    BLOOD_THIRSTY = 11
 
 
 class Condition(IntEnum):

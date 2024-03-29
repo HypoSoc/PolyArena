@@ -40,6 +40,8 @@ class CombatHandler:
         self.broadcast_events: List[Tuple[str, bool]] = []
 
         self.hot_blood = set()
+        self.blood_thirst = set()
+        self.injured_by: Dict["Player", Set["Player"]] = {}
         self.report_dict = {}
         self.attacker_to_defenders: Dict["Player", Set["Player"]] = {}
         self.combat_group_to_events = {}
@@ -935,6 +937,9 @@ class CombatHandler:
                             if defense in disarm_thief[offense]:
                                 # Injured attacker, so not disarm stolen
                                 disarm_thief[offense].remove(defense)
+                            if defense not in self.injured_by:
+                                self.injured_by[defense] = set()
+                            self.injured_by[defense].add(offense)
                         else:
                             if offense in disarm_thief[defense]:
                                 # Failed to injure defender, so not disarm stolen
@@ -1106,6 +1111,8 @@ class CombatHandler:
 
             survivors = [player for player in group if player not in dead_list]
             for player in dead_list:
+                for murderer in self.injured_by.get(player, set()):
+                    self.blood_thirst.add(murderer.name)
                 loot_items = [item for item in player.get_items() if item.loot]
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
@@ -1268,6 +1275,9 @@ class CombatHandler:
     def hot_blood_check(self, player: "Player"):
         return player.name in self.hot_blood
 
+    def blood_thirst_check(self, player: "Player"):
+        return player.name in self.blood_thirst
+
     def get_combat_report_for_player(self, player: "Player"):
         report = ""
         for (group, events) in self.combat_group_to_events.items():
@@ -1328,6 +1338,8 @@ class CombatHandler:
         self.broadcast_events = []
 
         self.hot_blood = set()
+        self.blood_thirst = set()
+        self.injured_by = {}
         self.report_dict = {}
         self.attacker_to_defenders = {}
         self.combat_group_to_events = {}

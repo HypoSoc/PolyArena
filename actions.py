@@ -2105,7 +2105,12 @@ class CombatStep(Action):
             if get_combat_handler().hot_blood_check(player) and player.temperament == Temperament.HOT_BLOODED:
                 if not player.is_dead() or player.has_condition(Condition.RESURRECT):
                     player.report += "Your blood boils in excitement." + os.linesep
-                    Action.progress(player, 3)
+                    Action.progress(player, 2)
+                    player.report += os.linesep
+            if get_combat_handler().blood_thirst_check(player) and player.temperament == Temperament.BLOOD_THIRSTY:
+                if not player.is_dead() or player.has_condition(Condition.RESURRECT):
+                    player.report += "Your blood sings in joy." + os.linesep
+                    Action.progress(player, 7)
                     player.report += os.linesep
 
             if not player.is_dead():
