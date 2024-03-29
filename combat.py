@@ -883,11 +883,6 @@ class CombatHandler:
                     return 8 - conditions[p].count(Condition.CRUMBLING)
                 s = survivability[p]
                 if s >= 0:
-                    if Condition.FIRE_PROOF in conditions[p]:
-                        if a and Element.FIRE in a.circuits:
-                            if Condition.GEO_LOCKED not in conditions[a]:
-                                s += 2
-
                     if a and Condition.USING_AERO in conditions[a] and Condition.UNNATURAL_INTUITION in conditions[p]:
                         s += 1
 

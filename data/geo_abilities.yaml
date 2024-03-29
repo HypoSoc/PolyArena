@@ -175,12 +175,12 @@
   name: "Hell Fire"
   cost: 10
   geo:
-    23:
+    159:
       circuits:
         - "FIRE/LIGHT"
         - "FIRE/LIGHT"
       fragile: true
-    60:
+    160:
       circuits:
         - "FIRE/LIGHT"
         - "FIRE/LIGHT"

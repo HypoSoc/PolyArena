@@ -1063,3 +1063,17 @@
   value_b: 2
   trigger: "NONCOMBAT"
   info: "PERSONAL"
+
+159:
+  text: "Safety from Hell Fire."
+  effect: "CONDITION"
+  value: "FIRE_PROOF"
+  trigger: "ATTACKED"
+
+160:
+  text: "%TARGET% was horrifically burned."
+  effect: "DAMAGE"
+  trigger: "RANGE_EX_SELF"
+  priority: 70
+  target_not_condition: "FIRE_PROOF"
+  info: "PUBLIC"
