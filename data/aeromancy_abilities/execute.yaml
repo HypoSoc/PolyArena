@@ -29,6 +29,7 @@
     For the rest of the game, Wounds inflicted by players are Grievous.
 
     Execute III costs 10
+  prerequisite: 3501
 
 3503:
   name: "Execute III"
@@ -39,3 +40,4 @@
   - 3505
   explanation: |-
     For the rest of the game, Wounds inflicted by players are Permanent.
+  prerequisite: 3502
