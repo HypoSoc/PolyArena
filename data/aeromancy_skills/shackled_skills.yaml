@@ -37,13 +37,11 @@
   priority: -15  # Before Most, but not ALL Aeromancy
 
 907:
-  text: "%TARGET%'s Concept has been locked!"
+  text: "%TARGET%'s Magic has been locked!"
   effect: "CONDITION"
   trigger: "ALL"
   value: "AERO_LOCKED"
   self_not_condition: "LOCKED"
-  target_not_condition: "IMPOSING"
-  target_has_condition: "AEROMANCER"
   info: "IMPERSONAL"
   priority: -14  # Before Most, but not ALL Aeromancy
 
@@ -54,9 +52,10 @@
   value: "LOCKED"
 
 909:
-  text: "+1 Dimensional Key"
+  text: "A Dimensional Key appeared before %TARGET%!"
   effect: "ITEM"
-  trigger: "ACQUISITION"
+  trigger: "RANDOM_OTHER"
+  info: "NARROW"
   value: 901
   priority: 1
 
@@ -68,9 +67,33 @@
   info: "PRIVATE"
 
 911:
-  text: "+3 Dimensional Keys"
+  text: "The key to your Shackles appeared, as if to mock you."
   effect: "ITEM"
-  trigger: "ACQUISITION"
+  trigger: "NONCOMBAT"
   value: 901
-  value_b: 3
+  value_b: 1
+  info: "PRIVATE"
   priority: 1
+
+912:
+  text: "Hydro Lock"
+  effect: "CONDITION"
+  trigger: "ALL"
+  value: "HYDRO_LOCKED"
+  self_not_condition: "LOCKED"
+  priority: -14  # Before Most, but not ALL Aeromancy
+
+913:
+  text: "Geo Lock"
+  effect: "CONDITION"
+  trigger: "ALL"
+  value: "GEO_LOCKED"
+  self_not_condition: "LOCKED"
+  priority: -14  # Before Most, but not ALL Aeromancy
+
+914:
+  text: "Schedule Key Distribution"
+  effect: "SCHEDULE"
+  value: 909
+  value_b: 1
+  trigger: "ACQUISITION"

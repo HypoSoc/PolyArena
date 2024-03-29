@@ -99,9 +99,9 @@
   works_when_petrified: true
 
 4713:
-  text: "Progress Refund"
+  text: "Progress Payoff"
   effect: "PROGRESS"
-  value: 10
+  value: 20
   trigger: "NONCOMBAT"
   self_has_condition: "OPTION_A"
   self_not_condition: "RINGER"
@@ -118,9 +118,9 @@
   works_when_petrified: true
 
 4715:
-  text: "Progress Refund"
+  text: "Progress Payoff"
   effect: "PROGRESS"
-  value: 10
+  value: 20
   trigger: "NONCOMBAT"
   self_has_condition: "OPTION_B"
   self_not_condition: "RINGER"

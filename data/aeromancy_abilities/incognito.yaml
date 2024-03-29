@@ -1,8 +1,8 @@
 # Incognito I (10): On or after Day 3, you may reveal yourself as a Secret Ringer at the end of the turn. (Blatant)
 #                   When you do, gain 20 Progress.
 #                   You have -1 Combat and -1 Survivability as long as you are hiding your status. (Fragile)
-# Incognito II (10): On Day 5, if you are still in hiding, gain 1 Academics and 10 Progress.
-# Incognito III (10): On Day 7, if you are still in hiding, gain 2 Academics and 10 Progress.
+# Incognito II (10): On Day 5, if you are still in hiding, gain 1 Academics and 20 Progress.
+# Incognito III (10): On Day 7, if you are still in hiding, gain 2 Academics and 20 Progress.
 
 4701:
   name: "Incognito I"
@@ -36,7 +36,7 @@
     - 4712
     - 4713
   explanation: |-
-    On Day 5, if you are still in hiding, gain 1 Academics and 10 Progress.
+    On Day 5, if you are still in hiding, gain 1 Academics and 20 Progress.
 
     Incognito III costs 10
   prerequisite: 4701
@@ -49,5 +49,5 @@
     - 4714
     - 4715
   explanation: |-
-    On Day 7, if you are still in hiding, gain 2 Academics and 10 Progress.
+    On Day 7, if you are still in hiding, gain 2 Academics and 20 Progress.
   prerequisite: 4702

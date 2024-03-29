@@ -1,7 +1,7 @@
 # Horn I (10): Every turn, you may choose a Horn to Blow (or none). Blowing a Horn is Blatant and Fragile, and causes an effect the following turn.
 #              You can choose the Horn of Fervor (All players gain +2 Combat), or the Horn of Fear (All players lose 2 Combat).
-# Horn II (10): You gain access to the Horn of Plenty (All players gain 2 Credits).
-# Horn III (10): You gain access to the Horn of Revelation (All players gain +5 Progress).
+# Horn II (5): You gain access to the Horn of Plenty (All players gain 2 Credits).
+# Horn III (5): You gain access to the Horn of Revelation (All players gain +5 Progress).
 # Horn IV (10): +4 Survivability on turns you blow a Horn. (Wide) (Fragile)
 # Horn V (10): You gain access to the Horn of Death (Deal Grievous Damage to all players). This horn takes effect in three turns, not one.
 
@@ -44,24 +44,24 @@
     Every turn, you may choose a Horn to Blow (or none). Blowing a Horn is Blatant and Fragile, and causes an effect the following turn.
     You can choose the Horn of Fervor (All players gain +2 Combat), or the Horn of Fear (All players lose 2 Combat).
 
-    Horn II costs 10
+    Horn II costs 5
 
 2202:
   name: "Horn II"
   concept: "HORN"
-  cost: 10
+  cost: 5
   skills:
     - 2216
   explanation: |-
     You gain access to the Horn of Plenty (All players gain 2 Credits).
 
-    Horn III costs 10
+    Horn III costs 5
   prerequisite: 2201
 
 2203:
   name: "Horn III"
   concept: "HORN"
-  cost: 10
+  cost: 5
   skills:
     - 2217
   explanation: |-

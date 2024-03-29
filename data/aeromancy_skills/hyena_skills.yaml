@@ -26,9 +26,9 @@
   priority: -5
 
 704:
-  text: "Speed +1 if attacked by uninjured."
+  text: "Speed +2 if attacked by uninjured."
   effect: "SPEED"
-  value: 1
+  value: 2
   self_has_condition: "ONCE"
   priority: 5
 

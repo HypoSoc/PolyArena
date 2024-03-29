@@ -100,3 +100,11 @@
   trigger: "TARGET"
   target_not_condition: "PORTENT"
   priority: 100
+
+1713:
+  text: "+3 Surv when attacking Portent"
+  effect: "SURVIVABILITY"
+  value: 3
+  trigger: "ATTACK"
+  target_has_condition: "PORTENT"
+  self_override: true

@@ -65,3 +65,15 @@
   text: "Aero suppressed"
   effect: "CONDITION"
   value: "AERO_LOCKED"
+
+4111:
+  text: "Grant -1 to suppressed target"
+  effect: "TEMP_SKILL"
+  value: 4112
+  trigger: "TARGET"
+
+4112:
+  text: "%SELF%'s power is being suppressed."
+  effect: "Suvivability"
+  value: -1
+  priority: 68

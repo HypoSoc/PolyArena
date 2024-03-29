@@ -1,9 +1,10 @@
 #Shackled I (10): +5 Combat. +5 Survivability
 #                 -5 Combat. -5 Survivability (Wide) (Fragile)
 #Shackled II (5): +1 Combat and +1 Survivability (Fragile)
-#Shackled III (10): Gain a Dimensional Key, a consumable item that disables the Fragile Aeromancy Abilities of all players not using Reality Imposition. (Broadcasted)
-#                   You cannot use Dimension Keys yourself, nor can other Sealed players.
-#Shacked IV (10): Gain 3 Dimensional Keys.
+#Shackled III (5): At the start of your next turn, three random players other than you will gain a Dimensional Key, (Narrow)
+#                  Dimensional Keys are consumable items that disables the Fragile Abilities of all players. (Broadcasted)
+#                  You cannot use Dimension Keys yourself, nor can other Sealed players or Shackled Automata.
+#Shacked IV (10): At the start of each turn, gain a Dimensional Key.
 
 901:
   name: "Shackled I"
@@ -13,6 +14,7 @@
     - 901
     - 902
     - 905
+    - 908
   aero:
     903:
       fragile: true
@@ -22,7 +24,7 @@
     +5 Combat and Survivability
     -5 Combat and Survivability (Wide) (Fragile)
 
-    Shackled II costs 10
+    Shackled II costs 5
 
 902:
   name: "Shackled II"
@@ -36,21 +38,21 @@
   explanation: |-
     +1 Combat and Survivability (Fragile)
 
-    Shackled III costs 10
+    Shackled III costs 5
   prerequisite: 901
 
 903:
   name: "Shackled III"
   concept: "SHACKLED"
-  cost: 10
+  cost: 5
   skills:
-    - 908
-    - 909
+    - 914
+    - 914
+    - 914
   explanation: |-
-    Gain a Dimensional Key.
-    Dimensional Keys are 2 Credit Consumables.
-    When used, they disable all fragile Aeromancy abilities for all players not using Reality Imposition for that turn.
-    You cannot use Dimensional Keys yourself, not can other Sealed Players.
+    At the start of your next turn, three random players other than you will gain a Dimensional Key. (Narrow)
+    Dimensional Keys are consumable items that disables the Fragile Abilities of all players. (Broadcasted)
+    You cannot use Dimension Keys yourself, nor can other Sealed players or Shackled Automata.
 
     Shackled IV costs 10
   prerequisite: 902
@@ -62,5 +64,5 @@
   skills:
     - 911
   explanation: |-
-    Gain 3 Dimensional Keys
+    At the start of each turn, gain a Dimensional Key.
   prerequisite: 903

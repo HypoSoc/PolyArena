@@ -1,5 +1,5 @@
 # Suppression I (10): Each turn, choose a player to Suppress until the end of the turn. (Subtle) (Fragile)
-#                     Suppressed players get -2 Combat (Wide).
+#                     Suppressed players get -2 Combat and -1 Survivability (Wide).
 # Suppression II (5): Whenever a Suppressed player dies, gain 4 Progress.
 # Suppression III (20): Suppressed players lose access to fragile abilities during combat.
 
@@ -13,9 +13,11 @@
       fragile: true
     4102:
       fragile: true
+    4111:
+      fragile: true
   explanation: |-
     Each turn, choose a player to Suppress until the end of the turn. (Subtle) (Fragile)
-    Suppressed players get -2 Combat (Wide).
+    Suppressed players get -2 Combat and -1 Survivability (Wide).
 
     Suppression II costs 5
 
