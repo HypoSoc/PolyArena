@@ -74,6 +74,6 @@
 
 4112:
   text: "%SELF%'s power is being suppressed."
-  effect: "Suvivability"
+  effect: "SURVIVABILITY"
   value: -1
   priority: 68
