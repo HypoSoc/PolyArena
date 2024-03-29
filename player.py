@@ -384,7 +384,7 @@ class Player:
         self._validate_dev_plan(
             self.dev_plan, complete_ability_pins, self.name)
 
-    def _generic_action_check(self, bonus=False, day_only=False) -> NoReturn:
+    def _generic_action_check(self, bonus=False, day_only=False):
         if self.is_dead():
             raise Exception(f"Player {self.name} is DEAD and cannot act.")
         if bonus:

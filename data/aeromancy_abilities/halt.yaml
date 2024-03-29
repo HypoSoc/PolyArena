@@ -33,6 +33,7 @@
     You gain a Lizard Tail. 
 
     Halt III costs 10
+  prerequisite: 3801
 
 3803:
   name: "Halt III"
@@ -44,6 +45,7 @@
     You gain a Chronoshift Bomb.  
 
     Halt IV costs 15
+  prerequisite: 3802
 
 3804:
   name: "Halt IV"
@@ -57,6 +59,7 @@
     You gain 1 Academic Point
 
     Halt IV costs 20
+  prerequisite: 3803
 
 3805:
   name: "Halt V"
@@ -68,5 +71,6 @@
   explanation: |-
     You gain a Chronoshift Bomb.  
     You gain 1 Academic Point
+  prerequisite: 3804
 
 
