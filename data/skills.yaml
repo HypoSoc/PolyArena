@@ -1077,3 +1077,9 @@
   priority: 70
   target_not_condition: "FIRE_PROOF"
   info: "PUBLIC"
+
+161:
+  text: "Max Willpower +4"
+  effect: "MAX_WILLPOWER"
+  value: 4
+  trigger: "NONCOMBAT"

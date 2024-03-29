@@ -207,6 +207,8 @@
 223:
   name: "Body Reinforcement II"
   cost: 10
+  skills:
+    - 82
   hydro:
     1:
       cost: 3
@@ -222,6 +224,8 @@
 224:
   name: "Body Reinforcement III"
   cost: 10
+  skills:
+    - 161
   hydro:
     1:
       cost: 5
