@@ -6,7 +6,7 @@ from queue import PriorityQueue
 from typing import TYPE_CHECKING, Dict, Tuple, List, FrozenSet, Callable, Set, Any, Optional
 
 from constants import Condition, Effect, InfoScope, Trigger, DamageType, InjuryModifier, \
-    SELF_PLACEHOLDER, TARGET_PLACEHOLDER, NONCOMBAT_TRIGGERS, Element, CONDITION_IMMUNITY
+    SELF_PLACEHOLDER, TARGET_PLACEHOLDER, NONCOMBAT_TRIGGERS, Element, CONDITION_IMMUNITY, Temperament
 from items import get_item, get_item_by_name
 from skill import Skill, get_skill
 
@@ -1112,7 +1112,8 @@ class CombatHandler:
             survivors = [player for player in group if player not in dead_list]
             for player in dead_list:
                 for murderer in self.injured_by.get(player, set()):
-                    self.blood_thirst.add(murderer.name)
+                    if murderer not in dead_list and murderer.temperament == Temperament.BLOODTHIRSTY:
+                        self.blood_thirst.add(murderer)
                 loot_items = [item for item in player.get_items() if item.loot]
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
@@ -1275,8 +1276,8 @@ class CombatHandler:
     def hot_blood_check(self, player: "Player"):
         return player.name in self.hot_blood
 
-    def blood_thirst_check(self, player: "Player"):
-        return player.name in self.blood_thirst
+    def blood_thirst_list(self):
+        return self.blood_thirst
 
     def get_combat_report_for_player(self, player: "Player"):
         report = ""

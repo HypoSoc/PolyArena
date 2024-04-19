@@ -2,8 +2,6 @@ import os
 from queue import PriorityQueue
 from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type, Union
 
-import random
-
 from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
@@ -26,6 +24,7 @@ HEALING_TANK = get_item_by_name("Healing Tank").pin
 BOOBY_TRAP = get_item_by_name("Booby Trap").pin
 WORKBENCH = get_item_by_name("Workbench").pin
 AUTOMATA = get_item_by_name("Automata").pin
+DIMENSIONAL_KEY = get_item_by_name("Dimensional Key").pin
 
 QM_ABILITY_PINS = [get_ability_by_name(
     "Divination").pin, get_ability_by_name("Danger Precognition").pin]
@@ -1456,8 +1455,7 @@ class Spy(Action):
                     if skill.trigger == Trigger.SPIED_ON:
                         HandleSkill(self.game, self.target, skill, self.player)
                 return
-        self.player.report += get_main_report().get_spy_report(self.player,
-                                                               self.target, counter_int) + os.linesep
+        SpyFollow(self.game, self.player, self.target, counter_int)
         if self.player not in Action.spied:
             Action.spied[self.player] = set()
         Action.spied[self.player].add(self.target)
@@ -1481,6 +1479,19 @@ class Spy(Action):
                 HandleSkill(self.game, self.target, skill, [self.player])
 
 
+# This allows spies to see spies spying
+class SpyFollow(Action):
+    def __init__(self, game: Optional['Game'], player: "Player", target: "Player", counter_int: bool):
+        super().__init__(priority=85.01, game=game, player=player, fragile=False,
+                         public_description=f"")
+        self.target = target
+        self.counter_int = counter_int
+
+    def act(self):
+        self.player.report += get_main_report().get_spy_report(self.player,
+                                                               self.target,
+                                                               self.counter_int) + os.linesep + os.linesep
+
 # Free Actions
 
 class ConsumeItem(Action):
@@ -1490,7 +1501,7 @@ class ConsumeItem(Action):
         if (player, item) in ConsumeItem.unique_pair:
             raise Exception(
                 f"{player.name} is trying to consume multiple copies of the same item ({item.name}).")
-        super().__init__(priority=10, game=game, player=player, fragile=False,
+        super().__init__(priority=-20 if item.pin == DIMENSIONAL_KEY else 10, game=game, player=player, fragile=False,
                          public_description=f"{player.name} used {item.name}")
         self.item = item
         ConsumeItem.unique_pair.add((player, item))
@@ -1916,24 +1927,57 @@ class Illusion(Action):
             self.target.fake_action = self.fake_action
             if isinstance(self.fake_action, Wander):
                 self.target.action.maintains_hiding = True
+            if self.fake_action.fragile:
+                IllusionFollow(self.game, self.target, self.fake_action, self.fake_training)
+            else:
+                get_main_report().add_action(
+                    self.target, self.fake_action.public_description, fake=True)
+                Action.add_action_record(self.target, type(self.fake_action),
+                                         target=getattr(
+                                             self.target.fake_action, 'target', None),
+                                         fake=True)
+                if isinstance(self.fake_action, Train):
+                    self.target.fake_ability = self.fake_training
+                    if self.fake_training:
+                        train_name = self.fake_training.name
+                        if self.fake_training.pin >= 700:
+                            train_name = 'Concept ' + \
+                                         int_to_roman((self.fake_training.pin % 100))
+                        get_main_report().set_training(self.target, train_name)
+                    else:
+                        get_main_report().set_training(self.target, "nothing")
+
+            Illusion.handled.add(self.target)
+
+
+class IllusionFollow(Action):
+    def __init__(self, game: Optional['Game'], player: "Player",
+                 fake_action: 'Action', fake_training: Optional['Ability'] = None):
+        super().__init__(35, game=game, player=player, fragile=False, prevents_wandering=False)
+        self.fake_action = fake_action
+        self.fake_training = fake_training
+
+    def act(self):
+        if self.player in Action.interrupted_players:
             get_main_report().add_action(
-                self.target, self.fake_action.public_description, fake=True)
-            Action.add_action_record(self.target, type(self.fake_action),
+                self.player, self.fake_action.on_interrupt, fake=True)
+        else:
+            get_main_report().add_action(
+                self.player, self.fake_action.public_description, fake=True)
+            Action.add_action_record(self.player, type(self.fake_action),
                                      target=getattr(
-                                         self.target.fake_action, 'target', None),
+                                         self.player.fake_action, 'target', None),
                                      fake=True)
             if isinstance(self.fake_action, Train):
-                self.target.fake_ability = self.fake_training
+                self.player.fake_ability = self.fake_training
                 if self.fake_training:
                     train_name = self.fake_training.name
                     if self.fake_training.pin >= 700:
                         train_name = 'Concept ' + \
                                      int_to_roman((self.fake_training.pin % 100))
-                    get_main_report().set_training(self.target, train_name)
+                    get_main_report().set_training(self.player, train_name)
                 else:
-                    get_main_report().set_training(self.target, "nothing")
-
-            Illusion.handled.add(self.target)
+                    get_main_report().set_training(self.player, "nothing")
 
 
 class MasterIllusion(Action):
@@ -2109,10 +2153,12 @@ class CombatStep(Action):
                     player.report += "Your blood boils in excitement." + os.linesep
                     Action.progress(player, 2)
                     player.report += os.linesep
-            if get_combat_handler().blood_thirst_check(player) and player.temperament == Temperament.BLOODTHIRSTY:
-                if not player.is_dead() or player.has_condition(Condition.RESURRECT):
+            if player.temperament == Temperament.BLOODTHIRSTY:
+                bt_list = [p.name for p in get_combat_handler().blood_thirst_list() if not p.is_dead()]
+                if player.name in bt_list:
                     player.report += "Your blood sings in joy." + os.linesep
-                    Action.progress(player, 7)
+                    progress = (7 // len(bt_list)) + (7 % len(bt_list) > 0)
+                    Action.progress(player, progress)
                     player.report += os.linesep
 
             if not player.is_dead():

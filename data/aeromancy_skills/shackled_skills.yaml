@@ -29,7 +29,7 @@
   priority: 20
 
 906:
-  text: "The Dimensional Key twisted reality!"
+  text: "A Dimensional Key twisted reality!"
   effect: "INFO"
   trigger: "NONCOMBAT"
   self_not_condition: "LOCKED"
@@ -65,6 +65,7 @@
   trigger: "NONCOMBAT"
   self_has_condition: "LOCKED"
   info: "PRIVATE"
+  priority: -15
 
 911:
   text: "The key to your Shackles appeared, as if to mock you."

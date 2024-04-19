@@ -166,7 +166,9 @@ AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.
                Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN]
 
 NEGATIVE_CONDITIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
-                       Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN, Condition.SICKENED, Condition.POLLUTED, Condition.CRUMBLING, Condition.SURVIVABILITY_DOWN, Condition.COMBAT_DOWN, Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED]
+                       Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN, Condition.SICKENED,
+                       Condition.POLLUTED, Condition.CRUMBLING, Condition.SURVIVABILITY_DOWN, Condition.COMBAT_DOWN,
+                       Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED, Condition.LOCKED]
 
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,

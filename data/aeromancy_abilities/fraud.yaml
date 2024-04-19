@@ -32,6 +32,7 @@
   concept: "FRAUD"
   cost: 5
   max_targets: 1
+  target_other: true
   skills: 
   - 3306
   explanation: |-

@@ -22,6 +22,7 @@ MEDKIT = get_item_by_name("Medkit").pin
 DEPLETED_MEDKIT = get_item_by_name("1/2 Medkit").pin
 SOFT = get_item_by_name("Soft").pin
 AUTOMATA = get_item_by_name("Automata").pin
+DIMENSIONAL_KEY = get_item_by_name("Dimensional Key").pin
 
 CONCEPT_I = get_ability_by_name("Dummy Concept I").pin
 LEGACY_MAGIC = get_ability_by_name("Legacy Magic").pin
@@ -951,8 +952,10 @@ class Player:
                 skills += ability_skills
         skills += self._get_non_consumable_item_skills()
         for item in self.get_consumed_items():
-            skills += item.get_skills(choice=self.item_choices.get(item.pin, -1),
-                                      targets=self.item_targets.get(item.pin, []))
+            # Dimensional Key is special since it gets consumed BEFORE the non combat skill, so we exclude it here
+            if item.pin != DIMENSIONAL_KEY:
+                skills += item.get_skills(choice=self.item_choices.get(item.pin, -1),
+                                          targets=self.item_targets.get(item.pin, []))
         skills += self.temporary_skills
         if self.has_ability("Reinforced Will"):
             for skill in skills:
