@@ -40,7 +40,7 @@ class CombatHandler:
         self.broadcast_events: List[Tuple[str, bool]] = []
 
         self.hot_blood = set()
-        self.blood_thirst = set()
+        self.blood_thirst: Dict["Player", Set["Player"]] = {}
         self.injured_by: Dict["Player", Set["Player"]] = {}
         self.report_dict = {}
         self.attacker_to_defenders: Dict["Player", Set["Player"]] = {}
@@ -1113,7 +1113,9 @@ class CombatHandler:
             for player in dead_list:
                 for murderer in self.injured_by.get(player, set()):
                     if murderer not in dead_list and murderer.temperament == Temperament.BLOODTHIRSTY:
-                        self.blood_thirst.add(murderer)
+                        if player not in self.blood_thirst:
+                            self.blood_thirst[player] = set()
+                        self.blood_thirst[player].add(murderer)
                 loot_items = [item for item in player.get_items() if item.loot]
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
@@ -1276,8 +1278,16 @@ class CombatHandler:
     def hot_blood_check(self, player: "Player"):
         return player.name in self.hot_blood
 
-    def blood_thirst_list(self):
-        return self.blood_thirst
+    def blood_thirst_share_count(self, player: "Player"):
+        encountered = False
+        minimum = 1000
+        for dead, killers in self.blood_thirst.items():
+            if player in killers:
+                encountered = True
+                minimum = min(minimum, len(killers))
+        if not encountered:
+            return 0
+        return minimum
 
     def get_combat_report_for_player(self, player: "Player"):
         report = ""
@@ -1339,7 +1349,7 @@ class CombatHandler:
         self.broadcast_events = []
 
         self.hot_blood = set()
-        self.blood_thirst = set()
+        self.blood_thirst = {}
         self.injured_by = {}
         self.report_dict = {}
         self.attacker_to_defenders = {}

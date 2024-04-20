@@ -2154,10 +2154,10 @@ class CombatStep(Action):
                     Action.progress(player, 2)
                     player.report += os.linesep
             if player.temperament == Temperament.BLOODTHIRSTY:
-                bt_list = [p.name for p in get_combat_handler().blood_thirst_list() if not p.is_dead()]
-                if player.name in bt_list:
+                share = get_combat_handler().blood_thirst_share_count(player)
+                if share:
                     player.report += "Your blood sings in joy." + os.linesep
-                    progress = (7 // len(bt_list)) + (7 % len(bt_list) > 0)
+                    progress = (7 // share) + (7 % share > 0)
                     Action.progress(player, progress)
                     player.report += os.linesep
 
