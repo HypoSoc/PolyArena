@@ -210,3 +210,11 @@
   type: "CONSUMABLE"
   skills:
     - 140
+
+29:
+  name: "Caltrops"
+  cost: 4
+  type: "CONSUMABLE"
+  skills:
+    - 164
+    - 165

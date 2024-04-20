@@ -1096,3 +1096,17 @@
   effect: "CREDITS"
   trigger: "POST_COMBAT"
   value: 1
+
+164:
+  text: "%SELF% scattered Magical Caltrops across campus!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "BROADCAST"
+
+165:
+  text: "%TARGET% was punctured by Caltrops!"
+  effect: "NONLETHAL"
+  trigger: "OTHERS"
+  priority: 89.7
+  info: "PRIVATE"
+  target_has_condition: "ATTACKED"

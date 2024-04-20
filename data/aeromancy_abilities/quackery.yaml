@@ -3,6 +3,9 @@
 #                  This does nothing and will not be reflected in your actions.
 # Quackery II (10): You can spend an action to ACTUALLY heal any player's injuries. Self-heals are uninterruptible.
 # Quackery III (10): At the start of the next turn all other Marked players permanently lose 2 Survivability. (Subtle)
+# Quackery IV (5): At the start of the next turn all other Marked players permanently lose 2 Survivability. (Subtle)
+# Quackery V (5): At the start of the next turn all other Marked players permanently lose 2 Survivability. (Subtle)
+# Quackery VI (5): At the start of the next turn all other Marked players permanently lose 2 Survivability. (Subtle)
 
 5401:
   name: "Quackery I"
@@ -41,4 +44,40 @@
     - 5403
   explanation: |-
     At the start of the next turn all other Marked players permanently lose 2 Survivability.
+
+    Quackery IV costs 5
   prerequisite: 5402
+
+5404:
+  name: "Quackery IV"
+  concept: "QUACKERY"
+  cost: 5
+  skills:
+    - 5403
+  explanation: |-
+    At the start of the next turn all other Marked players permanently lose 2 Survivability.
+
+    Quackery V costs 5
+  prerequisite: 5403
+
+5405:
+  name: "Quackery V"
+  concept: "QUACKERY"
+  cost: 5
+  skills:
+    - 5403
+  explanation: |-
+    At the start of the next turn all other Marked players permanently lose 2 Survivability.
+
+    Quackery VI costs 5
+  prerequisite: 5404
+
+5406:
+  name: "Quackery VI"
+  concept: "QUACKERY"
+  cost: 5
+  skills:
+    - 5403
+  explanation: |-
+    At the start of the next turn all other Marked players permanently lose 2 Survivability.
+  prerequisite: 5405
