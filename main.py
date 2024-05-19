@@ -66,7 +66,8 @@ def create_player(name: str, abilities=None, items=None,
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
     player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
-                    items=item_pins, money=3, willpower=willpower, bounty=1,
+                    items=item_pins, money=5 if temperament == Temperament.LUCRATIVE else 3,
+                    willpower=willpower, bounty=1,
                     relative_conditions={}, tattoo=tattoo, concept=None,
                     crafted_before=[],
                     game=GAME)
@@ -129,123 +130,132 @@ def conductor_choice(action: str):
 
 
 def init():
-    # Bothersome/Golden Rule
     create_player("23Starman",
-                  ["Resurrection"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Stealth Resurrection", "Mental Fortification I"])
-    # Blueballs/Exhibitionist
-    create_player("Armstrong",
-                  ["Warp", "Quiet Attune"],
-                  temperament=Temperament.SCHOLASTIC,
-                  dev_goals=["Air I", "Speed (Geo) I"])
-    # Machismo/Instant Gratification
-    create_player("anemone",
-                  ["Copycat", "Awareness III"],
-                  temperament=Temperament.LUCRATIVE,
-                  dev_goals=["Circuit I", "Martial Arts I", "Counter Intelligence I", "Willpower I"])
-    # Miasma/Stifle/Usury
-    # Nothing to Hide/Cockroach
-    create_player("Axeorthedark",
-                  ["Stifle I", "Legacy Magic", "Bolthole"],
-                  temperament=Temperament.PATIENT,
-                  dev_goals=["Profiling", "Sabotage", "Know Thy Enemy"])
-    # Nerd/Pacifist
-    create_player("BlackLemonAde",
-                  ["Envy IV"],
-                  temperament=Temperament.PATIENT,
-                  dev_goals=[])
-    # No Escape/Bodyguard (Lord of Chromius)
-    create_player("DarkPiplumon",
-                  ["Copycat", "Ambush Tactics I"],
-                  temperament=Temperament.HOT_BLOODED,
-                  dev_goals=["Awareness III", "Willpower Detection"])
-    # Incandescence/Infinite Mana
-    create_player("Dragonlord7",
-                  ["Awareness I", "Crafting II"],
-                  temperament=Temperament.INNOVATIVE,
-                  dev_goals=["Crafting III", "Willpower II", "Willpower III"])
-    # Paparazzi/Pre-K
-    create_player("hotmonkey1",
-                  ["Circuit III", "Water II"],
-                  temperament=Temperament.SCHOLASTIC,
-                  dev_goals=["Water III", "Air I", "Circuit IV", "Mist", "Earth I", "Circuit V", "Earth II", "Circuit VI"])
-    # Statue Garden/Saint
-    create_player("Lord of Chromius",
-                  ["Circuit III", "Earth I", "Fire I"],
-                  partial_dev={"Earth II": 5},
-                  temperament=Temperament.SCHOLASTIC,
-                  dev_goals=["Earth II", "Fast Attune I", "Fast Attune II", "Petrification I", "Lava"])
-    # Bureaucracy/Conductor/Paperwork
-    # Time Warp/Sycophant
-    create_player("Megaolix",
-                  ["Bureaucracy I", "Legacy Magic", "Enhanced Senses"],
-                  partial_dev={"Danger Precognition": 5},
+                  ["Crafting I", "Combat Medicine", 'Awareness I'],
+                  temperament=Temperament.ALTRUISTIC,
+                  dev_goals=["Armored Combat", 'Circuit I', 'Earth I'])
+    # Conductor/Stifle/Ooze
+    create_player("Anemone",
+                  ["Crafting I", "Stifle I", "Legacy Magic"],
                   temperament=Temperament.PARANOIAC,
-                  dev_goals=["Danger Precognition", "Willpower II", "Willpower III", "Reinforced Will"])
-    # Revolution/Serial Killer (Dragonlord7, RyoAtemi, Tarro)
-    create_player("NTKV",
-                  ["Water III"],
-                  temperament=Temperament.PRIVILEGED,
-                  dev_goals=["Circuit II", "Circuit III", "Rune Crafting I", "Runic Tattoos"])
-    # Befoulment/Rapier/Zweihander
-    # Silent but Deadly/Grand Heist
-    create_player("Paradosi",
-                  ["Befoulment I", "Legacy Magic",
-                      "Armed Combat I", "Armored Combat"],
-                  temperament=Temperament.HOT_BLOODED,
                   dev_goals=[])
-    # Erode/Enfleshed/Rapier
-    # Regressive Taxation/Just Browsing
-    create_player("RyoAtemi",
-                  ["Erode III", "Legacy Magic"],
-                  temperament=Temperament.HOT_BLOODED,
-                  dev_goals=["Circuit I", "Earth I", "Circuit II", "Earth II", "Circuit III", "Earth III"])
-    # Hypochondria/Assassin: (Witherbrine26)
-    create_player("Seventeen",
-                  ["Fire I", "Water I", "Toxin", "Air I", "Mist", "Circuit III"],
-                  temperament=Temperament.HOT_BLOODED,
-                  conditions=[Condition.RINGER],
-                  dev_goals=["Ash"])
-    # Augur/Migraine/Yoga
-    # Bully/Bureaucrat
-    create_player("Swift-Sama",
-                  ["Legacy Magic", "Migraine II", "Martial Arts I"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Migraine III", "Martial Arts II", "Armored Combat", "Forged in Fire", "Armed Combat I"])
-    # Ebb/Journey/Parade
-    # Spy Agency/Justice
-    create_player("Tarro",
-                  ["Parade II", "Legacy Magic", "Willpower I"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Body Reinforcement I", "Speed (Hydro) I", "Rapid Regen I", "Willpower II", "Rapid Regen II"])
-    # Underdog/Contractor
-    create_player("Teyao",
-                  ["Paperwork I", "Paperwork II", "Combat Medicine",
-                      "Circuit II", "Earth I", "Water I"],
+    create_player("BlackLemonAde",
+                  ["Circuit II", "Earth I", "Water I", "Magical Healing (Geo)"],
                   temperament=Temperament.ALTRUISTIC,
-                  partial_dev={"Paperwork III": 5},
-                  conditions=[Condition.RINGER],
-                  dev_goals=["Paperwork III"])
-    # Class Clown/Predator
-    create_player("Touch Dom",
-                  ["Fire I", "Cauterization", "Ambush Tactics I"],
-                  temperament=Temperament.HOT_BLOODED,
-                  dev_goals=["Circuit II", "Fire II", "Circuit III", "Water I", "Toxin", "Martial Arts I"])
-    # Meathead/Robot Army
-    create_player("Witherbrine26",
-                  ["Light", "Circuit II", "Magical Healing (Geo)"],
-                  partial_dev={"Combat Regeneration (Geo)": 5},
+                  dev_goals=[])
+    create_player("Coledon",
+                  ["Gold", "Combat Medicine"],
                   temperament=Temperament.ALTRUISTIC,
-                  dev_goals=["Combat Regeneration (Geo)", "Kaleidoscope", "Water I", "Water II"])
-    # Hoarder/Money Bags
-    create_player("Zeal Iskander",
-                  ["Awareness II", "Attunement Detection", "Willpower Detection",
-                      "Aeromancy Intuition", "Market Connections II"],
+                  dev_goals=["Water I", "Fire I", "Toxin", "Circuit III", "Circuit IV"])
+    # Random Concept
+    create_player("DarkLight140",
+                  ["Mental Fortification I", 'Gaze II'],
+                  temperament=Temperament.INTUITIVE,
+                  dev_goals=["Gaze III"])
+    create_player("Dragonlord7",
+                  ['Ambush Tactics I', 'Fire II'],
+                  temperament=Temperament.BLOODTHIRSTY,
+                  dev_goals=["Circuit II", "Cauterization", "Hell Fire", "Fire III", "Circuit III",
+                             "Martial Arts I", "Martial Arts II", "Martial Arts III"])
+    # Random Concept
+    create_player("Drasky",
+                  ["Forged in Fire", "Combat Medicine", "Hyena I"],
+                  temperament=Temperament.LUCRATIVE,
+                  dev_goals=[])
+    # Decoy/Bureaucracy/Enfleshed
+    create_player("hotmonkey1",
+                  ["Rune Crafting II", "Legacy Magic", "Decoy I"],
                   temperament=Temperament.PRIVILEGED,
-                  dev_goals=["Bolthole", "Profiling", "Awareness III"])
+                  dev_goals=["Decoy II", "Decoy III", "Decoy IV", "Fire I", "Fire II", "Circuit III", "Fire III", "Cauterization", "Hell Fire", "Awareness I", "Attunement Detection"])
+    # Heliophile/Zweihander/Chalk
+    create_player("Lord of Chromius",
+                  ["Heliophile II", "Legacy Magic", "Willpower I"],
+                  temperament=Temperament.PATIENT,
+                  dev_goals=["Mental Fortification I", "Awareness I", "Willpower II", "Ambush Tactics I", "Illusions I", "Heliophile III", "Heliophile IV"])
+    create_player("Megaolix",
+                  ["Circuit II", "Air II"],
+                  partial_dev={'Speed (Geo) I': 5},
+                  temperament=Temperament.PATIENT,
+                  dev_goals=["Speed (Geo) I", "Speed (Geo) II", "Circuit III", "Fire I", "Fire II"])
+    create_player("NinetyNineLies",
+                  ["Awareness III", "Copycat", "Counter Ambush Tactics"],
+                  temperament=Temperament.PRIVILEGED,
+                  dev_goals=["Circuit I", "Fire I", "Circuit II", "Air I", "Martial Arts I", "Martial Arts II", "Martial Arts III"])
+    create_player("Paradosi",
+                  ["Mental Fortification II", "Quiet Casting", "Will Armor I"],
+                  temperament=Temperament.PRIVILEGED,
+                  dev_goals=["Will Armor II", "Awareness I", "Counter Intelligence I"])
+    create_player("PocketRikimaru",
+                  ["Awareness II", "Copycat", "Ambush Tactics II"],
+                  temperament=Temperament.PRIVILEGED,
+                  dev_goals=["Willpower I", "Body Reinforcement I", "Body Reinforcement II"])
+    create_player("RyoAtemi",
+                  ["Crafting II", "Willpower II"],
+                  temperament=Temperament.INNOVATIVE,
+                  dev_goals=["Crafting III", "Willpower III", "Willpower IV", "Awareness I"])
+    create_player("Seventeen",
+                  ["Sabotage", "Earth I"],
+                  temperament=Temperament.ALTRUISTIC,
+                  dev_goals=["Profiling", "Willpower Detection", "Know Thy Enemy", "Psy Ops", "Awareness III"])
+    # Enfleshed/Yoga/Haruspex
+    create_player("Swift-Sama",
+                  ["Forged in Fire", "Legacy Magic", "Yoga I"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=['Combat Medicine', 'Awareness I', 'Armed Combat I', 'Armed Combat II', 'Martial Arts II', 'Martial Arts III'])
+    # Migraine/Augur/Miasma
+    create_player("Tempeljaeger",
+                  ["Miasma I", "Legacy Magic", "Market Connections II"],
+                  temperament=Temperament.PATIENT,
+                  dev_goals=[])
+    # Random Concept
+    create_player("Teyao",
+                  ["X", "Circuit II", "Kaleidoscope", 'Nuclear I', 'Ooze I'],
+                  temperament=Temperament.SCHOLASTIC,
+                  dev_goals=["Nuclear II", "Nuclear III"])
+    create_player("Witherbrine26",
+                  ["Gold", "Earth I", "Awareness I"],
+                  temperament=Temperament.LUCRATIVE,
+                  dev_goals=["Earth II", "Circuit III"])
+    create_player("Zeal Iskander",
+                  ["Theft", "Market Connections I"],
+                  partial_dev={'Sabotage': 5},
+                  temperament=Temperament.SCHOLASTIC,
+                  dev_goals=["Sabotage", "Martial Arts I", "Martial Arts II", "Martial Arts III", "Armored Combat", "Armed Combat I"])
 
-    summary()
+    create_player("Lust",
+                  ['Psy Ops', 'Awareness II'],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=['Awareness III', 'Bolthole', 'Circuit I', 'Earth I'])
+    create_player("Gluttony",
+                  ['Crafting I', 'Bolthole'],
+                  temperament=Temperament.PARANOIAC,
+                  dev_goals=['Body Reinforcement I', 'Body Reinforcement II', 'Body Reinforcement III', 'Willpower II', 'Willpower III'])
+    # Parade/Pinata/Usury
+    create_player("Greed",
+                  ['Legacy Magic', 'Parade II', 'Circuit I'],
+                  temperament=Temperament.LUCRATIVE,
+                  dev_goals=['Circuit II', 'Gold', 'Parade III', 'Parade IV', 'Parade V'])
+    # Stifle/Snail/Battery
+    create_player("Sloth",
+                  ['Legacy Magic', 'Snail II'],
+                  partial_dev={'Snail III': 5},
+                  temperament=Temperament.PATIENT,
+                  dev_goals=['Snail III', 'Snail IV', 'Snail V', 'Circuit I', 'Earth I', 'Earth II', 'Circuit II', 'Earth III', 'Circuit III'])
+    create_player("Wrath",
+                  ['Armed Combat II', 'Sniping'],
+                  temperament=Temperament.BLOODTHIRSTY,
+                  dev_goals=['Martial Arts II', 'Martial Arts III', 'Armored Combat', 'Forged in Fire'])
+    create_player("Envy",
+                  ['Copycat', 'Bolthole'],
+                  temperament=Temperament.INTUITIVE,
+                  dev_goals=['Awareness III'])
+    # Shackled/War/Heliophile
+    create_player("Pride",
+                  ['Lava', 'Earth I', 'Circuit I', 'Fire I', 'Quiet Attune', 'Legacy Magic', 'Shackled II'],
+                  temperament=Temperament.PRIVILEGED,
+                  conditions=[Condition.RINGER],
+                  dev_goals=['Shackled III', 'Shackled IV'])
+    # summary()
 
 
 def summary(detailed=False, condensed=False):
@@ -355,122 +365,21 @@ def summary(detailed=False, condensed=False):
 
 if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
-    # init()
-    load("Y17", turn=10, night=False)
+    # load("Y19")
 
-    star = GAME.get_player("23Starman")
-    arm = GAME.get_player("Armstrong")
-    ane = GAME.get_player("anemone")
-    axe = GAME.get_player("Axeorthedark")
-    bla = GAME.get_player("BlackLemonAde")
-    dark = GAME.get_player("DarkPiplumon")
-    drag = GAME.get_player("Dragonlord7")
-    hot = GAME.get_player("hotmonkey1")
-    lord = GAME.get_player("Lord of Chromius")
-    mega = GAME.get_player("Megaolix")
-    ntkv = GAME.get_player("NTKV")
-    para = GAME.get_player("Paradosi")
-    ryo = GAME.get_player("RyoAtemi")
-    seven = GAME.get_player("Seventeen")
-    swift = GAME.get_player("Swift-Sama")
-    tarro = GAME.get_player("Tarro")
-    teyao = GAME.get_player("Teyao")
-    touch = GAME.get_player("Touch Dom")
-    wither = GAME.get_player("Witherbrine26")
-    zeal = GAME.get_player("Zeal Iskander")
+    a = create_player("Alpha", ['Decoy I'], items=['Decoy I Rune'])
+    b = create_player("Beta")
+    c = create_player("Charlie")
+    d = create_player("Delta")
+    e = create_player("Epsilon")
 
     GAME.advance()
-    # summary(detailed=True)
-    # exit(0)
 
-    # # 23Starman: Golden Rule [Darkpiplumon, Paradosi, Touch Dom]
-    # star.plan_hydro("Illusions I")
-    star.plan_hydro("Resurrection", contingency=True)
-    star.plan_bunker()
-    # star.plan_shop("Liquid Memories", "Cheat Sheet")
-    # star.plan_illusion(star, Wander(None, star))
-    # # # # # # # # # # # # star.plan_trade(para, money=2, action_condition=(para, Attack, star, False))
-    # # # # # # # # star.set_dev_plan("Illusions I", "Rapid Regen I", "Mental Fortification I")
-    # # # # # # # # # # # # # # # # # # # # BlackLemonAde: Pacifist
-    # # # # bla.plan_consume_item("Paperwork")
-    bla.plan_attune(Element.EARTH)
-    bla.plan_attack(hot)
-    # # bla.plan_trade(dark, item_names=['Paperwork'])
-    # # # # # # # # # # # bla.set_dev_plan("Martial Arts I", "Armed Combat I", "Sniping", "Circuit II", "Antimagic (Geo)")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # Darkpiplumon: No Escape 0/1
-    dark.plan_consume_item("Paperwork")
-    dark.plan_hydro("Enhanced Senses")
-    dark.plan_hydro("Body Reinforcement I", will=[1, 0], contingency=False)
-    dark.plan_attune(Element.FIRE, Element.AIR, Element.ANTI, Element.WATER)
-    dark.plan_attack(teyao)
-    # # # # dark.plan_trade(drag, money=2, item_name_condition=(drag, 0, ['Leather Armor']))
-    dark.plan_spy(mega, star)
-    # # # # # # # # # # # # # dark.plan_shop("Paperwork", "Paperwork", "Paperwork", "Paperwork", "Shrooms", "Shrooms")
-    # # # # # # # # # # # # dark.plan_trade(drag, money=1, item_name_condition=(drag, 0, ['Soft']))
-    # # dark.set_dev_plan("Air I", "Circuit IV", "Warp")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # # hotmonkey1: Pre-K 1/1 Night 6
-    # # # # # # # # # # hot.plan_consume_item("Paperwork")
-    hot.plan_attune(Element.WATER, Element.WATER, Element.WATER, Element.ANTI)
-    hot.plan_attack(star)
-    # # hot.plan_trade(ryo, money=1)
-    # # hot.plan_trade(para, item_names=['Force Projection'])
-    # # # hot.set_dev_plan("Martial Arts II", "Martial Arts III")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # # NTKV: Serial Killer Dragonlord7, RyoAtemi, Tarro (2/3) []
-    ntkv.plan_attune(Element.WATER, Element.WATER, Element.WATER, Element.FIRE)
-    # # # # # # # # # # # # # # ntkv.plan_consume_item("Shrooms")
-    ntkv.plan_attack(ryo)
-    # # ntkv.set_dev_plan("Toxin", "Antimagic (Geo)")
-    # # # # # # # # # # # # # # # ntkv.plan_shop("Lizard Tail", "Shrooms")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # # Paradosi: Grand Heist 1/1 Night 8
-    para.plan_consume_item("Venom")
-    para.plan_attack(hot)
-    para.plan_spy(mega, teyao)
-    # # # # # para.plan_shop("Lizard Tail", "Lizard Tail", "Paperwork", "Paperwork", "Paperwork", "Paperwork", "Paperwork", "Paperwork", "Paperwork")
-    # # # para.plan_trade(ryo, money=1, item_names=['Leather Armor'])
-    # para.plan_trade(hot, item_names=["Leather Armor"])
-    # # para.plan_trade(ryo, money=1)
-    # para.plan_class()
-    # # # # # # # # para.plan_attack(arm)
-    # # # # # # # # para.plan_spy(star)
-    # # # # # # # # # # # para.plan_shop("Sword", "Poison Gas", "Poison Gas", "Paperwork", "Paperwork", "Paperwork", "Paperwork", "Booby Trap")
-    # # # # # # # # # # # para.plan_trade(ryo, item_names=['Paperwork'])
-    # # # # # # # # # # # para.plan_trade(hot, item_names=['Paperwork'])
-    # # para.set_dev_plan("Counter Intelligence I", "Sniping")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # # RyoAtemi: Reverse Taxation 0/1
-    ryo.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
-    ryo.plan_target("Erode III", ntkv, teyao, bla)
-    # # # # # # # # # ryo.plan_consume_item("Paperwork")
-    ryo.plan_attack(star)
-    # ryo.plan_shop("Liquid memories", "paperwork", "poison gas")
-    # ryo.plan_trade(para, item_names=['Liquid Memories'])
-    # ryo.plan_trade(dark, item_names=['Paperwork'])
-    # # # # # # # # # # ryo.plan_trade(ntkv, item_names=['Singing Stone'])
-    # # # # # # # # # # # # # # # # # ryo.set_dev_plan("Circuit I", "Earth I", "Earth II", "Circuit II", "Earth III", "Circuit III")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # # Teyao: Contractor 1/5 [NTKV]
-    teyao.plan_hydro("Enhanced Senses")
-    teyao.plan_hydro("Speed (Hydro) I", contingency=True)
-    teyao.plan_hydro("Speed (Hydro) II", contingency=True)
-    teyao.plan_attune(Element.AIR, Element.EARTH, Element.AIR)
-    teyao.plan_bunker()
-    # # teyao.plan_heal(ntkv)
-    # # # # teyao.plan_trade(drag, money=3, item_name_condition=(drag, 0, ['Medkit']))
-    # # # # # # # # # # # # # # # # teyao.plan_bounty(ntkv, 2)
-    # # # # # # teyao.set_dev_plan("Reinforced Will", "Speed (Hydro) II")
-    # # # # # # # # # # # # # # # # # # #
-    # # # # # # # # # # # # # # # # # # # # Touch Class Clown 0/2
-    # # # touch.plan_consume_item("Paperwork")
-    touch.plan_attune(Element.FIRE, Element.ANTI)
-    touch.plan_attack(star)
-    # # # # # touch.plan_trade(para, money=3)
-    # # # # # # # # # # touch.plan_trade(wither, money=1, action_condition=(wither, Heal, touch))
-    # # touch.set_dev_plan("Ambush Tactics II", "Circuit III", "Water I", "Fire II")
-    # # # # # # # # # # # # # # # #
+    a.plan_consume_item("Decoy I Rune")
+    a.plan_target("Decoy I", c)
+    a.plan_item_target("Decoy I Rune", e)
+    b.plan_attack(c)
+    d.plan_attack(e)
 
     was_alive = [p for p in GAME.players.values() if not p.is_dead()]
     Action.run_turn(GAME)
@@ -483,7 +392,7 @@ if __name__ == '__main__':
     # # # # # # #
     summary(detailed=True)
 
-    # GAME.save("Y17")
+    # GAME.save("Y19")
 
 
 # git update-index --assume-unchanged main.py
