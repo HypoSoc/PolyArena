@@ -291,6 +291,8 @@ class HandleSkill(Action):
             return
         if self.skill.self_not_condition and self.player.has_condition(self.skill.self_not_condition):
             return
+        if self.skill.consume_charge and not self.player.has_condition(Condition.CHARGE):
+            return
 
         if self.skill.fragile and self.player.has_condition(self.skill.fragile):
             return
@@ -393,6 +395,9 @@ class HandleSkill(Action):
             times = 1  # For repeated CONDITION type effects
             if self.skill.value_b and isinstance(self.skill.value_b, int):
                 times = self.skill.value_b
+
+            if self.skill.consume_charge:
+                self.player.conditions.remove(Condition.CHARGE)
 
             if self.skill.self_override:
                 target = self.player
@@ -988,6 +993,9 @@ class Steal(Action):
         super().act()
 
     def _act(self):
+        if self.target.is_dead():
+            self.player.report += f"You failed to rob {self.target.name} because they are dead." + os.linesep
+            return
         if self.target.has_condition(Condition.THEFT_AWARE):
             if self.target.get_awareness() > self.player.get_awareness():
                 self.player.report += f"You failed to rob {self.target.name}." + os.linesep

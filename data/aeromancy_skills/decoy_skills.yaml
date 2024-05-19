@@ -21,15 +21,8 @@
   value: 3406
   self_has_condition: "CHARGE"
   trigger: "TARGET"
-  priority: 0
-
-3404:
-  text: "Lose a Charge"
-  effect: "REMOVE_CONDITION"
-  value: "CHARGE"
-  trigger: "TARGET"
-  self_override: True
-  priority: 1
+  priority: 0.5
+  consume_charge: True
 
 3405:
   text: "Secret +5 Surv"

@@ -41,4 +41,4 @@
   value: "MARKED"
   target_has_condition: "MARKED"
   trigger: "SPY"
-  priority: 5
+  priority: 2
