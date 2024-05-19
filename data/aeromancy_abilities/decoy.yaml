@@ -1,6 +1,5 @@
 # Decoy I (10): Gain 2 Charges.
-#               Each turn, you may spend a Charge to make another player into a Decoy until end of turn. (Subtle) (Fragile)
-#               Decoys get +5 Survivability.
+#               Each turn, you may spend a Charge to make another player into a Decoy (Subtle) (Fragile), giving them +5 Survivability (Wide) until end of turn.
 #               If a Decoy is attacked and lives, if neither of you attacked this turn, you gain +7 Progress.
 # Decoy II (5): Gain a Charge.
 #               +1 Survivability.
@@ -26,8 +25,7 @@
   target_other: true
   explanation: |-
     Gain 2 Charges.
-    Each turn, you may spend a Charge to make another player into a Decoy until end of turn. (Subtle) (Fragile)
-    Decoys get +5 Survivability.
+    Each turn, you may spend a Charge to make another player into a Decoy (Subtle) (Fragile), giving them +5 Survivability (Wide) until end of turn.
     If a Decoy is attacked and lives, if neither of you attacked this turn, you gain +7 Progress.
 
     Decoy II costs 5

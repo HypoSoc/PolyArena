@@ -25,8 +25,9 @@
   consume_charge: True
 
 3405:
-  text: "Secret +5 Surv"
+  text: "The air crackled with energy!"
   effect: "SURVIVABILITY"
+  info: "WIDE"
   value: 5
 
 3406:
