@@ -1,0 +1,79 @@
+Anemone: 
+Shop for a Workbench.
+
+Bedna: 
+Train
+Fall: Drasky.
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv
+Unnatural Intuition (contingency)
+
+Coledon:
+Attack Megaolix.
+
+DarkLight:
+Teach Swift-Sama Willpower I
+Combat Regeneration (Hydro) (contingency)
+
+Darkpiplumon: 
+Attune to Gold
+Train
+
+DragonLord:
+Attack RyoAtemi.
+
+Drasky:
+Shop for Leather Armor and Bokken.
+Attune to Earth.
+
+Hotmonkey:
+Train
+
+HypoSoc:
+Attune to Water and Fire.
+Attack Hotmonkey.
+
+Lord Of Chromius:
+Train
+Attune to Earth.
+
+Megaolix:
+Train
+Attune to Earth and Water.
+
+NinetyNineLies:
+Shop for a Sword.
+Unnatural Intuition (contingency)
+
+Paradosi:
+Train
+
+PocketRikimaru:
+Train
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Train
+
+Seventeen:
+Tattoo Rune Crafting II on self.
+
+Swift-Sama:
+Learn from DarkLight.
+King: Train
+
+TempelJaeger:
+Learn from Teyao.
+Attune to Earth
+
+Teyao:
+Teach TempelJaeger Water I
+Attune to Water
+Trade 1 credit to Anemone, Hotmonkey, Darkpiplumon
+
+Witherbrine:
+Train
+Attune to Earth

@@ -160,15 +160,22 @@ class Condition(IntEnum):
     TAUNT_IGNORE = 138
     GOLD_CIRCUIT = 139
     DECOY_ATTACKED = 140
+    DOUSED = 141
+    NO_PROGRESS_IMMUNE = 142
+    RECURSIVE = 143 #able to tatto themselves with Runecrafting II
+    SPLIT = 144 #able to split into two
+    KING = 145
+    SAVIOR = 146
+    NO_AUGUR = 147
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
-               Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN]
+               Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN, Condition.NO_PROGRESS]
 
 NEGATIVE_CONDITIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
                        Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN, Condition.SICKENED,
                        Condition.POLLUTED, Condition.CRUMBLING, Condition.SURVIVABILITY_DOWN, Condition.COMBAT_DOWN,
-                       Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED, Condition.LOCKED]
+                       Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED, Condition.LOCKED, Condition.DOUSED]
 
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,

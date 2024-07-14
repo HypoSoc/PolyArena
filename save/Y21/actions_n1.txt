@@ -1,0 +1,91 @@
+Anemone:
+Bunker
+Attune to Warp
+Warp HypoSoc
+
+Bedna:
+Teach Hotmonkey Sabotage
+Fall: BlackLemonAde
+
+BlackLemonAde:
+Bunker
+Body Reinforcement I: +1 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+Attack Witherbrine
+
+DarkLight:
+Teach Swift-Sama Body Reinforcement I
+Combat Regeneration (Hydro) (contingency)
+
+Darkpiplumon:
+Bunker
+Attune to Gold
+
+DragonLord:
+Attack Witherbrine
+Savior: Hotmonkey
+
+Drasky:
+Attack Bedna
+Attune to Earth
+
+Hotmonkey:
+Learn from Bedna
+Spy on Seventeen
+
+HypoSoc:
+Attack DarkLight
+Consume Venom
+Attune to Water and Fire
+
+Lord Of Chromius:
+Train
+Attune to Earth
+
+Megaolix:
+Train
+Attune to Earth and Water
+
+NinetyNineLies:
+Bunker
+Enhanced Senses
+Unnatural Intuition (contingency)
+
+Paradosi:
+Bunker
+Mental Fortification I
+Mental Fortification II: +1 progress
+Arsonist: Coledon
+Trade 3 credits to Witherbrine
+
+PocketRikimaru:
+Train
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Bunker
+
+Seventeen:
+Train
+Craft Rune: Recursion as a bonus action
+
+Swift-Sama:
+Learn from DarkLight
+King: Shop
+
+TempelJaeger:
+Bunker
+Attune to Earth
+Mental Fortification I
+Scapegoat I: Anemone
+
+Teyao:
+Heal RyoAtemi
+Attune to Water
+
+Witherbrine:
+Train
+Attune to Earth and Earth

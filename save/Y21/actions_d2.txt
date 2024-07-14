@@ -1,0 +1,94 @@
+Anemone:
+Bunker
+Attune to Warp
+Warp DragonLord
+Trade 1 credit to Drasky
+
+Bedna:
+Shop for Synthetic Weave
+Fall: Paradosi
+
+BlackLemonAde:
+Shop for Lizard Tail
+Body Reinforcement I: +1 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+
+DarkLight:
+Teach Swift-Sama Magical Healing (Hydro)
+Combat Regeneration (Hydro) (contingency)
+
+Darkpiplumon:
+Train
+Attune to Gold
+Earth I
+
+DragonLord:
+Attack RyoAtemi
+Savior: DragonLord
+
+Drasky:
+Shop for Synthetic Weave
+Attune to Earth
+
+Hotmonkey:
+Train
+
+HypoSoc:
+Train
+Attune to Water and Fire
+Trade 1 Venom to NinetyNineLies
+Trade 1 credit to Megaolix
+
+Lord Of Chromius:
+Shop for Synthetic Weave
+Attune to Earth
+
+Megaolix:
+Attack DarkLight
+Attune to Earth and Water
+
+NinetyNineLies:
+Shop for a Sword
+Unnatural Intuition (contingency)
+
+Paradosi:
+Train
+Mental Fortification I
+Mental Fortification II: +1 progress
+
+PocketRikimaru:
+Train
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Shop for Bunker Shields
+
+Seventeen:
+Shop for a Medkit and Shrooms
+Craft Rune: Recursion as a bonus action
+Trade Recursion Rune to HypoSoc
+Trade Recursion Rune to Swift-Sama
+
+Swift-Sama:
+Learn from DarkLight
+King: Train
+
+TempelJaeger:
+Bunker
+Attune to Earth
+Mental Fortification I
+Scapegoat I: DragonLord
+
+Teyao:
+Heal Bedna
+Attune to Water
+Trade 1 credit to Bedna
+Trade 1 credit to RyoAtemi
+Trade 1 credit to Swift-Sama
+
+Witherbrine:
+Train
+Attune to Earth and Earth

@@ -1,0 +1,61 @@
+# gain 2 charges on acquisition
+7001:
+  text: "Initial Charge Gain."
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 2
+
+# gain savior condition at the start of the turn 
+
+7002:
+  text: "Savior"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "SAVIOR"
+  priority: 1
+
+#gain 2 charges if the target is injured and not savior
+7003:
+  text: "You've accumulated positive Karma."
+  effect: "PERMANENT_CONDITION"
+  info: "PERSONAL"
+  trigger: "TARGET"
+  value: "CHARGE"
+  value_b: 2
+  priority: 49
+  self_override: true
+  target_has_condition: "INJURED"
+  target_not_condition: "SAVIOR"
+  self_has_condition: "CHARGE"
+
+# remove a charge. 
+7004:
+  text: "A beam of light shines on %TARGET%."
+  effect: "REMOVE_CONDITION"
+  info: "BLATANT"
+  trigger: "TARGET"
+  value: "CHARGE"
+  value_b: 1
+  priority: 49.1
+  self_override: true
+  self_has_condition: "CHARGE"
+
+7005: 
+  text: "%TARGET%'s ailments were cleansed."
+  effect: "INFO"
+  info: "PRIVATE"
+  trigger: "TARGET"
+  priority: 49.01
+  self_override: true
+  self_has_condition: "CHARGE"
+
+7006:
+  text: "Negative condition removal"
+  effect: "REMOVE_CONDITION"
+  trigger: "TARGET"
+  value: "INJURED"
+  value_b: 1
+  priority: 49.01
+  self_has_condition: "CHARGE"
+

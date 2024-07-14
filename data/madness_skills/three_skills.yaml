@@ -1,0 +1,12 @@
+7101: 
+  text: "The air crackled with energy!"
+  effect: "COMBAT"
+  value: 3
+  info: "WIDE"
+  priority: 69.01
+
+7102: 
+  text: "+3 surv"
+  effect: "SURVIVABILITY"
+  value: 3
+  priority: 20

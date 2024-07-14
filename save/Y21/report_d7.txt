@@ -1,0 +1,363 @@
+Anemone Report
+
+You went to class.
+Academics (1)
+
+You sent Drasky items.
+Shrooms x1 lost (0 remaining)
+
+3/3 Willpower
+
+
+BlackLemonAde Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Awareness I
+
+11/11 Willpower
+
+
+Coledon Report
+
+Witherbrine attacked NinetyNineLies (while they were trying to shop), and DragonLord (while they were trying to go to class), and you (while you were).
+Witherbrine animated their bunker!
+The air crackled with energy!
+Witherbrine damaged NinetyNineLies.
+NinetyNineLies failed to damage Witherbrine.
+Witherbrine damaged you.
+You failed to damage Witherbrine.
+Witherbrine damaged DragonLord.
+DragonLord failed to damage Witherbrine.
+NinetyNineLies died.
+You died.
+
+
+DarkLight Report
+
+You went to class.
+Academics (1)
+
+4/5 Willpower
+
+
+Darkpiplumon Report
+
+You wandered aimlessly.
+
+The King says: Thou shall Train.
+Your intuition tells you this has to do with the concept KING.
+The King says: Thou shall Bunker.
+Your intuition tells you this has to do with the concept KING.
+NinetyNineLies died.
+Coledon died.
+
+Seventeen attacked RyoAtemi while they were trying to shop.
+Seventeen damaged RyoAtemi.
+RyoAtemi failed to damage Seventeen.
+
+Witherbrine attacked NinetyNineLies (while they were trying to shop), and DragonLord (while they were trying to go to class), and Coledon (while they were).
+Witherbrine animated their bunker!
+The air crackled with energy!
+Your intuition tells you this has to do with the concept THREE.
+Witherbrine damaged NinetyNineLies.
+NinetyNineLies failed to damage Witherbrine.
+Witherbrine damaged Coledon.
+Coledon failed to damage Witherbrine.
+Witherbrine damaged DragonLord.
+DragonLord failed to damage Witherbrine.
+NinetyNineLies died.
+Coledon died.
+
+
+DragonLord Report
+
+Witherbrine attacked NinetyNineLies (while they were trying to shop), and you (while you were trying to go to class), and Coledon (while they were).
+Witherbrine animated their bunker!
+The air crackled with energy!
+Witherbrine damaged NinetyNineLies.
+NinetyNineLies failed to damage Witherbrine.
+Witherbrine damaged Coledon.
+Coledon failed to damage Witherbrine.
+Witherbrine damaged you.
+You failed to damage Witherbrine.
+NinetyNineLies died.
+Coledon died.
+You were injured.
+NinetyNineLies's items were lost in the confusion.
+Coledon's items were lost in the confusion.
+
+You failed to go to class.
+
+
+Drasky Report
+
+You shopped.
+You spent 8 credits (1 remaining).
+Chronoshift Bomb x1 gained (1 total)
+Shrooms x1 gained (1 total)
+
+Anemone sent you items.
+Shrooms x1 gained (2 total)
+HypoSoc sent you items.
+Venom x1 gained (1 total)
+
+
+HypoSoc Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You attuned to WATER/FIRE.
+
+You shopped.
+You spent 6 credits (1 remaining).
+Chronoshift Bomb x1 gained (1 total)
+
+You crafted.
+Toxin Rune x1 gained (1 total)
+
+You distilled some of your poison.
+Venom x1 gained (2 total)
+
+You sent Drasky items.
+Venom x1 lost (1 remaining)
+
+
+Megaolix Report
+
+You wandered aimlessly.
+
+You are grievously wounded you must heal within 1 turn or you will die.
+
+
+NinetyNineLies Report
+
+Witherbrine attacked you (while you were trying to shop), and DragonLord (while they were trying to go to class), and Coledon (while they were).
+Witherbrine animated their bunker!
+The air crackled with energy!
+Witherbrine damaged you.
+You failed to damage Witherbrine.
+Witherbrine damaged Coledon.
+Coledon failed to damage Witherbrine.
+Witherbrine damaged DragonLord.
+DragonLord failed to damage Witherbrine.
+You died.
+Coledon died.
+
+Venom x1 lost (0 remaining)
+
+
+Paradosi Report
+
+You spent 2 willpower casting Mental Fortification II.
+
+You went to class.
+Academics (2)
+
+4/7 Willpower
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (15 total).
+You have gained 1 Progress
+
+You shopped.
+You spent 13 credits (2 remaining).
+Lizard Tail x3 gained (3 total)
+Ablative Ossification x1 gained (1 total)
+
++1 Progress
+Armored Combat (2/5)
+
+2/3 Willpower
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You attuned to WATER.
+
+Seventeen attacked you while you were trying to shop.
+Seventeen damaged you.
+You failed to damage Seventeen.
+You were grievously injured.
+
+You failed to shop.
+
+You are grievously wounded you must heal within 2 turns or you will die.
+
+You are Aware:
+BlackLemonAde was training Awareness I.
+Teyao was training Antimagic (Hydro).
+
+
+Seventeen Report
+
+You spent 2 willpower casting Body Reinforcement I.
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You used your Toxin Rune (0 remaining).
+You used your Body Reinforcement I Rune (0 remaining).
+You used your Venom (0 remaining).
+
+You attacked RyoAtemi while they were trying to shop.
+You damaged RyoAtemi.
+RyoAtemi failed to damage you.
+
+You crafted.
+Body Reinforcement I Rune x1 gained (1 total)
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
+0/3 Willpower
+
+
+Swift-Sama Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You used your King Rune (0 remaining).
+
+You went to class.
+Academics (1)
+
+You crafted.
+King Rune x1 gained (1 total)
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++6 Progress
+Quiet Attune (6/10)
+
+3/3 Willpower
+
+
+TempelJaeger Report
+
+You wandered aimlessly.
+
+9/9 Willpower
+
+
+Teyao Report
+
+You used your Shrooms (0 remaining).
+You expanded your mind.
+You have gained 3 Progress
+
+You attuned to WATER/WATER/GOLD.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (4 total).
+You have generated wealth!
+You gained 1 credit. (5 total).
+
+You trained.
+You have gained 3 Progress
+
++6 Progress
+You have gained Antimagic (Hydro)
+Circuit IV (1/5)
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You were empowered by your Void Tattoo.
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You used your Fire I Rune (0 remaining).
+
+You attuned to EARTH/EARTH/EARTH/FIRE/FIRE.
+
+You bunkered.
+
+You attacked NinetyNineLies (while they were trying to shop), and DragonLord (while they were trying to go to class), and Coledon (while they were).
+You animated your bunker!
+The air crackled with energy!
+You damaged NinetyNineLies.
+NinetyNineLies failed to damage you.
+You damaged Coledon.
+Coledon failed to damage you.
+You damaged DragonLord.
+DragonLord failed to damage you.
+NinetyNineLies died.
+Coledon died.
+NinetyNineLies's items were lost in the confusion.
+You earned 2 credits for killing NinetyNineLies.
+Coledon's items were lost in the confusion.
+You earned 2 credits for killing Coledon.
+
++10 Progress
+You have gained Cauterization
+Hell Fire (9/10)
+
+
+Day 7
+The King says: Thou shall Train.
+The King says: Thou shall Bunker.
+NinetyNineLies died.
+Coledon died.
+
+Seventeen attacked RyoAtemi while they were trying to shop.
+Seventeen damaged RyoAtemi.
+RyoAtemi failed to damage Seventeen.
+
+Witherbrine attacked NinetyNineLies (while they were trying to shop), and DragonLord (while they were trying to go to class), and Coledon (while they were).
+Witherbrine animated their bunker!
+The air crackled with energy!
+Witherbrine damaged NinetyNineLies.
+NinetyNineLies failed to damage Witherbrine.
+Witherbrine damaged Coledon.
+Coledon failed to damage Witherbrine.
+Witherbrine damaged DragonLord.
+DragonLord failed to damage Witherbrine.
+NinetyNineLies died.
+Coledon died.
+
+
+Anemone went to class.
+BlackLemonAde trained.
+DarkLight went to class.
+Darkpiplumon wandered aimlessly.
+DragonLord failed to go to class.
+Drasky shopped.
+HypoSoc shopped.
+HypoSoc crafted.
+Megaolix wandered aimlessly.
+Paradosi went to class.
+PocketRikimaru shopped.
+RyoAtemi failed to shop.
+Seventeen attacked RyoAtemi while they were trying to shop.
+Seventeen crafted.
+Swift-Sama went to class.
+Swift-Sama crafted.
+TempelJaeger wandered aimlessly.
+Teyao trained.
+Witherbrine bunkered.
+Witherbrine attacked NinetyNineLies (while they were trying to shop), and DragonLord (while they were trying to go to class), and Coledon (while they were).

@@ -1,0 +1,81 @@
+Anemone:
+Bunker
+
+Bedna:
+Shop for Force Projection
+Fall: Paradosi
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+Doctor
+
+DarkLight:
+Attack Paradosi
+Combat Regeneration (Hydro)
+
+Darkpiplumon:
+Shop for Synthetic Weave, Sword, and Shrooms
+Attune to Gold and Earth
+
+DragonLord:
+Attack PocketRikimaru
+
+Drasky:
+Attack Lord Of Chromius
+Attune to Earth
+
+HypoSoc:
+Attack Lord Of Chromius
+Consume Venom
+Attune to Water and Fire
+Trade 1 credit to Megaolix
+
+Lord Of Chromius:
+Shop for Synthetic Weave
+Attune to Earth and Light
+
+Megaolix:
+Train
+Attune to Earth and Water
+
+NinetyNineLies:
+Bunker
+Unnatural Intuition (contingency)
+
+Paradosi:
+Train
+
+PocketRikimaru:
+Shop for Oblivion Ordinance, Camo Cloak, Soft, and Leather Armor
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Bunker
+
+Seventeen:
+Attack TempelJaeger
+Craft Rune: Recursion as a bonus action
+Trade Recursion Rune to DarkLight
+
+Swift-Sama:
+Shop for Soft, Soft, Soft
+King: Train
+
+TempelJaeger:
+Shop for Automata (Do you have a source on that? Source? A source. I need a source. Sorry, I mean I need a source that explicitly states your argument. This is just tangential to the discussion. No, you can't make inferences and observations from the sources you've gathered. Any additional comments from you MUST be a subset of the information from the sources you've gathered. You can't make normative statements from empirical evidence. Do you have a degree in that field? A Polyhistor degree? In that field? Then your arguments are invalid. No, it doesn't matter how close those data points are correlated. Correlation does not equal causation. Correlation does not equal causation. CORRELATION. DOES. NOT. EQUAL. CAUSATION. You still haven't provided me a valid source yet. Nope, still haven't.)
+Attune to Earth
+Scapegoat I: BlackLemonAde
+
+Teyao:
+Shop for Gas Mask, Poison Gas, and Poison Gas
+
+Witherbrine:
+Attack DarkLight
+Craft Rune: Void as a bonus action
+Attune to Earth and Fire
+Consume Void Rune

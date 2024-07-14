@@ -1,0 +1,286 @@
+Anemone Report
+
+You bunkered.
+You have gained 2 Progress
+
++2 Progress
+Crafting I (7/10)
+
+3/3 Willpower
+
+
+Bedna Report
+
+TempelJaeger's efforts are in vain.
+
+DragonLord attacked you while you were trying to train.
+DragonLord damaged you.
+You failed to damage DragonLord.
+You were injured.
+
+You failed to train.
+
+You are Aware:
+BlackLemonAde was training Body Reinforcement III.
+Darkpiplumon was training Aeromancy Intuition.
+
+
+BlackLemonAde Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Body Reinforcement III (5/10)
+
+5/5 Willpower
+
+
+Coledon Report
+
+You wandered aimlessly.
+
+
+DarkLight Report
+
+You bunkered.
+
+You spent 2 willpower casting Combat Regeneration (Hydro) because you were attacked.
+
+Megaolix attacked you while you were bunkering.
+Megaolix unleashed a flood of mud!
+Megaolix failed to damage you.
+You failed to damage Megaolix.
+
+3/5 Willpower
+
+
+Darkpiplumon Report
+
+You attuned to GOLD/EARTH.
+
+You have generated wealth!
+You gained 1 credit. (5 total).
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Aeromancy Intuition
+
+
+DragonLord Report
+
+You attacked Bedna while they were trying to train.
+You damaged Bedna.
+Bedna failed to damage you.
+
+
+Drasky Report
+
+You went to class.
+Academics (1)
+
+
+HypoSoc Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You went to class.
+Academics (1)
+
+You crafted.
+Toxin Rune x1 gained (1 total)
+
+You sent Seventeen items.
+Toxin Rune x1 lost (0 remaining)
+
+You sent Megaolix 1 credit (4 remaining).
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+You attacked DarkLight while they were bunkering.
+You unleashed a flood of mud!
+You failed to damage DarkLight.
+DarkLight failed to damage you.
+
+HypoSoc sent you 1 credit (9 total).
+
+
+NinetyNineLies Report
+
+You bunkered.
+
+3/3 Willpower
+
+
+Paradosi Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You have gained 1 Progress
+
+You went to the doctor.
+You are now healthy.
+
++1 Progress
+Body Reinforcement II (3/10)
+
+2/5 Willpower
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (18 total).
+You have gained 1 Progress
+
+You shopped.
+You spent 16 credits (2 remaining).
+Liquid Memories x3 gained (3 total)
+Bokken x1 gained (1 total)
+
++1 Progress
+Armed Combat I (3/5)
+
+2/3 Willpower
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You learned Circuit I from Teyao.
+You have gained Circuit I
+
+You are Aware:
+BlackLemonAde was training Body Reinforcement III.
+Darkpiplumon was training Aeromancy Intuition.
+
+
+Seventeen Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You shopped.
+You spent 5 credits (1 remaining).
+Sword x1 gained (1 total)
+Medkit x1 gained (1 total)
+
+You crafted.
+Martial Arts III Rune x1 gained (1 total)
+
+HypoSoc sent you items.
+Toxin Rune x1 gained (1 total)
+
+
+Swift-Sama Report
+
+You used your Recursion Rune (0 remaining).
+
+You attuned to WATER/WATER.
+
+You tattooed yourself.
+You tattooed yourself with Rune Crafting II.
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++2 Progress
+Warp (4/10)
+
+3/3 Willpower
+
+
+TempelJaeger Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+Your efforts are in vain.
+You put a sin offering on Bedna.
+
+You attuned to EARTH.
+
+You bunkered.
+You have gained 2 Progress
+
+You have gained 1 Progress
+
+Your 3 Progress was negated.
+
+2/3 Willpower
+
+
+Teyao Report
+
+You attuned to WATER/GOLD.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (4 total).
+You have generated wealth!
+You gained 1 credit. (5 total).
+
+You taught RyoAtemi Circuit I.
+You have gained 7 Progress
+
++7 Progress
+You have gained Water II
+Combat Regeneration (Geo) (3/10)
+
+
+Witherbrine Report
+
+Invalid action: doing this would displease a God!
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You wandered aimlessly.
+
++5 Progress
+Runic Tattoos (5/10)
+
+
+Day 4
+The King says: Thou shall Train.
+
+DragonLord attacked Bedna while they were trying to train.
+DragonLord damaged Bedna.
+Bedna failed to damage DragonLord.
+
+Megaolix attacked DarkLight while they were bunkering.
+Megaolix unleashed a flood of mud!
+Megaolix failed to damage DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+Anemone bunkered.
+Bedna failed to train.
+BlackLemonAde trained.
+Coledon wandered aimlessly.
+DarkLight bunkered.
+Darkpiplumon trained.
+DragonLord attacked Bedna while they were trying to train.
+Drasky went to class.
+HypoSoc went to class.
+HypoSoc crafted.
+Megaolix attacked DarkLight while they were bunkering.
+NinetyNineLies bunkered.
+Paradosi went to the doctor.
+PocketRikimaru shopped.
+RyoAtemi learned from Teyao.
+Seventeen shopped.
+Seventeen crafted.
+Swift-Sama tattooed themself.
+TempelJaeger bunkered.
+Teyao taught RyoAtemi.
+Witherbrine wandered aimlessly.

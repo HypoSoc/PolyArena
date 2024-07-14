@@ -1,0 +1,6 @@
+6601:
+  text : "You feel like you could do something hilarious..."
+  effect: "CONDITION"
+  value: "RECURSIVE"
+  trigger: "NONCOMBAT"
+  priority: -1

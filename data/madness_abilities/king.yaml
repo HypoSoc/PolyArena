@@ -1,0 +1,36 @@
+6901:
+  name: "King"
+  concept: "KING"
+  cost: 10
+  skills: 
+   - 6919
+  aero:
+    6901:
+      fragile: true
+    6902:
+      fragile: true
+    6903:
+      fragile: true
+    6904:
+      fragile: true
+    6905:
+      fragile: true
+    6906:
+      fragile: true
+    6907:
+      option: 0
+    6909:
+      option: 1
+    6911:
+      option: 2
+    6913:
+      option: 3
+    6915:
+      option: 4
+    6917:
+      option: 5
+  must_choose: 7
+  explanation: |-
+    BROADCAST
+    At the start of the game, and each turn afterwards, choose an ation among Class, Doctor, Train, Bunker, Shop, or Wander. (Blatant)
+    Players performing this action during the next turn grant you 1 progress. [fragile]

@@ -1,0 +1,9 @@
+5901:
+  name: "CHAOS"
+  concept: "CHAOS"
+  cost: 10
+  skills:
+  - 5901
+  explanation: |-
+    Use: At the end of the turn, exchange control of target character.
+    Cannot target a character that has already been targeted with this Aeromancy.

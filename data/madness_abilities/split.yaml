@@ -1,0 +1,13 @@
+7301:
+  name: "Split"
+  concept: "SPLIT"
+  cost: 10
+  skills:
+  - 7301
+  - 7302
+  explanation: |-
+    Choose two names.
+    Whenever you die, remove this aeromancy, then split into two characters with the selected names. (blatant)
+    Allocate to each of them half of your total progress, rounded down.
+
+

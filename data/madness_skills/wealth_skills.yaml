@@ -1,0 +1,6 @@
+5801:
+  text: "You hack into ADMIN's account and generate some Credits out of thin air!"
+  info: "PRIVATE"
+  effect: "CREDITS"
+  trigger: "POST_COMBAT"
+  value: 1

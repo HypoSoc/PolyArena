@@ -379,6 +379,9 @@ class CombatHandler:
                 self.tic_index += 1
 
                 def confirm_ambush():
+                    if Condition.AMBUSH_IMMUNE in conditions.get(ambushee):
+                        return # Immune to ambush
+
                     if ambushee in self.ambushes.get(ambusher, set()):
                         return  # Already handled
 

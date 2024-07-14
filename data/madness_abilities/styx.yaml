@@ -1,0 +1,9 @@
+6501:
+  name: "Styx"
+  concept: "STYX"
+  cost: 10
+  skills: 
+    - 6501
+  explanation: |-
+    Players must always have 1 credit on them.
+    (Players breaking this rule will be informed that performing their action would displease a God).

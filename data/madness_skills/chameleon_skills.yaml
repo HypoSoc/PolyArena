@@ -1,0 +1,53 @@
+6001:
+  text: "3 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  value_b: 3
+  priority: -5
+
+6002:
+  text: "Activate Ability"
+  effect: "CONDITION"
+  value: "ONCE"
+  trigger: "TARGET"
+  priority: 0
+  self_has_condition: "CHARGE"
+  self_override: true
+
+6003:
+  text: "Go into hiding at the end of the turn."
+  effect: "PERMANENT_CONDITION"
+  value: "HIDING"
+  trigger: "TARGET"
+  priority: 0
+  self_has_condition: "ONCE"
+  self_override: true
+
+6004:
+  text: "%SELF% died."
+  effect: "INFO"
+  info: "BLATANT"
+  trigger: "TARGET"
+  priority: 60
+  self_has_condition: "ONCE"
+  self_override: true
+
+6005:
+  text: "You went into hiding."
+  effect: "INFO"
+  info: "PRIVATE"
+  trigger: "POST_COMBAT"
+  priority: 0
+  self_has_condition: "ONCE"
+  self_override: true
+
+6006:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 15
+  self_has_condition: "CHARGE"
+  self_override: true
+

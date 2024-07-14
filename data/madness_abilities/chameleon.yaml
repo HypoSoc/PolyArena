@@ -1,0 +1,15 @@
+6001:
+  name: "Chameleon"
+  concept: "CHAMELEON"
+  cost: 10
+  skills:
+  - 6001
+  - 6002
+  - 6003
+  - 6004
+  - 6005
+  - 6006
+  explanation: |-
+    Gain 3 charges.
+    Expend 1 charge: go into hiding at the end of the turn.
+    (This also broadcasts a message indicating that you have died)

@@ -5,13 +5,14 @@ from typing import Dict, List, NoReturn, Optional, Set, Tuple, Type, Union, Iter
 from ability import get_ability, Ability, get_ability_by_name
 from actions import Action, Wander, Class, Train, Bunker, Attack, ConsumeItem, Doctor, Teach, Learn, Heal, Shop, \
     ITEM_CONDITION, Trade, ACTION_CONDITION, Disguise, Spy, Blackmail, Taunt, Steal, Attune, Craft, Tattoo, Canvas, \
-    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill, SendMessage
+    MultiAttack, UseHydro, Resurrect, Illusion, MasterIllusion, PlaceBounty, HandleSkill, SendMessage, Nothing
 from combat import get_combat_handler
 from constants import Temperament, Condition, ItemType, InjuryModifier, InfoScope, COMBAT_PLACEHOLDER, Element, Trigger
 from game import Game
 from items import Item, get_item, get_item_by_name, Rune
 from report import ReportCallable, get_main_report
 from skill import Skill
+import re
 
 if TYPE_CHECKING:
     from automata import Automata
@@ -99,15 +100,21 @@ class Player:
                     raise Exception(f"Player {name} is missing prerequisite "
                                     f"for ability {ability.name} ({ability.get_prerequisite().name})")
 
-        assert len(aeromancer) <= 1 or 'X' in aeromancer
+        assert len(aeromancer) <= 1 or 'X' in aeromancer or 'Jackpot' in aeromancer
         if not self.concept and len(aeromancer):
+            was_jackpot = False
+            if 'JACKPOT' in aeromancer:
+                aeromancer.remove('JACKPOT')
+                was_jackpot = True
             if 'X' in aeromancer:
-                assert len(aeromancer) == 3
                 aeromancer.remove('X')
+                assert len(aeromancer) == 2
                 aeromancer_list = sorted(list(aeromancer))
                 self.concept = f"{aeromancer_list[0]} X {aeromancer_list[1]}"
             else:
                 self.concept = list(aeromancer)[0]
+            if was_jackpot:
+                self.concept = "🎰 " + self.concept + " 🎰"
 
         self.dev_plan = dev_plan
         self._validate_dev_plan(
@@ -305,7 +312,7 @@ class Player:
             .replace("your bunker collapsed around them",
                      "your bunker collapsed around you") \
             .replace("you held their sword",
-                     "your held your sword") \
+                     "you held your sword") \
             .replace(f"Your intuition tells you this has to do with the concept {self.concept}.{os.linesep}", "") \
             .replace(f"Your intuition tells you this has to do with "
                      f"your Aeromancy ({self.concept}).{os.linesep}", "") \
@@ -313,7 +320,7 @@ class Player:
                      f"your Aeromancy ({self.concept}).{os.linesep}", "") \
             .replace("! you", "! You") \
             .replace(". you", ". You") \
-            .replace("? you", "? You")
+            .replace("? you", "? You")            
 
         if not self.has_ability("Fraud I") and not self.has_ability("Aeromancy Intuition"):
             cleaned = cleaned.replace(" (FAKE)", "")
@@ -339,6 +346,25 @@ class Player:
 
         if get_main_report().get_messages_for_player(self):
             final += os.linesep + get_main_report().get_messages_for_player(self)
+
+        return final
+        for line in final.split(os.linesep):
+            green_high_prio = ['hurt themself attacking you', 'You unleashed a flood of mud', 'You sniped', 'You used a Soft', 'You used a Lizard Tail', 'You damaged', 'You disarmed', 'failed to damage you', 'failed to ambush you']
+            red_matches = ['lost (', 'You were kicked out of class for being disruptive.', 'You lost access to', 'You did not trade', 'Your house is doused', 'hurt yourself', 'Your efforts are in vain', 'was negated', 'cannot progress', 'Your soul was wrenched', 'unleashed a flood of mud', 'grievously wounded', 'You must', 'been blackmailed', 'came back with an injury', 'sniped you', 'Your statue seems to be crumbling', 'You were grievously injured', 'You were warped through space', 'unable to find any foes', 'You are Petrified', 'You were Petrified', 'You failed', 'blitzed you', 'ambushed you', 'attacked you', 'drained your', 'You wandered aimlessly', 'You succumbed', 'damaged you', 'You died', 'You were injured', 'disarmed you', 'lost in the confusion', 'escaped you', 'prevented from using', 'were covered in slime', 'stole your']
+            light_red_matches = ['hurt themself', 'damaged', 'died', 'disarmed', 'succumbed']
+            orange_matches = ['failed', 'to avoid']
+            green = ['You detected', 'lost access to', 'The Scapegoat', 'A faithful subjet', 'sin offering', 'You crafted', '\'s house is doused', 'were cleansed', 'positive Karma', 'grow, and the world shrinks', 'hack into', 'entrails are quite', 'tattooed', 'distilled some of your poison', 'intuition tells you', 'generated wealth', 'efforts are in vain', 'You shopped', 'You spent', 'was wrenched apart', 'You crumbled under', 'You left a thin residue', 'You have blackmailed', 'You taught', 'You learned', 'You rose from the dead', 'You looted', 'You were empowered by', 'You forged', 'not obligated', 'expanded your mind', 'You blitzed', 'You escaped', 'gained', 'You spied on', 'healed yourself', 'now healthy', 'ignoring the', 'has granted you', 'You Sabotaged', 'was covered in slime', 'You used', 'You went to class', 'You attacked', 'You ambushed', 'You trained', 'while they were attacking you', 'Academics (', 'Your performance', 'soothed your travails', 'broken free', 'You drained', 'sent you', 'You stole', 'Your blood boils', 'have gained', '+', 'regained', 'sings in joy', 'earned', 'reinforcing your']
+            if any(match in line for match in green_high_prio):
+                final = final.replace(line, f"[color=lightgreen]{line}[/color]")
+            elif any(match in line for match in red_matches):
+                final = final.replace(line, f"[color=red]{line}[/color]")
+            elif any(match in line for match in light_red_matches):
+                final = final.replace(line, f"[COLOR=rgb(253,155,154)]{line}[/color]")
+            elif any(match in line for match in orange_matches):
+                final = final.replace(line, f"[color=orange]{line}[/color]")
+            elif any(match in line for match in green):
+                final = final.replace(line, f"[color=lightgreen]{line}[/color]")
+            
 
         return final
 
@@ -431,6 +457,10 @@ class Player:
         if target not in self.bounties_placed:
             PlaceBounty(self.game, self, target, amount)
             self.bounties_placed.add(target)
+
+    def plan_nothing(self):
+        self._generic_action_check()
+        self.action = Nothing(self.game, self)
 
     def plan_shop(self, *item_names, automata_name: Union[Optional[List[str]], str] = None):
         if not automata_name:
@@ -706,7 +736,7 @@ class Player:
         if for_rune:
             self.item_choices[get_item_by_name(
                 ability_name + " rune").pin] = choice
-        if for_tattoo:
+        elif for_tattoo:
             self.tattoo_choice = choice
         else:
             self.ability_choices[ability.pin] = choice

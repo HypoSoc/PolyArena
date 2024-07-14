@@ -1,0 +1,22 @@
+6401:
+  text: "%TARGET%'s efforts are in vain."
+  info: "NARROW"
+  effect: "CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "TARGET"
+  priority: -10
+  target_not_condition: "NO_PROGRESS_IMMUNE"
+
+6402: 
+  text: "immunity to the no progress condition next turn."
+  effect: "PERMANENT_CONDITION"
+  value: "NO_PROGRESS_IMMUNE"
+  trigger: "TARGET"
+  priority: -8
+
+6403:
+  text: "remove the immunity later during the turn."
+  effect: "REMOVE_CONDITION"
+  value: "NO_PROGRESS_IMMUNE"
+  trigger: "ALL"
+  priority: -9

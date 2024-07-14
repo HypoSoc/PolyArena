@@ -1,0 +1,95 @@
+Anemone:
+Craft Shrooms
+Bunker as a bonus action
+Hydro: Crafting I
+Attune to Warp
+Warps TempelJaeger
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +3 surv (contingency)
+Body Reinforcement III: +5 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+
+DarkLight:
+Tattoo Rune Crafting II on self
+Hydro: Combat Regeneration (Hydro) (contingency)
+Consume Recursion Rune
+Trade 8 credits to DragonLord
+
+Darkpiplumon:
+Attack DarkLight
+Attune to Gold, Earth
+
+DragonLord:
+Attack TempelJaeger
+Savior: self
+
+Drasky:
+Attack Megaolix
+Attune to Earth
+Consume Venom
+
+HypoSoc:
+Attack Megaolix
+Craft Fire I Rune as a bonus action
+Attune to Water, Fire, Anti
+Consume Venom
+
+Megaolix:
+Bunker
+Attune to Earth, Water, Air
+
+NinetyNineLies:
+Bunker
+Unnatural Intuition
+Enhanced Senses
+Trade 2 credits to Seventeen if Seventeen attacks HypoSoc or Drasky
+
+Paradosi:
+Train
+Mental Fortification I
+Mental Fortification II: +1 progress
+Body Reinforcement I: +1 surv
+Arsonist: Witherbrine
+
+PocketRikimaru:
+Bunker
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Learn from Teyao
+
+Seventeen:
+Heal self
+Craft Body Reinforcement I Rune as a bonus action
+Consume Medkit
+Trade Sword to HypoSoc
+
+Swift-Sama:
+Attack Witherbrine
+Craft King Rune as a bonus action
+Attune to Water, Water
+King: Class
+
+TempelJaeger:
+Bunker
+Attune to Earth
+Mental Fortification I
+Resurrection
+Scapegoat I: Seventeen
+
+Teyao:
+Teach RyoAtemi Water I
+Attune to Water, Water
+Consume Shrooms, Chronoshift Bomb
+
+Witherbrine:
+Attack NinetyNineLies, DarkLight, Coledon
+Craft Fire II Rune as a bonus action
+Attune to Earth, Earth, Earth, Fire
+Consume Fire I Rune

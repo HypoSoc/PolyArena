@@ -1,0 +1,64 @@
+Anemone:
+Shop for Chronoshift Bomb
+Attune to Warp
+Warp: Witherbrine
+
+BlackLemonAde:
+Shop for Chronoshift Bomb
+Body Reinforcement II: +2 surv (contingency)
+Body Reinforcement III: +5 surv (contingency)
+
+Darkpiplumon:
+Shop for Liquid Memories, Liquid Memories, Cheat Sheet, Paperwork
+Attune to Gold, Earth
+
+DragonLord:
+Shop for Oblivion Ordinance, Camo Cloak, Venom
+
+Drasky:
+Bunker
+Attune to Earth, Anti
+Consume Shrooms
+
+HypoSoc:
+Class
+Craft Toxin Rune as a bonus action
+Consume Venom
+
+Paradosi:
+Shop for Force Projection, Cheat Sheet, Booby Trap, Venom
+Mental Fortification I
+Mental Fortification II: +1 progress
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +1 surv (contingency)
+
+PocketRikimaru:
+Class
+Mental Fortification I
+
+RyoAtemi:
+Shop for Chronoshift Bomb
+Attune to Water
+Trade Chronoshift Bomb to Swift-Sama
+
+Seventeen:
+
+Swift-Sama:
+Class
+Craft King Rune as a bonus action
+King: Train
+King Rune: Bunker
+Consume King Rune
+
+TempelJaeger:
+Class
+Mental Fortification II: +1 Academics
+Mental Fortification III: +1 Academics
+Resurrection
+Scapegoat I: Swift-Sama
+
+Witherbrine:
+Attack RyoAtemi, HypoSoc, Anemone
+Craft Hell Fire Rune as a bonus action
+Attune to Earth, Earth, Earth, Fire, Fire, Anti
+Fire II Rune: Consume

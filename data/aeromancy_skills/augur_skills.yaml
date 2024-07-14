@@ -30,4 +30,14 @@
   trigger: "PLAYER_DIED"
   self_override: true
   target_has_condition: "PORTENT"
+  target_not_condition: "NO_AUGUR"
+  priority: 50
 
+2805:
+  text: "Prevent 2804 from triggering again on the same target."
+  effect: "PERMANENT_CONDITION"
+  value: "NO_AUGUR"
+  trigger: "PLAYER_DIED"
+  self_has_condition: "PORTENT"
+  priority: 51
+  

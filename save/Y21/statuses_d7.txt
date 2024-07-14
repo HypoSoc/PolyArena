@@ -1,0 +1,161 @@
+Anemone (PARANOIAC) [1 Academics] (3/3 Willpower)
+Abilities (48 Total Progress):
+  Geo: Warp
+  Hydro: Crafting I
+  Aero: Styx
+  Unfinished: Crafting II (3/10)
+Items: Workbench, Credits x7 (9 Total Credit Value)
+Dev Goals: Crafting II
+Conditions:
+  Positive: NO_PROGRESS_IMMUNE
+
+BlackLemonAde (PATIENT) (11/11 Willpower)
+Abilities (60 Total Progress):
+  Hydro: Willpower II, Body Reinforcement III, Unnatural Intuition
+  Aero: CHAOS
+  Mind: Awareness I
+Items: Lizard Tail, Credits x6 (9 Total Credit Value)
+Dev Goals: Aeromancy Intuition
+
+DarkLight (ALTRUISTIC) [1 Academics] (4/5 Willpower)
+Abilities (49 Total Progress):
+  Hydro: Willpower II, Combat Regeneration (Hydro)
+  Body: Martial Arts I
+  Mind: Awareness I
+  Unfinished: Awareness II (4/5)
+Items: Credits x9 (9 Total Credit Value)
+Dev Goals: Awareness II, Willpower III, Willpower IV, Soul Strike
+
+Darkpiplumon (PATIENT)
+Abilities (45 Total Progress):
+  Geo: Earth I, Gold
+  Aero: Chameleon
+  Mind: Aeromancy Intuition
+Items: Sword, Synthetic Weave, Credits x12 (19 Total Credit Value)
+  Best Weapon: Sword (+2)
+  Best Armor: Synthetic Weave (+3)
+Conditions:
+  Positive: CHARGE x3
+
+DragonLord (BLOODTHIRSTY)
+Abilities (33 Total Progress):
+  Aero: Savior
+  Body: Martial Arts III
+  Mind: Awareness I
+  Unfinished: Circuit I (3/5)
+Items: Credits x9 (9 Total Credit Value)
+Dev Goals: Willpower I, Mental Fortification I, Mental Fortification II
+Conditions:
+  Positive: CHARGE
+  Negative: INJURED
+
+Drasky (BLOODTHIRSTY) [2 Academics]
+Abilities (64 Total Progress):
+  Geo: Circuit II, Earth I
+  Aero: Split
+  Body: Martial Arts II, Armed Combat II, Armored Combat
+  Unfinished: Antimagic (Geo) (9/10)
+Items: Fire I Rune, Bokken, Venom, Leather Armor, Shrooms x2, Chronoshift Bomb, Credits x1 (17 Total Credit Value)
+  Best Armor: Leather Armor (+1)
+Dev Goals: Antimagic (Geo), Martial Arts III, Circuit III
+Conditions:
+  Positive: RINGER, SPLIT
+
+HypoSoc (HOT_BLOODED) [1 Academics]
+Abilities (47 Total Progress):
+  Geo: Circuit III, Antimagic (Geo), Fire I, Water I, Toxin
+  Unfinished: Antimagic (Aero) (2/10)
+Items: Fire I Rune, Toxin Rune, Venom, Sword, Chronoshift Bomb, Credits x1 (15 Total Credit Value)
+  Best Weapon: Sword (+2)
+Tattoo: Rune Crafting II Rune
+Dev Goals: Antimagic (Aero), Air I, Ash, Circuit IV, Mist
+
+Megaolix (PATIENT) [1 Academics]
+Abilities (42 Total Progress):
+  Geo: Circuit III, Water I, Earth I, Air I, Mud
+  Unfinished: Quiet Attune (2/10)
+Items: Credits x12 (12 Total Credit Value)
+Dev Goals: Quiet Attune, Speed (Geo) I, Awareness I
+Conditions:
+  Negative: DOUSED, GRIEVOUS x3, INJURED
+
+Paradosi (PATIENT) [2 Academics] (4/7 Willpower)
+Abilities (54 Total Progress):
+  Hydro: Willpower II, Body Reinforcement II, Mental Fortification II
+  Aero: Arsonist
+  Unfinished: Rapid Regen I (4/10)
+Items: Credits x9 (9 Total Credit Value)
+Dev Goals: Rapid Regen I, Rapid Regen II
+
+PocketRikimaru (LUCRATIVE) [3 Academics] (2/3 Willpower)
+Abilities (52 Total Progress):
+  Geo: Gold
+  Hydro: Mental Fortification I
+  Body: Martial Arts III, Armed Combat I
+  Unfinished: Armored Combat (2/5)
+Items: Bokken, Lizard Tail x3, Ablative Ossification, Credits x2 (16 Total Credit Value)
+Dev Goals: Armored Combat
+Conditions:
+  Negative: INJURED
+
+RyoAtemi (PATIENT) [1 Academics]
+Abilities (40 Total Progress):
+  Geo: Water I
+  Aero: Omniscience
+  Mind: Sabotage
+Items: Credits x10 (10 Total Credit Value)
+Conditions:
+  Negative: GRIEVOUS x2, INJURED, PORTENT
+
+Seventeen (ALTRUISTIC) (0/3 Willpower)
+Abilities (40 Total Progress):
+  Hydro: Body Reinforcement I
+  Aero: Recursion
+  Body: Martial Arts III, Combat Medicine
+Items: Martial Arts III Rune, Body Reinforcement I Rune, Venom, Sword, Credits x5 (13 Total Credit Value)
+  Best Weapon: Sword (+2)
+Tattoo: Rune Crafting II Rune
+Dev Goals: Body Reinforcement II, Body Reinforcement III, Willpower II
+
+Swift-Sama (ALTRUISTIC) [1 Academics] (3/3 Willpower)
+Abilities (81 Total Progress):
+  Geo: Water II, Combat Regeneration (Geo), Warp
+  Hydro: Body Reinforcement I
+  Aero: King
+  Unfinished: Quiet Attune (6/10)
+Items: King Rune, Credits x10 (12 Total Credit Value)
+Tattoo: Rune Crafting II Rune
+Dev Goals: Quiet Attune, Circuit III
+
+TempelJaeger (PARANOIAC) (9/9 Willpower)
+Abilities (115 Total Progress):
+  Geo: Water I, Earth I
+  Hydro: Resurrection, Rapid Regen II, Mental Fortification I
+  Aero: Augur I, Scapegoat I, X, Jackpot
+  Unfinished: Mental Fortification II (5/10)
+Items: Credits x8 (8 Total Credit Value)
+Dev Goals: Mental Fortification II, Soul Strike, Willpower V, Scapegoat II, Mental Fortification III, Body Reinforcement I, Speed (Hydro) I, Speed (Hydro) II, Willpower Draining, Scapegoat III, Scapegoat IV, Augur II, Augur III, Augur IV
+Conditions:
+  Positive: NO_AUGUR
+  Negative: INJURED
+
+Teyao (ALTRUISTIC)
+Abilities (81 Total Progress):
+  Geo: Circuit III, Antimagic (Hydro), Water II, Combat Regeneration (Geo), Gold
+  Aero: Wealth
+  Unfinished: Circuit IV (1/5)
+Items: Poison Gas x2, Venom, Oxygen Mask, Credits x5 (10 Total Credit Value)
+Dev Goals: Circuit IV, Antimagic (Geo)
+Conditions:
+  Negative: DOUSED
+
+Witherbrine (PATIENT)
+Abilities (134 Total Progress):
+  Geo: Circuit V, Antimagic (Hydro), Rune Crafting II, Runic Tattoos, Fire II, Cauterization, Earth III
+  Aero: Void
+  Unfinished: Hell Fire (9/10)
+Items: Void Rune, Credits x13 (15 Total Credit Value)
+Tattoo: Void Rune
+Dev Goals: Hell Fire, Awareness I, Aeromancy Intuition
+Conditions:
+  Negative: DOUSED

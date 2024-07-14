@@ -1,0 +1,9 @@
+6601:
+  name: "Recursion"
+  concept: "RECURSION"
+  cost: 10
+  aero:
+    6601:
+      fragile: true
+  explanation: |-
+    You may tattoo yourself with Runecrafting II, ignoring any prerequisites for this action.

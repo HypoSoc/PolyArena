@@ -1,0 +1,362 @@
+
+Anemone Report
+
+You attuned to WARP.
+
+You bunkered.
+You have gained 2 Progress
+
+DragonLord was warped through space and time.
+
++2 Progress
+Willpower I (4/5)
+
+You sent Drasky 1 credit (2 remaining).
+
+
+Bedna Report
+
+Invalid action: doing this would displease a God!
+
+You Sabotaged your rivals.
+
+Teyao treated you and you are now healthy.
+
+You wandered aimlessly.
+
+Teyao sent you 1 credit (5 total).
+
+You are Aware:
+Darkpiplumon was training Earth I.
+Hotmonkey was training Attunement Detection.
+HypoSoc was training Circuit III.
+Paradosi was training Willpower II.
+PocketRikimaru was training Martial Arts II.
+Swift-Sama was training Water II.
+Witherbrine was training Rune Crafting II.
+
+
+BlackLemonAde Report
+
+You shopped.
+You spent 3 credits (1 remaining).
+Lizard Tail x1 gained (1 total)
+
+3/3 Willpower
+
+
+Coledon Report
+
+You wandered aimlessly.
+
+
+DarkLight Report
+
+You spent 2 willpower casting Combat Regeneration (Hydro) because you were attacked.
+
+Megaolix attacked you while you were trying to teach Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged you.
+You failed to damage Megaolix.
+You regenerated, ignoring the wound.
+
+You failed to teach Swift-Sama.
+
+3/5 Willpower
+
+
+Darkpiplumon Report
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (8 total).
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Earth I
+Awareness I (1/5)
+
+
+DragonLord Report
+
+You were warped through space and time.
+
+You were unable to find any foes.
+
+Your ailments were cleansed.
+
+You wandered aimlessly.
+
+
+Drasky Report
+
+You attuned to EARTH.
+
+You shopped.
+You spent 3 credits (1 remaining).
+Leather Armor x1 gained (1 total)
+Bokken x1 gained (1 total)
+
+Anemone sent you 1 credit (2 total).
+
+
+Hotmonkey Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Attunement Detection
+Awareness III (1/5)
+
+The King says: Thou shall Train.
+Your intuition tells you this has to do with the concept KING.
+A beam of light shines on DragonLord.
+Your intuition tells you this has to do with the concept SAVIOR.
+
+You are Aware:
+Darkpiplumon was training Earth I.
+HypoSoc was training Circuit III.
+Paradosi was training Willpower II.
+PocketRikimaru was training Martial Arts II.
+Swift-Sama was training Water II.
+Witherbrine was training Rune Crafting II.
+
+DarkLight spent 2 willpower.
+Paradosi spent 2 willpower.
+PocketRikimaru spent 1 willpower.
+TempelJaeger spent 1 willpower.
+
+
+HypoSoc Report
+
+You attuned to WATER/FIRE.
+
+You trained.
+You have gained 3 Progress
+
+You distilled some of your poison.
+Venom x1 gained (2 total)
+
++3 Progress
+You have gained Circuit III
+
+You sent NinetyNineLies items.
+Venom x1 lost (1 remaining)
+
+You sent Megaolix 1 credit (3 remaining).
+
+
+Lord Of Chromius Report
+
+Invalid action: doing this would displease a God!
+
+You wandered aimlessly.
+
+Intuitive: You have gained 1 Progress
+
++1 Progress
+Light (4/5)
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+You attacked DarkLight while they were trying to teach Swift-Sama.
+You unleashed a flood of mud!
+You damaged DarkLight.
+DarkLight failed to damage you.
+
+HypoSoc sent you 1 credit (5 total).
+
+
+NinetyNineLies Report
+
+You shopped.
+You spent 3 credits (1 remaining).
+Sword x1 gained (1 total)
+
+HypoSoc sent you items.
+Venom x1 gained (1 total)
+
+3/3 Willpower
+
+
+Paradosi Report
+
+You spent 1 willpower casting Mental Fortification I.
+You spent 1 willpower casting Mental Fortification II.
+
+You have gained 1 Progress
+You have gained 1 Progress
+
+You trained.
+You have gained 3 Progress
+
++5 Progress
+You have gained Willpower II
+
+1/5 Willpower
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (10 total).
+You have gained 1 Progress
+
+You trained.
+You have gained 3 Progress
+
++4 Progress
+You have gained Martial Arts II
+Martial Arts III (2/5)
+
+2/3 Willpower
+
+
+RyoAtemi Report
+
+Invalid action: doing this would displease a God!
+
+You Sabotaged your rivals.
+
+You wandered aimlessly.
+
+Teyao sent you 1 credit (5 total).
+
+You are Aware:
+Darkpiplumon was training Earth I.
+Hotmonkey was training Attunement Detection.
+HypoSoc was training Circuit III.
+Paradosi was training Willpower II.
+PocketRikimaru was training Martial Arts II.
+Swift-Sama was training Water II.
+Witherbrine was training Rune Crafting II.
+
+
+Seventeen Report
+
+Invalid action: doing this would displease a God!
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You wandered aimlessly.
+
+
+Swift-Sama Report
+
+You failed to learn from DarkLight, so you trained instead.
+
+You trained.
+You have gained 3 Progress
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++6 Progress
+You have gained Water II
+Circuit II (2/5)
+
+Teyao sent you 1 credit (5 total).
+
+2/3 Willpower
+
+
+TempelJaeger Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You put a sin offering on DragonLord.
+
+You attuned to EARTH.
+
+You bunkered.
+You have gained 2 Progress
+
+You have gained 1 Progress
+
+Your 3 Progress was negated.
+
+2/3 Willpower
+
+
+Teyao Report
+
+You attuned to WATER.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (4 total).
+
+You went to heal Bedna.
+You treated Bedna and they are now healthy.
+You have gained 7 Progress
+
++7 Progress
+You have gained Gold
+Water II (6/10)
+
+You sent Bedna 1 credit (3 remaining).
+
+You sent RyoAtemi 1 credit (2 remaining).
+
+You sent Swift-Sama 1 credit (1 remaining).
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH/EARTH.
+
+You trained.
+You have gained 3 Progress
+
++8 Progress
+You have gained Rune Crafting II
+Fire I (1/5)
+
+Day 2
+The King says: Thou shall Train.
+A beam of light shines on DragonLord.
+
+Megaolix attacked DarkLight while they were trying to teach Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+Anemone bunkered.
+Bedna wandered aimlessly.
+BlackLemonAde shopped.
+Coledon wandered aimlessly.
+DarkLight failed to teach Swift-Sama.
+Darkpiplumon trained.
+DragonLord wandered aimlessly.
+Drasky shopped.
+Hotmonkey trained.
+HypoSoc trained.
+Lord Of Chromius wandered aimlessly.
+Megaolix attacked DarkLight while they were trying to teach Swift-Sama.
+NinetyNineLies shopped.
+Paradosi trained.
+PocketRikimaru trained.
+RyoAtemi wandered aimlessly.
+Seventeen wandered aimlessly.
+Swift-Sama trained.
+TempelJaeger bunkered.
+Teyao went to heal Bedna.
+Witherbrine trained.

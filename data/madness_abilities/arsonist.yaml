@@ -1,0 +1,10 @@
+6301:
+  name: "Arsonist"
+  concept: "ARSONIST"
+  cost: 10
+  aero:
+    6301:
+      fragile: true
+  explanation: |-
+    Each night, select a player. They are doused (subtle) [fragile].
+    At the end of the night, if every player other than you is doused, they are injured. (blatant) [fragile]
