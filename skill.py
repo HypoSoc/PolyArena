@@ -118,6 +118,9 @@ if not __skill_dict:
     file_names.extend(
         glob.glob("data/aeromancy_skills/*.yaml")
     )
+    file_names.extend(
+        glob.glob("data/madness_skills/*.yaml")
+    )
     for file_name in file_names:
         with open(file_name) as file:
             skill_list = safe_load(file)

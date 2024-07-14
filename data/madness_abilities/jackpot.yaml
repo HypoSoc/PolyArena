@@ -1,0 +1,11 @@
+6701:
+  name: "Jackpot"
+  concept: "JACKPOT"
+  cost: 10
+  aero:
+    6701:
+      fragile: true
+  explanation: |-
+    Choose 1.
+    - pick a Concept I level of any already-existing Aeromancy.
+    - get offered another choice from three new Aeromancies.

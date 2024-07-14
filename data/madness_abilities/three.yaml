@@ -1,0 +1,12 @@
+7101:
+  name: "Three"
+  concept: "THREE"
+  cost: 10
+  aero:
+    7101:
+      fragile: true
+    7102:
+      fragile: true
+  explanation: |-
+    You can only take any given action thrice this game.
+    +3/+3. (Fragile).

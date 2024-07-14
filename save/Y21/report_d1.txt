@@ -1,0 +1,438 @@
+Anemone Report
+
+Styx (10)
+Players must always have 1 credit on them.
+(Players breaking this rule will be informed that performing their action would displease a God).
+
+You shopped.
+You spent 2 credits (1 remaining).
+Workbench x1 gained (1 total)
+
+Teyao sent you 1 credit (2 total).
+
+
+Bedna Report
+
+Fall (10)
+Each turn, select a player. They cannot gain progress during this turn, and become immune to this effect for a turn afterward. [fragile] (narrow)
+
+Drasky's efforts are in vain.
+You Sabotaged your rivals.
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Profiling (3/5)
+
+You are Aware:
+BlackLemonAde was training Body Reinforcement II.
+Darkpiplumon was training Earth I.
+Lord Of Chromius was training Circuit II.
+Paradosi was training Body Reinforcement I.
+PocketRikimaru was training Martial Arts I.
+Witherbrine was training Circuit II.
+
+
+BlackLemonAde Report
+
+You spent 1 willpower casting Body Reinforcement I.
+
+CHAOS (10)
+Use: At the end of the turn, exchange control of target character.
+Cannot target a character that has already been targeted with this Aeromancy.
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Body Reinforcement II (3/10)
+
+2/3 Willpower
+
+
+Coledon Report
+
+Three (10)
+You can only take any given action thrice this game.
++3/+3. (Fragile).
+
+You attacked Megaolix while they were trying to train.
+Megaolix unleashed a flood of mud!
+The air crackled with energy!
+You failed to damage Megaolix.
+Megaolix failed to damage you.
+
+
+DarkLight Report
+
+You taught Swift-Sama Willpower I.
+You have gained 7 Progress
+
++7 Progress
+You have gained Willpower II
+Awareness I (2/5)
+
+3/5 Willpower
+
+
+Darkpiplumon Report
+
+Chameleon (10)
+Gain 3 charges.
+Expend 1 charge: go into hiding at the end of the turn.
+(This also broadcasts a message indicating that you have died)
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (4 total).
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Earth I (3/5)
+
+Teyao sent you 1 credit (5 total).
+
+
+DragonLord Report
+
+Savior (10)
+Gain two charges.
+Expend a charge: remove all of target player negative conditions (this happens right before any healing, but after combat). (blatant)
+If your target was injured AND wasn't you, gain 2 charges.
+
+You attacked RyoAtemi while they were trying to train.
+You damaged RyoAtemi.
+RyoAtemi failed to damage you.
+
+
+Drasky Report
+
+Invalid action: doing this would displease a God!
+
+Split (10)
+Choose two names.
+Whenever you die, remove this aeromancy, then split into two characters with the selected names. (blatant)
+Allocate to each of them half of your total progress, rounded down.
+
+Your efforts are in vain.
+
+You wandered aimlessly.
+
+
+Hotmonkey Report
+
+Swap (10)
+Every turn, pick 2 players that aren't dead nor in hiding. Exchange their names at the end of the turn, but before trades occur. [fragile]
+
+HypoSoc attacked you while you were trying to train.
+HypoSoc damaged you.
+You failed to damage HypoSoc.
+You were injured.
+
+You failed to train.
+
+Teyao sent you 1 credit (4 total).
+
+Coledon attacked Megaolix while they were trying to train.
+Megaolix unleashed a flood of mud!
+The air crackled with energy!
+Your intuition tells you this has to do with the concept THREE.
+Coledon failed to damage Megaolix.
+Megaolix failed to damage Coledon.
+
+DragonLord attacked RyoAtemi while they were trying to train.
+DragonLord damaged RyoAtemi.
+RyoAtemi failed to damage DragonLord.
+
+You are Aware:
+Bedna was training Profiling.
+BlackLemonAde was training Body Reinforcement II.
+Darkpiplumon was training Earth I.
+Lord Of Chromius was training Circuit II.
+Paradosi was training Body Reinforcement I.
+PocketRikimaru was training Martial Arts I.
+Witherbrine was training Circuit II.
+
+BlackLemonAde spent 1 willpower.
+PocketRikimaru spent 1 willpower.
+
+
+HypoSoc Report
+
+You attuned to WATER/FIRE.
+
+You attacked Hotmonkey while they were trying to train.
+You damaged Hotmonkey.
+Hotmonkey failed to damage you.
+
+Your blood boils in excitement.
+You have gained 2 Progress
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
++2 Progress
+Circuit III (2/5)
+
+
+Lord Of Chromius Report
+
+Nuclear I (10)
+As long as you have four circuits attuned to Light, you will kill everyone in range at the end of combat (including yourself). (Fragile as if Geomancy) (Unmistakable)
+You can attune an additional circuit to Light.
+You gain a circuit.
+
+NUCLEAR II costs 10
+
+You attuned to EARTH.
+
+You trained.
+You have gained 3 Progress
+
+Intuitive: You have gained 1 Progress
+
++4 Progress
+Circuit II (4/5)
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+Coledon attacked you while you were trying to train.
+You unleashed a flood of mud!
+The air crackled with energy!
+Coledon failed to damage you.
+You failed to damage Coledon.
+
+You failed to train.
+
+
+NinetyNineLies Report
+
+Invalid action: doing this would displease a God!
+
+Slip (10)
+Use: discard all other players actions for this turn. Other players statuses DO NOT CHANGE as a result of this turn.
+Players other than you receive no update for this turn. (blatant).
+Use only once per game.
+
+You wandered aimlessly.
+
+3/3 Willpower
+
+
+Paradosi Report
+
+Arsonist (10)
+Each night, select a player. They are doused (subtle) [fragile].
+At the end of the night, if every player other than you are doused, they are injured. (blatant) [fragile]
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Body Reinforcement I (3/5)
+
+3/3 Willpower
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (6 total).
+You have gained 1 Progress
+
+You trained.
+You have gained 3 Progress
+
++4 Progress
+Martial Arts I (4/5)
+
+2/3 Willpower
+
+
+RyoAtemi Report
+
+Omniscience (10)
+BROADCAST.
+You are made aware of every action every player takes every single turn.
+You cannot gain any further progress.
+
+You Sabotaged your rivals.
+
+DragonLord attacked you while you were trying to train.
+DragonLord damaged you.
+You failed to damage DragonLord.
+You were injured.
+
+You failed to train.
+
+You are Aware:
+Bedna was training Profiling.
+BlackLemonAde was training Body Reinforcement II.
+Darkpiplumon was training Earth I.
+Lord Of Chromius was training Circuit II.
+Paradosi was training Body Reinforcement I.
+PocketRikimaru was training Martial Arts I.
+Witherbrine was training Circuit II.
+
+
+Seventeen Report
+
+Recursion (10)
+You may tattoo yourself with Runecrafting II, ignoring any prerequisites for this action.
+
+You tattooed yourself.
+You tattooed yourself with Rune Crafting II.
+
+
+Swift-Sama Report
+
+King (10)
+BROADCAST
+At the start of the game, and each turn afterwards, choose an ation among Class, Doctor, Train, Bunker, Shop, or Wander. (Blatant)
+Players performing this action during the next turn grant you 1 progress. [fragile]
+
+You have decreed: All shall train tonight.
+
+A faithful subject has followed your orders.
+
+You learned Willpower I from DarkLight.
+You have gained Willpower I
+
++1 progress
+Water II (1/10)
+
+
+TempelJaeger Report
+
+Augur I (10)
+At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
+Whenever a Portent dies, gain 20 Progress. (Blatant)
+
+Augur II costs 10
+
+Scapegoat I (10)
+Your existence (but not your name/concept) will be announced will be announced Day 1.
+Each turn, choose a player to be a Portent until end of turn. (Subtle)
+Everyone that attacks that player will be Marked until end of turn.
+At the end of each turn, if a Portent died, Grievously Damage all Marked players. (Narrow) (Fragile)
+
+Scapegoat II costs 10
+
+X (10)
+You cannot pick this with Legacy Magic.
+Upon getting this concept in character creation, choose two other concepts to gain. You will start with both of them at level 1.
+Your concept will appear to be the combination of the two.
+You will be able to train further levels of both of them as normal.
+Any progress assigned to further levels of X at character creation will be randomly distributed between those concepts.
+You cannot gain progress for the first 5 turns.
+
+Jackpot (10)
+Choose 1.
+- pick a Concept I level of any already-existing Aeromancy.
+- get offered another choice from three new Aeromancies.
+
+RyoAtemi's entrails are quite Portentous.
+
+You attuned to EARTH.
+
+You learned Water I from Teyao.
+You have gained Water I
+
+3/3 Willpower
+
+
+Teyao Report
+
+Wealth (10)
+Gain 1 credit at the start of each turn.
+
+You attuned to WATER.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (4 total).
+
+You taught TempelJaeger Water I.
+You have gained 7 Progress
+
++7 Progress
+You have gained Circuit II
+Gold (2/10)
+
+You sent Anemone 1 credit (3 remaining).
+
+You sent Hotmonkey 1 credit (2 remaining).
+
+You sent Darkpiplumon 1 credit (1 remaining).
+
+
+Witherbrine Report
+
+Void (10)
+Gain 5 progress each turn. [fragile]
+At the end of the game, if everyone is dead, including you, win the game.
+You lose the game if anyone remains alive at the end of the game, including you.
+Cannot use Soul Strike.
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH.
+
+You trained.
+You have gained 3 Progress
+
++8 Progress
+You have gained Circuit II
+Rune Crafting I (3/5)
+
+Day 1
+An unpleasant aura twists the campus grounds!
+The King says: Thou shall train tonight.
+
+Coledon attacked Megaolix while they were trying to train.
+Megaolix unleashed a flood of mud!
+The air crackled with energy!
+Coledon failed to damage Megaolix.
+Megaolix failed to damage Coledon.
+
+DragonLord attacked RyoAtemi while they were trying to train.
+DragonLord damaged RyoAtemi.
+RyoAtemi failed to damage DragonLord.
+
+HypoSoc attacked Hotmonkey while they were trying to train.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+
+
+Anemone shopped.
+Bedna trained.
+BlackLemonAde trained.
+Coledon attacked Megaolix while they were trying to train.
+DarkLight taught Swift-Sama.
+Darkpiplumon trained.
+DragonLord attacked RyoAtemi while they were trying to train.
+Drasky wandered aimlessly.
+Hotmonkey failed to train.
+HypoSoc attacked Hotmonkey while they were trying to train.
+Lord Of Chromius trained.
+Megaolix failed to train.
+NinetyNineLies wandered aimlessly.
+Paradosi trained.
+PocketRikimaru trained.
+RyoAtemi failed to train.
+Seventeen tattooed themself.
+Swift-Sama learned from DarkLight.
+TempelJaeger learned from Teyao.
+Teyao taught TempelJaeger.
+Witherbrine trained.

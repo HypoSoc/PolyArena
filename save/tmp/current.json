@@ -1,0 +1,102 @@
+{
+    "turn": 1,
+    "night": false,
+    "seed": 26946,
+    "remaining": [
+        "Conductor",
+        "A1",
+        "B1",
+        "C1"
+    ],
+    "events": [],
+    "players": {
+        "Conductor": {
+            "name": "Conductor",
+            "progress_dict": {
+                "801": 10,
+                "802": 15,
+                "201": 1
+            },
+            "dev_plan": [
+                201
+            ],
+            "academics": 0,
+            "temperament": 3,
+            "concept": "CONDUCTOR",
+            "conditions": [],
+            "items": [],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "A1": {
+            "name": "A1",
+            "progress_dict": {
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "410": 10
+            },
+            "dev_plan": [],
+            "academics": 0,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [
+                18
+            ],
+            "items": [],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "B1": {
+            "name": "B1",
+            "progress_dict": {
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "410": 10
+            },
+            "dev_plan": [],
+            "academics": 0,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        },
+        "C1": {
+            "name": "C1",
+            "progress_dict": {
+                "401": 5,
+                "402": 5,
+                "403": 5,
+                "410": 10
+            },
+            "dev_plan": [],
+            "academics": 0,
+            "temperament": 7,
+            "concept": null,
+            "conditions": [],
+            "items": [],
+            "money": 3,
+            "willpower": 0,
+            "bounty": 1,
+            "relative_conditions": {},
+            "tattoo": null,
+            "crafted_before": []
+        }
+    },
+    "automata": {}
+}

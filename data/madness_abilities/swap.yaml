@@ -1,0 +1,8 @@
+6101:
+  name: "Swap"
+  concept: "SWAP"
+  cost: 10
+  skills:
+  - 6101
+  explanation: |-
+    Every turn, pick 2 players that aren't dead nor in hiding. Exchange their names at the end of the turn, but before trades occur. [fragile]

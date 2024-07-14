@@ -1,0 +1,82 @@
+Anemone:
+Bunker
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +3 surv (contingency)
+Body Reinforcement III: +5 surv (contingency)
+Unnatural Intuition (contingency)
+
+Cole:
+
+DarkLight:
+Attack Darkpiplumon
+Combat Regeneration (Hydro)
+Trade 8 credits to DragonLord
+
+Darkpiplumon:
+Attack DarkLight
+Attune to Gold, Earth
+
+DragonLord:
+
+Drasky:
+Class
+
+HypoSoc:
+Attack Swift-Sama
+Craft Toxin Rune as a bonus action
+Attune to Water, Fire
+Consume Venom
+Trade 1 Toxin Rune to Seventeen
+Trade 1 credit to NinetyNineLies
+
+Megaolix:
+Class
+
+NinetyNineLies:
+Bunker
+Unnatural Intuition (contingency)
+
+Paradosi:
+Shop for Sword, Synthetic Weave, Booby Trap
+Mental Fortification I
+Mental Fortification II: +1 progress
+Body Reinforcement I: +1 surv (contingency)
+
+PocketRikimaru:
+Bunker
+Attune to Gold
+Mental Fortification I
+Consume Liquid Memories
+
+RyoAtemi:
+Class
+
+Seventeen:
+Attack NinetyNineLies
+Consume Medkit, Body Reinforcement I Rune
+Heal self
+body Reinforcement I: +1/+1
+
+Swift-Sama:
+Attack Witherbrine
+Craft King Rune as a bonus action
+Attune to Water, Water
+King: Train
+
+TempelJaeger:
+Attack PocketRikimaru
+Mental Fortification I
+Resurrection
+Scapegoat I: self
+Bounty: RyoAtemi (2)
+
+Teyao:
+Shop for Chronoshift Bomb, Shrooms, Shrooms
+
+Witherbrine:
+Train
+Craft Fire I Rune as a bonus action
+Attune to Earth, Earth, Fire

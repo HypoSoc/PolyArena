@@ -1,0 +1,12 @@
+6201:
+  name: "Void"
+  concept: "VOID"
+  cost: 10
+  aero:
+    6201:
+      fragile: true
+  explanation: |-
+    Gain 5 progress each turn. [fragile]
+    At the end of the game, if everyone is dead, including you, win the game.
+    You lose the game if anyone remains alive at the end of the game, including you.
+    Cannot use Soul Strike.

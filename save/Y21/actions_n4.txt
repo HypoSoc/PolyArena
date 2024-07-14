@@ -1,0 +1,86 @@
+Anemone:
+Bunker
+Trade 1 credit to Drasky
+
+Bedna:
+Bunker
+Spy on Seventeen
+Fall: PocketRikimaru
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +3 surv (contingency)
+
+Coledon:
+Train
+
+DarkLight:
+Learn from Seventeen
+
+Darkpiplumon:
+Attack RyoAtemi
+Attune to Gold, Earth
+
+DragonLord:
+Attack Bedna
+
+Drasky:
+Attack Swift-Sama
+
+HypoSoc:
+Attack Swift-Sama
+Attune to Fire, Water
+Craft Toxin Rune as a bonus action
+Trade 1 Venom to Teyao if Teyao attacks trades 1 credit to HypoSoc
+
+Megaolix:
+Attack NinetyNineLies
+Attune to Earth, Water
+
+NinetyNineLies:
+Bunker
+Unnatural Intuition
+Enhanced Senses
+
+Paradosi:
+Bunker
+Mental Fortification I
+Body Reinforcement I: +1 surv (contingency)
+Arsonist: Megaolix
+
+PocketRikimaru:
+Attack HypoSoc
+Attune to Gold
+Mental Fortification I
+Consume Liquid Memories
+
+RyoAtemi:
+Bunker
+
+Seventeen:
+Teach DarkLight Martial Arts I
+Craft Martial Arts III Rune as a bonus action
+Trade Martial Arts III Rune to DarkLight
+
+Swift-Sama:
+Train
+Craft King Rune as a bonus action
+Attune to Water, Water
+King: Shop
+
+TempelJaeger:
+Bunker
+Attune to Earth
+Mental Fortification I
+Scapegoat I: Bedna
+
+Teyao:
+Heal Bedna
+Attune to Water, Gold
+
+Witherbrine:
+Train
+Craft Fire I Rune as a bonus action
+Attune to Earth, Earth, Fire
+Consume Void Rune

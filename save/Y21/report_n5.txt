@@ -1,0 +1,544 @@
+Anemone Report
+
+Your efforts are in vain.
+
+You bunkered.
+You have gained 2 Progress
+
+Your 2 Progress was negated.
+
+3/3 Willpower
+
+Student Services has granted you 1 credit (6 total).
+
+
+Bedna Report
+
+Anemone's efforts are in vain.
+You Sabotaged your rivals.
+
+Seventeen attacked you while you were trying to train.
+TempelJaeger attacked you while you were trying to train.
+TempelJaeger damaged you.
+You failed to damage TempelJaeger.
+Seventeen damaged you.
+You failed to damage Seventeen.
+You were injured.
+You died.
+
+You are Aware:
+Darkpiplumon attacked DarkLight while they were bunkering.
+Darkpiplumon failed to damage DarkLight.
+DarkLight failed to damage Darkpiplumon.
+
+DragonLord attacked NinetyNineLies while they were bunkering.
+Teyao attacked NinetyNineLies while they were bunkering.
+DragonLord disarmed NinetyNineLies.
+DragonLord failed to damage NinetyNineLies.
+NinetyNineLies failed to damage DragonLord.
+Teyao failed to damage NinetyNineLies.
+NinetyNineLies failed to damage Teyao.
+
+Drasky attacked PocketRikimaru while they were bunkering.
+Drasky disarmed PocketRikimaru.
+Drasky failed to damage PocketRikimaru.
+PocketRikimaru failed to damage Drasky.
+
+HypoSoc attacked Swift-Sama while they were trying to train.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+
+
+BlackLemonAde Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Body Reinforcement III
+Willpower II (1/5)
+
+You regained 4 willpower.
+9/9 Willpower
+
+Student Services has granted you 1 credit (5 total).
+
+
+Coledon Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Air II (4/10)
+
+Student Services has granted you 1 credit (8 total).
+
+
+DarkLight Report
+
+You spent 2 willpower casting Combat Regeneration (Hydro).
+
+You used your Martial Arts III Rune (0 remaining).
+
+You bunkered.
+
+Darkpiplumon attacked you while you were bunkering.
+Darkpiplumon failed to damage you.
+You failed to damage Darkpiplumon.
+
+You regained 2 willpower.
+5/5 Willpower
+
+Student Services has granted you 1 credit (8 total).
+
+You are Aware:
+
+DragonLord attacked NinetyNineLies while they were bunkering.
+Teyao attacked NinetyNineLies while they were bunkering.
+DragonLord disarmed NinetyNineLies.
+DragonLord failed to damage NinetyNineLies.
+NinetyNineLies failed to damage DragonLord.
+Teyao failed to damage NinetyNineLies.
+NinetyNineLies failed to damage Teyao.
+
+Drasky attacked PocketRikimaru while they were bunkering.
+Drasky disarmed PocketRikimaru.
+Drasky failed to damage PocketRikimaru.
+PocketRikimaru failed to damage Drasky.
+
+HypoSoc attacked Swift-Sama while they were trying to train.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+
+Seventeen attacked Bedna while they were trying to train.
+TempelJaeger attacked Bedna while they were trying to train.
+TempelJaeger damaged Bedna.
+Bedna failed to damage TempelJaeger.
+Seventeen damaged Bedna.
+Bedna failed to damage Seventeen.
+Bedna died.
+
+
+Darkpiplumon Report
+
+You attuned to GOLD/EARTH.
+
+You attacked DarkLight while they were bunkering.
+You failed to damage DarkLight.
+DarkLight failed to damage you.
+
+You have generated wealth!
+You gained 1 credit. (8 total).
+
+Student Services has granted you 1 credit (9 total).
+
+The King says: Thou shall Shop.
+Your intuition tells you this has to do with the concept KING.
+Bedna's entrails left an Auspicious sign.
+Your intuition tells you this has to do with the concept 🎰 AUGUR X SCAPEGOAT 🎰.
+
+You are Aware:
+
+DragonLord attacked NinetyNineLies while they were bunkering.
+Teyao attacked NinetyNineLies while they were bunkering.
+DragonLord disarmed NinetyNineLies.
+DragonLord failed to damage NinetyNineLies.
+NinetyNineLies failed to damage DragonLord.
+Teyao failed to damage NinetyNineLies.
+NinetyNineLies failed to damage Teyao.
+
+Drasky attacked PocketRikimaru while they were bunkering.
+Drasky disarmed PocketRikimaru.
+Drasky failed to damage PocketRikimaru.
+PocketRikimaru failed to damage Drasky.
+
+HypoSoc attacked Swift-Sama while they were trying to train.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+
+Seventeen attacked Bedna while they were trying to train.
+TempelJaeger attacked Bedna while they were trying to train.
+TempelJaeger damaged Bedna.
+Bedna failed to damage TempelJaeger.
+Seventeen damaged Bedna.
+Bedna failed to damage Seventeen.
+Bedna died.
+
+
+DragonLord Report
+
+You attacked NinetyNineLies while they were bunkering.
+Teyao attacked NinetyNineLies while they were bunkering.
+You disarmed NinetyNineLies.
+You failed to damage NinetyNineLies.
+NinetyNineLies failed to damage you.
+Teyao failed to damage NinetyNineLies.
+NinetyNineLies failed to damage Teyao.
+
+Student Services has granted you 1 credit (8 total).
+
+You are Aware:
+Darkpiplumon attacked DarkLight while they were bunkering.
+Darkpiplumon failed to damage DarkLight.
+DarkLight failed to damage Darkpiplumon.
+
+Drasky attacked PocketRikimaru while they were bunkering.
+Drasky disarmed PocketRikimaru.
+Drasky failed to damage PocketRikimaru.
+PocketRikimaru failed to damage Drasky.
+
+HypoSoc attacked Swift-Sama while they were trying to train.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+
+Seventeen attacked Bedna while they were trying to train.
+TempelJaeger attacked Bedna while they were trying to train.
+TempelJaeger damaged Bedna.
+Bedna failed to damage TempelJaeger.
+Seventeen damaged Bedna.
+Bedna failed to damage Seventeen.
+Bedna died.
+
+
+Drasky Report
+
+You attuned to EARTH.
+
+You attacked PocketRikimaru while they were bunkering.
+You disarmed PocketRikimaru.
+You failed to damage PocketRikimaru.
+PocketRikimaru failed to damage you.
+
+HypoSoc sent you items.
+Fire I Rune x1 gained (1 total)
+
+Student Services has granted you 1 credit (8 total).
+
+
+HypoSoc Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You used your Venom (1 remaining).
+
+You attuned to WATER/FIRE.
+
+You attacked Swift-Sama while they were trying to train.
+You damaged Swift-Sama.
+Swift-Sama failed to damage you.
+
+Your blood boils in excitement.
+You have gained 2 Progress
+
+You crafted.
+Fire I Rune x1 gained (1 total)
+
+You distilled some of your poison.
+Venom x1 gained (2 total)
+
++2 Progress
+Antimagic (Geo) (8/10)
+
+You sent Teyao items.
+Venom x1 lost (1 remaining)
+
+You sent Drasky items.
+Fire I Rune x1 lost (0 remaining)
+
+Teyao sent you 1 credit (6 total).
+
+Student Services has granted you 1 credit (7 total).
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Air I
+Quiet Attune (2/10)
+
+Student Services has granted you 1 credit (11 total).
+
+
+NinetyNineLies Report
+
+You spent 1 willpower casting Unnatural Intuition.
+You spent 1 willpower casting Enhanced Senses.
+
+You bunkered.
+
+DragonLord attacked you while you were bunkering.
+Teyao attacked you while you were bunkering.
+DragonLord disarmed you.
+You detected Aeromancy (SAVIOR).
+You detected Aeromancy (WEALTH).
+DragonLord failed to damage you.
+You failed to damage DragonLord.
+Teyao failed to damage you.
+You failed to damage Teyao.
+
+You regained 2 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (5 total).
+
+You are Aware:
+Darkpiplumon attacked DarkLight while they were bunkering.
+Darkpiplumon failed to damage DarkLight.
+DarkLight failed to damage Darkpiplumon.
+
+Drasky attacked PocketRikimaru while they were bunkering.
+Drasky disarmed PocketRikimaru.
+Drasky failed to damage PocketRikimaru.
+PocketRikimaru failed to damage Drasky.
+
+HypoSoc attacked Swift-Sama while they were trying to train.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+
+Seventeen attacked Bedna while they were trying to train.
+TempelJaeger attacked Bedna while they were trying to train.
+TempelJaeger damaged Bedna.
+Bedna failed to damage TempelJaeger.
+Seventeen damaged Bedna.
+Bedna failed to damage Seventeen.
+Bedna died.
+
+
+Paradosi Report
+
+You spent 1 willpower casting Mental Fortification I.
+You spent 1 willpower casting Mental Fortification II.
+
+You have gained 1 Progress
+You have gained 1 Progress
+
+You trained.
+You have gained 3 Progress
+
++5 Progress
+Body Reinforcement II (9/10)
+
+You regained 3 willpower.
+5/5 Willpower
+
+Student Services has granted you 1 credit (8 total).
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You used your Liquid Memories (1 remaining).
+You immersed in the memories of a previous student.
+You gained 1 Academics (2)
+
+You attuned to GOLD.
+
+You bunkered.
+
+Drasky attacked you while you were bunkering.
+Drasky disarmed you.
+Drasky failed to damage you.
+You failed to damage Drasky.
+
+You have generated wealth!
+You gained 1 credit. (6 total).
+You have gained 1 Progress
+
++1 Progress
+Armed Combat I (4/5)
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 2 credits (8 total).
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You bunkered.
+
+Student Services has granted you 1 credit (9 total).
+
+You are Aware:
+Darkpiplumon attacked DarkLight while they were bunkering.
+Darkpiplumon failed to damage DarkLight.
+DarkLight failed to damage Darkpiplumon.
+
+DragonLord attacked NinetyNineLies while they were bunkering.
+Teyao attacked NinetyNineLies while they were bunkering.
+DragonLord disarmed NinetyNineLies.
+DragonLord failed to damage NinetyNineLies.
+NinetyNineLies failed to damage DragonLord.
+Teyao failed to damage NinetyNineLies.
+NinetyNineLies failed to damage Teyao.
+
+Drasky attacked PocketRikimaru while they were bunkering.
+Drasky disarmed PocketRikimaru.
+Drasky failed to damage PocketRikimaru.
+PocketRikimaru failed to damage Drasky.
+
+HypoSoc attacked Swift-Sama while they were trying to train.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+
+Seventeen attacked Bedna while they were trying to train.
+TempelJaeger attacked Bedna while they were trying to train.
+TempelJaeger damaged Bedna.
+Bedna failed to damage TempelJaeger.
+Seventeen damaged Bedna.
+Bedna failed to damage Seventeen.
+Bedna died.
+
+
+Seventeen Report
+
+You spent 2 willpower casting Body Reinforcement I.
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You used your Toxin Rune (0 remaining).
+
+You attacked Bedna while they were trying to train.
+TempelJaeger attacked Bedna while they were trying to train.
+TempelJaeger damaged Bedna.
+Bedna failed to damage TempelJaeger.
+You damaged Bedna.
+Bedna failed to damage you.
+Bedna died.
+Bedna's items were lost in the confusion.
+You earned 1 credit for killing Bedna.
+
+You crafted.
+Body Reinforcement I Rune x1 gained (1 total)
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
+You regained 2 willpower.
+2/3 Willpower
+
+Your sin-mark burned.
+You were grievously injured.
+
+You are grievously wounded you must heal within 2 turns or you will die.
+Student Services has granted you 1 credit (4 total).
+
+
+Swift-Sama Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You attuned to WATER/WATER.
+
+HypoSoc attacked you while you were trying to train.
+HypoSoc damaged you.
+You failed to damage HypoSoc.
+You regenerated, ignoring the wound.
+
+You failed to train.
+
+You failed to craft.
+
+3/3 Willpower
+
+Student Services has granted you 1 credit (9 total).
+
+
+TempelJaeger Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You put a sin offering on Bedna.
+
+You attuned to EARTH.
+
+Seventeen attacked Bedna while they were trying to train.
+You attacked Bedna while they were trying to train.
+You damaged Bedna.
+Bedna failed to damage you.
+Seventeen damaged Bedna.
+Bedna failed to damage Seventeen.
+Bedna died.
+Bedna's items were lost in the confusion.
+You earned 1 credit for killing Bedna.
+
+You have gained 20 Progress
+The Scapegoat (Bedna) has been slain.
+You have gained 1 Progress
+
++21 Progress
+You have gained Willpower III
+You have gained Willpower IV
+You have gained Resurrection
+Willpower V (2/5)
+
+You regained 5 willpower.
+8/9 Willpower
+
+Seventeen's sin-mark burned.
+Your sin-mark burned.
+You were grievously injured.
+
+You are grievously wounded you must heal within 2 turns or you will die.
+Student Services has granted you 1 credit (9 total).
+
+
+Teyao Report
+
+You attuned to WATER/WATER.
+
+DragonLord attacked NinetyNineLies while they were bunkering.
+You attacked NinetyNineLies while they were bunkering.
+DragonLord disarmed NinetyNineLies.
+DragonLord failed to damage NinetyNineLies.
+NinetyNineLies failed to damage DragonLord.
+You failed to damage NinetyNineLies.
+NinetyNineLies failed to damage you.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (10 total).
+
+HypoSoc sent you items.
+Venom x1 gained (1 total)
+
+You sent HypoSoc 1 credit (9 remaining).
+
+Student Services has granted you 1 credit (10 total).
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You used your Void Rune (1 remaining).
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH/EARTH/FIRE.
+
+You tattooed yourself.
+You tattooed yourself with Void.
+
+You crafted.
+Fire I Rune x1 gained (2 total)
+
++10 Progress
+Earth III (13/15)
+
+Student Services has granted you 1 credit (8 total).
+
+
+Night 5
+The King says: Thou shall Shop.
+Bedna's entrails left an Auspicious sign.
+Bedna died.

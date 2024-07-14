@@ -1,0 +1,451 @@
+
+Anemone Report
+
+You attuned to WARP.
+
+You bunkered.
+You have gained 2 Progress
+
+HypoSoc was warped through space and time.
+
++2 Progress
+Willpower I (2/5)
+
+Student Services has granted you 1 credit (3 total).
+
+
+Bedna Report
+
+BlackLemonAde's efforts are in vain.
+You Sabotaged your rivals.
+
+Drasky attacked you while you were trying to teach Hotmonkey.
+Drasky damaged you.
+You failed to damage Drasky.
+You were injured.
+
+You failed to teach Hotmonkey.
+
+Student Services has granted you 1 credit (4 total).
+
+You are Aware:
+Coledon attacked Witherbrine while they were trying to train.
+DragonLord attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+DragonLord failed to damage Witherbrine.
+Witherbrine failed to damage DragonLord.
+Coledon failed to damage Witherbrine.
+Witherbrine failed to damage Coledon.
+Coledon hurt themself attacking Witherbrine.
+DragonLord hurt themself attacking Witherbrine.
+
+
+BlackLemonAde Report
+
+Your efforts are in vain.
+
+You bunkered.
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (4 total).
+
+
+Coledon Report
+
+You cannot progress this turn.
+
+You attacked Witherbrine while they were trying to train.
+DragonLord attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+DragonLord failed to damage Witherbrine.
+Witherbrine failed to damage DragonLord.
+You failed to damage Witherbrine.
+Witherbrine failed to damage you.
+You hurt yourself attacking Witherbrine.
+DragonLord hurt themself attacking Witherbrine.
+You were injured.
+
+Student Services has granted you 1 credit (4 total).
+
+
+DarkLight Report
+
+You taught Swift-Sama Body Reinforcement I.
+You have gained 7 Progress
+
++7 Progress
+You have gained Awareness I
+Awareness II (4/5)
+
+You regained 2 willpower.
+5/5 Willpower
+
+Student Services has granted you 1 credit (4 total).
+
+
+Darkpiplumon Report
+
+You attuned to GOLD.
+
+You bunkered.
+
+You have generated wealth!
+You gained 1 credit. (6 total).
+
+Student Services has granted you 1 credit (7 total).
+
+
+DragonLord Report
+
+Coledon attacked Witherbrine while they were trying to train.
+You attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+You failed to damage Witherbrine.
+Witherbrine failed to damage you.
+Coledon failed to damage Witherbrine.
+Witherbrine failed to damage Coledon.
+Coledon hurt themself attacking Witherbrine.
+You hurt yourself attacking Witherbrine.
+You were injured.
+
+You've accumulated positive Karma.
+Hotmonkey's ailments were cleansed.
+
+Student Services has granted you 1 credit (4 total).
+
+You are Aware:
+
+Drasky attacked Bedna while they were trying to teach Hotmonkey.
+Drasky damaged Bedna.
+Bedna failed to damage Drasky.
+
+
+Drasky Report
+
+You attuned to EARTH.
+
+You attacked Bedna while they were trying to teach Hotmonkey.
+You damaged Bedna.
+Bedna failed to damage you.
+
+Student Services has granted you 1 credit (4 total).
+
+
+Hotmonkey Report
+
+You failed to learn from Bedna, so you trained instead.
+
+You trained.
+You have gained 3 Progress
+
+Your ailments were cleansed.
+
+You spied on Seventeen.
+
+Seventeen trained.
+Seventeen crafted.
+
+Seventeen was training Willpower I.
+
++3 Progress
+Attunement Detection (3/5)
+
+Student Services has granted you 1 credit (5 total).
+
+The King says: Thou shall Shop.
+Your intuition tells you this has to do with the concept KING.
+A beam of light shines on you.
+Your intuition tells you this has to do with the concept SAVIOR.
+
+You are Aware:
+Coledon attacked Witherbrine while they were trying to train.
+DragonLord attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+Your intuition tells you this has to do with the concept THREE.
+DragonLord failed to damage Witherbrine.
+Witherbrine failed to damage DragonLord.
+Coledon failed to damage Witherbrine.
+Witherbrine failed to damage Coledon.
+Coledon hurt themself attacking Witherbrine.
+DragonLord hurt themself attacking Witherbrine.
+
+Drasky attacked Bedna while they were trying to teach you.
+Drasky damaged Bedna.
+Bedna failed to damage Drasky.
+
+NinetyNineLies spent 1 willpower.
+Paradosi spent 2 willpower.
+PocketRikimaru spent 1 willpower.
+TempelJaeger spent 1 willpower.
+
+
+HypoSoc Report
+
+You used your Venom (0 remaining).
+
+You attuned to WATER/FIRE.
+
+You were warped through space and time.
+
+You were unable to find any foes.
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
+You wandered aimlessly.
+
+Student Services has granted you 1 credit (4 total).
+
+
+Lord Of Chromius Report
+
+You attuned to EARTH.
+
+You trained.
+You have gained 3 Progress
+
+Intuitive: You have gained 1 Progress
+
++4 Progress
+You have gained Circuit II
+Light (3/5)
+
+Student Services has granted you 1 credit (4 total).
+
+You are Aware:
+Coledon attacked Witherbrine while they were trying to train.
+DragonLord attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+DragonLord failed to damage Witherbrine.
+Witherbrine failed to damage DragonLord.
+Coledon failed to damage Witherbrine.
+Witherbrine failed to damage Coledon.
+Coledon hurt themself attacking Witherbrine.
+DragonLord hurt themself attacking Witherbrine.
+
+Drasky attacked Bedna while they were trying to teach Hotmonkey.
+Drasky damaged Bedna.
+Bedna failed to damage Drasky.
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Circuit III (3/5)
+
+Student Services has granted you 1 credit (4 total).
+
+
+NinetyNineLies Report
+
+You spent 1 willpower casting Enhanced Senses.
+
+You bunkered.
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (4 total).
+
+You are Aware:
+Coledon attacked Witherbrine while they were trying to train.
+DragonLord attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+DragonLord failed to damage Witherbrine.
+Witherbrine failed to damage DragonLord.
+Coledon failed to damage Witherbrine.
+Witherbrine failed to damage Coledon.
+Coledon hurt themself attacking Witherbrine.
+DragonLord hurt themself attacking Witherbrine.
+
+Drasky attacked Bedna while they were trying to teach Hotmonkey.
+Drasky damaged Bedna.
+Bedna failed to damage Drasky.
+
+
+Paradosi Report
+
+You spent 1 willpower casting Mental Fortification I.
+You spent 1 willpower casting Mental Fortification II.
+
+Coledon's house is doused in gasoline.
+
+You bunkered.
+
+You have gained 1 Progress
+You have gained 1 Progress
+
+You did not trade with Witherbrine26 because doing so would displease a God.
+
++2 Progress
+You have gained Body Reinforcement I
+
+You regained 2 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (4 total).
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (7 total).
+You have gained 1 Progress
+
+You trained.
+You have gained 3 Progress
+
++4 Progress
+You have gained Martial Arts I
+Martial Arts II (3/5)
+
+You regained 2 willpower.
+3/3 Willpower
+
+Student Services has granted you 2 credits (9 total).
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You bunkered.
+
+Teyao treated you and you are now healthy.
+
+Student Services has granted you 1 credit (4 total).
+
+You are Aware:
+Coledon attacked Witherbrine while they were trying to train.
+DragonLord attacked Witherbrine while they were trying to train.
+The air crackled with energy!
+DragonLord failed to damage Witherbrine.
+Witherbrine failed to damage DragonLord.
+Coledon failed to damage Witherbrine.
+Witherbrine failed to damage Coledon.
+Coledon hurt themself attacking Witherbrine.
+DragonLord hurt themself attacking Witherbrine.
+
+Drasky attacked Bedna while they were trying to teach Hotmonkey.
+Drasky damaged Bedna.
+Bedna failed to damage Drasky.
+
+
+Seventeen Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You trained.
+You have gained 3 Progress
+
+You crafted.
+Recursion Rune x1 gained (1 total)
+
++3 Progress
+Willpower I (3/5)
+
+Student Services has granted you 1 credit (4 total).
+
+
+Swift-Sama Report
+
+You learned Body Reinforcement I from DarkLight.
+You have gained Body Reinforcement I
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++5 Progress
+Water II (6/10)
+
+You regained 2 willpower.
+2/3 Willpower
+
+Student Services has granted you 1 credit (4 total).
+
+
+TempelJaeger Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You put a sin offering on Anemone.
+
+You attuned to EARTH.
+
+You bunkered.
+You have gained 2 Progress
+
+You have gained 1 Progress
+
+Your 3 Progress was negated.
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (4 total).
+
+
+Teyao Report
+
+You attuned to WATER.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (2 total).
+
+You went to heal RyoAtemi while they were bunkering.
+You treated RyoAtemi and they are now healthy.
+You have gained 7 Progress
+
++7 Progress
+Gold (9/10)
+
+Student Services has granted you 1 credit (3 total).
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH/EARTH.
+
+Coledon attacked you while you were trying to train.
+DragonLord attacked you while you were trying to train.
+The air crackled with energy!
+DragonLord failed to damage you.
+You failed to damage DragonLord.
+Coledon failed to damage you.
+You failed to damage Coledon.
+Coledon hurt themself attacking you.
+DragonLord hurt themself attacking you.
+
+You failed to train.
+
++5 Progress
+You have gained Rune Crafting I
+Rune Crafting II (3/10)
+
+Student Services has granted you 1 credit (4 total).
+
+Night 1
+The King says: Thou shall Shop.
+A beam of light shines on Hotmonkey.

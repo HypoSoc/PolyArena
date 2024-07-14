@@ -1,0 +1,6 @@
+6301:
+  text : "%TARGET%'s house is doused in gasoline."
+  info: "SUBTLE"
+  effect: "PERMANENT_CONDITION"
+  value: "DOUSED"
+  trigger: "TARGET"

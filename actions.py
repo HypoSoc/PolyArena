@@ -178,6 +178,7 @@ class Action:
 
     @classmethod
     def run_turn(cls, game: 'Game'):
+        game.was_alive = [p for p in game.players.values() if not p.is_dead()]
         NoncombatSkillStep(game)
         TattooStep(game)
         CombatSimStep(game)
@@ -262,7 +263,7 @@ class Action:
     def handle_death_triggers(cls, game: Optional['Game'], dead_player: 'Player'):
         if game and not game.simulation:
             for player in Action.players:
-                if not player.is_dead():
+                if not player.is_dead() or player.has_condition(Condition.RESURRECT):
                     for skill in player.get_skills():
                         if skill.trigger == Trigger.PLAYER_DIED:
                             HandleSkill(game, player, skill,
@@ -284,9 +285,8 @@ class HandleSkill(Action):
         self.fake = fake  # Used to disguise that copycat and trade secrets fail vs counter int
 
     def act(self):
-        if self.player.is_dead():
+        if self.player.is_dead() and not self.player.has_condition(Condition.RESURRECT):
             return
-
         if self.skill.self_has_condition and not self.player.has_condition(self.skill.self_has_condition):
             return
         if self.skill.self_not_condition and self.player.has_condition(self.skill.self_not_condition):
@@ -595,7 +595,7 @@ class Wander(Action):
     def act(self):
         if self.player not in Action.not_wandering:
             if self.player.has_condition(Condition.HIDING):
-                self.public_description = f"{self.player.name} hid."
+                # self.public_description = f"{self.player.name} hid."
                 self.on_interrupt = f"{self.player.name} failed to hide."
             super().act()
 
@@ -758,7 +758,16 @@ class TeachFollow(Action):
                                   f"so {self.player.name} trained instead."
             Train(self.game, self.player)
 
+class Nothing(Action):
+    def __init__(self, game: Optional['Game'], player: "Player"):
+        super().__init__(priority=50, game=game, player=player, fragile=True,
+                         public_description=f"",
+                         on_interrupt=f"{player.name} failed.",
+                         combat_on_interrupt="while they were")
 
+    def _act(self):
+        Action.add_action_record(self.player, Nothing)
+    
 class Train(Action):
     def __init__(self, game: Optional['Game'], player: "Player"):
         super().__init__(priority=40, game=game, player=player, fragile=True,
@@ -1294,7 +1303,7 @@ class Tattoo(Action):
             if self.player.tattoo:
                 self.player.report += "You already have a tattoo." + os.linesep
                 return
-        if not self.ability_source.has_ability("Runic Tattoos"):
+        if not self.ability_source.has_ability("Runic Tattoos") and not self.ability_source.has_condition(Condition.RECURSIVE):
             return
         super().act()
 
@@ -1307,6 +1316,8 @@ class Tattoo(Action):
             able_to_tattoo = False
         if not self.ability_source.has_ability(self.rune.get_ability_name(), strict=True):
             able_to_tattoo = False
+        if self.ability_source.has_condition(Condition.RECURSIVE) and self.rune.get_ability_name() == 'Rune Crafting II':
+            able_to_tattoo = True
 
         if not able_to_tattoo:
             self.player.report += f"You were incapable of making the {self.rune.name} Tattoo." + os.linesep
@@ -1522,7 +1533,7 @@ class ConsumeItem(Action):
             self.player.items.remove(self.item.pin)
             self.player.report += f"{self.player.name} used your {self.item.name} " \
                                   f"({self.player.items.count(self.item.pin)} remaining)." + os.linesep
-            for skill in self.item.get_skills(targets=self.player.item_targets.get(self.item.pin, None)):
+            for skill in self.item.get_skills(choice=self.player.item_choices.get(self.item.pin, -1), targets=self.player.item_targets.get(self.item.pin, None)):
                 HandleSkill.handle_noncombat_skill(
                     self.game, self.player, skill)
             if self.item.pin == POISON_GAS:

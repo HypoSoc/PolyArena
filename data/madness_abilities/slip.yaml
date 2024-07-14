@@ -1,0 +1,11 @@
+7201:
+  name: "Slip"
+  concept: "SLIP"
+  cost: 10
+  skills:
+  - 7201
+  explanation: |-
+    Use: discard all other players actions for this turn. Other players statuses DO NOT CHANGE as a result of this turn.
+    Players other than you receive no update for this turn. (blatant).
+    Use only once per game.
+

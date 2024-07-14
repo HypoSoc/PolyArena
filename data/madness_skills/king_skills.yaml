@@ -1,0 +1,174 @@
+6901:
+  text: "A faithful subject has followed your orders."
+  effect: "PROGRESS"
+  info: "PERSONAL"
+  trigger: "ALL"
+  value: 1
+  self_has_condition: "OPTION_A"
+  target_has_condition: "SCHOOLED"
+  target_not_condition: "KING"
+  self_override: true
+  priority: 89
+
+6902:
+  text: "A faithful subject has followed your orders."
+  effect: "PROGRESS"
+  info: "PERSONAL"
+  trigger: "ALL"
+  value: 1
+  self_has_condition: "OPTION_B"
+  target_has_condition: "DOCTOR"
+  target_not_condition: "KING"
+  self_override: true
+  priority: 89
+
+6903:
+  text: "A faithful subject has followed your orders."
+  effect: "PROGRESS"
+  info: "PERSONAL"
+  trigger: "ALL"
+  value: 1
+  self_has_condition: "OPTION_C"
+  target_has_condition: "TRAINED"
+  target_not_condition: "KING"
+  self_override: true
+  priority: 89
+
+6904:
+  text: "A faithful subject has followed your orders."
+  effect: "PROGRESS"
+  info: "PERSONAL"
+  trigger: "ALL"
+  value: 1
+  self_has_condition: "OPTION_D"
+  target_has_condition: "BUNKERING"
+  target_not_condition: "KING"
+  self_override: true
+  priority: 89
+
+6905:
+  text: "A faithful subject has followed your orders."
+  effect: "PROGRESS"
+  info: "PERSONAL"
+  trigger: "ALL"
+  value: 1
+  self_has_condition: "OPTION_E"
+  target_has_condition: "SHOPPED"
+  target_not_condition: "KING"
+  self_override: true
+  priority: 89
+
+6906:
+  text: "A faithful subject has followed your orders."
+  effect: "PROGRESS"
+  info: "PERSONAL"
+  trigger: "ALL"
+  value: 1
+  self_has_condition: "OPTION_F"
+  target_has_condition: "WANDERED"
+  target_not_condition: "KING"
+  self_override: true
+  priority: 89
+
+6907:
+  text: "The King says: Thou shall go to Class."
+  effect: "SCHEDULE"
+  info: "BLATANT"
+  value: 6908
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6908:
+  text: "Grants the king the OPTION_A condition."
+  effect: "CONDITION"
+  value: "OPTION_A"
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6909:
+  text: "The King says: Thou shall see the Doctor."
+  effect: "SCHEDULE"
+  info: "BLATANT"
+  value: 6910
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6910:
+  text: "Grants the king the OPTION_B condition."
+  effect: "CONDITION"
+  value: "OPTION_B"
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6911:
+  text: "The King says: Thou shall Train."
+  effect: "SCHEDULE"
+  info: "BLATANT"
+  value: 6912
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6912:
+  text: "Grants the king the OPTION_C condition."
+  effect: "CONDITION"
+  value: "OPTION_C"
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6913: 
+  text: "The King says: Thou shall Bunker."
+  effect: "SCHEDULE"
+  info: "BLATANT"
+  value: 6914
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6914:
+  text: "Grants the king the OPTION_D condition."
+  effect: "CONDITION"
+  value: "OPTION_D"
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6915:
+  text: "The King says: Thou shall Shop."
+  effect: "SCHEDULE"
+  info: "BLATANT"
+  value: 6916
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6916:
+  text: "Grants the king the OPTION_E condition."
+  effect: "CONDITION"
+  value: "OPTION_E"
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6917:
+  text: "The King says: Thou shall Wander."
+  effect: "SCHEDULE"
+  info: "BLATANT"
+  value: 6918
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6918:
+  text: "Grants the king the OPTION_F condition."
+  effect: "CONDITION"
+  value: "OPTION_F"
+  trigger: "NONCOMBAT"
+  priority: 10
+
+6919:
+  text : "A King is you."
+  effect: "CONDITION"
+  value: "KING"
+  trigger: "NONCOMBAT"
+  priority: 9

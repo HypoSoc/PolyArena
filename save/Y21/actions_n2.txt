@@ -1,0 +1,87 @@
+Anemone:
+Bunker
+
+Bedna:
+Teach Hotmonkey Sabotage
+Spy on Witherbrine
+Fall: Seventeen
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+Train
+
+DarkLight:
+Learn from Swift-Sama
+Combat Regeneration (Hydro) (contingency)
+
+Darkpiplumon:
+Train
+Attune to Gold
+
+DragonLord:
+Attack Teyao
+
+Drasky:
+Attack Hotmonkey
+Attune to Earth
+
+Hotmonkey:
+Learn from Bedna
+Spy on Darkpiplumon
+
+HypoSoc:
+Attack Hotmonkey
+Consume Venom
+Attune to Water and Fire
+
+Lord Of Chromius:
+Train
+Attune to Earth
+
+Megaolix:
+Attack DarkLight
+Attune to Earth and Water
+
+NinetyNineLies:
+Bunker
+Enhanced Senses
+Unnatural Intuition (contingency)
+
+Paradosi:
+Attack Hotmonkey
+Body Reinforcement I: +1 surv
+
+PocketRikimaru:
+Train
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Bunker
+
+Seventeen:
+Attack Teyao
+Craft Rune: Recursion as a bonus action
+Trade Recursion Rune to HypoSoc
+Trade Recursion Rune to Swift-Sama
+
+Swift-Sama:
+Teach DarkLight Circuit I
+King: Shop
+
+TempelJaeger:
+Learn from Teyao
+Attune to Earth
+Scapegoat I: RyoAtemi
+
+Teyao:
+Teach TempelJaeger Circuit II
+Attune to Water and Gold
+
+Witherbrine:
+Craft Rune: Void
+Craft Rune: Void as a bonus action

@@ -1,0 +1,9 @@
+5801:
+  name: "Wealth"
+  concept: "WEALTH"
+  cost: 10
+  aero:
+    5801:
+      fragile: true
+  explanation: |-
+    Gain 1 credit at the start of each turn.

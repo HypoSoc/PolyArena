@@ -1,0 +1,13 @@
+6401:
+  name: "Fall"
+  concept: "FALL"
+  cost: 10
+  skills: 
+    - 6403
+  aero:
+    6401:
+      fragile: true
+    6402:
+      fragile: true
+  explanation: |-
+    Each turn, select a player. They cannot gain progress during this turn, and become immune to this effect for a turn afterward. [fragile] (narrow)

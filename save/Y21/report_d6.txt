@@ -1,0 +1,347 @@
+Anemone Report
+
+You bunkered.
+You have gained 2 Progress
+
++2 Progress
+You have gained Crafting I
+Crafting II (1/10)
+
+3/3 Willpower
+
+
+BlackLemonAde Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Willpower II (4/5)
+
+9/9 Willpower
+
+
+Coledon Report
+
+
+
+DarkLight Report
+
+You spent 2 willpower casting Combat Regeneration (Hydro).
+
+Darkpiplumon attacked you while you were attacking Darkpiplumon.
+You attacked Darkpiplumon while they were attacking you.
+You failed to damage Darkpiplumon.
+Darkpiplumon damaged you.
+You regenerated, ignoring the wound.
+
+3/5 Willpower
+
+
+Darkpiplumon Report
+
+You attuned to GOLD/EARTH.
+
+You attacked DarkLight while they were attacking you.
+DarkLight attacked you while you were attacking DarkLight.
+DarkLight failed to damage you.
+You damaged DarkLight.
+
+You have generated wealth!
+You gained 1 credit. (10 total).
+
+The King says: Thou shall Train.
+Your intuition tells you this has to do with the concept KING.
+TempelJaeger's entrails left an Auspicious sign.
+Your intuition tells you this has to do with the concept 🎰 AUGUR X SCAPEGOAT 🎰.
+
+
+DragonLord Report
+
+You wandered aimlessly.
+
+
+Drasky Report
+
+You went to class.
+Academics (2)
+
+
+HypoSoc Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You used your Venom (0 remaining).
+
+You attuned to WATER/FIRE.
+
+Swift-Sama attacked Witherbrine while they were trying to train.
+You attacked Swift-Sama while they were attacking Witherbrine.
+Swift-Sama failed to damage Witherbrine.
+Witherbrine failed to damage Swift-Sama.
+You damaged Swift-Sama.
+Swift-Sama failed to damage you.
+Swift-Sama hurt themself attacking Witherbrine.
+
+Your blood boils in excitement.
+You have gained 2 Progress
+
+You crafted.
+Toxin Rune x1 gained (1 total)
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
++2 Progress
+You have gained Antimagic (Geo)
+
+You sent Seventeen items.
+Toxin Rune x1 lost (0 remaining)
+
+You sent NinetyNineLies 1 credit (6 remaining).
+
+
+Megaolix Report
+
+You went to class.
+Academics (1)
+
+
+NinetyNineLies Report
+
+You bunkered.
+
+You spent 1 willpower casting Unnatural Intuition because you were attacked.
+
+Seventeen attacked you while you were bunkering.
+Seventeen disarmed you.
+You detected Aeromancy (RECURSION).
+Seventeen damaged you.
+You failed to damage Seventeen.
+You were injured.
+Seventeen stole your Sword.
+
+HypoSoc sent you 1 credit (6 total).
+
+2/3 Willpower
+
+
+Paradosi Report
+
+You wandered aimlessly.
+
+5/5 Willpower
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You used your Liquid Memories (0 remaining).
+You immersed in the memories of a previous student.
+You gained 1 Academics (3)
+
+You attuned to GOLD.
+
+You bunkered.
+
+TempelJaeger attacked you while you were bunkering.
+TempelJaeger failed to damage you.
+You damaged TempelJaeger.
+TempelJaeger died.
+You earned 2 credits for killing TempelJaeger.
+
+You have generated wealth!
+You gained 1 credit. (11 total).
+You have gained 1 Progress
+
++1 Progress
+You have gained Armed Combat I
+
+2/3 Willpower
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You went to class.
+Academics (1)
+
+You are Aware:
+BlackLemonAde was training Willpower II.
+
+
+Seventeen Report
+
+You spent 2 willpower casting Body Reinforcement I.
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You used your Medkit (0 remaining).
+1/2 Medkit x1 gained (1 total)
+You used your Body Reinforcement I Rune (0 remaining).
+
+You attacked NinetyNineLies while they were bunkering.
+You disarmed NinetyNineLies.
+You damaged NinetyNineLies.
+NinetyNineLies failed to damage you.
+You stole NinetyNineLies's Sword.
+
+You healed yourself.
+You were treated, but you remain wounded.
+
+HypoSoc sent you items.
+Toxin Rune x1 gained (1 total)
+
+0/3 Willpower
+
+
+Swift-Sama Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You attuned to WATER/WATER.
+
+You attacked Witherbrine while they were trying to train.
+HypoSoc attacked you while you were attacking Witherbrine.
+You failed to damage Witherbrine.
+Witherbrine failed to damage you.
+HypoSoc damaged you.
+You failed to damage HypoSoc.
+You regenerated, ignoring the wound.
+You hurt yourself attacking Witherbrine.
+You regenerated, ignoring the wound.
+
+You failed to craft.
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++1 Progress
+Warp (8/10)
+
+3/3 Willpower
+
+
+TempelJaeger Report
+
+You spent 1 willpower casting Mental Fortification I.
+You spent 5 willpower casting Resurrection.
+
+You put a sin offering on you.
+
+You attacked PocketRikimaru while they were bunkering.
+You failed to damage PocketRikimaru.
+PocketRikimaru damaged you.
+You died.
+
+You rose from the dead.
+You came back with an injury.
+
+You have gained 20 Progress
+
++20 Progress
+You have gained Rapid Regen I
+You have gained Rapid Regen II
+Mental Fortification II (2/10)
+
+You placed a 2 credit bounty on RyoAtemi (7 credits remain)
+
+You regained 7 willpower.
+9/9 Willpower
+
+
+Teyao Report
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (11 total).
+
+You shopped.
+You spent 10 credits (1 remaining).
+Chronoshift Bomb x1 gained (1 total)
+Shrooms x2 gained (2 total)
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You were empowered by your Void Tattoo.
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH/EARTH/FIRE.
+
+Swift-Sama attacked you while you were trying to train.
+HypoSoc attacked Swift-Sama while they were attacking you.
+Swift-Sama failed to damage you.
+You failed to damage Swift-Sama.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+Swift-Sama hurt themself attacking you.
+
+You failed to train.
+
+You failed to craft.
+
++10 Progress
+You have gained Earth III
+You have gained Fire II
+Circuit V (4/5)
+
+
+Day 6
+The King says: Thou shall Train.
+TempelJaeger's entrails left an Auspicious sign.
+
+Darkpiplumon attacked DarkLight while they were attacking Darkpiplumon.
+DarkLight attacked Darkpiplumon while they were attacking DarkLight.
+DarkLight failed to damage Darkpiplumon.
+Darkpiplumon damaged DarkLight.
+
+Swift-Sama attacked Witherbrine while they were trying to train.
+HypoSoc attacked Swift-Sama while they were attacking Witherbrine.
+Swift-Sama failed to damage Witherbrine.
+Witherbrine failed to damage Swift-Sama.
+HypoSoc damaged Swift-Sama.
+Swift-Sama failed to damage HypoSoc.
+Swift-Sama hurt themself attacking Witherbrine.
+
+Seventeen attacked NinetyNineLies while they were bunkering.
+Seventeen disarmed NinetyNineLies.
+Seventeen damaged NinetyNineLies.
+NinetyNineLies failed to damage Seventeen.
+
+TempelJaeger attacked PocketRikimaru while they were bunkering.
+TempelJaeger failed to damage PocketRikimaru.
+PocketRikimaru damaged TempelJaeger.
+TempelJaeger died.
+
+
+Anemone bunkered.
+BlackLemonAde trained.
+DarkLight attacked Darkpiplumon while they were attacking DarkLight.
+Darkpiplumon attacked DarkLight while they were attacking Darkpiplumon.
+DragonLord wandered aimlessly.
+Drasky went to class.
+HypoSoc attacked Swift-Sama while they were attacking Witherbrine.
+HypoSoc crafted.
+Megaolix went to class.
+NinetyNineLies bunkered.
+Paradosi wandered aimlessly.
+PocketRikimaru bunkered.
+RyoAtemi went to class.
+Seventeen attacked NinetyNineLies while they were bunkering.
+Seventeen healed themself.
+Swift-Sama attacked Witherbrine while they were trying to train.
+Swift-Sama failed to craft.
+TempelJaeger attacked PocketRikimaru while they were bunkering.
+TempelJaeger died.
+TempelJaeger rose from the dead.
+Teyao shopped.
+Witherbrine failed to train.
+Witherbrine failed to craft.
+
+A bounty was placed on RyoAtemi.

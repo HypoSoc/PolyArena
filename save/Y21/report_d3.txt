@@ -1,0 +1,354 @@
+Anemone Report
+
+You bunkered.
+You have gained 2 Progress
+
++2 Progress
+Crafting I (3/10)
+
+2/3 Willpower
+
+
+Bedna Report
+
+Invalid action: doing this would displease a God!
+
+You Sabotaged your rivals.
+
+You wandered aimlessly.
+
+You are Aware:
+BlackLemonAde was training Body Reinforcement II.
+Megaolix was training Circuit III.
+
+
+BlackLemonAde Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Body Reinforcement II (9/10)
+
+3/3 Willpower
+
+
+Coledon Report
+
+You went to the doctor.
+You are now healthy.
+
+
+DarkLight Report
+
+You cannot progress this turn.
+
+You spent 2 willpower casting Combat Regeneration (Hydro).
+
+You attacked Paradosi while they were trying to train.
+Witherbrine attacked you while you were attacking Paradosi.
+Witherbrine damaged you.
+You failed to damage Witherbrine.
+You damaged Paradosi.
+Paradosi damaged you.
+You regenerated, ignoring the wound.
+You regenerated, ignoring the wound.
+
+Seventeen sent you items.
+Recursion Rune x1 gained (1 total)
+
+2/5 Willpower
+
+
+Darkpiplumon Report
+
+You attuned to GOLD/EARTH.
+
+You have generated wealth!
+You gained 1 credit. (11 total).
+
+You shopped.
+You spent 9 credits (2 remaining).
+Synthetic Weave x1 gained (1 total)
+Sword x1 gained (1 total)
+Shrooms x1 gained (1 total)
+
+
+DragonLord Report
+
+You attacked PocketRikimaru while they were trying to shop.
+You failed to damage PocketRikimaru.
+PocketRikimaru failed to damage you.
+
+
+Drasky Report
+
+You attuned to EARTH.
+
+HypoSoc attacked Lord Of Chromius while they were trying to shop.
+You attacked Lord Of Chromius while they were trying to shop.
+HypoSoc damaged Lord Of Chromius.
+Lord Of Chromius failed to damage HypoSoc.
+You damaged Lord Of Chromius.
+Lord Of Chromius failed to damage you.
+Lord Of Chromius died.
+Lord Of Chromius's items were lost in the confusion.
+You earned 1 credit for killing Lord Of Chromius.
+
+Your blood sings in joy.
+You have gained 7 Progress
+
++7 Progress
+Antimagic (Geo) (9/10)
+
+
+HypoSoc Report
+
+You used your Venom (0 remaining).
+
+You attuned to WATER/FIRE.
+
+You attacked Lord Of Chromius while they were trying to shop.
+Drasky attacked Lord Of Chromius while they were trying to shop.
+You damaged Lord Of Chromius.
+Lord Of Chromius failed to damage you.
+Drasky damaged Lord Of Chromius.
+Lord Of Chromius failed to damage Drasky.
+Lord Of Chromius died.
+Lord Of Chromius's items were lost in the confusion.
+You earned 1 credit for killing Lord Of Chromius.
+
+Your blood boils in excitement.
+You have gained 2 Progress
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
++2 Progress
+Antimagic (Geo) (4/10)
+
+You sent Megaolix 1 credit (4 remaining).
+
+
+Lord Of Chromius Report
+
+You attuned to EARTH/LIGHT.
+
+HypoSoc attacked you while you were trying to shop.
+Drasky attacked you while you were trying to shop.
+HypoSoc damaged you.
+You failed to damage HypoSoc.
+Drasky damaged you.
+You failed to damage Drasky.
+You were grievously injured.
+You died.
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+You have gained Circuit III
+Air I (1/5)
+
+HypoSoc sent you 1 credit (7 total).
+
+
+NinetyNineLies Report
+
+You bunkered.
+
+3/3 Willpower
+
+
+Paradosi Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+DarkLight attacked you while you were trying to train.
+Witherbrine attacked DarkLight while they were attacking you.
+Witherbrine damaged DarkLight.
+DarkLight failed to damage Witherbrine.
+DarkLight damaged you.
+You damaged DarkLight.
+You were injured.
+
+You have gained 1 Progress
+
+You failed to train.
+
++1 Progress
+Body Reinforcement II (1/10)
+
+2/5 Willpower
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+DragonLord attacked you while you were trying to shop.
+DragonLord failed to damage you.
+You failed to damage DragonLord.
+
+You have generated wealth!
+You gained 1 credit. (14 total).
+You have gained 1 Progress
+
+You failed to shop.
+
++1 Progress
+Armed Combat I (2/5)
+
+2/3 Willpower
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You bunkered.
+
+You are Aware:
+BlackLemonAde was training Body Reinforcement II.
+Megaolix was training Circuit III.
+
+
+Seventeen Report
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You attacked TempelJaeger while they were trying to shop.
+You failed to damage TempelJaeger.
+TempelJaeger failed to damage you.
+
+You crafted.
+Recursion Rune x1 gained (1 total)
+
+You sent DarkLight items.
+Recursion Rune x1 lost (0 remaining)
+
+
+Swift-Sama Report
+
+Invalid action: doing this would displease a God!
+
+You wandered aimlessly.
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++2 Progress
+Combat Regeneration (Geo) (9/10)
+
+3/3 Willpower
+
+
+TempelJaeger Report
+
+You put a sin offering on BlackLemonAde.
+
+You attuned to EARTH.
+
+Seventeen attacked you while you were trying to shop.
+Seventeen failed to damage you.
+You failed to damage Seventeen.
+
+You failed to shop.
+
+3/3 Willpower
+
+
+Teyao Report
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (5 total).
+
+You shopped.
+You spent 4 credits (1 remaining).
+Oxygen Mask x1 gained (1 total)
+Poison Gas x2 gained (2 total)
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You used your Void Rune (1 remaining).
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH/FIRE.
+
+DarkLight attacked Paradosi while they were trying to train.
+You attacked DarkLight while they were attacking Paradosi.
+You damaged DarkLight.
+DarkLight failed to damage you.
+DarkLight damaged Paradosi.
+Paradosi damaged DarkLight.
+
+You crafted.
+Void Rune x1 gained (2 total)
+
++10 Progress
+You have gained Circuit III
+Fire II (6/10)
+
+
+Day 3
+Lord Of Chromius died.
+
+DarkLight attacked Paradosi while they were trying to train.
+Witherbrine attacked DarkLight while they were attacking Paradosi.
+Witherbrine damaged DarkLight.
+DarkLight failed to damage Witherbrine.
+DarkLight damaged Paradosi.
+Paradosi damaged DarkLight.
+
+DragonLord attacked PocketRikimaru while they were trying to shop.
+DragonLord failed to damage PocketRikimaru.
+PocketRikimaru failed to damage DragonLord.
+
+HypoSoc attacked Lord Of Chromius while they were trying to shop.
+Drasky attacked Lord Of Chromius while they were trying to shop.
+HypoSoc damaged Lord Of Chromius.
+Lord Of Chromius failed to damage HypoSoc.
+Drasky damaged Lord Of Chromius.
+Lord Of Chromius failed to damage Drasky.
+Lord Of Chromius died.
+
+Seventeen attacked TempelJaeger while they were trying to shop.
+Seventeen failed to damage TempelJaeger.
+TempelJaeger failed to damage Seventeen.
+
+
+Anemone bunkered.
+Bedna wandered aimlessly.
+BlackLemonAde trained.
+Coledon went to the doctor.
+DarkLight attacked Paradosi while they were trying to train.
+Darkpiplumon shopped.
+DragonLord attacked PocketRikimaru while they were trying to shop.
+Drasky attacked Lord Of Chromius while they were trying to shop.
+HypoSoc attacked Lord Of Chromius while they were trying to shop.
+Megaolix trained.
+NinetyNineLies bunkered.
+Paradosi failed to train.
+PocketRikimaru failed to shop.
+RyoAtemi bunkered.
+Seventeen attacked TempelJaeger while they were trying to shop.
+Seventeen crafted.
+Swift-Sama wandered aimlessly.
+TempelJaeger failed to shop.
+Teyao shopped.
+Witherbrine attacked DarkLight while they were attacking Paradosi.
+Witherbrine crafted.

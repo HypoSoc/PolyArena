@@ -1,0 +1,11 @@
+6801:
+  name: "Omniscience"
+  concept: "OMNISCIENCE"
+  cost: 10
+  aero:
+    6801:
+      fragile: true
+  explanation: |-
+    BROADCAST.
+    You are made aware of every action every player takes every single turn.
+    You cannot gain any further progress.

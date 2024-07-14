@@ -1,0 +1,565 @@
+
+Anemone Report
+
+You bunkered.
+You have gained 2 Progress
+
++2 Progress
+You have gained Willpower I
+Crafting I (1/10)
+
+You regained 2 willpower.
+2/3 Willpower
+
+Student Services has granted you 1 credit (3 total).
+
+
+Bedna Report
+
+Seventeen's efforts are in vain.
+You Sabotaged your rivals.
+
+You failed to teach Hotmonkey, so you trained instead.
+
+You trained.
+You have gained 3 Progress
+
+You spied on Witherbrine.
+
+Witherbrine crafted.
+Witherbrine crafted.
+
++3 Progress
+You have gained Profiling
+Aeromancy Intuition (1/5)
+
+Student Services has granted you 1 credit (6 total).
+
+You are Aware:
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+Drasky attacked Hotmonkey while they were trying to learn from you.
+Paradosi attacked Hotmonkey while they were trying to learn from you.
+HypoSoc attacked Hotmonkey while they were trying to learn from you.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+
+Megaolix attacked DarkLight while they were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+BlackLemonAde Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Body Reinforcement II (6/10)
+
+3/3 Willpower
+
+Student Services has granted you 1 credit (2 total).
+
+
+Coledon Report
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Air I (3/5)
+
+Student Services has granted you 1 credit (5 total).
+
+
+DarkLight Report
+
+You cannot progress this turn.
+
+You spent 2 willpower casting Combat Regeneration (Hydro) because you were attacked.
+
+Megaolix attacked you while you were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged you.
+You failed to damage Megaolix.
+You regenerated, ignoring the wound.
+
+You failed to learn from Swift-Sama.
+
+You regained 3 willpower.
+4/5 Willpower
+
+Student Services has granted you 1 credit (5 total).
+
+You are Aware:
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+
+
+Darkpiplumon Report
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (9 total).
+
+You trained.
+You have gained 3 Progress
+
++3 Progress
+Awareness I (4/5)
+
+Student Services has granted you 1 credit (10 total).
+
+
+DragonLord Report
+
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+You attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+You failed to damage Teyao.
+Teyao failed to damage you.
+
+Student Services has granted you 1 credit (5 total).
+
+You are Aware:
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+
+Megaolix attacked DarkLight while they were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+Drasky Report
+
+You attuned to EARTH.
+
+You attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+You damaged Hotmonkey.
+Hotmonkey failed to damage you.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+Hotmonkey's items were lost in the confusion.
+
+Your blood sings in joy.
+You have gained 7 Progress
+
++7 Progress
+You have gained Circuit II
+Antimagic (Geo) (2/10)
+
+Student Services has granted you 1 credit (3 total).
+
+
+Hotmonkey Report
+
+Drasky attacked you while you were trying to learn from Bedna.
+Paradosi attacked you while you were trying to learn from Bedna.
+HypoSoc attacked you while you were trying to learn from Bedna.
+HypoSoc damaged you.
+You failed to damage HypoSoc.
+Drasky damaged you.
+You failed to damage Drasky.
+Paradosi damaged you.
+You failed to damage Paradosi.
+You were grievously injured.
+You died.
+
+The King says: Thou shall Shop.
+Your intuition tells you this has to do with the concept KING.
+
+You are Aware:
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+Megaolix attacked DarkLight while they were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+Darkpiplumon attuned to GOLD.
+Drasky attuned to EARTH.
+HypoSoc attuned to WATER/FIRE.
+Lord Of Chromius attuned to EARTH.
+Megaolix attuned to EARTH/WATER.
+PocketRikimaru attuned to GOLD.
+TempelJaeger attuned to EARTH.
+Teyao attuned to WATER/GOLD.
+Witherbrine attuned to EARTH/EARTH.
+
+DarkLight spent 2 willpower.
+NinetyNineLies spent 1 willpower.
+Paradosi spent 1 willpower.
+PocketRikimaru spent 1 willpower.
+
+
+HypoSoc Report
+
+You used your Venom (0 remaining).
+
+You attuned to WATER/FIRE.
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+You attacked Hotmonkey while they were trying to learn from Bedna.
+You damaged Hotmonkey.
+Hotmonkey failed to damage you.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+Hotmonkey's items were lost in the confusion.
+
+Your blood boils in excitement.
+You have gained 2 Progress
+
+You distilled some of your poison.
+Venom x1 gained (1 total)
+
++2 Progress
+Antimagic (Geo) (2/10)
+
+Seventeen sent you items.
+Recursion Rune x1 gained (1 total)
+
+Student Services has granted you 1 credit (4 total).
+
+
+Lord Of Chromius Report
+
+You attuned to EARTH.
+
+You trained.
+You have gained 3 Progress
+
+Intuitive: You have gained 1 Progress
+
++4 Progress
+You have gained Light
+Kaleidoscope (3/5)
+
+Student Services has granted you 1 credit (5 total).
+
+You are Aware:
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+
+Megaolix attacked DarkLight while they were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+Megaolix Report
+
+You attuned to EARTH/WATER.
+
+You attacked DarkLight while they were trying to learn from Swift-Sama.
+You unleashed a flood of mud!
+You damaged DarkLight.
+DarkLight failed to damage you.
+
+Student Services has granted you 1 credit (6 total).
+
+
+NinetyNineLies Report
+
+You spent 1 willpower casting Enhanced Senses.
+
+You bunkered.
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (2 total).
+
+You are Aware:
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+
+Megaolix attacked DarkLight while they were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+Paradosi Report
+
+You spent 1 willpower casting Body Reinforcement I.
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+You attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+You damaged Hotmonkey.
+Hotmonkey failed to damage you.
+Hotmonkey died.
+Hotmonkey's items were lost in the confusion.
+
+You regained 3 willpower.
+3/5 Willpower
+
+Student Services has granted you 1 credit (5 total).
+
+
+PocketRikimaru Report
+
+You spent 1 willpower casting Mental Fortification I.
+
+You attuned to GOLD.
+
+You have generated wealth!
+You gained 1 credit. (11 total).
+You have gained 1 Progress
+
+You trained.
+You have gained 3 Progress
+
++4 Progress
+You have gained Martial Arts III
+Armed Combat I (1/5)
+
+You regained 2 willpower.
+3/3 Willpower
+
+Student Services has granted you 2 credits (13 total).
+
+
+RyoAtemi Report
+
+You Sabotaged your rivals.
+
+You bunkered.
+
+Student Services has granted you 1 credit (6 total).
+
+You are Aware:
+Seventeen attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+Seventeen failed to damage Teyao.
+Teyao failed to damage Seventeen.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+Drasky attacked Hotmonkey while they were trying to learn from Bedna.
+Paradosi attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc attacked Hotmonkey while they were trying to learn from Bedna.
+HypoSoc damaged Hotmonkey.
+Hotmonkey failed to damage HypoSoc.
+Drasky damaged Hotmonkey.
+Hotmonkey failed to damage Drasky.
+Paradosi damaged Hotmonkey.
+Hotmonkey failed to damage Paradosi.
+Hotmonkey died.
+
+Megaolix attacked DarkLight while they were trying to learn from Swift-Sama.
+Megaolix unleashed a flood of mud!
+Megaolix damaged DarkLight.
+DarkLight failed to damage Megaolix.
+
+
+Seventeen Report
+
+Your efforts are in vain.
+
+You were empowered by your Rune Crafting II Tattoo.
+
+You attacked Teyao while they were trying to teach TempelJaeger.
+DragonLord attacked Teyao while they were trying to teach TempelJaeger.
+You failed to damage Teyao.
+Teyao failed to damage you.
+DragonLord failed to damage Teyao.
+Teyao failed to damage DragonLord.
+
+You crafted.
+Recursion Rune x1 gained (2 total)
+
+You sent HypoSoc items.
+Recursion Rune x1 lost (1 remaining)
+
+You sent Swift-Sama items.
+Recursion Rune x1 lost (0 remaining)
+
+Student Services has granted you 1 credit (5 total).
+
+
+Swift-Sama Report
+
+You failed to teach DarkLight, so you trained instead.
+
+You trained.
+You have gained 3 Progress
+
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+A faithful subject has followed your orders.
+You have gained 1 Progress
+
++10 Progress
+You have gained Circuit II
+Combat Regeneration (Geo) (7/10)
+
+Seventeen sent you items.
+Recursion Rune x1 gained (1 total)
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (6 total).
+
+
+TempelJaeger Report
+
+You put a sin offering on RyoAtemi.
+
+You attuned to EARTH.
+
+You failed to learn from Teyao, so you trained instead.
+
+You trained.
+You have gained 3 Progress
+
+Your 3 Progress was negated.
+
+You regained 1 willpower.
+3/3 Willpower
+
+Student Services has granted you 1 credit (5 total).
+
+
+Teyao Report
+
+You attuned to WATER/GOLD.
+
+Seventeen attacked you while you were trying to teach TempelJaeger.
+DragonLord attacked you while you were trying to teach TempelJaeger.
+Seventeen failed to damage you.
+You failed to damage Seventeen.
+DragonLord failed to damage you.
+You failed to damage DragonLord.
+
+You hack into ADMIN's account and generate some Credits out of thin air!
+You gained 1 credit. (2 total).
+You have generated wealth!
+You gained 1 credit. (3 total).
+
+You failed to teach TempelJaeger.
+
+Student Services has granted you 1 credit (4 total).
+
+
+Witherbrine Report
+
+You grow, and the world shrinks around you.
+You have gained 5 Progress
+
+You attuned to EARTH/EARTH.
+
+You crafted.
+Void Rune x1 gained (1 total)
+
+You crafted.
+Void Rune x1 gained (2 total)
+
++5 Progress
+You have gained Fire I
+Circuit III (1/5)
+
+Student Services has granted you 1 credit (5 total).
+
+
+Night 2
+The King says: Thou shall Shop.
+Hotmonkey died.

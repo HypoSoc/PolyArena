@@ -1,0 +1,86 @@
+Anemone:
+Class
+Trade Shrooms to Drasky
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +3 surv (contingency)
+Body Reinforcement III: +5 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+
+DarkLight:
+Class
+Combat Regeneration (Hydro) (contingency)
+Trade 9 credits to DragonLord
+
+Darkpiplumon:
+Shop for Liquid Memories, Liquid Memories, Cheat Sheet, Paperwork
+Attune to Gold, Earth
+
+DragonLord:
+Class
+
+Drasky:
+Shop for Chronoshift Bomb, Shrooms
+
+HypoSoc:
+Shop for Chronoshift Bomb
+Craft Toxin Rune as a bonus action
+Attune to Water, Fire
+Trade 1 Venom to Drasky
+
+Megaolix:
+Shop for Liquid Memories, Medkit, Caltrops, Venom
+Attune to Earth, Water, Air
+
+NinetyNineLies:
+Shop for Liquid Memories, Cheat Sheet
+Unnatural Intuition (contingency)
+
+Paradosi:
+Class
+Mental Fortification II: +1 Academics
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +3 surv (contingency)
+
+PocketRikimaru:
+Shop for Lizard Tail, Lizard Tail, Lizard Tail, Ablative Ossification
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Shop for Chronoshift Bomb, Ablative Ossification
+Attune to Water
+
+Seventeen:
+Attack RyoAtemi
+Craft Body Reinforcement I Rune as a bonus action
+Body Reinforcement I: +1/+1
+Consume Toxin Rune, Body Reinforcement I Rune, Venom
+
+Swift-Sama:
+Class
+Craft King Rune as a bonus action
+King: Train
+King Rune: Bunker
+Consume King Rune
+
+TempelJaeger:
+Shop for Automata (Do you have a source on that? Source? A source. I need a source. Sorry, I mean I need a source that explicitly states your argument. This is just tangential to the discussion. No, you can't make inferences and observations from the sources you've gathered. Any additional comments from you MUST be a subset of the information from the sources you've gathered. You can't make normative statements from empirical evidence. Do you have a degree in that field? A Polyhistor degree? In that field? Then your arguments are invalid. No, it doesn't matter how close those data points are correlated. Correlation does not equal causation. Correlation does not equal causation. CORRELATION. DOES. NOT. EQUAL. CAUSATION. You still haven't provided me a valid source yet. Nope, still haven't.), Cheat Sheet, Paperwork
+Mental Fortification I
+Resurrection
+Scapegoat I: Anemone
+
+Teyao:
+Train
+Attune to Water, Water, Gold
+Consume Shrooms
+
+Witherbrine:
+Attack NinetyNineLies, DragonLord, Coledon
+Bunker as a bonus action
+Attune to Earth, Earth, Earth, Fire, Fire
+Consume Fire I Rune

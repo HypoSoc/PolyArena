@@ -1,0 +1,83 @@
+Anemone:
+Bunker
+
+Bedna:
+Train
+Spy on NinetyNineLies
+Fall: PocketRikimaru
+
+BlackLemonAde:
+Train
+Body Reinforcement I: +1 surv (contingency)
+Unnatural Intuition (contingency)
+
+Coledon:
+
+DarkLight:
+Bunker
+
+Darkpiplumon:
+Attack NinetyNineLies
+Attune to Gold, Earth
+Consume Shrooms
+
+DragonLord:
+Train
+
+Drasky:
+Attack NinetyNineLies
+Attune to Earth
+
+HypoSoc:
+Tattoo Rune Crafting II on self
+Consume Recursion Rune
+Attune to Fire, Water
+Trade 1 Venom to Drasky
+
+Megaolix:
+Train
+Attune to Earth, Water
+
+NinetyNineLies:
+Bunker
+Enhanced Senses
+Unnatural Intuition (contingency)
+
+Paradosi:
+Train
+Mental Fortification I
+Body Reinforcement I: +1 surv (contingency)
+Arsonist: Teyao
+
+PocketRikimaru:
+Train
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Bunker
+
+Seventeen:
+Attack Paradosi
+Craft Rune: Martial Arts III as a bonus action
+
+Swift-Sama:
+Train
+King: Shop
+
+TempelJaeger:
+Bunker
+Attune to Earth
+Mental Fortification I
+Scapegoat I: Paradosi
+
+Teyao:
+Attack Seventeen
+Attune to Water, Gold
+Trade 1 credit to Anemone
+
+Witherbrine:
+Craft Rune: Void
+Craft Rune: Void as a bonus action
+Attune to Earth, Earth, Fire
+Consume Void Rune

@@ -1,0 +1,7 @@
+6201:
+  text: "You grow, and the world shrinks around you."
+  info: "PRIVATE"
+  trigger: "NONCOMBAT"
+  effect: "PROGRESS"
+  value: 5
+  priority: 1

@@ -1,0 +1,82 @@
+Anemone:
+Bunker
+
+BlackLemonAde:
+Body Reinforcement I: +1/+1
+Body Reinforcement II: +3 combat
+Body Reinforcement III: +5 combat
+Chaos: Drasky
+
+DarkLight:
+Attack Megaolix
+Combat Regeneration (Hydro)
+
+Darkpiplumon:
+Bunker
+Attune to Gold, Earth
+Chameleon
+
+DragonLord:
+Attack Anemone
+
+Drasky:
+Attack Teyao
+Attune to Earth
+Consume Venom, Shrooms, Fire I Rune
+Trade 1 credit to Seventeen
+
+HypoSoc:
+Attack Teyao
+Craft Fire I Rune as a bonus action
+Attune to Water, Fire, Anti
+Consume Venom, Fire I Rune, Toxin Rune
+Trade 1 credit to Seventeen
+
+Megaolix:
+Attack Witherbrine
+Attune to Earth, Water, Air
+Bounty: Drasky (6)
+Bounty: HypoSoc (6)
+
+Paradosi:
+Train
+Mental Fortification I
+Body Reinforcement I: +1 surv (contingency)
+Body Reinforcement II: +2 surv (contingency)
+Arsonist: PocketRikimaru
+
+PocketRikimaru:
+Train
+Attune to Gold
+Mental Fortification I
+
+RyoAtemi:
+Bunker
+Attune to Water
+
+Seventeen:
+Attack PocketRikimaru
+Craft Martial Arts III Rune as a bonus action
+
+Swift-Sama:
+Train
+Craft King Rune as a bonus action
+Attune to Water, Water
+King: Shop
+King Rune: Class
+Consume King Rune
+
+TempelJaeger:
+Attack Anemone
+Mental Fortification I
+Resurrection
+Scapegoat I: Megaolix
+
+TempelJaeger:
+Heal RyoAtemi
+Attune to Water, Water, Gold
+
+Witherbrine:
+Attack RyoAtemi, DarkLight, Anemone
+Craft Fire II Rune as a bonus action
+Attune to Earth, Earth, Earth, Fire, Anti

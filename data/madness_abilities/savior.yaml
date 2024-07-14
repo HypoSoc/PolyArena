@@ -1,0 +1,15 @@
+7001:
+  name: "Savior"
+  concept: "SAVIOR"
+  cost: 10
+  skills:
+  - 7001
+  - 7002
+  - 7003
+  - 7004
+  - 7005
+  - 7006
+  explanation: |-
+    Gain two charges.
+    Expend a charge: remove all of target player negative conditions (this happens right before any healing, but after combat). (blatant)
+    If your target was injured AND wasn't you, gain 2 charges.

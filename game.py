@@ -24,6 +24,7 @@ class Game:
 
         self.players: Dict[str, 'Player'] = {}
         self.automata: Dict[str, 'Player'] = {}
+        self.was_alive: List['Player'] = []
 
     def __str__(self):
         time_of_day = "Day"
@@ -84,6 +85,9 @@ class Game:
         if name in self.automata:
             return self.automata[name]
         raise Exception(f"Unknown player {name}.")
+    
+    def get_player_names(self):
+        return list(self.players.keys()) + list(self.automata.keys())
 
     def random(self):
         seed = self.turn * 2

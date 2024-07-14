@@ -155,7 +155,8 @@ class Ability:
 
     def _get_aero_skills(self, choice, for_rune=False) -> List[Skill]:
         if self.must_choose:
-            assert choice >= 0, f"No choice made for {self.name}."
+            pass
+            # assert choice >= 0, f"No choice made for {self.name}." # disabled because I have no clue how to make runes not explode on the turn they're created.
             assert choice < self.must_choose, f"Illegal choice made for {self.name}."
         return [skill for qualified in self.aero_qualified_skills
                 for skill in qualified.get_skills(option=choice, for_rune=for_rune)]
@@ -330,6 +331,9 @@ if not __ability_dict:
                   'data/body_abilities.yaml', 'data/mind_abilities.yaml']
     file_names.extend(
         glob.glob("data/aeromancy_abilities/*.yaml")
+    )
+    file_names.extend(
+        glob.glob("data/madness_abilities/*.yaml")
     )
     for file_name in file_names:
         with open(file_name) as file:

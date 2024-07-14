@@ -1,0 +1,13 @@
+7301:
+  text: "Gives the SPLIT condition"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "SPLIT"
+
+7302:
+  text: "%SELF% splits into Seeing Red and Feeling Blue!"
+  info: "PRIVATE"
+  effect: "INFO"
+  trigger: "PLAYER_DIED"
+  target_has_condition: "SPLIT"
+  value: 1
