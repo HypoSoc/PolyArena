@@ -1,0 +1,50 @@
+# Aegis I (10): Your existence (but not your name/concept) will be announced Day 1.
+#               When you attempt to go to class, go to the doctor, or shop,
+#               all players attempting same action will have an Aegis until end of turn. (Fragile)
+#               If a player with an Aegis is attacked, the attacker will be Damaged at the start of combat. (Narrow)
+#               -2 Survivability (Fragile)
+# Aegis II (20): Gain a Charge.
+#                Each turn, you may spend a Charge to Damage all Attackers at the end of the turn. (Blatant) (Fragile)
+
+
+5801:
+  name: "Aegis I"
+  concept: "AEGIS"
+  cost: 10
+  skills:
+  - 5801
+  aero:
+    5802:
+      fragile: true
+    5803:
+      fragile: true
+    5804:
+      fragile: true
+    5805:
+      fragile: true
+  explanation: |-
+    Your existence (but not your name/concept) will be announced Day 1.
+    When you attempt to go to class, go to the doctor, or shop,
+    all players attempting same action will have an Aegis until end of turn. (Fragile)
+    If a player with an Aegis is attacked, the attacker will be Damaged at the start of combat. (Private)
+    -3 Survivability (Fragile)
+
+    Aegis II costs 20
+
+5802:
+  name: "Aegis II"
+  concept: "AEGIS"
+  cost: 20
+  skills:
+    - 5807
+  aero:
+    5808:
+      fragile: true
+    5809:
+      fragile: true
+    5810:
+      fragile: true
+  explanation: |-
+    Gain a Charge.
+    Each turn, you may spend a Charge to Damage all Attackers at the end of the turn. (Blatant) (Fragile)
+  prerequisite: 5801

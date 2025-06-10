@@ -1,0 +1,90 @@
+6101:
+  text: "%SELF% erased %TARGET%'s notes."
+  effect: "DEV_SABOTAGE"
+  trigger: "TARGET"
+  info: "HIDDEN"  # DEV_SABOTAGE Weirdness
+  target_has_condition: "TRAINED"
+  priority: 95
+
+6102:
+  text: "%SELF% erased %TARGET%'s notes."
+  effect: "DEV_SABOTAGE"
+  trigger: "TARGET"
+  info: "HIDDEN"  # DEV_SABOTAGE Weirdness
+  target_has_condition: "ATTACKED"
+  priority: 95
+
+6103:
+  text: "%SELF% erased %TARGET%'s notes."
+  effect: "DEV_SABOTAGE"
+  trigger: "TARGET"
+  info: "HIDDEN"  # DEV_SABOTAGE Weirdness
+  target_has_condition: "WANDERED"
+  priority: 95
+
+6104:
+  text: "The wilds ensnared %TARGET%."
+  effect: "ITEM"
+  value: 12
+  trigger: "TARGET"
+  info: "NARROW"
+  target_has_condition: "TRAINED"
+  self_override: true
+  priority: 95
+
+6105:
+  text: "The wilds ensnared %TARGET%."
+  effect: "ITEM"
+  value: 12
+  trigger: "TARGET"
+  info: "NARROW"
+  target_has_condition: "ATTACKED"
+  self_override: true
+  priority: 95
+
+6106:
+  text: "The wilds ensnared %TARGET%."
+  effect: "ITEM"
+  value: 12
+  trigger: "TARGET"
+  info: "NARROW"
+  target_has_condition: "WANDERED"
+  self_override: true
+  priority: 95
+
+6107:
+  text: "+1 Combat if not bunkering"
+  effect: "COMBAT"
+  value: 1
+  self_not_condition: "BUNKERING"
+  priority: 20
+
+6108:
+  text: "+1 Survivability if not bunkering"
+  effect: "SURVIVABILITY"
+  value: 1
+  self_not_condition: "BUNKERING"
+  priority: 20
+
+6109:
+  text: "The air crackled with energy!"
+  effect: "INFO"
+  info: "WIDE"
+  self_not_condition: "BUNKERING"
+  priority: 69.001
+
+6110:
+  text: "The wilderness provides, its bounty healing you."
+  info: "PERSONAL"
+  effect: "HEAL"
+  trigger: "NONCOMBAT"
+  self_has_condition: "WANDERED"
+  priority: 81
+
+6111:
+  text: "You found a great harvest"
+  effect: "ITEM"
+  value: 12
+  value_b: 5
+  trigger: "ACQUISITION"
+  priority: 1

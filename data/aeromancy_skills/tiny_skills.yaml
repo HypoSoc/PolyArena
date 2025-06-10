@@ -1,0 +1,95 @@
+6201:
+  text: "%SELF% is very small."
+  effect: "INFO"
+  info: "WIDE"
+  priority: -5
+
+6202:
+  text: "Combat Down"
+  effect: "TURN_CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 2
+  trigger: "NONCOMBAT"
+  priority: 5
+
+6203:
+  text: "Surv Down"
+  effect: "TURN_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 2
+  trigger: "NONCOMBAT"
+  priority: 5
+
+6204:
+  text: "Speed Up"
+  effect: "TURN_CONDITION"
+  value: "INCREASED_SPEED"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 5
+
+6205:
+  text: "No Ambush"
+  effect: "TURN_CONDITION"
+  value: "AMBUSH_IMMUNE"
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 5
+
+6206:
+  text: "%TARGET% has been shrunk."
+  info: "NARROW"
+  effect: "TEMP_SKILL"
+  value: 6201
+  trigger: "TARGET"
+  priority: 3
+
+6207:
+  text: "Targetted combat down."
+  effect: "TURN_CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 3
+  trigger: "TARGET"
+  priority: 5
+
+6208:
+  text: "Targetted surv down."
+  effect: "TURN_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 3
+  trigger: "TARGET"
+  priority: 5
+
+6209:
+  text: "Targetted speed up."
+  effect: "TURN_CONDITION"
+  value: "INCREASED_SPEED"
+  value_b: 1
+  trigger: "TARGET"
+  priority: 5
+
+6210:
+  text: "Targetted ambush immune."
+  effect: "TURN_CONDITION"
+  value: "AMBUSH_IMMUNE"
+  value_b: 1
+  trigger: "TARGET"
+  priority: 5
+
+6211:
+  text: "Everyone in Campus has shrunk!"
+  info: "BLATANT"
+  info_once: true
+  effect: "TURN_CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 2
+  trigger: "OTHERS"
+  priority: 5
+
+6212:
+  text: "Mass Surv Down"
+  effect: "TURN_CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 2
+  trigger: "OTHERS"
+  priority: 5

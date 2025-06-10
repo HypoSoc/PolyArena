@@ -108,7 +108,7 @@ class Condition(IntEnum):
     OPTION_J = 87
     SCHOOLED = 88  # Went to Class
     TRAINED = 89  # Trained
-    SHOPPED = 90  # Bunkered
+    SHOPPED = 90  # Shopped
     DOCTOR = 91  # Went to the Doctor
     ATTACKED = 92  # Attacked
     WANDERED = 93  # Wandered
@@ -160,6 +160,9 @@ class Condition(IntEnum):
     TAUNT_IGNORE = 138
     GOLD_CIRCUIT = 139
     DECOY_ATTACKED = 140
+    ATTEMPT_CLASS = 141
+    ATTEMPT_SHOP = 142
+    ATTEMPT_DOCTOR = 143
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

@@ -1,0 +1,67 @@
+# Holiday I (10): Gain two Charges.
+#                 Each turn, you may spend a Charge to make next turn a Holy Day. (Blatant)
+#                 During a Holy Day, ALL Players get +5 Survivability. (Blatant)
+# Holiday II-V (10): Gain a Charge.
+
+5901:
+  name: "Holiday I"
+  concept: "HOLIDAY"
+  cost: 10
+  skills:
+  - 5901
+  - 5901
+  - 5902
+  - 5903
+  - 5904
+  explanation: |-
+    Gain a Charge.
+    Each turn, you may spend a Charge to make next turn a Holy Day. (Blatant)
+    During a Holy Day, ALL Players get +5 Survivability.
+
+    Holiday II costs 10
+
+5902:
+  name: "Holiday II"
+  concept: "HOLIDAY"
+  cost: 10
+  skills:
+  - 5901
+  explanation: |-
+    Gain a Charge.
+
+    Holiday III costs 10
+  prerequisite: 5901
+
+5903:
+  name: "Holiday III"
+  concept: "HOLIDAY"
+  cost: 10
+  skills:
+  - 5901
+  explanation: |-
+    Gain a Charge.
+
+    Holiday IV costs 10
+  prerequisite: 5902
+
+5904:
+  name: "Holiday IV"
+  concept: "HOLIDAY"
+  cost: 10
+  skills:
+  - 5901
+  explanation: |-
+    Gain a Charge.
+
+    Holiday V costs 10
+  prerequisite: 5903
+
+5905:
+  name: "Holiday V"
+  concept: "HOLIDAY"
+  cost: 10
+  skills:
+  - 5901
+  explanation: |-
+    Gain a Charge.
+  prerequisite: 5904

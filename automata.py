@@ -126,7 +126,7 @@ class Automata(Player):
         self.action = AutomataCraft(self.game, self, items)
 
     def get_skills(self, include_this_turn: bool = False) -> List[Skill]:
-        automata_skills = [get_skill(22), get_skill(2), get_skill(2)]  # Gas Immune and 0/2 Stat baseline
+        automata_skills = [get_skill(22), get_skill(2)]  # Gas Immune and 0/1 Stat baseline
         automata_skills.extend(super(Automata, self).get_skills())
         return automata_skills
 

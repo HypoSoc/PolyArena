@@ -790,6 +790,8 @@ class Class(Action):
                          public_description=f"{player.name} went to class.",
                          on_interrupt=f"{player.name} failed to go to class.",
                          combat_on_interrupt="while they were trying to go to class")
+        if game:
+            player.turn_conditions.append(Condition.ATTEMPT_CLASS)
 
     def act(self):
         # Edge case with fast attune
@@ -820,6 +822,8 @@ class Doctor(Action):
         super().__init__(priority=50, game=game, player=player, fragile=False,
                          public_description=f"{player.name} went to the doctor.",
                          combat_on_interrupt="while they were going to the doctor")
+        if game:
+            player.turn_conditions.append(Condition.ATTEMPT_DOCTOR)
 
     def _act(self):
         if Condition.INJURED in self.player.conditions:
@@ -847,6 +851,8 @@ class Shop(Action):
         self.automata_names = automata_names
         if not self.automata_names:
             self.automata_names = []
+        if game:
+            player.turn_conditions.append(Condition.ATTEMPT_SHOP)
 
     def act(self):
         if self.player.has_condition(Condition.NO_SHOP):
@@ -2197,17 +2203,16 @@ class ProgressStep(Action):
         self.skip_intuitive = skip_intuitive
 
     def act(self):
-        if not self.skip_intuitive:
+        if not self.skip_intuitive and self.game and self.game.is_night():
             for player in self.game.players.values():
                 if player.is_dead():
                     continue
 
                 if player.temperament == Temperament.INTUITIVE:
-                    if player not in Action.interrupted_players or not player.action.fragile:
-                        if not player.has_condition(Condition.PETRIFIED):
-                            player.report += "Intuitive: "
-                            Action.progress(player, 1)
-                            player.report += os.linesep
+                    if not player.has_condition(Condition.BUNKERING):
+                        player.report += "Intuitive: "
+                        Action.progress(player, 3)
+                        player.report += os.linesep
 
         was_progress = False
         for player in Action.progress_dict:

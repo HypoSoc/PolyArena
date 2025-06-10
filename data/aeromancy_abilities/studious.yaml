@@ -1,0 +1,41 @@
+# Studious I (10): -1 Combat, -1 Survivability
+#                  Whenever you go to Class, permanently gain +1 Combat and +1 Survivability.
+# Studious II (10): Whenever you go to Class, permanently gain +1 Combat.
+# Studious III (10): Whenever you go to Class, permanently gain +1 Survivability.
+
+6001:
+  name: "Studious I"
+  concept: "STUDIOUS"
+  cost: 10
+  skills:
+  - 6001
+  - 6002
+  - 6003
+  - 6004
+  explanation: |-
+    -2 Combat, -2 Survivability
+    Whenever you go to Class, permanently gain +1 Combat and +1 Survivability.
+
+    Studious II costs 10
+
+6002:
+  name: "Studious II"
+  concept: "STUDIOUS"
+  cost: 10
+  skills:
+  - 6003
+  explanation: |-
+    Whenever you go to Class, permanently gain +1 Combat.
+
+    Studious III costs 10
+  prerequisite: 6001
+
+6003:
+  name: "Studious III"
+  concept: "STUDIOUS"
+  cost: 10
+  skills:
+  - 6004
+  explanation: |-
+    Whenever you go to Class, permanently gain +1 Survivability.
+  prerequisite: 6002

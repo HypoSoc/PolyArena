@@ -1,0 +1,79 @@
+5801:
+  text: "An unpleasant aura twists the campus grounds!"
+  info: "BROADCAST"
+  effect: "INFO"
+  trigger: "ACQUISITION"
+
+5802:
+  text: "-2 Survivability"
+  effect: "SURVIVABILITY"
+  value: -2
+  priority: 5
+
+5803:
+  text: "Apply class Aegis"
+  effect: "TEMP_SKILL"
+  value: 5806
+  trigger: "ALL"
+  priority: 20
+  self_has_condition: "ATTEMPT_CLASS"
+  target_has_condition: "ATTEMPT_CLASS"
+
+5804:
+  text: "Apply shop Aegis"
+  effect: "TEMP_SKILL"
+  value: 5806
+  trigger: "ALL"
+  priority: 20
+  self_has_condition: "ATTEMPT_SHOP"
+  target_has_condition: "ATTEMPT_SHOP"
+
+5805:
+  text: "Apply doctor Aegis"
+  effect: "TEMP_SKILL"
+  value: 5806
+  trigger: "ALL"
+  priority: 20
+  self_has_condition: "ATTEMPT_DOCTOR"
+  target_has_condition: "ATTEMPT_DOCTOR"
+
+5806:
+  text: "%TARGET% ran into an Aegis protecting %SELF%."
+  effect: "DAMAGE"
+  trigger: "ATTACKED_IGNORE_RANGE"
+  priority: 1
+  info: "NARROW_IMPERSONAL"
+
+5807:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: -5
+
+5808:
+  text: "Prime the Grand Aegis"
+  effect: "TURN_CONDITION"
+  value: "ONCE"
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true
+
+5809:
+  text: "A Grand Aegis damages %TARGET%."
+  effect: "DAMAGE"
+  info: "BLATANT"
+  trigger: "ALL"
+  priority: 121
+  self_has_condition: "ONCE"
+  target_has_condition: "ATTACKED"
+
+5810:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true

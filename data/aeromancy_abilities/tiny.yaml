@@ -1,0 +1,60 @@
+# Tiny I (10): You have -2 Combat, -2 Survivability, +1 Speed, and can't be ambushed. (Wide) (Fragile outside combat)
+# Tiny II (15): Each turn, you may choose another player. (Narrow) (Fragile)
+#               They have -3 Combat, -3 Survivability, +1 Speed, and can't be ambushed. (Wide)
+# Tiny III (15): At the start of each turn, all other players get -2 Combat and -2 Survivability. (Blatant) (Fragile)
+
+6201:
+  name: "Tiny I"
+  concept: "TINY"
+  cost: 10
+  aero:
+    6201:
+      fragile: true
+    6202:
+      fragile: true
+    6203:
+      fragile: true
+    6204:
+      fragile: true
+    6205:
+      fragile: true
+  explanation: |-
+    You have -2 Combat, -2 Survivability, +1 Speed, and can't be ambushed. (Wide) (Fragile outside combat)
+
+    Tiny II costs 15
+
+6202:
+  name: "Tiny II"
+  concept: "TINY"
+  cost: 15
+  target_other: true
+  aero:
+    6206:
+      fragile: true
+    6207:
+      fragile: true
+    6208:
+      fragile: true
+    6209:
+      fragile: true
+    6210:
+      fragile: true
+  explanation: |-
+    Each turn, you may choose another player. (Narrow) (Fragile)
+    They have -3 Combat, -3 Survivability, +1 Speed, and can't be ambushed. (Wide)
+
+    Tiny III costs 15
+  prerequisite: 6201
+
+6203:
+  name: "Tiny III"
+  concept: "TINY"
+  cost: 15
+  aero:
+    6211:
+      fragile: true
+    6212:
+      fragile: true
+  explanation: |-
+    At the start of each turn, all other players get -2 Combat and -2 Survivability. (Blatant) (Fragile)
+  prerequisite: 6202

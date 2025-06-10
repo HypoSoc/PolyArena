@@ -879,7 +879,7 @@ class CombatHandler:
 
             def get_survivability(p: 'Player', a: Optional['Player'] = None):
                 if Condition.PETRIFIED in conditions[p]:
-                    return 8 - conditions[p].count(Condition.CRUMBLING)
+                    return 9 - conditions[p].count(Condition.CRUMBLING)
                 s = survivability[p]
                 if s >= 0:
                     if a and Condition.USING_AERO in conditions[a] and Condition.UNNATURAL_INTUITION in conditions[p]:
@@ -985,8 +985,8 @@ class CombatHandler:
                         queue.put(escape_message_tic(player, escaped))
 
             for player in group:
-                combat[player] = 0
-                survivability[player] = 0
+                combat[player] = 1
+                survivability[player] = 1
                 conditions[player] = player.conditions[:] + player.turn_conditions[:]
 
                 if player.willpower:

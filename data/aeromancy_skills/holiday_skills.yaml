@@ -1,0 +1,51 @@
+5901:
+  text: "1 Charge"
+  effect: "PERMANENT_CONDITION"
+  trigger: "ACQUISITION"
+  value: "CHARGE"
+  priority: -5
+
+5902:
+  text: "A Holy Day is imminent!"
+  info: "BLATANT"
+  effect: "SCHEDULE"
+  value: 5905
+  value_b: 1
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true
+
+5903:
+  text: "Survivability bonus to all"
+  effect: "SCHEDULE"
+  value: 5906
+  value_b: 1
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true
+
+5904:
+  text: "Remove Charge"
+  effect: "REMOVE_CONDITION"
+  value: "CHARGE"
+  trigger: "TARGET"
+  priority: 121
+  self_has_condition: "CHARGE"
+  self_override: true
+
+5905:
+  text: "This is a Holy Day!"
+  info: "BLATANT"
+  effect: "TEMP_SKILL"
+  trigger: "ALL"
+  value: 5906
+  priority: 0
+  info_once: true
+
+5906:
+  text: "+5 Survivability"
+  effect: "SURVIVABILITY"
+  value: 5
+  priority: 0

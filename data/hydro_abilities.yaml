@@ -336,7 +336,7 @@
 
 235:
   name: "Crafting I"
-  cost: 10
+  cost: 5
   hydro:
     111:
       cost: 1
@@ -354,7 +354,7 @@
 
 237:
   name: "Crafting III"
-  cost: 10
+  cost: 15
   hydro:
     113:
       cost: 2

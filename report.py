@@ -350,8 +350,8 @@ class Report(object):
             for (player, verb) in get_combat_handler().verb_dict.items():
                 report = report.replace(f"{player.name} attacked", f"{player.name} {verb}")
 
-        for player in sorted(set([target.name for (_, target, _) in self.bounties])):
-            report += f"A bounty was placed on {player}." + os.linesep
+        for player in sorted(set([target.name for (_, target, amount) in self.bounties])):
+            report += f"A {amount} Credit bounty was placed on {player} ({player.bounty} total)." + os.linesep
         return report
 
     @staticmethod

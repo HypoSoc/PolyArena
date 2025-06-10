@@ -1,0 +1,56 @@
+# Wilderness I (10): Each turn, choose a player. If they Attacked, Trained, or Wandered this turn,
+#                    they lose all of their progress on one of their incomplete abilities,
+#                    and you gain a Shroom. (Narrow) (Fragile)
+# Wilderness II (10): You have +1 Combat and +1 Survivability when you don't Bunker. (Wide) (Fragile)
+# Wilderness III (10): When you Wander Aimlessly, heal yourself.
+
+6101:
+  name: "Wilderness I"
+  concept: "WILDERNESS"
+  cost: 10
+  aero:
+    6101:
+      fragile: true
+    6102:
+      fragile: true
+    6103:
+      fragile: true
+    6104:
+      fragile: true
+    6105:
+      fragile: true
+    6106:
+      fragile: true
+  explanation: |-
+    Each turn, choose a player. If they Attacked, Trained, or Wandered this turn,
+    they lose all of their progress on one of their incomplete abilities
+    and you gain a Shroom. (Narrow) (Fragile)
+
+    Wilderness II costs 10
+
+6102:
+  name: "Wilderness II"
+  concept: "WILDERNESS"
+  cost: 10
+  aero:
+    6107:
+      fragile: true
+    6108:
+      fragile: true
+    6109:
+      fragile: true
+  explanation: |-
+    You have +1 Combat and +1 Survivability when you don't Bunker. (Wide) (Fragile)
+
+    Wilderness III costs 10
+  prerequisite: 6101
+
+6103:
+  name: "Wilderness III"
+  concept: "WILDERNESS"
+  cost: 10
+  skills:
+    - 6110
+  explanation: |-
+    When you Wander Aimlessly, heal yourself.
+  prerequisite: 6102

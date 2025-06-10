@@ -794,7 +794,7 @@
   text: "%SELF%'s Patience Pays Off!"
   effect: "PROGRESS"
   trigger: "NONCOMBAT"
-  value: 25
+  value: 24
   info: "PERSONAL"
   works_when_petrified: True
 
