@@ -163,6 +163,7 @@ class Condition(IntEnum):
     ATTEMPT_CLASS = 141
     ATTEMPT_SHOP = 142
     ATTEMPT_DOCTOR = 143
+    USING_WARP_B = 144  # For Warp 2
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

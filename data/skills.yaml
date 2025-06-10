@@ -1110,3 +1110,18 @@
   priority: 89.7
   info: "PRIVATE"
   target_has_condition: "ATTACKED"
+
+166:
+  text: "%TARGET% was warped through space and time."
+  effect: "CONDITION"
+  value: "NO_COMBAT"
+  info: "PRIVATE"
+  trigger: "TARGET"
+  self_has_condition: "USING_WARP_B"
+  priority: 20
+
+167:
+  text: "This condition prevents needing a TARGET_POST_ATTUNE trigger for the above"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "USING_WARP_B"
