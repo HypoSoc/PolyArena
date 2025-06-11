@@ -971,6 +971,13 @@ class Player:
         return possible[h % len(possible)]
 
     def has_prerequisite(self, ability: Ability) -> bool:
+        if ability.pin == 307:
+            for ability_pin in self.progress_dict.keys():
+                if ability_pin >= 600:
+                    if ability_pin % 100 == 3:
+                        if self.has_ability(get_ability(ability_pin).name, strict=True):
+                            return True
+            return False
         prerequisite = ability.get_prerequisite()
         if not prerequisite:
             return True

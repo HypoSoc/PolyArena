@@ -5,7 +5,8 @@ from typing import TYPE_CHECKING, Set, Dict, Optional, Tuple, List, Type, Union
 from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
-    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY, NEGATIVE_CONDITIONS
+    COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY, \
+    NEGATIVE_CONDITIONS, NONCOMBAT_TRIGGERS
 from items import get_item_by_name, get_item, Item, Rune
 from report import get_main_report
 
@@ -2068,12 +2069,10 @@ class TattooStep(Action):
                                      os.linesep
                     for skill in rune.get_skills(choice=player.tattoo_choice):
                         skill.targets = player.tattoo_targets
-                        if skill.trigger == Trigger.NONCOMBAT:
-                            HandleSkill(self.game, player, skill)
-                        elif skill.targets and skill.trigger == Trigger.TARGET:
-                            HandleSkill(self.game, player,
-                                        skill, skill.targets)
-
+                        HandleSkill.handle_noncombat_skill(
+                            self.game, player, skill)
+                        if skill.trigger not in NONCOMBAT_TRIGGERS:
+                            player.temporary_skills.append(skill)
                     if rune.is_disruptive():
                         if not player.has_ability("Quiet Attune"):
                             Action.no_class.add(player)
