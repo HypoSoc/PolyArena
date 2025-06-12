@@ -1,4 +1,4 @@
-# Wilderness I (10): Each turn, choose a player. If they Attacked, Trained, or Wandered this turn,
+# Wilderness I (10): Each turn, choose another player. If they Attacked, Trained, or Wandered this turn,
 #                    they lose all of their progress on one of their incomplete abilities,
 #                    and you gain a Shroom. (Narrow) (Fragile)
 # Wilderness II (10): You have +1 Combat and +1 Survivability when you don't Bunker. (Wide) (Fragile)
@@ -8,6 +8,7 @@
   name: "Wilderness I"
   concept: "WILDERNESS"
   cost: 10
+  target_other: true
   aero:
     6101:
       fragile: true
@@ -22,7 +23,7 @@
     6106:
       fragile: true
   explanation: |-
-    Each turn, choose a player. If they Attacked, Trained, or Wandered this turn,
+    Each turn, choose another player. If they Attacked, Trained, or Wandered this turn,
     they lose all of their progress on one of their incomplete abilities
     and you gain a Shroom. (Narrow) (Fragile)
 
