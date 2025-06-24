@@ -713,7 +713,7 @@ class CombatHandler:
                                 msg_grp = [p, target]
                                 if skill.info == InfoScope.PERSONAL:
                                     msg_grp = [p]
-                                elif skill.info == InfoScope.IMPERSONAL:
+                                elif skill.info in [InfoScope.IMPERSONAL, InfoScope.NARROW_IMPERSONAL, InfoScope.SUBTLE_IMPERSONAL]:
                                     msg_grp = [target]
                                 self._append_to_event_list(self.combat_group_to_events[group], msg,
                                                            msg_grp,
@@ -1111,11 +1111,12 @@ class CombatHandler:
 
             survivors = [player for player in group if player not in dead_list]
             for player in dead_list:
-                for murderer in self.injured_by.get(player, set()):
-                    if murderer not in dead_list and murderer.temperament == Temperament.BLOODTHIRSTY:
-                        if player not in self.blood_thirst:
-                            self.blood_thirst[player] = set()
-                        self.blood_thirst[player].add(murderer)
+                if not player.is_automata:
+                    for murderer in self.injured_by.get(player, set()):
+                        if murderer not in dead_list and murderer.temperament == Temperament.BLOODTHIRSTY:
+                            if player not in self.blood_thirst:
+                                self.blood_thirst[player] = set()
+                            self.blood_thirst[player].add(murderer)
                 loot_items = [item for item in player.get_items() if item.loot]
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
@@ -1168,8 +1169,8 @@ class CombatHandler:
             return True
 
         if not ignore_escape:
-            for (escapee, _ignored) in self.escape:
-                if escapee == player or escapee == target:
+            for (escapee, escaper) in self.escape:
+                if (escapee, escaper) == (player, target) or (escapee, escaper) == (target, player):
                     return False
 
         if (player, target) in self.range_edges:

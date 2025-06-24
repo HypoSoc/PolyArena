@@ -802,9 +802,9 @@
   text: "%TARGET%'s soul was wrenched apart!"
   effect: "DAMAGE"
   trigger: "TARGET"
-  priority: 89.5
+  priority: 89.51
   info: "PRIVATE"
-  self_not_condition: "INJURED"
+  self_has_condition: "SOUL_READY"
   target_not_condition: "PETRIFIED"
 
 122:
@@ -1125,3 +1125,11 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "USING_WARP_B"
+
+168:
+  text: "Can Soul Strike"
+  effect: "TURN_CONDITION"
+  value: "SOUL_READY"
+  trigger: "NONCOMBAT"
+  priority: 89.5
+  self_not_condition: "INJURED"

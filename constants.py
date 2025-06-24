@@ -164,6 +164,7 @@ class Condition(IntEnum):
     ATTEMPT_SHOP = 142
     ATTEMPT_DOCTOR = 143
     USING_WARP_B = 144  # For Warp 2
+    SOUL_READY = 145  # For soul strike
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
