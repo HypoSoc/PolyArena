@@ -14,6 +14,7 @@ class Temperament(IntEnum):
     PRIVILEGED = 9
     INNOVATIVE = 10
     BLOODTHIRSTY = 11
+    STUBBORN = 12
 
 
 class Condition(IntEnum):
@@ -165,6 +166,7 @@ class Condition(IntEnum):
     ATTEMPT_DOCTOR = 143
     USING_WARP_B = 144  # For Warp 2
     SOUL_READY = 145  # For soul strike
+    STUBBORN = 146  # For stubborn
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

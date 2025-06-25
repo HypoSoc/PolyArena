@@ -1110,6 +1110,12 @@ class Player:
     def die(self, message, reporting_func: Optional[ReportCallable] = None):
         if not reporting_func:
             reporting_func = self._non_combat_report_callable()
+        if self.temperament == Temperament.STUBBORN:
+            if not self.has_condition(Condition.PETRIFIED):
+                if self.conditions.count(Condition.STUBBORN) < 3:
+                    self.conditions.append(Condition.STUBBORN)
+                    reporting_func(f"{self.name} stubbornly clung to life.", InfoScope.PUBLIC)
+                    return
         self.conditions.append(Condition.DEAD)
         Action.handle_death_triggers(self.game, self)
         if self.has_condition(Condition.RESURRECT):

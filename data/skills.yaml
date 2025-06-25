@@ -920,7 +920,7 @@
   priority: 175
 
 139:
-  text: "%SELF% burned %TARGET%'s lungs."
+  text: "%SELF% blackened %TARGET%'s lungs."
   effect: "PERMANENT_CONDITION"
   value: "SURVIVABILITY_DOWN"
   info: "PRIVATE"

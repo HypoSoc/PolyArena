@@ -1130,7 +1130,7 @@ class Craft(Action):
                 if price <= 5 and only_shop_items:
                     illegal_items = False
                     for item in self.items:
-                        if item.pin in [LIQUID_MEMORIES]:
+                        if item.pin in [LIQUID_MEMORIES, BOOBY_TRAP, WORKBENCH]:
                             illegal_items = True
                     if not illegal_items:
                         legal_craft = True

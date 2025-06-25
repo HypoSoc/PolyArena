@@ -507,7 +507,7 @@
         - "FIRE"
         - "AIR"
       fragile: true
-    139:
+    155:
       circuits:
         - "FIRE"
         - "AIR"
@@ -573,7 +573,7 @@
         - "EARTH"
         - "AIR"
       fragile: true
-    155:
+    139:
       circuits:
         - "EARTH"
         - "AIR"
