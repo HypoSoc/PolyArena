@@ -967,7 +967,7 @@ class Player:
         seed = self.game.seed if self.game else 0
         h = int(''.join(map(lambda x: '%.3d' % ord(x), self.name))) + seed
         possible = [e for e in Temperament if e not in [
-            Temperament.NONE, Temperament.PREPARED, self.temperament]]
+            Temperament.NONE, Temperament.PREPARED, Temperament.PARANOIAC, self.temperament]]
         return possible[h % len(possible)]
 
     def has_prerequisite(self, ability: Ability) -> bool:
