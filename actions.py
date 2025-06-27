@@ -6,7 +6,7 @@ from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
     COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY, \
-    NEGATIVE_CONDITIONS, NONCOMBAT_TRIGGERS
+    NONCOMBAT_TRIGGERS
 from items import get_item_by_name, get_item, Item, Rune
 from report import get_main_report
 
@@ -184,6 +184,7 @@ class Action:
         CombatSimStep(game)
         CombatStep(game)
         ProgressStep(game)
+        EndOfTurnSkillStep(game)
         WillpowerStep(game)
         StatusChangeStep(game)
 
@@ -569,6 +570,8 @@ class HandleSkill(Action):
     @classmethod
     def handle_noncombat_skill(cls, game: 'Game', player: 'Player', skill: 'Skill'):
         if skill.trigger == Trigger.NONCOMBAT:
+            HandleSkill(game, player, skill)
+        elif skill.trigger == Trigger.END_OF_TURN:
             HandleSkill(game, player, skill)
         elif skill.trigger == Trigger.TARGET:
             if skill.targets:
@@ -2051,8 +2054,22 @@ class NoncombatSkillStep(Action):
                     if isinstance(player.action, Craft):
                         player.turn_conditions.append(Condition.BONUS_BUNKER)
                 for skill in player.get_skills():
-                    HandleSkill.handle_noncombat_skill(
-                        self.game, player, skill)
+                    if skill.trigger != Trigger.END_OF_TURN:
+                        HandleSkill.handle_noncombat_skill(
+                            self.game, player, skill)
+
+
+class EndOfTurnSkillStep(Action):
+    def __init__(self, game: Optional['Game']):
+        super().__init__(125, game=game, player=None)
+
+    def act(self):
+        for player in Action.players:
+            if not player.is_dead():
+                for skill in player.get_skills():
+                    if skill.trigger == Trigger.END_OF_TURN:
+                        HandleSkill.handle_noncombat_skill(
+                            self.game, player, skill)
 
 
 class TattooStep(Action):

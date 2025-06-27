@@ -890,6 +890,9 @@ class CombatHandler:
                     elif a and p.check_relative_condition(a, Condition.KNOW):
                         s += 2
 
+                    if p.temperament == Temperament.HOT_BLOODED:
+                        s += 1
+
                     if s < 0:
                         s = 0
 

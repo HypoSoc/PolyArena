@@ -154,3 +154,11 @@
     - 156
     - 122
   prerequisite: 501
+
+524:
+  name: "Poisoning"
+  cost: 10
+  skills:
+    - 169
+    - 170
+  prerequisite: 502

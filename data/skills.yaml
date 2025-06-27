@@ -1133,3 +1133,49 @@
   trigger: "NONCOMBAT"
   priority: 89.5
   self_not_condition: "INJURED"
+
+169:
+  text: "%SELF% poisoned %TARGET%"
+  trigger: "SPY"
+  effect: "TEMP_SKILL"
+  info: "PERSONAL"
+  value: 171
+
+170:
+  text: "Surv poison temp skill"
+  trigger: "SPY"
+  effect: "TEMP_SKILL"
+  value: 172
+
+171:
+  text: "Schedule Combat down"
+  effect: "SCHEDULE"
+  trigger: "END_OF_TURN"
+  value: 173
+  value_b: 1
+  works_when_petrified: true
+
+172:
+  text: "Schedule Surv down"
+  effect: "SCHEDULE"
+  trigger: "END_OF_TURN"
+  value: 174
+  value_b: 1
+  works_when_petrified: true
+
+173:
+  text: "Poison wracks your body."
+  effect: "CONDITION"
+  value: "COMBAT_DOWN"
+  value_b: 2
+  trigger: "NONCOMBAT"
+  info: "PERSONAL"
+  works_when_petrified: true
+
+174:
+  text: "-2 Survivability from poison"
+  effect: "CONDITION"
+  value: "SURVIVABILITY_DOWN"
+  value_b: 2
+  trigger: "NONCOMBAT"
+  works_when_petrified: true

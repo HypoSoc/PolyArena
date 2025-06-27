@@ -54,5 +54,6 @@ Actions
 100-102: Item Trade ONLY
 105: Hooks Used
 110: Bounty
+125: END OF TURN Triggers
 130: Willpower Regen
 140: Status Changes (Grievous/Petrify Tics)

@@ -175,7 +175,7 @@ AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.
 NEGATIVE_CONDITIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
                        Condition.PORTENT, Condition.CURSED, Condition.NO_PROGRESS_NEXT_TURN, Condition.SICKENED,
                        Condition.POLLUTED, Condition.CRUMBLING, Condition.SURVIVABILITY_DOWN, Condition.COMBAT_DOWN,
-                       Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED, Condition.LOCKED]
+                       Condition.MARKED, Condition.SLIMED, Condition.SUPPRESSED, Condition.LOCKED, Condition.STUBBORN]
 
 CONDITION_IMMUNITY = {
     Condition.SICKENED: Condition.SICK_IMMUNE,
@@ -275,13 +275,14 @@ class Trigger(Enum):
     RANDOM = 23  # Random Player
     RANDOM_OTHER = 24
     PLAYER_DIED = 25  # Happens whenever a player dies. Target is the dead player
+    END_OF_TURN = 26
 
 
 NONCOMBAT_TRIGGERS = [Trigger.NONCOMBAT, Trigger.COMBAT_INJURY, Trigger.SPY, Trigger.SPIED_ON,
                       Trigger.NONCOMBAT_POST_ATTUNE, Trigger.POST_COMBAT, Trigger.TARGET,
                       Trigger.ACQUISITION, Trigger.START_OF_GAME, Trigger.ALL, Trigger.OTHERS,
                       Trigger.RANDOM, Trigger.RANDOM_OTHER,
-                      Trigger.PLAYER_DIED]
+                      Trigger.PLAYER_DIED, Trigger.END_OF_TURN]
 
 
 class ItemType(Enum):
