@@ -561,7 +561,7 @@ class Player:
             if not ignore_possession_check and item.pin not in self.items:
                 raise Exception(
                     f"Player {self.name} is trying to use an item they don't have ({item_name}).")
-            if item.item_type != ItemType.CONSUMABLE:
+            if item.item_type not in [ItemType.CONSUMABLE, ItemType.POTION]:
                 raise Exception(
                     f"Player {self.name} is trying to use an item that isn't consumable ({item_name}).")
             # Constructor adds it to the action queue
@@ -932,10 +932,10 @@ class Player:
     def _get_non_consumable_item_skills(self) -> List[Skill]:
         skills = []
         for item in self.get_items(duplicates=False):
-            if item.item_type != ItemType.CONSUMABLE and not item.stacking:
+            if item.item_type not in [ItemType.CONSUMABLE, ItemType.POTION] and not item.stacking:
                 skills += item.get_skills()
         for item in self.get_items(duplicates=True):
-            if item.item_type != ItemType.CONSUMABLE and item.stacking:
+            if item.item_type not in [ItemType.CONSUMABLE, ItemType.POTION] and item.stacking:
                 skills += item.get_skills()
         return skills
 
@@ -1196,6 +1196,10 @@ class Player:
             reporting_func = self._non_combat_report_callable()
 
         if Condition.PETRIFIED not in self.conditions:
+            if self.has_condition(Condition.PETRIFY_IMMUNE):
+                reporting_func(
+                    f"{self.name} was unaffected by petrification.", InfoScope.PUBLIC)
+                return
             if SOFT in self.items:
                 reporting_func(
                     f"{self.name} used a Soft to avoid being petrified.", InfoScope.PUBLIC)
@@ -1264,7 +1268,7 @@ class Player:
     def destroy_consumables_and_reactives(self):
         lost_items = {}
         for item in self.get_items(duplicates=True):
-            if item.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE]:
+            if item.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE, ItemType.POTION]:
                 if item.pin not in lost_items:
                     lost_items[item.pin] = 0
                 lost_items[item.pin] += 1

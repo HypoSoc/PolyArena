@@ -6,7 +6,7 @@ from ability import Ability, get_ability, get_ability_by_name
 from combat import get_combat_handler
 from constants import Temperament, Condition, Trigger, Effect, InfoScope, \
     COMBAT_PLACEHOLDER, SELF_PLACEHOLDER, TARGET_PLACEHOLDER, InjuryModifier, Element, AFFLICTIONS, CONDITION_IMMUNITY, \
-    NONCOMBAT_TRIGGERS
+    NONCOMBAT_TRIGGERS, ItemType
 from items import get_item_by_name, get_item, Item, Rune
 from report import get_main_report
 
@@ -862,9 +862,12 @@ class Shop(Action):
         if self.player.has_condition(Condition.NO_SHOP):
             self.player.report += f"{self.player.name} was kicked out of shop club." + os.linesep
             get_main_report().broadcast(f"{self.player.name} was kicked out of shop club.")
-
         elif Shop.get_total_cost(self.items) > self.player.get_credits():
             self.player.report += f"{self.player.name} was kicked out of shop club for not having enough credits." \
+                                  + os.linesep
+            get_main_report().broadcast(f"{self.player.name} was kicked out of shop club.")
+        elif any([item.item_type == ItemType.POTION for item in self.items]):
+            self.player.report += f"{self.player.name} was kicked out of shop club for trying to buy a Potion." \
                                   + os.linesep
             get_main_report().broadcast(f"{self.player.name} was kicked out of shop club.")
         else:
@@ -1093,6 +1096,23 @@ class Craft(Action):
             if item.cost < 0:
                 only_shop_items = False
 
+        if any([item.item_type == ItemType.POTION for item in self.items]):
+            if self.is_bonus:
+                return  # Can't brew as a bonus action
+            if not self.player.has_condition(Condition.POTIONEER):
+                self.player.report += f"You don't know how to brew potions." + os.linesep
+                return
+            if any([item.item_type != ItemType.POTION for item in self.items]):
+                return  # Can't mix crafting types
+            if amt > 2:
+                self.player.report += f"You can't brew that many potions." + os.linesep
+                return
+            if any([amount > 1 for amount in self.items.values()]):
+                self.player.report += f"You can't brew more than one of the same potion." + os.linesep
+                return
+            super().act()
+            return
+
         rune_crafting = False
         for item in self.items:
             if isinstance(item, Rune):
@@ -1187,6 +1207,21 @@ class AutomataCraft(Action):
         for item in self.items:
             if item.cost < 0:
                 only_shop_items = False
+
+        if any([item.item_type == ItemType.POTION for item in self.items]):
+            if not self.owner.has_condition(Condition.POTIONEER):
+                self.owner.report += f"Your automata does not know how to brew potions." + os.linesep
+                return
+            if any([item.item_type != ItemType.POTION for item in self.items]):
+                return  # Can't mix crafting types
+            if amt > 2:
+                self.owner.report += f"Your automata can't brew that many potions." + os.linesep
+                return
+            if any([amount > 1 for amount in self.items.values()]):
+                self.owner.report += f"Your automata can't brew more than one of the same potion." + os.linesep
+                return
+            super().act()
+            return
 
         rune_crafting = False
         for item in self.items:

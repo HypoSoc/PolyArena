@@ -408,7 +408,7 @@
   priority: 69  # Towards the end of stat distributions
 
 62:
-  text: "Immune to Grievous Wounds (Not Hellfire)"
+  text: "Immune to Grievous Wounds (Not Permanent Grievous)"
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "GRIEVOUS_IMMUNE"
@@ -794,6 +794,7 @@
   text: "%SELF%'s Patience Pays Off!"
   effect: "PROGRESS"
   trigger: "NONCOMBAT"
+  priority: 11
   value: 24
   info: "PERSONAL"
   works_when_petrified: True
@@ -1179,3 +1180,31 @@
   value_b: 2
   trigger: "NONCOMBAT"
   works_when_petrified: true
+
+175:
+  text: "Immune to Petrification"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "PETRIFY_IMMUNE"
+
+176:
+  text: "%TARGET% was doused in Mud."
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "NO_PROGRESS"
+  trigger: "TARGET"
+  priority: -10
+
+177:
+  text: "%TARGET%'s gold turned to Pyrite."
+  info: "PRIVATE"
+  effect: "CONDITION"
+  value: "NO_SHOP"
+  trigger: "TARGET"
+  priority: -10
+
+178:
+  text: "Can brew potions."
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "POTIONEER"

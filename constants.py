@@ -167,6 +167,8 @@ class Condition(IntEnum):
     USING_WARP_B = 144  # For Warp 2
     SOUL_READY = 145  # For soul strike
     STUBBORN = 146  # For stubborn
+    PETRIFY_IMMUNE = 147
+    POTIONEER = 148
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
@@ -292,6 +294,7 @@ class ItemType(Enum):
     ARMOR = 4
     PERMANENT = 5
     AUTOMATA = 6
+    POTION = 7
 
 
 class DamageType(IntEnum):

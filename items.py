@@ -29,7 +29,7 @@ class Item:
         self.stacking = stacking
         self.stuck = stuck  # Can't be traded
         self.destruction_message = "destroyed"
-        if self.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE]:
+        if self.item_type in [ItemType.CONSUMABLE, ItemType.REACTIVE, ItemType.POTION]:
             self.destruction_message = "consumed"
 
     def get_skills(self, choice=-1, targets=None) -> List[Skill]:

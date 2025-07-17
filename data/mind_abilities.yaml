@@ -162,3 +162,10 @@
     - 169
     - 170
   prerequisite: 502
+
+525:
+  name: "Potion Brewing"
+  cost: 5
+  skills:
+    - 178
+  prerequisite: 501
