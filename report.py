@@ -203,9 +203,9 @@ class Report(object):
                         report += f"{target.name} is not working on anything."
 
             if spy.has_ability("Profiling"):
-                temperament = target.temperament.name
+                temperament = target.get_temperament_display()
                 if counter_int:
-                    temperament = target.get_fake_temperament().name
+                    temperament = target.get_fake_temperament()
                 report += f"{target.name} appears to have a {temperament} temperament."
 
         return report

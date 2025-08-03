@@ -66,7 +66,7 @@ def create_player(name: str, abilities=None, items=None,
     if tattoo:
         tattoo = get_item_by_name(tattoo+" Rune").pin
 
-    player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperament=temperament,
+    player = Player(name, devs, dev_list, academics=0, conditions=conditions, temperaments=[temperament],
                     items=item_pins, money=5 if temperament == Temperament.LUCRATIVE else 3,
                     willpower=willpower, bounty=2,
                     relative_conditions={}, tattoo=tattoo, concept=None,
@@ -103,8 +103,7 @@ def load(file_prefix: str, turn: int = None, night: bool = None):
         player_data['game'] = GAME
         player_data['progress_dict'] = {
             int(k): v for k, v in player_data['progress_dict'].items()}
-        player_data['temperament'] = Temperament(
-            player_data['temperament'])
+        player_data['temperaments'] = [Temperament(_t) for _t in player_data['temperaments']]
         player_data['conditions'] = [
             Condition(_c) for _c in player_data['conditions']]
         player_data['relative_conditions'] = {k: [Condition(_c) for _c in v]
@@ -268,14 +267,14 @@ def init():
                   dev_goals=["Willpower V", "Rapid Regen I"],
                   items=['Shrooms', 'Fire Potion'])
 
-    summary(detailed=True)
+    # summary(detailed=True)
 
 
 def summary(detailed=False, condensed=False):
     for player_name, player in GAME.players.items():
         if not player.is_dead():
             if condensed:
-                out = f"{player_name} ({player.temperament.name})"
+                out = f"{player_name} ({player.get_temperament_display()})"
                 if player.academics:
                     out += f" [{player.academics} Academics]"
                 out += f": {[ability.name for ability in player.get_abilities(include_this_turn=True)]}" \
@@ -289,7 +288,7 @@ def summary(detailed=False, condensed=False):
                     out += f"{player.condition_debug()}"
                 print(out)
             else:
-                out = f"{player_name} ({player.temperament.name})"
+                out = f"{player_name} ({player.get_temperament_display()})"
                 if player.academics:
                     out += f" [{player.academics} Academics]"
                 if player.max_willpower:
