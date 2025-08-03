@@ -28,7 +28,7 @@ AUTOMATA = get_item_by_name("Automata").pin
 DIMENSIONAL_KEY = get_item_by_name("Dimensional Key").pin
 
 QM_ABILITY_PINS = [get_ability_by_name(
-    "Divination").pin, get_ability_by_name("Danger Precognition").pin]
+    "Autopilot").pin, get_ability_by_name("Danger Precognition").pin]
 
 # For conditional trading
 # Player action target
@@ -815,6 +815,7 @@ class Class(Action):
                                  (self.player.conditions +
                                   self.player.turn_conditions).count(Condition.STUDIOUS)
         self.player.report += f"Academics ({self.player.academics})" + os.linesep
+        Action.progress(self.player, 2)
         if self.player.temperament == Temperament.SCHOLASTIC:
             Action.progress(self.player, 5)
         Action.add_action_record(self.player, Class)
@@ -1871,7 +1872,7 @@ class Taunt(Action):
             if not self.player.check_relative_condition(self.target, Condition.TAUNT):
                 self.player.report += f"You don't have any material for {self.target.name}." + os.linesep
             else:
-                self.player.report += f"You have viciously mocked {self.target.name}" + os.linesep
+                self.player.report += f"You have viciously mocked {self.target.name}." + os.linesep
                 self.player.remove_relative_condition(self.target, Condition.TAUNT)
                 if self.game:
                     if not self.target.has_condition(Condition.TAUNT_IGNORE):

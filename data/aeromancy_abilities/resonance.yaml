@@ -1,9 +1,9 @@
-# Resonance I (10): Each turn, choose a player. If they don't have a Singing Stone, give them one. (Narrow)
+# Resonance I (10): Each turn, choose a player. If they have never been target by this ability before, give them a Singing Stone. (Narrow)
 #                   Singing Stones are permanent items that grant 1 progress each turn. Singing Stones stack.
-# Resonance II (10): At the end of each turn, if every living player had a Singing Stone at the start of the turn, gain 1 Academic Point. (Fragile)
+# Resonance II (5): At the end of each turn, if every living player had a Singing Stone at the start of the turn, gain 1 Academic Point. (Fragile)
 #                    This ability works even if you are Petrified.
-# Resonance III (10): Gain a Charge.
-#                     At the start of each turn, if every living player has a Singing Stone, consume a Charge to Petrify them all. (Blatant)
+# Resonance III (5): Gain a Charge.
+#                    At the start of each turn, if every living player has a Singing Stone, consume a Charge to Petrify them all. (Blatant)
 # Resonance IV (15): Give all living players a Singing Stone. (Narrow)
 
 2401:
@@ -12,17 +12,18 @@
   cost: 10
   skills:
     - 2401
+    - 2411
   max_targets: 1
   explanation: |-
-    Each turn, choose a player. If they don't have a Singing Stone, give them one. (Narrow)
+    Each turn, choose a player. If they have never been target by this ability before, give them a Singing Stone. (Narrow)
     Singing Stones are permanent items that grant 1 progress each turn. Singing Stones stack.
 
-    Resonance II costs 10
+    Resonance II costs 5
 
 2402:
   name: "Resonance II"
   concept: "RESONANCE"
-  cost: 10
+  cost: 5
   aero:
     2404:
       fragile: true
@@ -32,13 +33,13 @@
     At the end of each turn, if every living player had a Singing Stone at the start of the turn, gain 1 Academic Point. (Fragile)
     This ability works even if you are Petrified.
 
-    Resonance III costs 10
+    Resonance III costs 5
   prerequisite: 2401
 
 2403:
   name: "Resonance III"
   concept: "RESONANCE"
-  cost: 10
+  cost: 5
   skills:
     - 2406
     - 2407

@@ -48,11 +48,11 @@
   prerequisite: 206
 
 208:
-  name: "Divination"
-  cost: 20
+  name: "Autopilot"
+  cost: 10
   hydro:
     87:
-      cost: 4
+      cost: 5
   not_contingency: true
   prerequisite: 203
 
@@ -66,7 +66,7 @@
 
 210:
   name: "Illusions I"
-  cost: 10
+  cost: 5
   hydro:
     90:
       cost: 2
@@ -75,7 +75,7 @@
 
 211:
   name: "Illusions II"
-  cost: 10
+  cost: 5
   hydro:
     91:
       cost: 2
@@ -84,7 +84,7 @@
 
 212:
   name: "Illusions III"
-  cost: 10
+  cost: 5
   hydro:
     92:
       cost: 1
@@ -278,7 +278,9 @@
   hydro:
     106:
       cost: 1
-  not_contingency: true
+    2:
+      cost: 1
+      fragile: true
   prerequisite: 201
 
 230:

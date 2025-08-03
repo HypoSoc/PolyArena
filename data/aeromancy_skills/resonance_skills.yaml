@@ -4,7 +4,7 @@
   value: 2401
   info: "NARROW"
   trigger: "TARGET"
-  target_not_condition: "RINGING"
+  target_not_condition: "RESOUNDING"
   priority: 10
 
 2402:
@@ -82,3 +82,10 @@
   info: "NARROW"
   trigger: "ALL"
   priority: 10
+
+2411:
+  text: "Cannot be targeted by Resonance again."
+  effect: "PERMANENT_CONDITION"
+  value: "RESOUNDING"
+  trigger: "TARGET"
+  priority: 11

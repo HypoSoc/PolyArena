@@ -563,7 +563,7 @@
   value: "STEALTH_REZ"
 
 87:
-  text: "The Future Unraveled Before You!"
+  text: "Your body went on autopilot!"
   effect: "INFO"
   trigger: "NONCOMBAT"
   info: "PRIVATE"
@@ -591,7 +591,8 @@
   text: "%SELF% afflicted %TARGET% with disorienting Illusions."
   effect: "CONDITION"
   trigger: "TARGET"
-  value: "DELUDED"
+  value: "COMBAT_DOWN"
+  value_b: 3
   info: "PERSONAL"
 
 92:
@@ -925,8 +926,7 @@
   effect: "PERMANENT_CONDITION"
   value: "SURVIVABILITY_DOWN"
   info: "PRIVATE"
-  trigger: "RANGE"
-  target_not_condition: "GAS_IMMUNE"
+  trigger: "RANGE_EX_SELF"
   priority: 175
 
 140:
@@ -1208,3 +1208,10 @@
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "POTIONEER"
+
+179:
+  text: "Dust hits statues too."
+  effect: "PERMANENT_CONDITION"
+  value: "CRUMBLING"
+  trigger: "RANGE_EX_SELF"
+  priority: 175

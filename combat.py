@@ -879,7 +879,7 @@ class CombatHandler:
 
             def get_survivability(p: 'Player', a: Optional['Player'] = None):
                 if Condition.PETRIFIED in conditions[p]:
-                    return 9 - conditions[p].count(Condition.CRUMBLING)
+                    return 10 - conditions[p].count(Condition.CRUMBLING)
                 s = survivability[p]
                 if s >= 0:
                     if a and Condition.USING_AERO in conditions[a] and Condition.UNNATURAL_INTUITION in conditions[p]:
@@ -1113,6 +1113,7 @@ class CombatHandler:
                                                    [victim], InfoScope.PRIVATE)
 
             survivors = [player for player in group if player not in dead_list]
+            revelers = set()
             for player in dead_list:
                 if not player.is_automata:
                     for murderer in self.injured_by.get(player, set()):
@@ -1120,6 +1121,7 @@ class CombatHandler:
                             if player not in self.blood_thirst:
                                 self.blood_thirst[player] = set()
                             self.blood_thirst[player].add(murderer)
+                            revelers.add(murderer)
                 loot_items = [item for item in player.get_items() if item.loot]
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
@@ -1156,6 +1158,11 @@ class CombatHandler:
                                                        enemies, InfoScope.PRIVATE)
                             for bounty_hunter in enemies:
                                 bounty_hunter.gain_credits(per_enemy_bounty)
+
+            for murderer in revelers:
+                self._append_to_event_list(self.combat_group_to_events[group],
+                                           f"{murderer.name} reveled in the blood.",
+                                           [murderer], InfoScope.PUBLIC)
 
             for player in group:
                 if Condition.NO_CONTINGENCY in conditions[player]:

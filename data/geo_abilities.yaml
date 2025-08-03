@@ -43,7 +43,7 @@
   name: "Fast Attune I"
   cost: 5
   skills: []
-  prerequisite: 102
+  prerequisite: 101
 
 108:
   name: "Fast Attune II"
@@ -574,6 +574,11 @@
         - "AIR"
       fragile: true
     139:
+      circuits:
+        - "EARTH"
+        - "AIR"
+      fragile: true
+    179:
       circuits:
         - "EARTH"
         - "AIR"

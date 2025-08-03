@@ -169,6 +169,7 @@ class Condition(IntEnum):
     STUBBORN = 146  # For stubborn
     PETRIFY_IMMUNE = 147
     POTIONEER = 148
+    RESOUNDING = 149  # For Resonance
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
