@@ -235,7 +235,7 @@ class Player:
         if (self.game.is_day() or self.has_condition(Condition.NIGHT_LIGHT)) and self.has_ability("Awareness II"):
             training_count = 0
             training_report = "You are Aware:" + os.linesep
-            for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name):
+            for trainer in sorted(get_main_report().training.keys(), key=lambda x: x.name.upper()):
                 hidden = False
                 if trainer != self:
                     trained = get_main_report().training[trainer]

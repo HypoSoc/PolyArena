@@ -341,6 +341,9 @@ class Report(object):
         report = str(game) + os.linesep
         report += self.get_broadcasts(intuition=False) + os.linesep
 
+        for player, amt in sorted(set([(target, amount) for (_, target, amount) in self.bounties])):
+            report += f"A {amt} credit bounty was placed on {player.name} ({player.bounty} total)." + os.linesep + os.linesep
+
         if game.is_day():
             report += get_combat_handler().get_public_combat_report()
             report += os.linesep
@@ -350,8 +353,6 @@ class Report(object):
             for (player, verb) in get_combat_handler().verb_dict.items():
                 report = report.replace(f"{player.name} attacked", f"{player.name} {verb}")
 
-        for player in sorted(set([target.name for (_, target, amount) in self.bounties])):
-            report += f"A {amount} Credit bounty was placed on {player} ({player.bounty} total)." + os.linesep
         return report
 
     @staticmethod

@@ -131,113 +131,144 @@ def conductor_choice(action: str):
 
 
 def init():
+    # Bureaucracy/Paperwork/Fraud
     create_player("23Starman",
-                  ["Attunement Detection", "Willpower Detection", "Circuit II", "Water I"],
-                  temperament=Temperament.HOT_BLOODED,
-                  dev_goals=["Fire I", "Awareness II"])
+                  ["Crafting I", "Legacy Magic", "Fraud I"],
+                  temperament=Temperament.INNOVATIVE,
+                  partial_dev={"Crafting II": 5},
+                  dev_goals=["Crafting II"],
+                  items=['Frost Potion', 'Fire Potion', 'Mud Potion'])
+    create_player("A Nice Girl",
+                  ["Rune Crafting I", "Earth II"],
+                  temperament=Temperament.INNOVATIVE,
+                  dev_goals=["Air I", "Awareness I", "Magical Healing (Geo)", "Dust", "Rune Crafting II"],
+                  items=['Medkit', 'Rubber Potion'])
     create_player("Anemone",
-                  ["Water I", "Fire I", "Toxin"],
-                  temperament=Temperament.BLOODTHIRSTY,
-                  dev_goals=[])
+                  ["Awareness III", "Poisoning", "Potion Brewing"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=[],
+                  items=['Mud Potion', 'Pyrite Potion', 'Rubber Potion'])
+    create_player("Amonclone4321",
+                  ["Ash", "Fire I", "Air I"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Earth I", "Circuit III", "Dust"],
+                  items=['Pyrite Potion', 'Medkit'])
+    create_player("Axeorthedark",
+                  ["Martial Arts III", "Willpower II", "Body Reinforcement I"],
+                  temperament=Temperament.STUBBORN,
+                  dev_goals=[],
+                  items=['Cheat Sheet', 'Earth Potion'])
     create_player("BlackLemonAde",
-                  ["Panopticon", "Market Connections I", "Theft"],
-                  temperament=Temperament.PRIVILEGED,
-                  dev_goals=[])
-    # Befoulment/Miasma/Execute
-    create_player("Darklight140",
-                  ["Legacy Magic", "Befoulment II", "Martial Arts I"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Armored Combat", "Martial Arts II", "Martial Arts III"])
-    create_player("Darkpiplumon",
-                  ["Body Reinforcement III"],
+                  ["Counter Ambush Tactics", "Aeromancy Intuition", "Armed Combat I"],
                   temperament=Temperament.BLOODTHIRSTY,
-                  dev_goals=["Rapid Regen I"])
-    # Wilderness/Aegis/Holiday
-    create_player("Dragonlord7",
-                  ["Legacy Magic", "Wilderness I", "Martial Arts II", "Awareness I"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Martial Arts III", "Wilderness II", "Wilderness III", "Ambush Tactics I"])
+                  dev_goals=[],
+                  items=['Mud Potion', 'Earth Potion', 'Venom'])
     # Random Concept
+    create_player("ButterGod",
+                  ["Martial Arts III", "Armed Combat I", "Libra I"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Armed Combat II", "Awareness I", "Awareness II"],
+                  items=['Fire Potion', 'Venom', 'Venom'])
+    create_player("DarkLight140",
+                  ["Martial Arts III", "Sniping"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Awareness I", "Awareness II"],
+                  items=['Cheat Sheet', 'Venom'])
+    create_player("Darkpiplumon",
+                  ["Martial Arts III", "Resonance I", "legacy Magic"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Circuit I", "Earth I"],
+                  items=['Medkit', 'Rubber Potion'])
     create_player("Drasky",
-                  ["Incognito I", "Sniping"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=[])
+                  ["Legacy Magic", "Decoy I", "Forged in Fire"],
+                  temperament=Temperament.PRIVILEGED,
+                  dev_goals=["Decoy II", "Decoy III", "Martial Arts II"],
+                  items=['Fire Potion', 'Frost Potion', 'Rubber Potion'])
     create_player("Floom",
-                  ["Panopticon", "Ambush Tactics I"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Counter Ambush Tactics", "Ambush Tactics II"])
-    # Random Concept
-    create_player("hotmonkey1",
-                  ["Miasma I", "Willpower II", "Crafting I", "Mental Fortification I"],
-                  temperament=Temperament.PATIENT,
-                  dev_goals=["Will Armor I", "Will Armor II", "Willpower III", "Willpower Draining", "Willpower IV", "Rapid Regen I", "Soul Strike", "Willpower V"])
-    # Paperwork/Bureaucracy/Studious
-    create_player("Lord of Chromius",
-                  ["Legacy Magic", "Paperwork I", "Earth I", "Circuit II"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Water I", "Circuit III", "Earth II", "Mud"])
-    create_player("Megaolix",
-                  ["Willpower III", "Danger Precognition"],
-                  temperament=Temperament.LUCRATIVE,
-                  dev_goals=["Mental Fortification I", "Will Armor I", "Willpower IV"])
-    create_player("mishtazespy",
                   ["Water III", "Circuit II"],
                   temperament=Temperament.PRIVILEGED,
-                  dev_goals=["Circuit III", "Air I", "Circuit IV"])
+                  dev_goals=["Circuit III", "Martial Arts I", "Martial Arts II", "Martial Arts III"],
+                  items=['Shrooms', 'Venom'])
+    create_player("hotmonkey1",
+                  ["Panopticon", "Market Connections II", "Counter Intelligence I"],
+                  temperament=Temperament.PRIVILEGED,
+                  dev_goals=["Theft", "Willpower Detection", "Profiling", "Potion Brewing"],
+                  items=['Shrooms', 'Venom'])
+    create_player("Lord of Chromius",
+                  ["Fire I", "Earth I", "Circuit III"],
+                  temperament=Temperament.INTUITIVE,
+                  partial_dev={"Earth II": 5},
+                  dev_goals=["Earth II", "Cauterization", "Willpower I", "Willpower II", "Willpower III", "Reinforced Will"],
+                  items=["Venom", "Cheat Sheet"])
+    create_player("Megaolix",
+                  ["Earth II", "Petrification I"],
+                  temperament=Temperament.INTUITIVE,
+                  dev_goals=["Circuit II", "Circuit III", "Air I", "Dust", "Quiet Attune", "Speed (Geo) I", "Petrification II"],
+                  items=['Medkit', 'Fire Potion'])
+    create_player("mishtazespy",
+                  ["Light", "Combat Regeneration (Geo)"],
+                  temperament=Temperament.ALTRUISTIC,
+                  dev_goals=["Circuit II", "Kaleidoscope", "Cauterization", "Hell Fire", "Speed (Geo) I"],
+                  items=['Medkit', 'Pyrite Potion'])
     create_player("NinetyNineLies",
-                  ["Crafting II", "Awareness II"],
-                  temperament=Temperament.INNOVATIVE,
-                  dev_goals=["Bolthole", "Martial Arts I", "Martial Arts II", "Willpower II", "Enhanced Senses",
-                             "Martial Arts III",
-                             "Armored Combat", "Armed Combat I", "Ambush Tactics I", "Counter Ambush Tactics"])
-    # Random Concept
+                  ["Crafting I", "Combat Medicine", "Forged in Fire"],
+                  temperament=Temperament.STUBBORN,
+                  dev_goals=["Awareness I", "Potion Brewing", "Martial Arts II", "Martial Arts III", "Armored Combat"],
+                  items=['Medkit', 'Poison Gas'])
     create_player("Paradosi",
-                  ["Crafting II", "Voltage I"],
-                  temperament=Temperament.INNOVATIVE,
-                  dev_goals=[])
-    create_player("PocketRikimaru",
-                  ["Ambush Tactics II", "Counter Ambush Tactics", "Willpower I"],
-                  temperament=Temperament.SCHOLASTIC,
-                  dev_goals=["Body Reinforcement I", "Willpower II", "Body Reinforcement II"])
-    # Holiday/Studious/Tiny
-    create_player("RyoAtemi",
-                  ["Legacy Magic", "Holiday II"],
-                  temperament=Temperament.PATIENT,
-                  partial_dev={"Holiday III": 5},
-                  dev_goals=["Circuit I", "Water I", "Circuit II", "Water II", "Holiday III", "Holiday IV", "Holiday V"])
-    create_player("Seventeen",
-                  ["Water I", "Fire I", "Toxin"],
-                  temperament=Temperament.HOT_BLOODED,
-                  dev_goals=["Martial Arts I", "Martial Arts II"])
-    # Random Concept
-    create_player("Swift-Sama",
-                  ["Aegis I", "Gold"],
-                  temperament=Temperament.LUCRATIVE,
-                  dev_goals=["Light", "Petrification I", "Awareness I", "Awareness II", "Theft"])
-    # Random Concept
-    create_player("Tempeljaeger",
-                  ["Execute I", "Circuit II", "Earth I", "Fire I"],
+                  ["Water II"],
+                  partial_dev={"Water III": 10},
                   temperament=Temperament.INTUITIVE,
-                  dev_goals=[])
-    # Random Concept
-    create_player("Teyao",
-                  ["Eclipse I", "Sniping"],
+                  dev_goals=["Water III", "Circuit II", "Circuit III", "Rune Crafting I", "Runic Tattoos"],
+                  items=['Shrooms', 'Venom'])
+    create_player("Raron",
+                  ["Willpower II", "Body Reinforcement II", "Mental Fortification I"],
                   temperament=Temperament.BLOODTHIRSTY,
-                  dev_goals=["Armed Combat II"])
-    # Studious/Tiny/Wilderness
+                  dev_goals=["Rapid Regen I", "Will Armor I", "Will Armor II", "Speed (Hydro) I"],
+                  items=['Fire Potion', 'Mud Potion', 'Fire Potion'])
+    create_player("RyoAtemi",
+                  ["Air I", "Martial Arts III", "Armored Combat"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Circuit II", "Air II"],
+                  items=['Venom', 'Frost Potion', 'Venom'])
+    create_player("Seventeen",
+                  ["Will Blades", "Ambush Tactics I"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Mystic Penetration", "Counter Ambush Tactics", "Ambush Tactics II"],
+                  items=['Poison Gas', 'Mud Potion', 'Earth Potion'])
+    # Kindness/Haruspex/Quackery
+    create_player("Swift-Sama",
+                  ["Kindness II", "Legacy Magic", "Awareness I"],
+                  temperament=Temperament.ALTRUISTIC,
+                  dev_goals=["Potion Brewing", "Awareness II", "Sabotage"],
+                  items=['Rubber Potion', 'Venom', 'Mud Potion'])
+    create_player("Tempeljaeger",
+                  ["Fire II", "Circuit II", "Air I"],
+                  temperament=Temperament.BLOODTHIRSTY,
+                  dev_goals=["Fire III", "Circuit III", "Circuit IV", "Ash", "Awareness I", "Ambush Tactics I"],
+                  items=['Shrooms', 'Fire Potion'])
+    create_player("Teyao",
+                  ["Theft", "Awareness III", "Profiling"],
+                  temperament=Temperament.LUCRATIVE,
+                  dev_goals=["Panopticon", "Bolthole", "Poisoning"],
+                  items=["Shrooms", "Frost Potion"])
+    create_player("unrideableHorse",
+                  ["Martial Arts II", "Ambush Tactics II"],
+                  temperament=Temperament.HOT_BLOODED,
+                  dev_goals=["Martial Arts III", "Awareness II", "Awareness III", "Panopticon"],
+                  items=['Rubber Potion', 'Shrooms'])
     create_player("Witherbrine26",
-                  ["Legacy Magic", "Tiny II"],
-                  temperament=Temperament.INTUITIVE,
-                  dev_goals=["Tiny III", "Martial Arts I", "Martial Arts II", "Martial Arts III",
-                             "Forged in Fire", "Combat Medicine"])
-    # Random Concept
+                  ["Air III", "Circuit II"],
+                  temperament=Temperament.PRIVILEGED,
+                  dev_goals=["Circuit III", "Awareness I"],
+                  items=['Rubber Potion', 'Frost Potion', 'Frost Potion'])
     create_player("Zeal Iskander",
-                  ["Suppression II", "Martial Arts III", "Mental Fortification I", "Forged in Fire"],
-                  temperament=Temperament.PARANOIAC,
-                  dev_goals=[],
-                  conditions=[Condition.RINGER])
+                  ["Soul Strike"],
+                  temperament=Temperament.ALTRUISTIC,
+                  dev_goals=["Willpower V", "Rapid Regen I"],
+                  items=['Shrooms', 'Fire Potion'])
 
-    # summary(detailed=True)
+    summary(detailed=True)
 
 
 def summary(detailed=False, condensed=False):
@@ -367,49 +398,127 @@ def grab_bag(n=3):
     return [item.name] + grab_bag(n-item.cost)
 
 
+PM = {
+
+}
+
+
 if __name__ == '__main__':
-    combat.DEBUG = True  # Shows stats, items, and conditions in reports as public information
+    combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     # init()
-    # load("test")
+    load("Y25")
     #
+    star = GAME.get_player("23Starman")
+    girl = GAME.get_player("A Nice Girl")
+    anemone = GAME.get_player("Anemone")
+    amon = GAME.get_player("Amonclone4321")
+    axe = GAME.get_player("Axeorthedark")
+    bla = GAME.get_player("BlackLemonAde")
+    butter = GAME.get_player("ButterGod")
+    darklight = GAME.get_player("DarkLight140")
+    darpi = GAME.get_player("Darkpiplumon")
+    drasky = GAME.get_player("Drasky")
+    floom = GAME.get_player("Floom")
+    hotmonkey = GAME.get_player("hotmonkey1")
+    lord = GAME.get_player("Lord of Chromius")
+    mega = GAME.get_player("Megaolix")
+    mish = GAME.get_player("mishtazespy")
+    nine = GAME.get_player("NinetyNineLies")
+    para = GAME.get_player("Paradosi")
+    raron = GAME.get_player("Raron")
+    ryo = GAME.get_player("RyoAtemi")
+    seventeen = GAME.get_player("Seventeen")
+    swift = GAME.get_player("Swift-Sama")
+    tempel = GAME.get_player("Tempeljaeger")
+    teyao = GAME.get_player("Teyao")
+    unrideable = GAME.get_player("unrideableHorse")
+    wither = GAME.get_player("Witherbrine26")
+    zeal = GAME.get_player("Zeal Iskander")
 
-    for i in range(20):
-        print(grab_bag())
+    lemon = GAME.get_player("1WholeLemons")
 
-    # a = create_player("Alpha", ["Potion Brewing"], temperament=Temperament.INNOVATIVE)
-    # b = create_player("Beta", ["Martial Arts I"], dev_goals=["Martial Arts II"])
-    # c = create_player("Charlie", temperament=Temperament.BLOODTHIRSTY)
-    # d = create_player("Delta", ["Martial Arts II"])
-    # e = create_player("Echo")
-    # f = create_player("Foxtrot")
-    # a = GAME.get_player("Alpha")
-    # b = GAME.get_player("Beta")
+    # for i in range(20):
+    #     print(grab_bag())
 
-    # GAME.add_event(1, False, 120, b)
+    GAME.advance()
 
-    # GAME.advance()
-    #
-    # a.plan_craft("Fire Potion", "Earth Potion")
-    # # a.plan_item_target("Pyrite Potion", b)
-    # # a.plan_train()
-    # b.plan_craft("Fire Potion")
-    # # c.plan_shop("Sword")
-    # # d.plan_attack(a)
-    # # e.plan_attack(a)
-    # # f.plan_attack(a)
-    #
-    # was_alive = [p for p in GAME.players.values() if not p.is_dead()]
-    # Action.run_turn(GAME)
-    # for p in was_alive:
-    #     print(f"{p.name} Report{os.linesep}")
-    #     print(p.get_report())
-    #     print()
+    # # # girl.set_dev_plan("Speed (Geo) I", "Dust", "Rune crafting II", "Fire I", "Runic Tattoos")
+    girl.plan_attune(Element.AIR, Element.EARTH)
+    # # # # # girl.plan_consume_item("Air I Rune", "Circuit II Rune")
+    girl.plan_bunker()
+    # girl.plan_trade(wither, item_names=["Earth II Rune"])
+    # # # girl.plan_shop("Sword")
+    # # # # # # # # girl.plan_trade(hotmonkey, item_names=["Earth II Rune"])
+    # # # anemone.set_dev_plan("Bolthole")
+    # # # # # # anemone.plan_consume_item("Poison Gas")
+    # # # # # # anemone.plan_craft("Fire Potion")
+    # # # anemone.plan_bunker()
+    # # # # # # # anemone.plan_attack(darklight)
+    # # # # # # # # # anemone.plan_shop("Gas Mask", "Poison Gas", "Poison Gas")
+    # # # # # anemone.plan_trade(tempel, item_names=["Frost Potion"])
+    # # # # # # anemone.plan_spy(darpi, axe)
+    # # # # # # anemone.plan_trade(amon, item_names=["Fire Potion"])
+    # # # # # # anemone.plan_trade(darklight, money=1)
+    # # # axe.plan_hydro("Body Reinforcement I", will=[0,1], contingency=False)
+    # # # # # # # axe.set_dev_plan("Forged in Fire")
+    # # # axe.plan_train()
+    # butter.set_dev_plan("Libra II")
+    # # # # # # butter.plan_consume_item("Fire Potion")
+    # butter.plan_attack(tempel)
+    # # # # # # butter.plan_trade(amon, item_names=["Sword"], item_name_condition=(amon, 1, []))
+    # # # # # # # # hotmonkey.set_dev_plan("Bolthole", "Willpower Detection", "Profiling")
+    # # hotmonkey.plan_fake_ability("Willpower Detection")
+    # hotmonkey.plan_steal(girl)
+    # # hotmonkey.plan_consume_item("Earth Potion", "Earth II Rune", "Pyrite Potion")
+    # # hotmonkey.plan_item_target("Pyrite Potion", axe)
+    # # # # # # # # # hotmonkey.plan_fake_action(Train(None, hotmonkey))
+    # # # # # # hotmonkey.plan_shop("Force Projection", "Ablative Ossification", "Poison Gas")
+    # # # # hotmonkey.plan_craft("Earth Potion", "Pyrite Potion")
+    # # # # # hotmonkey.plan_trade(tempel, item_names=["Fire Potion"])
+    # # # # # # # # # # # mish.plan_consume_item("Shrooms")
+    # # # # # # # # # # mish.set_dev_plan("Cauterization", "Hell Fire", "Speed (Geo) I", "Speed (Geo) II")
+    # # mish.plan_attune(Element.LIGHT, Element.LIGHT)
+    # # mish.plan_attack(hotmonkey)
+    # # # # # mish.plan_trade(butter, money=1)
+    # # # # # # # # mish.plan_bounty(amon, amount=3)
+    # # # # # # # # # # # mish.plan_trade(butter, item_names=["Medkit"], item_name_condition=(butter, 1, ["venom"]))
+    # # # # # # # # nine.plan_consume_item("Medkit")
+    # # # mish.plan_trade(wither, money=4)
+    # # ryo.set_dev_plan("Armed Combat I", "Armed Combat II", "Air II")
+    # ryo.plan_attune(Element.AIR, Element.FIRE)
+    # # # # ryo.plan_consume_item("Shrooms")
+    # ryo.plan_attack(tempel)
+    # # # # # # ryo.plan_shop("Oxygen Mask", "Shrooms", "Camo Cloak", "Booby Trap")
+    # # # # # # ryo.plan_trade(para, item_names=["Gas Mask"])
+    # # # # # tempel.set_dev_plan("Speed (Geo) I", "Willpower I", "Willpower II", "Willpower III", "Reinforced Will", "Cauterization", "Hell Fire", "Rune Crafting I", "Rune Crafting II")
+    tempel.plan_attune(Element.AIR, Element.FIRE, Element.FIRE, Element.FIRE)
+    # # # tempel.plan_consume_item("Fire Potion")
+    # # # # tempel.plan_item_target("Mud Potion", girl)
+    tempel.plan_attack(axe)
+    # # # tempel.plan_trade(hotmonkey, money=7)
+    # # wither.set_dev_plan("Quiet Attune")
+    wither.plan_attune(Element.AIR, Element.AIR, Element.AIR, Element.ANTI)
+    wither.plan_attack(girl)
+    # wither.plan_consume_item("Poison Gas")
+    # # # # wither.plan_shop("Workbench", "Paperwork")
+    # # # # wither.plan_trade(star, item_names=["Workbench", "Paperwork"])
+    # # # # wither.plan_trade(mish, money=2)
+    # # wither.plan_train()
+    # wither.plan_trade(hotmonkey, money=2)
+
+    was_alive = [p for p in GAME.players.values() if not p.is_dead()]
+    Action.run_turn(GAME)
+    for p in was_alive:
+        print(f"https://forums.spacebattles.com/conversations/{PM[p.name]}/")
+        print(f"{p.name} Report{os.linesep}")
+        print(p.get_report())
+        print()
 
     print(get_main_report().generate_report(GAME))
     # # # # # # #
     summary(detailed=True)
 
-    # GAME.save("test")
+    # GAME.save("Y25")
 
 
 # git update-index --assume-unchanged main.py
