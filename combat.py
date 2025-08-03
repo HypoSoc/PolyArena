@@ -41,6 +41,7 @@ class CombatHandler:
 
         self.hot_blood = set()
         self.blood_thirst: Dict["Player", Set["Player"]] = {}
+        self.psycho_gains: Dict["Player", Set["Temperament"]] = {}
         self.injured_by: Dict["Player", Set["Player"]] = {}
         self.report_dict = {}
         self.attacker_to_defenders: Dict["Player", Set["Player"]] = {}
@@ -890,7 +891,7 @@ class CombatHandler:
                     elif a and p.check_relative_condition(a, Condition.KNOW):
                         s += 2
 
-                    if p.temperament == Temperament.HOT_BLOODED:
+                    if p.is_hotblooded():
                         s += 1
 
                     if s < 0:
@@ -1117,11 +1118,15 @@ class CombatHandler:
             for player in dead_list:
                 if not player.is_automata:
                     for murderer in self.injured_by.get(player, set()):
-                        if murderer not in dead_list and murderer.temperament == Temperament.BLOODTHIRSTY:
+                        if murderer not in dead_list and murderer.is_bloodthirsty():
                             if player not in self.blood_thirst:
                                 self.blood_thirst[player] = set()
                             self.blood_thirst[player].add(murderer)
                             revelers.add(murderer)
+                        if murderer not in dead_list and murderer.is_psycho():
+                            if player.temperaments[0] not in murderer.temperaments:
+                                self.psycho_gains[murderer] = self.psycho_gains.get(murderer, set())
+                                self.psycho_gains[murderer].add(player.temperaments[0])
                 loot_items = [item for item in player.get_items() if item.loot]
                 # Looting can't happen if there is more than one survivor
                 if len(survivors) == 1:
@@ -1361,6 +1366,7 @@ class CombatHandler:
 
         self.hot_blood = set()
         self.blood_thirst = {}
+        self.psycho_gains = {}
         self.injured_by = {}
         self.report_dict = {}
         self.attacker_to_defenders = {}

@@ -685,8 +685,6 @@ class Bunker(Action):
             self.player.turn_conditions.append(Condition.FRAGILE_BUNKERING)
         else:
             self.player.turn_conditions.append(Condition.BUNKERING)
-        if self.player.temperament == Temperament.PARANOIAC:
-            Action.progress(self.player, 2)
         if HEALING_TANK in self.player.items:
             Heal(self.game, self.player, self.player, from_healing_tank=True)
         Action.add_action_record(self.player, Bunker)
@@ -753,7 +751,7 @@ class TeachFollow(Action):
             get_main_report().add_action(self.player, f"{self.player.name} taught {self.target.name}.",
                                          hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} taught {self.target.name} {self.ability.name}." + os.linesep
-            if self.player.temperament == Temperament.ALTRUISTIC:
+            if self.player.is_altruistic():
                 Action.progress(self.player, 7)
             Action.add_action_record(self.player, Teach, self.target)
         # Coordination failure
@@ -816,7 +814,7 @@ class Class(Action):
                                   self.player.turn_conditions).count(Condition.STUDIOUS)
         self.player.report += f"Academics ({self.player.academics})" + os.linesep
         Action.progress(self.player, 2)
-        if self.player.temperament == Temperament.SCHOLASTIC:
+        if self.player.is_scholastic():
             Action.progress(self.player, 5)
         Action.add_action_record(self.player, Class)
         self.player.turn_conditions.append(Condition.SCHOOLED)
@@ -982,7 +980,7 @@ class Heal(Action):
                                              f"and they are now healthy." + os.linesep)
                         add_to_target_report(f"{self.player.name} treated {self.target.name} "
                                              f"and {self.target.name} is now healthy." + os.linesep)
-                    if self.player.temperament == Temperament.ALTRUISTIC:
+                    if self.player.is_altruistic():
                         if was_injured or self.target in Action.was_healed:
                             Action.progress(self.player, 7)
                         else:
@@ -1176,7 +1174,7 @@ class Craft(Action):
                 self.player.gain_item(item, amount)
             if item.pin not in self.player.crafted_before:
                 self.player.crafted_before.append(item.pin)
-                if self.player.temperament == Temperament.INNOVATIVE:
+                if self.player.is_innovative():
                     Action.progress(self.player, 3)
         Action.add_action_record(self.player, Craft)
 
@@ -1396,7 +1394,7 @@ class TattooFollow(Action):
                                          hidden=self.player in Illusion.handled)
             self.player.report += f"{self.player.name} tattooed {self.target.name} " \
                                   f"with {self.rune.name}." + os.linesep
-            if self.player.temperament == Temperament.ALTRUISTIC:
+            if self.player.is_altruistic():
                 Action.progress(self.player, 7)
             Action.add_action_record(self.player, Tattoo, self.target)
         # Coordination failure
@@ -2214,18 +2212,28 @@ class CombatStep(Action):
         for player in Action.players:
             player.report += COMBAT_PLACEHOLDER + os.linesep + os.linesep
 
-            if get_combat_handler().hot_blood_check(player) and player.temperament == Temperament.HOT_BLOODED:
+            if get_combat_handler().hot_blood_check(player) and player.is_hotblooded():
                 if not player.is_dead() or player.has_condition(Condition.RESURRECT):
                     player.report += "Your blood boils in excitement." + os.linesep
                     Action.progress(player, 2)
                     player.report += os.linesep
-            if player.temperament == Temperament.BLOODTHIRSTY:
+            if player.is_bloodthirsty():
                 share = get_combat_handler().blood_thirst_share_count(player)
                 if share:
                     player.report += "Your blood sings in joy." + os.linesep
                     progress = (7 // share) + (7 % share > 0)
                     Action.progress(player, progress)
                     player.report += os.linesep
+            
+            if player.is_psycho():
+                psycho_gains = get_combat_handler().psycho_gains.get(player, set())
+                if psycho_gains:
+                    player.report += "You stole your enemies' mannerisms." + os.linesep
+                    for gain in psycho_gains:
+                        player.report += f"You gained the {gain.name} temperament." + os.linesep
+                        if gain is Temperament.PATIENT and self.game:
+                            self.game.add_event(5, False, 120, player)
+                player.temperaments.extend(psycho_gains)
 
             if not player.is_dead():
                 if player.has_condition(Condition.FRAGILE_BUNKERING):
@@ -2260,7 +2268,7 @@ class ProgressStep(Action):
                 if player.is_dead():
                     continue
 
-                if player.temperament == Temperament.INTUITIVE:
+                if player.is_intuitive():
                     if not player.has_condition(Condition.BUNKERING):
                         player.report += "Intuitive: "
                         Action.progress(player, 3)
@@ -2359,7 +2367,7 @@ class StatusChangeStep(Action):
 
                 if self.game.is_night():
                     if not player.is_automata:
-                        if player.temperament == Temperament.LUCRATIVE:
+                        if player.is_lucrative():
                             player.gain_credits(2)
                             player.report += f"Student Services has granted you 2 credits " \
                                              f"({player.get_credits()} total)." \

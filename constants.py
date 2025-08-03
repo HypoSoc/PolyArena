@@ -2,19 +2,17 @@ from enum import Enum, IntEnum
 
 
 class Temperament(IntEnum):
-    NONE = 0
-    ALTRUISTIC = 1
-    HOT_BLOODED = 2
-    INTUITIVE = 3
-    PARANOIAC = 4
-    PATIENT = 5
-    PREPARED = 6  # No longer used
-    SCHOLASTIC = 7
-    LUCRATIVE = 8
-    PRIVILEGED = 9
-    INNOVATIVE = 10
-    BLOODTHIRSTY = 11
-    STUBBORN = 12
+    ALTRUISTIC = 0
+    HOT_BLOODED = 1
+    INTUITIVE = 2
+    PATIENT = 3
+    SCHOLASTIC = 4
+    LUCRATIVE = 5
+    PRIVILEGED = 6
+    INNOVATIVE = 7
+    BLOODTHIRSTY = 8
+    STUBBORN = 9
+    PSYCHO = 10
 
 
 class Condition(IntEnum):

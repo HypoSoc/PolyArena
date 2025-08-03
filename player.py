@@ -33,7 +33,7 @@ CONSUME_PREFER = {MEDKIT: DEPLETED_MEDKIT}
 
 class Player:
     def __init__(self, name: str, progress_dict: Dict[int, int], dev_plan: List[int], academics: int,
-                 temperament: Temperament, concept: Optional[str],
+                 temperaments: List[Temperament], concept: Optional[str],
                  conditions: List[Condition], items: List[int], money: int,
                  willpower: int, bounty: int,
                  relative_conditions: Dict[str, List[Condition]], tattoo: Optional[int],
@@ -44,7 +44,7 @@ class Player:
         self.name = name
         self.progress_dict = progress_dict
         self.academics = academics
-        self.temperament = temperament
+        self.temperaments = temperaments
         self.concept = concept.upper() if concept else None
         self.items = items
         self.conditions = conditions
@@ -161,7 +161,7 @@ class Player:
     def make_copy_for_simulation(self, game: 'Game') -> 'Player':
         clone = Player(name=self.name + "_CLONE", progress_dict=self.progress_dict.copy(),
                        dev_plan=self.dev_plan.copy(),
-                       academics=self.academics, temperament=self.temperament, concept=self.concept,
+                       academics=self.academics, temperaments=self.temperaments, concept=self.concept,
                        conditions=self.conditions.copy(),
                        items=self.items.copy(), money=self.credits, willpower=self.willpower, bounty=self.bounty,
                        relative_conditions={
@@ -185,7 +185,7 @@ class Player:
 
     def serialize(self) -> Dict:
         serialized = {'name': self.name, 'progress_dict': self.progress_dict.copy(), 'dev_plan': self.dev_plan[:],
-                      'academics': self.academics, 'temperament': self.temperament, 'concept': self.concept,
+                      'academics': self.academics, 'temperaments': self.temperaments[:], 'concept': self.concept,
                       'conditions': self.conditions[:], 'items': self.items, 'money': self.credits,
                       'willpower': self.willpower, 'bounty': self.bounty,
                       'relative_conditions': {k: v[:] for k, v in self.relative_conditions.items()},
@@ -963,12 +963,11 @@ class Player:
                     skill.set_fragile(False)
         return skills
 
-    def get_fake_temperament(self):
+    def get_fake_temperament(self) -> str:
         seed = self.game.seed if self.game else 0
         h = int(''.join(map(lambda x: '%.3d' % ord(x), self.name))) + seed
-        possible = [e for e in Temperament if e not in [
-            Temperament.NONE, Temperament.PREPARED, Temperament.PARANOIAC, self.temperament]]
-        return possible[h % len(possible)]
+        possible = [e for e in Temperament if e is not (self.temperaments[0] if len(self.temperaments) > 0 else None) and e is not Temperament.PSYCHO]
+        return possible[h % len(possible)].name
 
     def has_prerequisite(self, ability: Ability) -> bool:
         if ability.pin == 307:
@@ -1110,7 +1109,7 @@ class Player:
     def die(self, message, reporting_func: Optional[ReportCallable] = None):
         if not reporting_func:
             reporting_func = self._non_combat_report_callable()
-        if self.temperament == Temperament.STUBBORN:
+        if self.is_stubborn():
             if not self.has_condition(Condition.PETRIFIED):
                 if self.conditions.count(Condition.STUBBORN) < 3:
                     self.conditions.append(Condition.STUBBORN)
@@ -1274,3 +1273,42 @@ class Player:
                 lost_items[item.pin] += 1
         for item_pin, amount in lost_items.items():
             self.lose_item(get_item(item_pin), amount)
+
+    def is_altruistic(self) -> bool:
+        return Temperament.ALTRUISTIC in self.temperaments
+
+    def is_hotblooded(self) -> bool:
+        return Temperament.HOT_BLOODED in self.temperaments
+
+    def is_intuitive(self) -> bool:
+        return Temperament.INTUITIVE in self.temperaments
+    
+    def is_patient(self) -> bool:
+        return Temperament.PATIENT in self.temperaments
+
+    def is_scholastic(self) -> bool:
+        return Temperament.SCHOLASTIC in self.temperaments
+
+    def is_lucrative(self) -> bool:
+        return Temperament.LUCRATIVE in self.temperaments
+
+    def is_innovative(self) -> bool:
+        return Temperament.INNOVATIVE in self.temperaments
+    
+    def is_bloodthirsty(self) -> bool:
+        return Temperament.BLOODTHIRSTY in self.temperaments
+    
+    def is_stubborn(self) -> bool:
+        return Temperament.STUBBORN in self.temperaments
+    
+    def is_psycho(self) -> bool:
+        return Temperament.PSYCHO in self.temperaments
+    
+    def get_temperament_display(self) -> str:
+        if len(self.temperaments) == 0:
+            return "NONE"
+        if len(self.temperaments) == 1:
+            return self.temperaments[0].name
+        if self.is_psycho():
+            return "PSYCHO(" + ', '.join(sorted([t.name for t in self.temperaments if t != Temperament.PSYCHO])) + ")"
+        return ', '.join(sorted([t.name for t in self.temperaments]))
