@@ -1087,12 +1087,39 @@ class CombatHandler:
                 tic[2]()
 
             if self.for_speed:
+                def find_neighbors_in_range(start: Player, goal: Player) -> Set[Player]:
+                    if start == goal:
+                        return set()
+                    adjacency: Dict[Player, Set[Player]] = {}
+                    for a, b in self.range_edges:
+                        adjacency.setdefault(a, set()).add(b)
+                    visited: Set[Player] = {start}
+                    sweep: Set[Player] = {start}
+                    neighbors: Set[Player] = set()
+                    while sweep:
+                        next_sweep: Set[Player] = set()
+                        for node in sweep:
+                            for p in adjacency.get(node, []):
+                                if p == goal:
+                                    neighbors.add(node)
+                                    continue
+                                if p not in visited:
+                                    visited.add(p)
+                                    next_sweep.add(p)
+                        sweep = next_sweep
+                    return neighbors
+
                 for player, other_set in self.damaged_by.items():
-                    if player in group:
-                        for other in other_set:
-                            speed_dif = get_speed(player) - get_speed(other)
+                    if player not in group:
+                        continue
+                    for other in other_set:
+                        if other not in group:
+                            continue
+                        neighbors = find_neighbors_in_range(other, player)
+                        for neighbor in neighbors:
+                            speed_dif = get_speed(player) - get_speed(neighbor)
                             if speed_dif > 0:
-                                self.escape.add((player, other))
+                                self.escape.add((player, neighbor))
 
             # Disarm Stealing happens BEFORE Looting corpses
             for (victim, thieves) in disarm_thief.items():
