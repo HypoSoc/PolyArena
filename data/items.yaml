@@ -263,3 +263,10 @@
   type: "POTION"
   skills:
     - 177
+
+36:
+  name: "Noise Bomb"
+  cost: 3
+  type: "CONSUMABLE"
+  skills:
+    - 180

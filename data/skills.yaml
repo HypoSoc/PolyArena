@@ -1215,3 +1215,19 @@
   value: "CRUMBLING"
   trigger: "RANGE_EX_SELF"
   priority: 175
+
+180:
+  text: "A Noise Bomb has been planted!"
+  info: "BROADCAST"
+  effect: "SCHEDULE"
+  value: 181
+  value_b: 1
+  trigger: "NONCOMBAT"
+  priority: 115
+
+181:
+  text: "A Noise Bomb blasts through campus!"
+  info: "BROADCAST"
+  effect: "INTERRUPT"
+  trigger: "ALL"
+  info_once: true
