@@ -857,7 +857,7 @@ class CombatHandler:
                     return priority, self.tic_index, petrify
 
             def get_combat(p: 'Player', d: Optional['Player'] = None):
-                if Condition.PETRIFIED in conditions[p] or Condition.DELUDED in conditions[p]:
+                if Condition.PETRIFIED in conditions[p]:
                     return -1
                 c = combat[p]
                 if c < 0:

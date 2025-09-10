@@ -80,6 +80,7 @@
     91:
       cost: 2
   not_contingency: true
+  max_targets: 1
   prerequisite: 210
 
 212:
@@ -89,6 +90,7 @@
     92:
       cost: 1
   not_contingency: true
+  max_targets: 3
   prerequisite: 211
 
 213:

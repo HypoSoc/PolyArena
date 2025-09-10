@@ -1449,6 +1449,7 @@ class MultiAttack(Action):
                 else:
                     interruption_strings.append(f"{target.name},")
                 Action.interrupted_players.add(target)
+                Action.attacked.add(target)
                 get_combat_handler().add_attack(self.player, target)
                 if target.fake_action.on_interrupt:
                     target.fake_action.public_description = target.fake_action.on_interrupt

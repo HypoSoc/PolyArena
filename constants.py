@@ -80,7 +80,6 @@ class Condition(IntEnum):
     NO_CONTINGENCY = 61  # Prevents Contingencies from happening
     HAS_WILLPOWER = 62  # Set if the player has any willpower to drain
     ILLUSIONIST = 63  # Can cast an illusion of actions
-    DELUDED = 64  # -2 Combat from Illusion 2
     MASTER_ILLUSIONIST = 64  # Can cast illusion 3 target swap
     FRAGILE_ARMED = 65  # Armed that disappears from antimagic
     TARGET_LOCKED = 66  # Speed 0 and can't be immune to sniping
@@ -168,6 +167,9 @@ class Condition(IntEnum):
     PETRIFY_IMMUNE = 147
     POTIONEER = 148
     RESOUNDING = 149  # For Resonance
+    YEAR_1 = 150,
+    YEAR_2 = 151,
+    YEAR_3 = 152
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,
