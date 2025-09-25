@@ -178,7 +178,7 @@ class Report(object):
 
             if spy.has_ability("Awareness II"):
                 if counter_int:
-                    if type(target.fake_action).__name__ == 'Train':
+                    if type(target.fake_action).__name__ in ['Train', 'Class']:
                         report += os.linesep
                         report += f"{target.name} was training {fake_ability_str}."
                 elif target in self.training:

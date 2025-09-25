@@ -1,9 +1,10 @@
 # Haruspex I (10): At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
 #                  You will not learn their identity.
 #                  When the Portent dies, if you attacked them that turn, you gain an Omen. (Blatant)
-#                  If you have three Omens at the end of the game, you win, stealing a graduation slot.
+#                  If you have three Omens at the end of the turn, the game ends and you win, stealing a graduation slot.
 #                  Whenever a Portent dies, a new one will be chosen at the start of the next turn.
-# Haruspex II (5): You gain +3 Combat and +3 Survivability when attacking the Portent. (Subtle) (Fragile)
+#                  You have +1 Combat and +1 Survivability. (Fragile)
+# Haruspex II (5): You gain +2 Combat and +2 Survivability when attacking the Portent. (Subtle) (Fragile)
 # Haruspex III (10): You can spend an action to heal any player's injuries. Self-heals are uninterruptible.
 # Haruspex IV (5): Each turn, choose a player. You will be informed if they are the Portent.
 # Haruspex V (5): Each turn, choose a player. You will be informed if they are the Portent.
@@ -22,11 +23,16 @@
     - 1707
     - 1708
     - 1709
+  aero:
+    1:
+      fragile: true
+    2:
+      fragile: true
   explanation: |-
     At the start of the game, a random player other than you will be designated as the Portent. (Subtle)
     You will not learn their identity.
     When the Portent dies, if you attacked them that turn, you gain an Omen. (Blatant)
-    If you have three Omens at the end of the game, you win, stealing a graduation slot.
+    If you have three Omens at the end of the turn, the game ends and you win, stealing a graduation slot.
     Whenever a Portent dies, a new one will be chosen at the start of the next turn.
 
     Haruspex II costs 5
@@ -41,7 +47,7 @@
     1713:
       fragile: true
   explanation: |-
-    You gain +3 Combat and +3 Survivability when attacking the Portent. (Subtle) (Fragile)
+    You gain +2 Combat and +2 Survivability when attacking the Portent. (Subtle) (Fragile)
 
     Haruspex III costs 10
   prerequisite: 1701

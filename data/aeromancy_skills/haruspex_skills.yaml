@@ -80,7 +80,7 @@
   text: "%SELF% identified %TARGET% as the Portent! %SELF% was empowered by an all consuming need!"
   info: "SUBTLE"
   effect: "COMBAT"
-  value: 3
+  value: 2
   trigger: "ATTACK"
   target_has_condition: "PORTENT"
   self_override: true
@@ -104,7 +104,7 @@
 1713:
   text: "+3 Surv when attacking Portent"
   effect: "SURVIVABILITY"
-  value: 3
+  value: 2
   trigger: "ATTACK"
   target_has_condition: "PORTENT"
   self_override: true

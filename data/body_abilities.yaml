@@ -72,3 +72,11 @@
     - 30
     - 31
   prerequisite: 401
+
+411:
+  name: "Augmented Combat"
+  cost: 5
+  skills:
+    - 15
+    - 182
+  prerequisite: 408

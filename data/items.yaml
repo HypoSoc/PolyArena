@@ -226,6 +226,7 @@
   skills:
     - 1
     - 1
+    - 183
 
 31:
   name: "Earth Potion"
@@ -234,6 +235,7 @@
   skills:
     - 2
     - 2
+    - 183
 
 32:
   name: "Frost Potion"

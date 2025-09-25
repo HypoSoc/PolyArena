@@ -161,6 +161,19 @@ class Action:
     def _act(self):
         pass
 
+    def _log_training(self):
+        if self.player not in Illusion.handled:
+            if not self.player.dev_plan:
+                get_main_report().set_training(self.player, "nothing")
+            else:
+                train_ability = get_ability(self.player.dev_plan[0])
+                train_name = train_ability.name
+                if train_ability.pin >= 700:
+                    train_name = 'Concept ' + \
+                                 int_to_roman((train_ability.pin % 100))
+                get_main_report().set_training(self.player, train_name)
+
+
     def __eq__(self, other: 'Action'):
         return (self.priority, self.idx) == (other.priority, other.idx)
 
@@ -771,16 +784,7 @@ class Train(Action):
     def _act(self):
         Action.progress(self.player, 3)
         Action.add_action_record(self.player, Train)
-        if self.player not in Illusion.handled:
-            if not self.player.dev_plan:
-                get_main_report().set_training(self.player, "nothing")
-            else:
-                train_ability = get_ability(self.player.dev_plan[0])
-                train_name = train_ability.name
-                if train_ability.pin >= 700:
-                    train_name = 'Concept ' + \
-                                 int_to_roman((train_ability.pin % 100))
-                get_main_report().set_training(self.player, train_name)
+        self._log_training()
         self.player.turn_conditions.append(Condition.TRAINED)
 
 
@@ -817,6 +821,7 @@ class Class(Action):
         if self.player.is_scholastic():
             Action.progress(self.player, 5)
         Action.add_action_record(self.player, Class)
+        self._log_training()
         self.player.turn_conditions.append(Condition.SCHOOLED)
 
 
@@ -1989,7 +1994,7 @@ class Illusion(Action):
                                          target=getattr(
                                              self.target.fake_action, 'target', None),
                                          fake=True)
-                if isinstance(self.fake_action, Train):
+                if isinstance(self.fake_action, Train) or isinstance(self.fake_action, Class):
                     self.target.fake_ability = self.fake_training
                     if self.fake_training:
                         train_name = self.fake_training.name
@@ -2021,7 +2026,7 @@ class IllusionFollow(Action):
                                      target=getattr(
                                          self.player.fake_action, 'target', None),
                                      fake=True)
-            if isinstance(self.fake_action, Train):
+            if isinstance(self.fake_action, Train) or isinstance(self.fake_action, Class):
                 self.player.fake_ability = self.fake_training
                 if self.fake_training:
                     train_name = self.fake_training.name

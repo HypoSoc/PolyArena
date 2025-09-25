@@ -1231,3 +1231,15 @@
   effect: "INTERRUPT"
   trigger: "ALL"
   info_once: true
+
+182:
+  text: "+1 Survivability if Armed"
+  effect: "SURVIVABILITY"
+  value: 1
+  priority: 40
+  self_has_condition: "ARMED"
+
+183:
+  text: "Potion fumes waft through the air."
+  effect: "INFO_ONCE"
+  info: "PUBLIC"
