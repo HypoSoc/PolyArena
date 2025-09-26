@@ -1243,3 +1243,9 @@
   text: "Potion fumes waft through the air."
   effect: "INFO_ONCE"
   info: "PUBLIC"
+
+184:
+  text: "A Chronostretch Bomb has been detonated! Time expands an extra day!"
+  effect: "INFO"
+  trigger: "NONCOMBAT"
+  info: "BROADCAST"

@@ -272,3 +272,10 @@
   type: "CONSUMABLE"
   skills:
     - 180
+
+37:
+  name: "Chronostretch Bomb"
+  cost: 4
+  type: "CONSUMABLE"
+  skills:
+    - 184

@@ -26,6 +26,8 @@ BOOBY_TRAP = get_item_by_name("Booby Trap").pin
 WORKBENCH = get_item_by_name("Workbench").pin
 AUTOMATA = get_item_by_name("Automata").pin
 DIMENSIONAL_KEY = get_item_by_name("Dimensional Key").pin
+CHRONOSTRETCH = get_item_by_name("Chronostretch Bomb").pin
+UNCRAFTABLE = [LIQUID_MEMORIES, BOOBY_TRAP, WORKBENCH, CHRONOSTRETCH]
 
 QM_ABILITY_PINS = [get_ability_by_name(
     "Autopilot").pin, get_ability_by_name("Danger Precognition").pin]
@@ -1157,7 +1159,7 @@ class Craft(Action):
                 if price <= 5 and only_shop_items:
                     illegal_items = False
                     for item in self.items:
-                        if item.pin in [LIQUID_MEMORIES, BOOBY_TRAP, WORKBENCH]:
+                        if item.pin in UNCRAFTABLE:
                             illegal_items = True
                     if not illegal_items:
                         legal_craft = True
@@ -1263,7 +1265,7 @@ class AutomataCraft(Action):
                 if price <= 5 and only_shop_items:
                     illegal_items = False
                     for item in self.items:
-                        if item.pin in [LIQUID_MEMORIES]:
+                        if item.pin in UNCRAFTABLE:
                             illegal_items = True
                         if item.pin == AUTOMATA and self.player.has_condition(Condition.LOCKED):
                             illegal_items = True
