@@ -1240,7 +1240,7 @@
   self_has_condition: "ARMED"
 
 183:
-  text: "Potion fumes waft through the air."
+  text: "Potion fumes wafted through the air."
   effect: "INFO_ONCE"
   info: "PUBLIC"
 

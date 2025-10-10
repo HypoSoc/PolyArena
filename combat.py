@@ -62,7 +62,7 @@ class CombatHandler:
 
         self.solitary_combat: Set["Player"] = set()
 
-        self.info_once: Set[str] = set()
+        self.info_once: Dict[str, Set[str]] = {}
         self.speed: Dict['Player', int] = {}
 
         self.escape: Set[Tuple['Player', 'Player']] = set()
@@ -72,6 +72,15 @@ class CombatHandler:
 
         self.wide_check = False
         self.is_real = False
+
+    def add_info_once(self, players: List['Player'], text: str):
+        player_name_key = ", ".join(sorted([p.name for p in players]))
+        if player_name_key not in self.info_once:
+            self.info_once[player_name_key] = set()
+        self.info_once[player_name_key].add(text)
+    def get_info_once(self, players: List['Player']) -> Set:
+        player_name_key = ", ".join(sorted([p.name for p in players]))
+        return self.info_once.get(player_name_key, set())
 
     def simulate_combat(self, circuit_change: Dict['Player', Tuple[Element, ...]]) -> Dict['Player', int]:
         sim = CombatHandler(self.for_speed)
@@ -707,7 +716,7 @@ class CombatHandler:
 
                             msg = skill.text.replace(SELF_PLACEHOLDER, p.name).replace(
                                 TARGET_PLACEHOLDER, target.name)
-                            if skill.effect != Effect.INFO_ONCE or msg not in self.info_once:
+                            if skill.effect != Effect.INFO_ONCE or msg not in self.get_info_once(group):
                                 message_origin = p
                                 if skill.player_of_origin:
                                     message_origin = skill.player_of_origin
@@ -720,7 +729,7 @@ class CombatHandler:
                                                            msg_grp,
                                                            skill.info, message_origin)
                             if skill.effect == Effect.INFO_ONCE:
-                                self.info_once.add(msg)
+                                self.add_info_once(group, msg)
 
                 return skill.priority, self.tic_index, handle_skill
 
