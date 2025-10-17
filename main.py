@@ -130,159 +130,113 @@ def conductor_choice(action: str):
 
 
 def init():
-    create_player("A Nice Girl",
-                  ["Martial Arts III", "Armed Combat I", "Sniping", "Armed Combat II"],
-                  dev_goals=["Circuit I", "Air I", "Speed (Geo) I"],
-                  temperament=Temperament.PRIVILEGED,
-                  items=['Lizard Tail'],
-                  conditions=[Condition.YEAR_1])
-
-    create_player("Amonclone4321",
-                  ["Martial Arts III", "Counter Ambush Tactics", "Ambush Tactics II", "Armed Combat I", "Awareness II"],
-                  dev_goals=["Awareness III", "Panopticon"],
-                  temperament=Temperament.BLOODTHIRSTY,
-                  items=['Lizard Tail'],
-                  conditions=[Condition.YEAR_3, Condition.RINGER])
-
-    create_player("Anemone",
-                  ["Circuit II", "Light", "Water I", "Combat Regeneration (Geo)", "Warp I"],
-                  dev_goals=[],
-                  temperament=Temperament.ALTRUISTIC,
-                  items=['Lizard Tail'],
-                  conditions=[Condition.YEAR_3, Condition.RINGER])
-
     create_player("BlackLemonAde",
-                  ["Magical Healing (Hydro)", "Illusions I", "Combat Regeneration (Hydro)"],
-                  dev_goals=["Rapid Regen I", "Willpower III", "Rapid Regen II", "Reinforced Will"],
-                  temperament=Temperament.ALTRUISTIC,
-                  items=['Leather Armor', 'Venom'],
-                  conditions=[Condition.YEAR_2])
+                  ["Ambush Tactics I", "Attunement Detection", "Willpower Detection", "Armed Combat I"],
+                  dev_goals=["Counter Ambush Tactics", "Awareness II", "Aeromancy Intuition", "Armed Combat II"],
+                  temperament=Temperament.BLOODTHIRSTY,
+                  items=['Pyrite Potion', 'Fire Potion', 'Earth Potion'])
 
     create_player("Darklight140",
-                  ["Awareness I", "Body Reinforcement III", "Mental Fortification I", "Quiet Casting"],
-                  dev_goals=["Profiling", "Counter Intelligence I", "Rapid Regen I"],
-                  temperament=Temperament.PSYCHO,
-                  items=['Network Spike', 'Venom'],
-                  conditions=[Condition.YEAR_3, Condition.RINGER])
+                  ["Illusions I", "Martial Arts III"],
+                  dev_goals=["Armored Combat", "Augmented Combat", "Illusions II", "Illusions III"],
+                  temperament=Temperament.SCHOLASTIC,
+                  items=['Pyrite Potion', 'Earth Potion', 'Fire Potion'])
 
+    # Parade/War/Shackled
     create_player("Darkpiplumon",
-                  ["Willpower III", "Illusions III"],
-                  dev_goals=["Rapid Regen I", "Autopilot", "Willpower IV"],
+                  ["Shackled II", "Legacy Magic", "Martial Arts II"],
+                  dev_goals=["Martial Arts III", "Shackled III"],
                   temperament=Temperament.SCHOLASTIC,
-                  items=['Fire Potion', 'Fire Potion', 'Frost Potion'],
-                  conditions=[Condition.YEAR_1])
+                  items=['Mud Potion', 'Pyrite Potion', 'Earth Potion'])
 
-    create_player("Dragonlord7",
-                  ["Circuit II", "Water I", "Fire I", "Toxin"],
-                  dev_goals=["Water II", "Circuit III", "Water III", "Circuit IV"],
-                  temperament=Temperament.BLOODTHIRSTY,
-                  items=['Network Spike', 'Mud Potion'],
-                  conditions=[Condition.YEAR_1])
-
+    # Libra/War/Rapier
     create_player("hotmonkey1",
-                  ["Fire III", "Circuit III", "Attunement Detection", "Ambush Tactics I"],
-                  dev_goals=["Cauterization", "Hell Fire"],
-                  temperament=Temperament.PRIVILEGED,
-                  items=['Earth Potion', 'Soft'],
-                  conditions=[Condition.YEAR_3, Condition.RINGER])
-
-    create_player("Jaguar2234",
-                  ["Awareness I", "Circuit III", "Fire II"],
-                  partial_dev={"Fire III": 5},
-                  dev_goals=["Fire III"],
+                  ["War II", "Legacy Magic", "Martial Arts I"],
+                  dev_goals=[],
                   temperament=Temperament.BLOODTHIRSTY,
-                  items=['Pyrite Potion', 'Medkit'],
-                  conditions=[Condition.YEAR_2])
+                  items=['Pyrite Potion', 'Fire Potion', 'Earth Potion'])
 
+    # Libra/Hyena/Zweihander
     create_player("Lord of Chromius",
-                  ["Will Armor II", "Body Reinforcement I", "Willpower III", "Rapid Regen I"],
-                  dev_goals=["Body Reinforcement II"],
-                  temperament=Temperament.SCHOLASTIC,
-                  items=['Pyrite Potion', 'Earth Potion', 'Venom'],
-                  conditions=[Condition.YEAR_2])
+                  ["Hyena II", "Legacy Magic", "Martial Arts I"],
+                  partial_dev={"Hyena III": 5},
+                  dev_goals=["Hyena III", "Martial Arts II", "Martial Arts III", "Awareness I", "Ambush Tactics I", "Armed Combat I"],
+                  temperament=Temperament.INTUITIVE,
+                  items=['Paperwork', 'Earth Potion', 'Pyrite Potion'])
 
-    create_player("mishtazespy",
-                  ["Circuit III", "Fire III", "Awareness I"],
-                  dev_goals=["Attunement Detection", "Ambush Tactics I"],
-                  temperament=Temperament.PRIVILEGED,
-                  items=['Medkit', 'Fire Potion'],
-                  conditions=[Condition.YEAR_2])
+    create_player("Megaolix",
+                  ["Martial Arts III", "Forged in Fire", "Awareness I"],
+                  dev_goals=[],
+                  temperament=Temperament.STUBBORN,
+                  items=['Mud Potion', 'Fire Potion', 'Pyrite Potion'])
 
     create_player("Nightfire",
-                  ["Circuit II", "Earth III", "Rune Crafting I"],
-                  partial_dev={"Runic Tattoos": 5},
-                  dev_goals=["Runic Tattoos", "Circuit III", "Rune Crafting II", "Air I", "Fast Attune I"],
-                  temperament=Temperament.PRIVILEGED,
-                  items=['Earth Potion', 'Leather Armor'],
-                  conditions=[Condition.YEAR_2])
-
-    # Chalk/Edifice/Horn
-    create_player("NinetyNineLies",
-                  ["Horn IV", "Legacy Magic"],
-                  partial_dev={"Horn V": 5},
-                  dev_goals=["Horn V", "Awareness I"],
+                  ["Will Armor II", "Mental Fortification I"],
+                  partial_dev={"Mental Fortification II": 5},
+                  dev_goals=["Mental Fortification II"],
                   temperament=Temperament.STUBBORN,
-                  items=['Lizard Tail'],
-                  conditions=[Condition.YEAR_2])
+                  items=['Earth Potion', 'Fire Potion', 'Paperwork'])
 
-    create_player("Paradosi",
-                  ["Mystic Penetration", "Counter Ambush Tactics"],
-                  partial_dev={"Sniping (Hydro)": 5},
-                  dev_goals=["Sniping (Hydro)", "Martial Arts I", "Armed Combat I"],
-                  temperament=Temperament.PSYCHO,
-                  items=['Earth Potion', 'Venom', 'Earth Potion'],
-                  conditions=[Condition.YEAR_3, Condition.RINGER])
-
-    create_player("RyoAtemi",
-                  ["Circuit II", "Antimagic (Geo)", "Martial Arts II"],
-                  dev_goals=["Air I", "Martial Arts III", "Fast Attune I", "Fast Attune II", "Armored Combat", "Armed Combat I", "Awareness I", "Awareness II"],
-                  temperament=Temperament.SCHOLASTIC,
-                  items=['Lizard Tail'],
-                  conditions=[Condition.YEAR_1])
-
-    create_player("Seventeen",
-                  ["Ambush Tactics I", "Martial Arts III", "Armed Combat II"],
-                  dev_goals=["Sniping", "Awareness II", "Armor Break", "Ambush Tactics II", "Counter Ambush Tactics"],
+    create_player("NinetyNineLies",
+                  ["Ash", "Fire I", "Air I"],
+                  dev_goals=["Circuit III", "Water I", "Toxin", "Earth I", "Dust", "Circuit IV"],
                   temperament=Temperament.BLOODTHIRSTY,
-                  items=['Lizard Tail'],
-                  conditions=[Condition.YEAR_2])
+                  items=['Fire Potion', 'Pyrite Potion', 'Mud Potion'])
 
-    create_player("Swift-Sama",
+    # Libra/Rapier/Suppression
+    create_player("Paradosi",
+                  ["Rapier II", "Legacy Magic", "Martial Arts I"],
+                  dev_goals=[],
+                  temperament=Temperament.PSYCHO,
+                  items=['Earth Potion', 'Paperwork', 'Pyrite Potion'])
+
+    create_player("PocketRikimaru",
                   ["Circuit II", "Fire II"],
                   partial_dev={"Fire III": 5},
-                  dev_goals=["Fire III", "Circuit III", "Air I", "Circuit IV", "Ash", "Martial Arts I", "Armed Combat I", "Armed Combat II", "Awareness I"],
-                  temperament=Temperament.BLOODTHIRSTY,
-                  items=['Earth Potion', 'Medkit'],
-                  conditions=[Condition.YEAR_1])
+                  dev_goals=["Fire III", "Martial Arts I", "Martial Arts II",],
+                  temperament=Temperament.HOT_BLOODED,
+                  items=['Earth Potion', 'Paperwork', 'Fire Potion'])
+
+    create_player("RyoAtemi",
+                  ["Copycat", "Awareness III"],
+                  dev_goals=["Market Connections I", "Market Connections II",
+                             "Counter Intelligence I", "Counter Intelligence II", "Bolthole"],
+                  temperament=Temperament.STUBBORN,
+                  items=['Paperwork', 'Pyrite Potion', 'Mud Potion'])
+
+    create_player("Swift-Sama",
+                  ["Stifle I", "Mental Fortification II", "Rapid Regen I", "Body Reinforcement I", "Willpower II"],
+                  dev_goals=["Body Reinforcement II", "Body Reinforcement III", "Willpower III",
+                             "Willpower IV", "Rapid Regen II", "Soul Strike"],
+                  temperament=Temperament.SCHOLASTIC,
+                  conditions=[Condition.RINGER],
+                  items=['Earth Potion', 'Mud Potion', 'Paperwork'])
 
     create_player("Tempeljaeger",
-                  ["Crafting III", "Illusions III", "Willpower III"],
-                  dev_goals=["Willpower IV", "Soul Strike", "Willpower V"],
-                  temperament=Temperament.INNOVATIVE,
-                  items=['Venom', 'Venom', 'Fire Potion'],
-                  conditions=[Condition.YEAR_2, Condition.RINGER])
+                  ["Earth I", "Water I", "Mud"],
+                  dev_goals=["Earth II", "Circuit III", "Martial Arts I"],
+                  temperament=Temperament.PATIENT,
+                  items=['Earth Potion', 'Mud Potion', 'Paperwork'])
 
     create_player("Teyao",
-                  ["Edifice II", "Illusions III", "Willpower III"],
-                  dev_goals=["Edifice III", "Enhanced Senses", "Danger Precognition", "Willpower IV", "Willpower V"],
-                  temperament=Temperament.SCHOLASTIC,
-                  items=['Soft', 'Fire Potion'],
-                  conditions=[Condition.YEAR_1, Condition.RINGER])
+                  ["Crafting II"],
+                  partial_dev={"Crafting III": 10},
+                  dev_goals=["Crafting III", "Willpower II", "Willpower III", "Willpower IV", "Willpower V",],
+                  temperament=Temperament.INNOVATIVE,
+                  items=['Fire Potion', 'Mud Potion', 'Paperwork'])
 
-    # Envy/Enfleshed/Augur
+    # Libra/Rapier/Suppression
     create_player("Witherbrine26",
-                  ["Envy II", "Legacy Magic", "Awareness I", "Martial Arts I"],
-                  dev_goals=["Martial Arts II", "Armed Combat I", "Envy III"],
-                  temperament=Temperament.INTUITIVE,
-                  items=["Face Mask", "Earth Potion"],
-                  conditions=[Condition.YEAR_1])
+                  ["Zweihander I", "Legacy Magic", "Martial Arts III"],
+                  dev_goals=[],
+                  temperament=Temperament.HOT_BLOODED,
+                  items=['Paperwork', 'Pyrite Potion', 'Fire Potion'])
 
     create_player("Zeal Iskander",
-                  ["Earth III", "Circuit II"],
-                  dev_goals=["Circuit III", "Martial Arts I", "Martial Arts II", "Martial Arts III"],
-                  temperament=Temperament.PRIVILEGED,
-                  items=["Face Mask", "Earth Potion"],
-                  conditions=[Condition.YEAR_1])
+                  ["Water I", "Fire I", "Toxin"],
+                  dev_goals=[],
+                  temperament=Temperament.HOT_BLOODED,
+                  items=['Fire Potion', 'Earth Potion', 'Mud Potion'])
 
     # summary(detailed=True)
 
@@ -422,136 +376,66 @@ if __name__ == '__main__':
     combat.DEBUG = False  # Shows stats, items, and conditions in reports as public information
     # init()
 
-    load("Y27")
+    load("Y28")
     #
 
-    girl = GAME.get_player("A Nice Girl")
-    amon = GAME.get_player("Amonclone4321")
-    anemone = GAME.get_player("Anemone")
-    bla = GAME.get_player("BlackLemonAde")
-    darklight = GAME.get_player("Darklight140")
-    darkpip = GAME.get_player("Darkpiplumon")
-    dragon = GAME.get_player("Dragonlord7")
-    hot = GAME.get_player("hotmonkey1")
-    jaguar = GAME.get_player("Jaguar2234")
-    lord = GAME.get_player("Lord of Chromius")
-    mish = GAME.get_player("mishtazespy")
-    night = GAME.get_player("Nightfire")
-    nine = GAME.get_player("NinetyNineLies")
-    para = GAME.get_player("Paradosi")
-    ryo = GAME.get_player("RyoAtemi")
-    seventeen = GAME.get_player("Seventeen")
-    swift = GAME.get_player("Swift-Sama")
-    tempel = GAME.get_player("Tempeljaeger")
-    teyao = GAME.get_player("Teyao")
-    wither = GAME.get_player("Witherbrine26")
-    zeal = GAME.get_player("Zeal Iskander")
+    bla = GAME.get_player('BlackLemonAde')
+    dark = GAME.get_player('Darklight140')
+    darp = GAME.get_player('Darkpiplumon')
+    hot = GAME.get_player('hotmonkey1')
+    lord = GAME.get_player('Lord of Chromius')
+    mega = GAME.get_player('Megaolix')
+    night = GAME.get_player('Nightfire')
+    nine = GAME.get_player('NinetyNineLies')
+    para = GAME.get_player('Paradosi')
+    pocket = GAME.get_player('PocketRikimaru')
+    ryo = GAME.get_player('RyoAtemi')
+    swift = GAME.get_player('Swift-Sama')
+    tempel = GAME.get_player('Tempeljaeger')
+    teyao = GAME.get_player('Teyao')
+    wither = GAME.get_player('Witherbrine26')
+    zeal = GAME.get_player('Zeal Iskander')
 
     GAME.advance()
 
-    girl.plan_consume_item("Medkit")
-    girl.plan_heal(girl)
-    # # girl.plan_shop("Lizard Tail", "Medkit")
-    # # anemone.set_dev_plan("Antimagic (Geo)")
-    # # anemone.plan_attune(Element.WATER, Element.LIGHT, Element.WARP)
-    # # # # anemone.plan_heal(anemone)
-    # # anemone.plan_target("Warp I", hot)
-    # # anemone.plan_attack(hot)
-    # # # anemone.plan_shop("Gas Mask", "Poison Gas", "Poison Gas", "Soft", "Soft", "Lizard Tail")
-    # # # anemone.plan_trade(wither, item_names=["Lizard Tail", "Gas Mask", "Poison Gas", "Poison Gas"])
-    # # # # # # # # # # #
-    # # # # # # bla.set_dev_plan("Rapid Regen II", "Willpower III", "Reinforced Will")
-    # # bla.plan_hydro("Magical Healing (Hydro)")
-    # # # # # bla.plan_hydro("Body Reinforcement I", will=[0,1])
-    # # # # # # bla.plan_consume_item("Shrooms")
-    # # # # # # bla.plan_hydro("Illusions I")
-    # # # # # # bla.plan_illusion(bla, Bunker(None, bla, False))
-    bla.plan_hydro("Combat Regeneration (Hydro)", contingency=True)
-    bla.plan_train()
-    # # # # # bla.plan_doctor()
-    # # # # # # # # # # #
-    # # # # # # # # # # # darklight.set_dev_plan("Rapid Regen I", "Rapid Regen II")
-    # # # # # # darklight.plan_consume_item("Fire Potion")
-    # darklight.plan_hydro("Body Reinforcement I", will=[0,1], contingency=False)
-    # # darklight.plan_hydro("Body Reinforcement II", will=[0,0], contingency=True)
-    darklight.plan_hydro("Body Reinforcement III", will=[0,3], contingency=False)
-    darklight.plan_hydro("Mental Fortification I")
-    darklight.plan_attack(night)
-    # # # darklight.plan_doctor()
-    # # darklight.plan_bunker()
-    # # # # # darklight.plan_trade(seventeen, item_names=["Network Spike"])
-    # # # # # # # # # # #
-    # # # # # # # # # darkpip.set_dev_plan("Autopilot", "Willpower IV", "Willpower V")
-    # # # # # # # # # # # darkpip.plan_hydro("Illusions I")
-    # # # # # # # # # # hot.set_dev_plan("Willpower Detection", "Cauterization", "Hell Fire")
-    hot.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
-    # # # # # # # # hot.plan_face_mask(teyao)
-    # # # # # hot.plan_consume_item("Earth Potion")
-    hot.plan_attack(swift)
-    # # # # # # # hot.plan_bunker(bonus=True)
-    # # hot.plan_trade(zeal, item_names=["Synthetic Weave"])
-    # hot.plan_trade(night, money=2)
-    # # # # # # # # # # #
-    # lord.set_dev_plan("Enhanced Senses", "Martial Arts I", "Will Blades", "Mystic Penetration", "Sniping (Hydro)")
-    # # lord.plan_consume_item("Venom")
-    lord.plan_hydro("Will Armor II", contingency=True)
-    # # # # # # # lord.plan_hydro("Body Reinforcement I", will=[0,1], contingency=True)
-    lord.plan_hydro("Body Reinforcement II", will=[0,3], contingency=True)
-    # # # # # # lord.plan_consume_item("Medkit")
-    lord.plan_bunker()
-    # lord.plan_doctor()
-    # # # # # # # lord.plan_shop("Lizard Tail", "Medkit")
-    # # # # # # # # # # #
-    # # # # # # # # # # #
-    # # # # night.set_dev_plan("Antimagic (Geo)", "Antimagic (Hydro)")
-    night.plan_attune(Element.EARTH, Element.EARTH)
-    # # # # # night.plan_doctor()
-    night.plan_bunker(bonus=True)
-    # # # # night.plan_consume_item("Shrooms")
-    night.plan_attack(bla, lord, darklight)
-    # # # # # # # night.plan_tattoo(night, "Earth III")
-    # # # # # # # # # night.plan_shop("Oxygen Mask", "Sword", "Shrooms")
-    # night.plan_trade(hot, item_names=["Leather Armor"])
-    # night.plan_trade(zeal, item_names=["Healing Tank"])
-    # # # # # # # # # # #
-    # # # seventeen.set_dev_plan("Ambush Tactics II")
-    # # # # # seventeen.plan_shop("Ablative Ossification")
-    # seventeen.plan_attack(hot)
-    # # # # # # # # # # #
-    # # # # swift.plan_consume_item("Medkit")
-    # # swift.set_dev_plan("Air I", "Antimagic (Hydro)", "Ash")
-    swift.plan_attune(Element.FIRE, Element.FIRE, Element.FIRE)
-    # # swift.plan_get_tattoo(night)
-    # swift.plan_shop("Laser Sword", "Shrooms")
-    # # # # # # # # # # #
-    # # # # # # # teyao.set_dev_plan("Edifice IV", "Edifice V", "Crafting I", "Willpower IV")
-    # # # # # # # teyao.plan_hydro("Illusions I")
-    # teyao.plan_hydro("Illusions III", targets=[girl, teyao, seventeen])
-    # # # # teyao.plan_illusion(teyao, Bunker(None, teyao, False), ability="Circuit III")
-    # teyao.plan_class()
-    # # # # # # # # # # #
-    # # # # # # wither.set_dev_plan("Circuit I", "Water I", "Circuit II", "Antimagic (Geo)")
-    # # # wither.plan_attune(Element.WATER)
-    # # # wither.plan_consume_item("Earth Potion")
-    # # # # wither.plan_attack(teyao)
-    # # # # wither.plan_spy(night)
-    # # # # wither.plan_trade(anemone, money=4)
-    # # # wither.plan_doctor()
-    # # # # # # # # # # #
-    zeal.set_dev_plan("Petrification I")
-    # zeal.plan_attune(Element.EARTH, Element.EARTH, Element.EARTH)
-    # zeal.plan_attack(swift, darklight, seventeen)
-    zeal.plan_bunker(bonus=True)
-    zeal.plan_train()
-    # # # zeal.plan_shop("Shrooms", "Healing Tank", "Synthetic Weave")
-    # # # zeal.plan_trade(night, item_names=["Shrooms"])
-    # # zeal.plan_attack(wither, teyao, anemone)
-    # zeal.plan_trade(hot, item_names=["Sword"], item_name_condition=(hot, 0, ["Synthetic Weave"]))
-    # zeal.plan_trade(night, money=3, item_names=["Leather Armor", "Healing Tank"], item_name_condition=(hot, 0, ["Synthetic Weave"]))
+
+    # hot.set_dev_plan("Martial Arts III", "Armed Combat I")
+    # # # # # hot.plan_consume_item("Fire Potion", "Earth Potion")
+    # # # hot.plan_shop("Synthetic Weave")
+    # hot.plan_target("War II", hot)
+    # hot.plan_attack(mega)
+    # hot.plan_trade(mega, money=5)
+    # hot.plan_attack(night)
+    hot.plan_consume_item("Liquid Memories")
+
+    # # # # # # # # # # mega.set_dev_plan("Armored Combat", "Combat Medicine", "Profiling")
+    # # mega.plan_attack(ryo)
+    # # # # mega.plan_class()
+    # mega.plan_shop("Liquid Memories", "Liquid Memories", "Cheat Sheet")
+    # mega.plan_trade(hot, item_names=["Liquid Memories"])
+    mega.plan_consume_item("Liquid Memories", "Cheat Sheet")
+
+    # # # # # # night.set_dev_plan("Awareness I", "Willpower III", "Body Reinforcement I")
+    # night.plan_hydro("Mental Fortification II", will=[0,2])
+    # # night.plan_hydro("Will Armor II", contingency=True)
+    # # # # # # # night.plan_consume_item("Poison Gas", "Shrooms")
+    # # # # # # # night.plan_attack(pocket)
+    # # night.plan_bunker()
+    # night.plan_class()
+    
+
+    # # # # # # # # ryo.plan_consume_item("Pyrite Potion", "Paperwork")
+    # # # # # # # # ryo.plan_item_target("Pyrite Potion", nine)
+    # # # # # # # # # # ryo.plan_shop("Oxygen Mask")
+    # # ryo.plan_spy(hot, mega)
+    # # # # ryo.plan_shop("Bokken", "Leather Armor")
+    # # # # ryo.plan_trade(para, item_names=["Bokken", "Leather Armor"])
+    # ryo.plan_attack(hot)
 
     was_alive = [p for p in GAME.players.values() if not p.is_dead()]
     Action.run_turn(GAME)
     for p in was_alive:
+        print(f"https://forums.spacebattles.com/conversations/{PM[p.name]}/")
         print(f"{p.name} Report{os.linesep}")
         print(p.get_report())
         print()
@@ -560,7 +444,7 @@ if __name__ == '__main__':
     # # # # # # #
     summary(detailed=True)
 
-    # GAME.save("Y27")
+    # GAME.save("Y28")
 
 
 # git update-index --assume-unchanged main.py
