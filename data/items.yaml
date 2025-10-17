@@ -275,7 +275,14 @@
 
 37:
   name: "Chronostretch Bomb"
-  cost: 4
+  cost: -4
   type: "CONSUMABLE"
   skills:
     - 184
+
+38:
+  name: "Fury Potion"
+  cost: 1
+  type: "POTION"
+  skills:
+    - 185

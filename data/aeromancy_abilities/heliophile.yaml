@@ -1,4 +1,4 @@
-# Heliophile I (10):   On Day 6 and Night 6, there will be an Eclipse. This will be blatantly announced at the start the first day.
+# Heliophile I (10):   On Day 5 and Night 5, there will be an Eclipse. This will be blatantly announced at the start the first day.
 #                      As long as it is not an Eclipse, you get +2/+2 (Wide) (Fragile)
 #                      During the Eclipse you get -10/-10 (Even when petrified)
 # Heliophile II: (10): As long as it is not an Eclipse, you get 1 Progress a turn
@@ -22,7 +22,7 @@
     3905:
       fragile: true
   explanation: |-
-    On Day 6 and Night 6, there will be an Eclipse. This will be blatantly announced at the start the first day.
+    On Day 5 and Night 5, there will be an Eclipse. This will be blatantly announced at the start the first day.
     As long as it is not an Eclipse, you get +2/+2 (Wide) (Fragile)
     During the Eclipse you get -10/-10 (Even when petrified)
 

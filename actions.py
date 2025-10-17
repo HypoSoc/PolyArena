@@ -1421,7 +1421,9 @@ class MultiAttack(Action):
                          combat_on_interrupt=f"while they were attacking {target_names}")
 
     def act(self):
-        if not self.player.has_condition(Condition.MULTI_ATTACK) or len(self.targets) > 3:
+        valid_attack = (self.player.has_condition(Condition.MULTI_ATTACK) and len(self.targets) <= 3) or\
+                       (self.player.has_condition(Condition.DOUBLE_ATTACK) and len(self.targets) <= 2)
+        if not valid_attack:
             return
 
         if self.player.has_condition(Condition.NO_COMBAT):

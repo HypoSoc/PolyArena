@@ -16,7 +16,7 @@
 4403:
   text: "You meditated on your existence."
   effect: "PROGRESS"
-  value: 5
+  value: 6
   info: "PRIVATE"
   trigger: "NONCOMBAT"
   self_has_condition: "CHARGE"

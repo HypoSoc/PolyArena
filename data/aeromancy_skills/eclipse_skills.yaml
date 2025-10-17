@@ -1,16 +1,16 @@
 1601:
-  text: "A Total Solar Eclipse is set to occur all of Day 6 and Night 6."
+  text: "A Total Solar Eclipse is set to occur all of Day 5 and Night 5."
   info: "BLATANT"
   effect: "SCHEDULE"
   value: 1603
-  value_b: 10
+  value_b: 8
   trigger: "START_OF_GAME"
 
 1602:
-  text: "Night 6 Eclipse"
+  text: "Night 5 Eclipse"
   effect: "SCHEDULE"
   value: 1603
-  value_b: 11
+  value_b: 9
   trigger: "START_OF_GAME"
 
 1603:

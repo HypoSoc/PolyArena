@@ -1,8 +1,8 @@
 4701:
-  text: "Schedule Charge gain for Day 3"
+  text: "Schedule Charge gain for Day 2"
   effect: "SCHEDULE"
   value: 4702
-  value_b: 4
+  value_b: 2
   trigger: "START_OF_GAME"
 
 4702:
@@ -59,14 +59,14 @@
   priority: 68
 
 4708:
-  text: "Schedule Day 5 Check"
+  text: "Schedule Day 4 Check"
   effect: "SCHEDULE"
   value: 4709
-  value_b: 8
+  value_b: 6
   trigger: "START_OF_GAME"
 
 4709:
-  text: "Day 5 Check"
+  text: "Day 4 Check"
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "OPTION_A"
@@ -74,14 +74,14 @@
   works_when_petrified: true
 
 4710:
-  text: "Schedule Day 7 Check"
+  text: "Schedule Day 6 Check"
   effect: "SCHEDULE"
   value: 4711
-  value_b: 12
+  value_b: 10
   trigger: "START_OF_GAME"
 
 4711:
-  text: "Day 7 Check"
+  text: "Day 6 Check"
   effect: "CONDITION"
   trigger: "NONCOMBAT"
   value: "OPTION_B"

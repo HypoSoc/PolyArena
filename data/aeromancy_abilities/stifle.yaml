@@ -1,8 +1,8 @@
 # Stifle I (10):   Your existence (but not your name/concept) will be announced Day 1.
 #                  Each turn, choose a player. They permanently lose 1 Combat. (SUBTLE)
 # Stifle II (10):  Each turn, choose a player. They permanently lose 1 Survivability. (SUBTLE)
-# Stifle III (10): Each turn, choose a player. They gain no progress this turn. (SUBTLE)
-# Stifle IV (10):  Each turn, choose a player. They cannot go to class this turn. (SUBTLE)
+# Stifle III (5): Each turn, choose a player. They gain no progress this turn. (SUBTLE)
+# Stifle IV (5):  Each turn, choose a player. They cannot go to class this turn. (SUBTLE)
 
 3601:
   name: "Stifle I"
@@ -28,13 +28,13 @@
   explanation: |-
     Each turn, choose a player. They permanently lose 1 Survivability. (SUBTLE)
 
-    Stifle III costs 10
+    Stifle III costs 5
   prerequisite: 3601
 
 3603:
   name: "Stifle III"
   concept: "STIFLE"
-  cost: 10
+  cost: 5
   max_targets: 1
   skills: 
   - 3603
@@ -47,12 +47,10 @@
 3604:
   name: "Stifle IV"
   concept: "STIFLE"
-  cost: 10
+  cost: 5
   max_targets: 1
   skills: 
   - 3604
   explanation: |-
     Each turn, choose a player. They cannot go to class this turn. (SUBTLE)
-
-    Stifle V costs 10
   prerequisite: 3603

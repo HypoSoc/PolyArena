@@ -23,10 +23,10 @@
   priority: 5
 
 2304:
-  text: "+30 Progress in 7 turns"
+  text: "+30 Progress in 5 turns"
   effect: "SCHEDULE"
   value: 2305
-  value_b: 7
+  value_b: 5
   trigger: "ACQUISITION"
   works_when_petrified: True
 

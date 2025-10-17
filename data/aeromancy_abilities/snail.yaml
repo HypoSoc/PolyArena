@@ -1,6 +1,6 @@
 # Snail I (10): Each turn, you may choose to Petrify yourself for the turn (you will be freed at the end of the turn). (Wide).
 #               Everyone who attacks you that turn will be Petrified. (Wide) (Fragile)
-# Snail II (10): In seven turns you will gain 30 Progress.
+# Snail II (10): In five turns you will gain 30 Progress.
 # Snail III (10): Gain 3 Softs.
 # Snail IV (10): In two turns, Petrify all players. (Blatant)
 # Snail V (10): When you attack a Petrified player, kill them. (Wide) (Fragile)
@@ -31,7 +31,7 @@
   skills:
     - 2304
   explanation: |-
-    In seven turns you will gain 30 Progress.
+    In five turns you will gain 30 Progress.
 
     Snail III costs 10
   prerequisite: 2301

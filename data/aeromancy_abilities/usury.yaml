@@ -4,7 +4,7 @@
 #               They will be informed they are being blackmailed, but not by whom.
 #               You cannot gain a Hook against a player you already have a Hook on until the after the turn they have had the chance to complete the Hook action.
 #               This ability can cause you to have negative credits. If you end the game in debt, you lose.
-# Usury II (10): Gain 1 additional Credit each turn.
+# Usury II (5): Gain 1 additional Credit each turn.
 # Usury III (10): At the end of the game, gain 15 credits.
 
 5601:
@@ -27,12 +27,12 @@
     You cannot gain a Hook against a player you already have a Hook on until the after the turn they have had the chance to complete the Hook action.
     This ability can cause you to have negative credits. If you end the game in debt, you lose.
 
-    Usury II costs 10
+    Usury II costs 5
 
 5602:
   name: "Usury II"
   concept: "USURY"
-  cost: 10
+  cost: 5
   skills:
     - 5604
   explanation: |-

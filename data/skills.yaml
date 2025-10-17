@@ -796,7 +796,7 @@
   effect: "PROGRESS"
   trigger: "NONCOMBAT"
   priority: 11
-  value: 24
+  value: 30
   info: "PERSONAL"
   works_when_petrified: True
 
@@ -1249,3 +1249,9 @@
   effect: "INFO"
   trigger: "NONCOMBAT"
   info: "BROADCAST"
+
+185:
+  text: "Double Attack"
+  effect: "CONDITION"
+  trigger: "NONCOMBAT"
+  value: "DOUBLE_ATTACK"

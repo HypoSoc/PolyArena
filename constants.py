@@ -169,7 +169,9 @@ class Condition(IntEnum):
     RESOUNDING = 149  # For Resonance
     YEAR_1 = 150,
     YEAR_2 = 151,
-    YEAR_3 = 152
+    YEAR_3 = 152,
+    YEAR_4 = 153,
+    DOUBLE_ATTACK = 154,  # Can attack 2 players
 
 
 AFFLICTIONS = [Condition.DEAD, Condition.INJURED, Condition.GRIEVOUS, Condition.CAUTERIZED, Condition.PETRIFIED,

@@ -1,11 +1,7 @@
 # Paperwork I (10): You start the game with 5 stacks of Paperwork.
 #                   At the end of each turn, all ORDERLY players will gain 2 Progress. (Narrow)
 # Paperwork II (5): Whenever you are attacked by one or more players, if you are ORDERLY and any of them are not, you gain 1 Speed. (Subtle) (Fragile)
-# Paperwork III (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
-# Paperwork IV (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
-# Paperwork V (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
-# Paperwork VI (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
-# Paperwork VII (15): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
+# Paperwork III-VII (5): In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 
 1201:
   name: "Paperwork I"
@@ -30,61 +26,61 @@
   explanation: |-
     Whenever you are attacked by one or more players, if you are ORDERLY and any of them are not, you gain 1 Speed. (Subtle) (Fragile)
 
-    Paperwork III costs 15
+    Paperwork III costs 5
   prerequisite: 1201
 
 1203:
   name: "Paperwork III"
   concept: "PAPERWORK"
-  cost: 15
+  cost: 5
   skills:
     - 1206
   explanation: |-
     In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 
-    Paperwork IV costs 15
+    Paperwork IV costs 5
   prerequisite: 1202
 
 1204:
   name: "Paperwork IV"
   concept: "PAPERWORK"
-  cost: 15
+  cost: 5
   skills:
     - 1206
   explanation: |-
     In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 
-    Paperwork V costs 15
+    Paperwork V costs 5
   prerequisite: 1203
 
 1205:
   name: "Paperwork V"
   concept: "PAPERWORK"
-  cost: 15
+  cost: 5
   skills:
     - 1206
   explanation: |-
     In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 
-    Paperwork VI costs 15
+    Paperwork VI costs 5
   prerequisite: 1204
 
 1206:
   name: "Paperwork VI"
   concept: "PAPERWORK"
-  cost: 15
+  cost: 5
   skills:
     - 1206
   explanation: |-
     In two turns at the start of the turn, Petrify all players that are not ORDERLY. This will be blatantly announced ahead of time.
 
-    Paperwork VII costs 15
+    Paperwork VII costs 5
   prerequisite: 1205
 
 1207:
   name: "Paperwork VII"
   concept: "PAPERWORK"
-  cost: 15
+  cost: 5
   skills:
     - 1206
   explanation: |-
