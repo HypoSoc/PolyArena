@@ -1,5 +1,5 @@
 # Eclipse I (10): On Day 5 and Night 5, there will be an Eclipse. This will be blatantly announced at the start the first day.
-#                 During the Eclipse, you gain +7 Combat, +7 Survivability, and three levels of Speed. (Wide)
+#                 During the Eclipse, you gain +7 Combat, +7 Survivability, and three levels of Speed, and can attack two targets. (Wide)
 # Eclipse II (5): Gain 5 Progress each turn during the Eclipse.
 # Eclipse III (40): The Eclipse begins immediately and never ends. (Blatant)
 
@@ -14,9 +14,10 @@
     - 1605
     - 1606
     - 1607
+    - 1611
   explanation: |-
     On Day 5 and Night 5, there will be an Eclipse. This will be blatantly announced at the start the first day.
-    During the Eclipse, you gain +7 Combat, +7 Survivability, and three levels of Speed. (Wide)
+    During the Eclipse, you gain +7 Combat, +7 Survivability, and three levels of Speed, and can attack two targets. (Wide)
 
     Eclipse II costs 5
 

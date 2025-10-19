@@ -437,6 +437,7 @@
   name: "Kaleidoscope"
   cost: 5
   skills:
+    - 47
     - 48
     - 49
     - 50
